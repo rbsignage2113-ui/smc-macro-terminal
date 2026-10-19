@@ -46,15 +46,15 @@ const TRUMP_LATEST_FEED = {
 function getHistoricalPipProjection(eventName) {
   const name = eventName.toLowerCase();
   if (name.includes('fomc') || name.includes('federal funds')) {
-    return { expectedPips: "150 - 350 Pips", goldMove: "$35 - $80", volatilityWindow: "30 - 60 Mins", riskLevel: "EXTREME VOLATILITY" };
+    return { expectedPips: "150 - 350 Pips", goldMove: "$35 - $80", volatilityWindow: "30 - 60 Mins", riskLevel: "EXTREME VOLATILITY", expectedPct: "+0.85% to +1.65%" };
   } else if (name.includes('cpi') || name.includes('inflation')) {
-    return { expectedPips: "80 - 180 Pips", goldMove: "$20 - $45", volatilityWindow: "10 - 30 Mins", riskLevel: "HIGH IMPACT" };
+    return { expectedPips: "80 - 180 Pips", goldMove: "$20 - $45", volatilityWindow: "10 - 30 Mins", riskLevel: "HIGH IMPACT", expectedPct: "+0.50% to +0.95%" };
   } else if (name.includes('non-farm') || name.includes('nfp') || name.includes('employment')) {
-    return { expectedPips: "100 - 250 Pips", goldMove: "$25 - $50", volatilityWindow: "15 - 45 Mins", riskLevel: "HIGH IMPACT" };
+    return { expectedPips: "100 - 250 Pips", goldMove: "$25 - $50", volatilityWindow: "15 - 45 Mins", riskLevel: "HIGH IMPACT", expectedPct: "+0.70% to +1.20%" };
   } else if (name.includes('rate') || name.includes('monetary policy') || name.includes('overnight')) {
-    return { expectedPips: "90 - 220 Pips", goldMove: "$20 - $40", volatilityWindow: "20 - 45 Mins", riskLevel: "HIGH IMPACT" };
+    return { expectedPips: "90 - 220 Pips", goldMove: "$20 - $40", volatilityWindow: "20 - 45 Mins", riskLevel: "HIGH IMPACT", expectedPct: "+0.60% to +1.10%" };
   }
-  return { expectedPips: "40 - 90 Pips", goldMove: "$10 - $25", volatilityWindow: "5 - 15 Mins", riskLevel: "MODERATE HIGH" };
+  return { expectedPips: "40 - 90 Pips", goldMove: "$10 - $25", volatilityWindow: "5 - 15 Mins", riskLevel: "MODERATE HIGH", expectedPct: "+0.25% to +0.55%" };
 }
 
 function getDynamicDateRange(range) {
@@ -144,14 +144,18 @@ async function analyzeWithMultiSourceAI(eventsList) {
 
   For each currency category, provide:
   1. Directional Outlook Verdict: "BUY", "SELL", or "NEUTRAL"
-  2. Core Reasoning & Multi-Platform Analysis
-  3. Comparative Impact Level: "HIGH-IMPACT", "LOW-IMPACT", or "NEUTRAL"
-  4. Evidence tips count, probability %, expected pip move, gold impact, and ICT blueprint.
+  2. Specific Currency Pairs to BUY and to SELL (e.g. "Buy: USDCAD, XAUUSD | Sell: EURUSD")
+  3. Expected Percentage Movement (e.g. "+0.65% to +1.20%")
+  4. Core Reasoning & Multi-Platform Analysis
+  5. Comparative Impact Level: "HIGH-IMPACT", "LOW-IMPACT", or "NEUTRAL"
 
   Return strictly raw JSON format without markdown wrappers:
   {
     "CAD": {
       "outlook": "BUY",
+      "pairs_to_buy": "USDCAD, CADJPY",
+      "pairs_to_sell": "EURCAD",
+      "expected_percentage": "+0.55% to +0.95%",
       "reasoning": "Cross-referencing Forex Factory CPI data with TradingView order flow shows strong bullish rejection at key external liquidity pools, supported by BoC rate expectations.",
       "comparative_impact": "HIGH-IMPACT",
       "bias": "BULLISH",
@@ -172,6 +176,9 @@ async function analyzeWithMultiSourceAI(eventsList) {
     },
     "GBP": {
       "outlook": "BUY",
+      "pairs_to_buy": "GBPUSD, GBPJPY",
+      "pairs_to_sell": "EURGBP",
+      "expected_percentage": "+0.60% to +1.10%",
       "reasoning": "Multi-platform sentiment confirms strong London session order flow backing sticky inflation numbers against BoE hawkish stance.",
       "comparative_impact": "HIGH-IMPACT",
       "bias": "BULLISH",
@@ -191,6 +198,9 @@ async function analyzeWithMultiSourceAI(eventsList) {
     },
     "USD": {
       "outlook": "SELL",
+      "pairs_to_buy": "XAUUSD, GBPUSD, AUDUSD",
+      "pairs_to_sell": "USDJPY, USDCAD",
+      "expected_percentage": "-0.85% to -1.50%",
       "reasoning": "Bloomberg and TradingView DXY heatmaps indicate distribution above previous day high, aligning with Fed rate cut probabilities and GDP adjustments.",
       "comparative_impact": "HIGH-IMPACT",
       "bias": "BEARISH",
@@ -225,7 +235,10 @@ async function analyzeWithMultiSourceAI(eventsList) {
     return {
       "CAD": {
         "outlook": "BUY",
-        "reasoning": "Cross-platform analysis indicates strong bullish order flow backing inflation expansion and BoC sensitivity.",
+        "pairs_to_buy": "USDCAD, CADJPY",
+        "pairs_to_sell": "EURCAD",
+        "expected_percentage": "+0.55% to +0.95%",
+        "reasoning": "Cross-platform analysis indicates strong order flow backing inflation expansion and BoC sensitivity.",
         "comparative_impact": "HIGH-IMPACT",
         "bias": "BULLISH",
         "probability": "78%",

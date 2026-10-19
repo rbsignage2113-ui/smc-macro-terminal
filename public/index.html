@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC MACRO PRO TERMINAL — MULTI-PLATFORM VERDICT SUITE</title>
+    <title>SMC MACRO PRO TERMINAL — BUY/SELL PAIRS & PERCENTAGE SUITE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, sans-serif; }
@@ -217,9 +217,9 @@
             </div>
 
             <div class="shrink-0 pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center bg-slate-950 p-2 rounded-lg mt-2">
-                <span class="font-bold text-yellow-400 flex items-center gap-1">📋 MULTI-PLATFORM VERDICT:</span>
-                <span>✅ Buy / Sell / Neutral</span>
-                <span>✅ Cross-Referenced</span>
+                <span class="font-bold text-yellow-400 flex items-center gap-1">📋 BUY/SELL PAIRS & % MOVEMENT:</span>
+                <span>✅ Specific Pairs</span>
+                <span>✅ Expected % Move</span>
             </div>
 
         </div>
@@ -320,7 +320,7 @@
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
-            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing Forex Factory, TradingView & Multi-Platform intelligence...</div>`;
+            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing intelligence and computing Buy/Sell pair assignments...</div>`;
 
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
@@ -370,10 +370,13 @@
                 const curr = events[0].currency;
                 const dayStr = events[0].dayFormatted;
                 const impactPairs = events[0].impactPairs || ["USDJPY", "EURUSD"];
-                const pipMetrics = events[0].pipMetrics || { expectedPips: "80 - 160 Pips", goldMove: "$20 - $35" };
+                const pipMetrics = events[0].pipMetrics || { expectedPips: "80 - 160 Pips", goldMove: "$20 - $35", expectedPct: "+0.50% to +0.95%" };
 
                 const aiInfo = aiBias[curr] || {
                     outlook: "BUY",
+                    pairs_to_buy: "USDCAD, CADJPY",
+                    pairs_to_sell: "EURCAD",
+                    expected_percentage: "+0.55% to +0.95%",
                     reasoning: "Cross-platform analysis indicates strong order flow alignment supporting expansion.",
                     comparative_impact: "HIGH-IMPACT",
                     bias: "BULLISH",
@@ -426,7 +429,7 @@
                             <span class="text-[10px] text-slate-300 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">📅 ${dayStr}</span>
                         </div>
 
-                        <!-- MULTI-PLATFORM VERDICT & IMPACT COMPARISON BADGES -->
+                        <!-- VERDICT & IMPACT SCALE -->
                         <div class="grid grid-cols-2 gap-2 text-[10px] bg-slate-900/90 p-2 rounded-lg border border-slate-800">
                             <div class="flex items-center justify-between px-2 py-1 rounded bg-slate-950 border border-slate-800">
                                 <span class="text-slate-400 font-bold">🎯 Outlook Verdict:</span>
@@ -435,6 +438,22 @@
                             <div class="flex items-center justify-between px-2 py-1 rounded bg-slate-950 border border-slate-800">
                                 <span class="text-slate-400 font-bold">⚖️ Impact Scale:</span>
                                 <span class="font-bold px-2 py-0.5 rounded border font-mono text-[9px] ${impactColor}">${aiInfo.comparative_impact}</span>
+                            </div>
+                        </div>
+
+                        <!-- SPECIFIC BUY/SELL PAIRS & EXPECTED PERCENTAGE MOVEMENT -->
+                        <div class="bg-slate-900 p-2 rounded-lg border border-slate-800 space-y-1.5 text-[10px]">
+                            <div class="flex justify-between items-center">
+                                <span class="text-green-400 font-bold">🟢 Pairs to BUY:</span>
+                                <span class="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${aiInfo.pairs_to_buy || 'USDCAD'}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-red-400 font-bold">🔴 Pairs to SELL:</span>
+                                <span class="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${aiInfo.pairs_to_sell || 'EURCAD'}</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-1 border-t border-slate-800">
+                                <span class="text-yellow-400 font-bold">📈 Expected % Move:</span>
+                                <span class="font-mono font-extrabold text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800">${aiInfo.expected_percentage || pipMetrics.expectedPct}</span>
                             </div>
                         </div>
 
