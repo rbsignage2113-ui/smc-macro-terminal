@@ -11,7 +11,7 @@ app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// Date Helper Function
+// Date Range Helper
 function getDateRange(range) {
   const today = new Date();
   let from = today.toISOString().split('T')[0];
@@ -21,18 +21,15 @@ function getDateRange(range) {
     const nextWeek = new Date(today);
     nextWeek.setDate(today.getDate() + 7);
     to = nextWeek.toISOString().split('T')[0];
-  } else if (range === 'next_week') {
-    const startNext = new Date(today);
-    startNext.setDate(today.getDate() + 7);
-    const endNext = new Date(today);
-    endNext.setDate(today.getDate() + 14);
-    from = startNext.toISOString().split('T')[0];
-    to = endNext.toISOString().split('T')[0];
+  } else if (range === 'this_month') {
+    const nextMonth = new Date(today);
+    nextMonth.setDate(today.getDate() + 30);
+    to = nextMonth.toISOString().split('T')[0];
   }
   return { from, to };
 }
 
-// 1. Fetch Calendar News
+// 1. Fetch Calendar News for All Major Currencies
 async function getEconomicNews(range = 'today') {
   try {
     const { from, to } = getDateRange(range);
@@ -41,54 +38,53 @@ async function getEconomicNews(range = 'today') {
     
     const response = await axios.get(url);
     if (response.data && response.data.economicCalendar && response.data.economicCalendar.length > 0) {
-      return response.data.economicCalendar;
+      const allowedCurrencies = ['USD', 'EUR', 'CAD', 'AUD', 'GBP', 'JPY'];
+      return response.data.economicCalendar.filter(ev => 
+        allowedCurrencies.includes(ev.currency || ev.country)
+      );
     }
 
-    // Fallback Mock Data for Today (Simulating CAD 3 Red Folder Events)
+    // Fallback Multi-Currency Data with exact Timestamps (for 30-min auto-hide test)
+    const now = new Date();
+    const futureTime = new Date(now.getTime() + 15 * 60000).toISOString(); // 15 mins from now
+
     return [
-      { country: "CA", currency: "CAD", event: "CPI m/m", actual: "WAITING...", estimate: "0.2%", prev: "-0.1%", date: "Today", impact: "high" },
-      { country: "CA", currency: "CAD", event: "Median CPI y/y", actual: "WAITING...", estimate: "2.1%", prev: "2.0%", date: "Today", impact: "high" },
-      { country: "CA", currency: "CAD", event: "Trimmed Mean CPI y/y", actual: "WAITING...", estimate: "2.0%", prev: "1.9%", date: "Today", impact: "high" },
-      { country: "US", currency: "USD", event: "Building Permits", actual: "1.45M", estimate: "1.42M", prev: "1.40M", date: "Today", impact: "high" }
+      { id: "1", country: "CA", currency: "CAD", event: "CPI m/m", actual: "WAITING...", estimate: "0.2%", prev: "-0.1%", timestamp: futureTime, impact: "high" },
+      { id: "2", country: "CA", currency: "CAD", event: "Median CPI y/y", actual: "WAITING...", estimate: "2.1%", prev: "2.0%", timestamp: futureTime, impact: "high" },
+      { id: "3", country: "US", currency: "USD", event: "Core Retail Sales", actual: "WAITING...", estimate: "0.4%", prev: "0.1%", timestamp: futureTime, impact: "high" },
+      { id: "4", country: "EU", currency: "EUR", event: "ECB Rate Decision", actual: "WAITING...", estimate: "3.25%", prev: "3.50%", timestamp: futureTime, impact: "high" },
+      { id: "5", country: "GB", currency: "GBP", event: "CPI y/y", actual: "WAITING...", estimate: "2.2%", prev: "2.0%", timestamp: futureTime, impact: "high" },
+      { id: "6", country: "AU", currency: "AUD", event: "Employment Change", actual: "WAITING...", estimate: "25.0K", prev: "14.0K", timestamp: futureTime, impact: "high" }
     ];
   } catch (error) {
     console.error("News Fetch Error:", error.message);
-    return [
-      { country: "CA", currency: "CAD", event: "CPI m/m", actual: "WAITING...", estimate: "0.2%", prev: "-0.1%", date: "Today", impact: "high" },
-      { country: "CA", currency: "CAD", event: "Median CPI y/y", actual: "WAITING...", estimate: "2.1%", prev: "2.0%", date: "Today", impact: "high" },
-      { country: "CA", currency: "CAD", event: "Trimmed Mean CPI y/y", actual: "WAITING...", estimate: "2.0%", prev: "1.9%", date: "Today", impact: "high" }
-    ];
+    return [];
   }
 }
 
-// 2. Strict AI Engine for Combined Events & Pre-News Prediction Bias
+// 2. AI Multi-Currency Prompt Engine
 async function analyzeNewsWithAI(eventsList) {
   const promptText = `
-  You are an expert Institutional ICT (Smart Money Concepts) Forex Trader.
-  Analyze the following economic calendar events for today:
+  You are an expert Institutional ICT Forex Analyst for an SMC Trading Dashboard.
+  Evaluate this multi-currency economic calendar data:
   ${JSON.stringify(eventsList, null, 2)}
 
   STRICT INSTITUTIONAL EVALUATION RULES:
   1. DO NOT DEFAULT TO NEUTRAL if Actual is "WAITING..."! Compare Forecast/Estimate vs Previous:
-     - If Estimate > Previous across majority of events for a currency => Give PRE-NEWS BULLISH (BUY).
-     - If Estimate < Previous across majority of events => Give PRE-NEWS BEARISH (SELL).
+     - Estimate > Previous => PRE-NEWS BULLISH (BUY).
+     - Estimate < Previous => PRE-NEWS BEARISH (SELL).
   2. If Actual data is released:
-     - Actual > Estimate => Strong BUY.
-     - Actual < Estimate => Strong SELL.
-  3. Combine multiple news items for each currency (e.g., 3 CAD CPI releases together) into ONE clear combined signal.
+     - Actual > Estimate => BUY.
+     - Actual < Estimate => SELL.
+  3. Combine multiple news items per currency (USD, EUR, CAD, AUD, GBP, JPY) into one single aggregated bias per currency.
 
-  Return strictly raw JSON format without markdown code blocks:
+  Return strictly valid JSON format with keys for each currency present:
   {
-    "CAD": {
-      "signal": "BUY",
-      "label": "PRE-NEWS BULLISH (CPI FORECAST HIGHER)",
-      "ict_note": "Inflation forecast higher than previous (-0.1% vs 0.2%). Expect pre-news Judas Swing liquidity sweep before Killzone expansion."
-    },
-    "USD": {
-      "signal": "BUY",
-      "label": "STRONG BULLISH (ACTUAL BEAT FORECAST)",
-      "ict_note": "Building permits beat expectations (1.45M vs 1.42M). Look for 5m FVG / Market Structure Shift for longs."
-    }
+    "CAD": { "signal": "BUY", "label": "PRE-NEWS BULLISH", "ict_note": "Forecast CPI higher. Expect Judas swing liquidity sweep before Killzone." },
+    "USD": { "signal": "BUY", "label": "PRE-NEWS BULLISH", "ict_note": "Retail Sales forecast beat. Look for 5m FVG / MSS." },
+    "EUR": { "signal": "SELL", "label": "PRE-NEWS BEARISH", "ict_note": "Rate cut expected. Watch for Asian high liquidity sweep." },
+    "GBP": { "signal": "BUY", "label": "PRE-NEWS BULLISH", "ict_note": "Inflation expansion forecast. Expect NY Killzone sweep." },
+    "AUD": { "signal": "BUY", "label": "PRE-NEWS BULLISH", "ict_note": "Employment metrics strong. Look for CISD setup." }
   }
   `;
 
@@ -104,16 +100,13 @@ async function analyzeNewsWithAI(eventsList) {
   } catch (err) {
     console.error("AI Analysis Error:", err.message);
     return {
-      "CAD": {
-        "signal": "BUY",
-        "label": "PRE-NEWS BULLISH",
-        "ict_note": "Forecast shows expansion over previous data. Watch for London/NY Killzone liquidity sweep."
-      }
+      "CAD": { "signal": "BUY", "label": "PRE-NEWS BULLISH", "ict_note": "Forecast shows expansion over previous data." },
+      "USD": { "signal": "BUY", "label": "PRE-NEWS BULLISH", "ict_note": "Awaiting high liquidity sweep before entry." }
     };
   }
 }
 
-// API Endpoint for SMC Dashboard UI
+// API Endpoint
 app.get('/api/news-ai-bias', async (req, res) => {
   const range = req.query.range || 'today';
   const rawNews = await getEconomicNews(range);
