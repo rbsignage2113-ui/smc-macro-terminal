@@ -11,7 +11,27 @@ app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// Dynamic Rolling Date Calculator (Automatic Day, Week, Month Ranges)
+// Central Bank Policy Stance Matrix
+const CENTRAL_BANK_STANCES = {
+  USD: { bank: "Federal Reserve (Fed)", stance: "HAWKISH", rate: "4.75%", bias: "BULLISH", note: "Higher rates for longer to curb inflation." },
+  EUR: { bank: "European Central Bank (ECB)", stance: "DOVISH", rate: "3.25%", bias: "BEARISH", note: "Easing monetary policy amid growth slowdown." },
+  GBP: { bank: "Bank of England (BoE)", stance: "HAWKISH", rate: "5.00%", bias: "BULLISH", note: "Sticky inflation keeping rates elevated." },
+  CAD: { bank: "Bank of Canada (BoC)", stance: "DOVISH", rate: "3.75%", bias: "BEARISH", note: "Rate cuts active; CPI releases key for guidance." },
+  AUD: { bank: "Reserve Bank of Australia (RBA)", stance: "HAWKISH", rate: "4.35%", bias: "BULLISH", note: "Resilient labor market and persistent inflation." },
+  JPY: { bank: "Bank of Japan (BoJ)", stance: "NEUTRAL", rate: "0.25%", bias: "NEUTRAL", note: "Slow normalization away from ultra-easy policy." }
+};
+
+// Event Impact Radius Mapping
+const EVENT_IMPACT_MAP = {
+  CAD: ["USDCAD", "CADJPY", "EURCAD", "GBPCAD"],
+  USD: ["EURUSD", "GBPUSD", "USDJPY", "USDCAD", "AUDUSD", "XAUUSD"],
+  GBP: ["GBPUSD", "EURGBP", "GBPJPY", "GBPCAD"],
+  EUR: ["EURUSD", "EURGBP", "EURJPY", "EURCAD"],
+  AUD: ["AUDUSD", "EURAUD", "AUDJPY", "GBPAUD"],
+  JPY: ["USDJPY", "EURJPY", "GBPJPY", "CADJPY", "AUDJPY"]
+};
+
+// Dynamic Date Calculator
 function getDynamicDateRange(range) {
   const today = new Date();
   let from = today.toISOString().split('T')[0];
@@ -30,13 +50,12 @@ function getDynamicDateRange(range) {
   return { from, to };
 }
 
-// Multi-Source News Engine (Finnhub API + RSS Feed Aggregator)
+// Multi-Source News Engine
 async function fetchMultiSourceNews(range = 'today') {
   const { from, to } = getDynamicDateRange(range);
   const token = process.env.FINNHUB_API_KEY;
   let liveEvents = [];
 
-  // Source 1: Live Finnhub API (Dynamic Rolling Dates)
   if (token && token !== 'sandbox_key') {
     try {
       const url = `https://finnhub.io/api/v1/economic-calendar?from=${from}&to=${to}&token=${token}`;
@@ -54,7 +73,6 @@ async function fetchMultiSourceNews(range = 'today') {
     }
   }
 
-  // Source 2: Dynamic Rolling Fallback (If API Limit or Empty Data)
   if (liveEvents.length === 0) {
     const todayStr = new Date().toISOString().split('T')[0];
     const staticMap = [
@@ -79,22 +97,21 @@ async function fetchMultiSourceNews(range = 'today') {
     }
   }
 
-  return liveEvents;
+  // Attach Impact Radius Pairs to Events
+  return liveEvents.map(ev => ({
+    ...ev,
+    impactPairs: EVENT_IMPACT_MAP[ev.currency] || ["USDJPY", "EURUSD"]
+  }));
 }
 
-// Multi-Source AI Synthesis Engine with Gemini
+// Multi-Source AI Synthesis Engine
 async function analyzeWithMultiSourceAI(eventsList) {
   if (!eventsList || eventsList.length === 0) return {};
 
   const promptText = `
   You are an expert Institutional ICT Forex Fundamental AI Analyst.
-  Synthesize multi-source macro economic intelligence across Forex Factory, Finnhub, and Central Bank statements for:
+  Synthesize multi-source macro economic intelligence for:
   ${JSON.stringify(eventsList, null, 2)}
-
-  REQUIREMENTS:
-  1. Determine overall Consensus Signal (BULLISH, BEARISH, NEUTRAL).
-  2. Compute Multi-Source Evidence Confidence % (e.g. 68%, 75%).
-  3. Provide an ICT Tactical Note (Killzones, Liquidity sweeps, FVGs, CISD setups).
 
   Return strictly raw JSON format without markdown wrappers:
   {
@@ -129,7 +146,12 @@ app.get('/api/news-ai-bias', async (req, res) => {
   const rawNews = await fetchMultiSourceNews(range);
   const aiBias = await analyzeWithMultiSourceAI(rawNews);
 
-  res.json({ range, raw_news: rawNews, ai_bias: aiBias });
+  res.json({
+    range,
+    raw_news: rawNews,
+    ai_bias: aiBias,
+    central_banks: CENTRAL_BANK_STANCES
+  });
 });
 
 app.listen(PORT, () => {

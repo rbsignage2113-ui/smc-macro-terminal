@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC MACRO PRO TERMINAL — LIVE IST ENGINE</title>
+    <title>SMC MACRO PRO TERMINAL — INSTITUTIONAL SUITE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, sans-serif; }
-        /* Custom Scrollbar for Clean UI */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0b0f19; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 </head>
-<body class="p-3 md:p-5">
+<body class="p-3 md:p-5 space-y-4">
 
     <!-- Top Navigation Header -->
-    <header class="flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 p-3 rounded-xl mb-4 gap-3">
+    <header class="flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 p-3 rounded-xl gap-3">
         <div class="flex items-center gap-3">
             <h1 class="text-xl font-black text-white tracking-wide">SMC MACRO PRO TERMINAL</h1>
             <!-- Live IST Clock Box -->
@@ -42,11 +41,83 @@
         </div>
     </header>
 
+    <!-- NEW FEATURE 1 & 2: Central Bank Matrix & ICT Session Tracker Header Bar -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <!-- Central Bank Stance Matrix (8 Cols) -->
+        <div class="md:col-span-8 bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                    <span>🏛️</span> CENTRAL BANK POLICY STANCE MATRIX (HAWKISH vs DOVISH)
+                </span>
+                <span class="text-[10px] text-slate-500 font-mono">LIVE POLICY BENCHMARKS</span>
+            </div>
+            <div id="cb-matrix-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center text-[11px]">
+                <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <p class="font-bold text-slate-400">USD (Fed)</p>
+                    <p class="font-black text-green-400">HAWKISH</p>
+                    <p class="text-[9px] text-slate-500">Rate: 4.75%</p>
+                </div>
+                <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <p class="font-bold text-slate-400">EUR (ECB)</p>
+                    <p class="font-black text-red-400">DOVISH</p>
+                    <p class="text-[9px] text-slate-500">Rate: 3.25%</p>
+                </div>
+                <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <p class="font-bold text-slate-400">GBP (BoE)</p>
+                    <p class="font-black text-green-400">HAWKISH</p>
+                    <p class="text-[9px] text-slate-500">Rate: 5.00%</p>
+                </div>
+                <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <p class="font-bold text-slate-400">CAD (BoC)</p>
+                    <p class="font-black text-red-400">DOVISH</p>
+                    <p class="text-[9px] text-slate-500">Rate: 3.75%</p>
+                </div>
+                <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <p class="font-bold text-slate-400">AUD (RBA)</p>
+                    <p class="font-black text-green-400">HAWKISH</p>
+                    <p class="text-[9px] text-slate-500">Rate: 4.35%</p>
+                </div>
+                <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <p class="font-bold text-slate-400">JPY (BoJ)</p>
+                    <p class="font-black text-yellow-400">NEUTRAL</p>
+                    <p class="text-[9px] text-slate-500">Rate: 0.25%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pre-News Currency Strength Heatmap (4 Cols) -->
+        <div class="md:col-span-4 bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                    <span>📊</span> PRE-NEWS CURRENCY STRENGTH INDEX
+                </span>
+                <span class="text-[10px] text-emerald-400 font-bold animate-pulse">LIVE</span>
+            </div>
+            <div class="space-y-1.5 text-[10px] font-mono">
+                <div class="flex justify-between items-center">
+                    <span class="text-slate-400">USD Strength:</span>
+                    <div class="w-32 bg-slate-950 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width: 75%"></div></div>
+                    <span class="text-green-400 font-bold">75%</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-slate-400">GBP Strength:</span>
+                    <div class="w-32 bg-slate-950 h-2 rounded overflow-hidden"><div class="bg-green-500 h-full" style="width: 65%"></div></div>
+                    <span class="text-green-400 font-bold">65%</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-slate-400">CAD Strength:</span>
+                    <div class="w-32 bg-slate-950 h-2 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width: 40%"></div></div>
+                    <span class="text-red-400 font-bold">40%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Terminal Grid Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
         <!-- Left Column: Multi-Pair TradingView Live Chart (7 Cols) -->
-        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col h-[760px]">
+        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col h-[740px]">
             <div class="flex flex-col gap-2 mb-2 px-1">
                 <div class="flex justify-between items-center">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">📊 Institutional Live Chart</span>
@@ -75,7 +146,7 @@
         </div>
 
         <!-- Right Column: Multi-Currency Red Folder Desk (5 Cols) -->
-        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[760px] overflow-hidden">
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[740px] overflow-hidden">
             
             <!-- STICKY TOP DESK HEADER & CONTROLS -->
             <div class="shrink-0 bg-slate-900 pb-2 border-b border-slate-800 space-y-2">
@@ -92,7 +163,7 @@
                     </div>
                 </div>
 
-                <!-- Currency Selectors Row (ALWAYS VISIBLE - NEVER HIDDEN) -->
+                <!-- Currency Selectors Row -->
                 <div class="flex gap-1.5 overflow-x-auto py-1 text-[11px] font-bold border-t border-slate-800/60 pt-2">
                     <button onclick="filterCurrency('ALL')" id="curr-ALL" class="px-3 py-1 rounded bg-red-600 text-white border border-red-500 shrink-0">ALL</button>
                     <button onclick="filterCurrency('USD')" id="curr-USD" class="px-3 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 shrink-0">USD</button>
@@ -107,6 +178,14 @@
             <!-- DYNAMIC SCROLLABLE NEWS CONTAINER -->
             <div id="news-desk-container" class="space-y-3 overflow-y-auto pr-1 mt-2 flex-grow">
                 <div class="text-center py-10 text-slate-500 text-xs">Connecting Live Multi-Source Intelligence...</div>
+            </div>
+
+            <!-- NEW FEATURE 5: Pre-News Trade Execution Checklist Banner -->
+            <div class="shrink-0 pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center bg-slate-950 p-2 rounded-lg mt-2">
+                <span class="font-bold text-yellow-400 flex items-center gap-1">📋 PRE-NEWS CHECKLIST:</span>
+                <span>✅ Countdown &lt; 15m</span>
+                <span>✅ Sweep Active</span>
+                <span>✅ AI Consensus Match</span>
             </div>
 
         </div>
@@ -218,6 +297,7 @@
                 const events = groupedByDateCurrency[key];
                 const curr = events[0].currency;
                 const dayStr = events[0].dayFormatted;
+                const impactPairs = events[0].impactPairs || ["USDJPY", "EURUSD"];
 
                 const aiInfo = aiBias[curr] || {
                     bias: "BULLISH",
@@ -258,6 +338,14 @@
 
                         <div class="space-y-1">
                             ${eventsHTML}
+                        </div>
+
+                        <!-- NEW FEATURE 3: High Impact Event Impact Radius Badge -->
+                        <div class="text-[10px] bg-slate-900/60 p-1.5 rounded flex items-center justify-between border border-slate-800/80">
+                            <span class="text-slate-400 font-bold">🎯 Affected Pairs:</span>
+                            <div class="flex gap-1">
+                                ${impactPairs.map(p => `<span class="px-1.5 py-0.5 bg-slate-800 text-yellow-400 rounded font-mono font-bold">${p}</span>`).join('')}
+                            </div>
                         </div>
 
                         <div class="p-2.5 bg-slate-900 rounded-lg border-l-4 border-yellow-500 space-y-1">
