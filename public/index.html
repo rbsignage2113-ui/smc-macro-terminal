@@ -10,23 +10,29 @@
 
     <div class="max-w-3xl mx-auto space-y-6">
         
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-4 gap-2">
+        <!-- Header & Time Filter Buttons -->
+        <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-4 gap-4">
             <div>
-                <h1 class="text-2xl font-black text-yellow-500 tracking-wider">SMC TERMINAL // AI MULTI-NEWS ENGINE</h1>
-                <p class="text-xs text-slate-400">Aggregated High Impact News Analysis (USD, CAD, JPY, AUD, EUR, GBP)</p>
+                <h1 class="text-2xl font-black text-yellow-500 tracking-wider">SMC TERMINAL // AI NEWS ENGINE</h1>
+                <p class="text-xs text-slate-400">Institutional Impact & Asset Directional Bias</p>
             </div>
-            <span id="sync-time" class="text-xs font-mono bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-slate-400">Syncing...</span>
+
+            <!-- Time Filter Buttons -->
+            <div class="flex gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800 text-xs">
+                <button onclick="changeRange('today')" id="btn-today" class="px-3 py-1.5 rounded-lg font-bold bg-yellow-500 text-slate-950 transition">TODAY</button>
+                <button onclick="changeRange('this_week')" id="btn-this_week" class="px-3 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition">THIS WEEK</button>
+                <button onclick="changeRange('next_week')" id="btn-next_week" class="px-3 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition">NEXT WEEK</button>
+            </div>
         </div>
 
         <!-- Main AI Decision Banner -->
         <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl relative overflow-hidden">
             <div class="flex justify-between items-center mb-4">
-                <span id="focus-currency-tag" class="px-3 py-1 text-xs font-bold rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">CALENDAR FOCUS: ALL MAJOR PAIRS</span>
+                <span id="focus-currency-tag" class="px-3 py-1 text-xs font-bold rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">CALENDAR FOCUS: TODAY</span>
                 <span id="overall-bias-badge" class="px-4 py-1.5 text-sm font-black rounded-lg bg-yellow-500/20 text-yellow-400 border border-yellow-500">ANALYZING...</span>
             </div>
 
-            <h2 class="text-xl font-bold text-white mb-2">Multi-News Combined Institutional Decision</h2>
+            <h2 class="text-xl font-bold text-white mb-2">Aggregated Multi-News Directional Result</h2>
             
             <!-- Currency Summary Grid -->
             <div id="currency-summary-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 my-4">
@@ -41,20 +47,35 @@
 
             <!-- ICT Tactical Note Box -->
             <div class="mt-5 p-4 bg-slate-950 rounded-xl border-l-4 border-yellow-500 text-xs text-slate-300 leading-relaxed">
-                <strong class="text-yellow-400 block mb-1 text-sm">ICT Execution & Keyzone Note:</strong> 
-                <span id="ict-note">Processing institutional market structure parameters...</span>
+                <strong class="text-yellow-400 block mb-1 text-sm">ICT Execution & Keyzone Strategy:</strong> 
+                <span id="ict-note">Processing institutional parameters...</span>
             </div>
         </div>
 
     </div>
 
     <script>
+        let currentRange = 'today';
+
+        function changeRange(range) {
+            currentRange = range;
+            ['today', 'this_week', 'next_week'].forEach(r => {
+                const btn = document.getElementById(`btn-${r}`);
+                if(r === range) {
+                    btn.className = "px-3 py-1.5 rounded-lg font-bold bg-yellow-500 text-slate-950 transition";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition";
+                }
+            });
+            fetchAINewsData();
+        }
+
         async function fetchAINewsData() {
             try {
-                const response = await fetch('/api/news-ai-bias');
+                document.getElementById('ict-note').innerText = "Analyzing selected economic calendar data...";
+                const response = await fetch(`/api/news-ai-bias?range=${currentRange}`);
                 const data = await response.json();
                 
-                document.getElementById('sync-time').innerText = `Updated: ${new Date().toLocaleTimeString()}`;
                 const bias = data.ai_bias;
 
                 // Overall Bias Badge
@@ -68,10 +89,9 @@
                     overallBadge.className = 'px-4 py-1.5 text-sm font-black rounded-lg bg-yellow-500/20 text-yellow-400 border border-yellow-500';
                 }
 
-                // Focus Currency Tag
-                document.getElementById('focus-currency-tag').innerText = `FOCUS: ${bias.primary_focus_currency || 'MULTIPLE RELEASES'}`;
+                document.getElementById('focus-currency-tag').innerText = `RANGE: ${currentRange.toUpperCase()} | FOCUS: ${bias.primary_focus_currency}`;
 
-                // Currency Summary Cards
+                // Currency Cards
                 const currencyContainer = document.getElementById('currency-summary-container');
                 currencyContainer.innerHTML = '';
                 (bias.currency_bias_summary || []).forEach(item => {
@@ -87,7 +107,7 @@
                     `;
                 });
 
-                // Pair Biases Grid
+                // Pair Biases
                 const pairContainer = document.getElementById('pair-bias-container');
                 pairContainer.innerHTML = '';
                 if(bias.pair_biases) {
@@ -103,17 +123,15 @@
                     });
                 }
 
-                // ICT Tactical Note
                 document.getElementById('ict-note').innerText = bias.ict_tactical_note;
 
             } catch (err) {
                 console.error("UI Fetch Error:", err);
-                document.getElementById('ict-note').innerText = "Unable to connect to AI News Analysis Server.";
+                document.getElementById('ict-note').innerText = "Unable to connect to AI News Engine.";
             }
         }
 
         fetchAINewsData();
-        setInterval(fetchAINewsData, 120000); // 2 mins refresh
     </script>
 </body>
 </html>
