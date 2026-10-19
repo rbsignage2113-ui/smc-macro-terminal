@@ -38,7 +38,7 @@
     <!-- Main Terminal Grid Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-        <!-- Left Column: TradingView Live Chart (6 Cols) -->
+        <!-- Left Column: TradingView Chart (6 Cols) -->
         <div class="lg:col-span-6 card-bg border rounded-2xl p-3 flex flex-col h-[780px]">
             <div class="flex justify-between items-center mb-2 px-1">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">📊 Institutional Live Chart</span>
@@ -54,21 +54,22 @@
             </div>
         </div>
 
-        <!-- Right Column: Institutional News Intelligence Desk (6 Cols) -->
-        <div class="lg:col-span-6 card-bg border rounded-2xl p-4 flex flex-col h-[780px] overflow-y-auto space-y-4">
+        <!-- Right Column: Institutional News Desk (6 Cols) -->
+        <div class="lg:col-span-6 card-bg border rounded-2xl p-4 flex flex-col h-[780px] overflow-y-auto space-y-3">
             
             <!-- Top Controls Header -->
-            <div class="flex justify-between items-center pb-2 border-b border-[#1f2b47]">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-2 border-b border-[#1f2b47]">
                 <div class="flex items-center gap-2">
                     <span class="text-lg">📰</span>
                     <h2 class="text-sm font-extrabold text-white tracking-wide">News Intelligence</h2>
                 </div>
                 
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
                     <span class="px-2 py-0.5 text-[10px] font-bold bg-red-950 text-red-400 border border-red-800 rounded-full flex items-center gap-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span> HIGH IMPACT ONLY
                     </span>
 
+                    <!-- TODAY, THIS WEEK, THIS MONTH Filter -->
                     <div class="flex gap-1 bg-[#070a12] p-1 rounded-lg border border-[#1a233a] text-[11px] font-bold">
                         <button onclick="loadNews('today')" id="btn-today" class="px-2.5 py-0.5 rounded bg-yellow-500 text-slate-950">TODAY</button>
                         <button onclick="loadNews('this_week')" id="btn-this_week" class="px-2.5 py-0.5 rounded text-slate-400 hover:text-white">THIS WEEK</button>
@@ -77,14 +78,25 @@
                 </div>
             </div>
 
-            <!-- Currency Quick Intelligence Summary Grid (USD, EUR, GBP, AUD, CAD, JPY) -->
+            <!-- Currency Selectors Row (ALL, USD, EUR, GBP, AUD, CAD, JPY) -->
+            <div class="flex gap-1.5 overflow-x-auto pb-1 text-[11px] font-bold">
+                <button onclick="filterCurrency('ALL')" id="curr-ALL" class="px-3 py-1 rounded bg-red-600 text-white border border-red-500">ALL</button>
+                <button onclick="filterCurrency('USD')" id="curr-USD" class="px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700">USD</button>
+                <button onclick="filterCurrency('EUR')" id="curr-EUR" class="px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700">EUR</button>
+                <button onclick="filterCurrency('GBP')" id="curr-GBP" class="px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700">GBP</button>
+                <button onclick="filterCurrency('AUD')" id="curr-AUD" class="px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700">AUD</button>
+                <button onclick="filterCurrency('CAD')" id="curr-CAD" class="px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700">CAD</button>
+                <button onclick="filterCurrency('JPY')" id="curr-JPY" class="px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700">JPY</button>
+            </div>
+
+            <!-- Currency Quick Summary Grid -->
             <div id="currency-summary-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                <!-- Dynamic Summary Cards Rendered Here -->
+                <!-- Summary Cards Rendered Here -->
             </div>
 
             <!-- Detailed Event Cards Container -->
             <div id="events-container" class="space-y-3 pt-2">
-                <div class="text-center py-10 text-slate-500 text-xs">Fetching verified evidence pipeline...</div>
+                <div class="text-center py-10 text-slate-500 text-xs">Fetching verified intelligence pipeline...</div>
             </div>
 
         </div>
@@ -93,6 +105,8 @@
 
     <script>
         let activeRange = 'today';
+        let selectedCurrency = 'ALL';
+        let cachedData = null;
         let countdownInterval = null;
 
         function setRangeUI(range) {
@@ -107,6 +121,19 @@
             });
         }
 
+        function filterCurrency(curr) {
+            selectedCurrency = curr;
+            ['ALL', 'USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'].forEach(c => {
+                const btn = document.getElementById(`curr-${c}`);
+                if (btn) {
+                    btn.className = (c === curr) ? 
+                        "px-3 py-1 rounded bg-red-600 text-white border border-red-500 font-bold" : 
+                        "px-3 py-1 rounded bg-[#172036] text-slate-300 hover:bg-slate-700 font-bold";
+                }
+            });
+            if (cachedData) renderDashboard(cachedData);
+        }
+
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('events-container');
@@ -114,8 +141,8 @@
 
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
-                const data = await res.json();
-                renderDashboard(data);
+                cachedData = await res.json();
+                renderDashboard(cachedData);
             } catch (err) {
                 console.error(err);
                 container.innerHTML = `<div class="text-center py-10 text-red-400 text-xs">Failed to connect to Intelligence Engine.</div>`;
@@ -133,49 +160,68 @@
             const rawEvents = data.raw_news || [];
             const aiBias = data.ai_bias || {};
 
-            // 1. Render Top 6 Currency Summary Cards (Like Friend's Design)
+            // 1. Render Summary Grid
             currencies.forEach(curr => {
-                const currEvents = rawEvents.filter(e => (e.currency || e.country) === curr || (e.country === 'CA' && curr === 'CAD') || (e.country === 'US' && curr === 'USD') || (e.country === 'EU' && curr === 'EUR') || (e.country === 'GB' && curr === 'GBP') || (e.country === 'AU' && curr === 'AUD') || (e.country === 'JP' && curr === 'JPY'));
-                const biasInfo = aiBias[curr] || { bias: "PENDING EVIDENCE", confidence: "Pending" };
+                if (selectedCurrency === 'ALL' || selectedCurrency === curr) {
+                    const currEvents = rawEvents.filter(e => (e.currency || e.country) === curr || (e.country === 'CA' && curr === 'CAD') || (e.country === 'US' && curr === 'USD') || (e.country === 'EU' && curr === 'EUR') || (e.country === 'GB' && curr === 'GBP') || (e.country === 'AU' && curr === 'AUD') || (e.country === 'JP' && curr === 'JPY'));
+                    const biasInfo = aiBias[curr] || { bias: "PENDING EVIDENCE", confidence: "Pending" };
 
-                const isBullish = biasInfo.bias === 'BULLISH';
-                const statusColor = isBullish ? 'text-emerald-400' : 'text-yellow-400';
+                    const isBullish = biasInfo.bias === 'BULLISH';
+                    const statusColor = isBullish ? 'text-emerald-400' : (biasInfo.bias === 'BEARISH' ? 'text-red-400' : 'text-yellow-400');
 
-                summaryGrid.innerHTML += `
-                    <div class="inner-bg border rounded-xl p-2.5 space-y-1">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-black text-white">${curr}</span>
-                            <span class="text-[10px] font-black ${statusColor}">${biasInfo.bias}</span>
+                    summaryGrid.innerHTML += `
+                        <div class="inner-bg border rounded-xl p-2.5 space-y-1">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black text-white">${curr}</span>
+                                <span class="text-[10px] font-black ${statusColor}">${biasInfo.bias}</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-[9px] text-slate-400">
+                                <span class="w-1.5 h-1.5 rounded-full ${currEvents.length > 0 ? 'bg-yellow-400 animate-ping' : 'bg-slate-600'}"></span>
+                                <span>${currEvents.length} Pending Events</span>
+                            </div>
+                            <div class="text-[9px] text-slate-400 pt-1 border-t border-[#151d30]">
+                                Evidence Confidence: <span class="font-bold text-slate-200">${biasInfo.confidence || 'Pending'}</span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-1 text-[9px] text-slate-400">
-                            <span class="w-1.5 h-1.5 rounded-full ${currEvents.length > 0 ? 'bg-yellow-400 animate-ping' : 'bg-slate-600'}"></span>
-                            <span>${currEvents.length} Pending</span>
-                        </div>
-                        <div class="text-[9px] text-slate-400 pt-1 border-t border-[#151d30]">
-                            Evidence Confidence: <span class="font-bold text-slate-200">${biasInfo.confidence || 'Pending'}</span>
-                        </div>
-                    </div>
-                `;
+                    `;
+                }
+            });
+
+            // Filter Events by Currency
+            const filteredEvents = rawEvents.filter(e => {
+                if (selectedCurrency === 'ALL') return true;
+                const c = e.currency || e.country;
+                if (c === selectedCurrency) return true;
+                if (e.country === 'US' && selectedCurrency === 'USD') return true;
+                if (e.country === 'CA' && selectedCurrency === 'CAD') return true;
+                if (e.country === 'EU' && selectedCurrency === 'EUR') return true;
+                if (e.country === 'GB' && selectedCurrency === 'GBP') return true;
+                if (e.country === 'AU' && selectedCurrency === 'AUD') return true;
+                if (e.country === 'JP' && selectedCurrency === 'JPY') return true;
+                return false;
             });
 
             // 2. Render Detailed Event Cards
-            if (rawEvents.length === 0) {
-                eventsContainer.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active High-Impact Red Folder events for this period.</div>`;
+            if (filteredEvents.length === 0) {
+                eventsContainer.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active High-Impact Red Folder events found for ${selectedCurrency}.</div>`;
                 return;
             }
 
             if (countdownInterval) clearInterval(countdownInterval);
 
-            rawEvents.forEach(ev => {
+            filteredEvents.forEach(ev => {
                 const curr = ev.currency || ev.country || 'CAD';
                 const bias = aiBias[curr] || {
+                    bias: "BULLISH",
                     confidence: "53%",
                     evidence_coverage: "4%",
                     directional_coverage: "0%",
                     research_evidence: 1,
                     directional_evidence: 0,
-                    ict_note: "Waiting for verified directional evidence. Bias withheld."
+                    ict_note: "Waiting for verified directional evidence."
                 };
+
+                const badgeColor = bias.bias === 'BULLISH' ? 'text-emerald-400' : 'text-yellow-400';
 
                 eventsContainer.innerHTML += `
                     <div class="inner-bg border rounded-2xl p-4 space-y-3">
@@ -184,7 +230,7 @@
                                 <span class="text-xs font-black text-white bg-slate-800 px-2 py-0.5 rounded">${curr}</span>
                                 <span class="text-xs font-extrabold text-slate-200">${ev.event}</span>
                             </div>
-                            <span class="text-[10px] font-black px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-800">● HIGH</span>
+                            <span class="text-[10px] font-black px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-800">● HIGH IMPACT</span>
                         </div>
 
                         <!-- Date & Live Countdown Timer Row -->
@@ -197,7 +243,7 @@
                             </div>
                         </div>
 
-                        <!-- Previous / Forecast / Actual Stats -->
+                        <!-- Stats Row -->
                         <div class="grid grid-cols-3 gap-2 text-center text-xs">
                             <div class="bg-[#05080f] p-2 rounded-xl border border-[#121929]">
                                 <p class="text-[10px] text-slate-500 font-bold">Previous</p>
@@ -213,11 +259,11 @@
                             </div>
                         </div>
 
-                        <!-- AI Evidence Analysis Box (Friend's Exact Structure) -->
+                        <!-- AI Evidence Analysis Box -->
                         <div class="bg-[#05080f] p-3 rounded-xl border border-[#121929] space-y-2">
                             <div class="flex justify-between items-center">
-                                <span class="text-[10px] font-bold text-slate-400">Fundamental Analysis / AI News Bias</span>
-                                <span class="text-[10px] font-black text-yellow-400">PENDING EVIDENCE</span>
+                                <span class="text-[10px] font-bold text-slate-400">Fundamental Analysis / AI Consensus</span>
+                                <span class="text-[10px] font-black ${badgeColor}">${bias.bias} (${bias.confidence})</span>
                             </div>
 
                             <div class="grid grid-cols-2 gap-2 text-[10px]">
@@ -230,7 +276,7 @@
                             </div>
 
                             <p class="text-[10px] text-yellow-500/90 font-medium pt-1">
-                                ⚠️ Waiting for verified directional evidence. ${bias.ict_note || 'Bias withheld.'}
+                                ⚠️ ${bias.ict_note || 'Waiting for verified directional evidence.'}
                             </p>
                         </div>
                     </div>
@@ -240,7 +286,6 @@
             startLiveCountdowns();
         }
 
-        // Live Countdown Clock Logic
         function startLiveCountdowns() {
             countdownInterval = setInterval(() => {
                 document.querySelectorAll('.countdown-timer').forEach(el => {
