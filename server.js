@@ -13,12 +13,12 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // Central Bank Policy Stance Matrix
 const CENTRAL_BANK_STANCES = {
-  USD: { bank: "Federal Reserve (Fed)", stance: "HAWKISH", rate: "4.75%", bias: "BULLISH", note: "Higher rates for longer to curb inflation." },
-  EUR: { bank: "European Central Bank (ECB)", stance: "DOVISH", rate: "3.25%", bias: "BEARISH", note: "Easing monetary policy amid growth slowdown." },
-  GBP: { bank: "Bank of England (BoE)", stance: "HAWKISH", rate: "5.00%", bias: "BULLISH", note: "Sticky inflation keeping rates elevated." },
-  CAD: { bank: "Bank of Canada (BoC)", stance: "DOVISH", rate: "3.75%", bias: "BEARISH", note: "Rate cuts active; CPI releases key for guidance." },
-  AUD: { bank: "Reserve Bank of Australia (RBA)", stance: "HAWKISH", rate: "4.35%", bias: "BULLISH", note: "Resilient labor market and persistent inflation." },
-  JPY: { bank: "Bank of Japan (BoJ)", stance: "NEUTRAL", rate: "0.25%", bias: "NEUTRAL", note: "Slow normalization away from ultra-easy policy." }
+  USD: { bank: "Federal Reserve (Fed)", stance: "HAWKISH", rate: "4.75%", bias: "BULLISH", note: "Higher rates for longer to curb inflation.", rateCutProb: "72% Chance 25bps Cut" },
+  EUR: { bank: "European Central Bank (ECB)", stance: "DOVISH", rate: "3.25%", bias: "BEARISH", note: "Easing monetary policy amid growth slowdown.", rateCutProb: "85% Chance 25bps Cut" },
+  GBP: { bank: "Bank of England (BoE)", stance: "HAWKISH", rate: "5.00%", bias: "BULLISH", note: "Sticky inflation keeping rates elevated.", rateCutProb: "35% Chance 25bps Cut" },
+  CAD: { bank: "Bank of Canada (BoC)", stance: "DOVISH", rate: "3.75%", bias: "BEARISH", note: "Rate cuts active; CPI releases key for guidance.", rateCutProb: "90% Chance 50bps Cut" },
+  AUD: { bank: "Reserve Bank of Australia (RBA)", stance: "HAWKISH", rate: "4.35%", bias: "BULLISH", note: "Resilient labor market and persistent inflation.", rateCutProb: "15% Chance Hold" },
+  JPY: { bank: "Bank of Japan (BoJ)", stance: "NEUTRAL", rate: "0.25%", bias: "NEUTRAL", note: "Slow normalization away from ultra-easy policy.", rateCutProb: "40% Chance 15bps Hike" }
 };
 
 const EVENT_IMPACT_MAP = {
@@ -30,7 +30,6 @@ const EVENT_IMPACT_MAP = {
   JPY: ["USDJPY", "EURJPY", "GBPJPY", "CADJPY", "AUDJPY"]
 };
 
-// Historical Pip Volatility Model Map
 function getHistoricalPipProjection(eventName) {
   const name = eventName.toLowerCase();
   if (name.includes('fomc') || name.includes('federal funds')) {
@@ -116,7 +115,6 @@ async function fetchMultiSourceNews(range = 'today') {
   }));
 }
 
-// Precision Multi-Evidence AI Engine with Pip Movement Analysis
 async function analyzeWithMultiSourceAI(eventsList) {
   if (!eventsList || eventsList.length === 0) return {};
 
@@ -125,7 +123,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
   Evaluate these macro releases:
   ${JSON.stringify(eventsList, null, 2)}
 
-  Provide exact data-point evidence counts (Tips Analyzed), directional probability %, expected pip move, volatility window, and ICT execution note.
+  Provide exact evidence counts, directional probability %, expected pip move, gold impact, ICT strategy blueprint, and execution note.
 
   Return strictly raw JSON format without markdown wrappers:
   {
@@ -135,6 +133,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
       "evidence_tips_count": 5,
       "expected_pip_move": "80 - 160 Pips",
       "gold_impact": "$20 - $35",
+      "ict_blueprint": "15m CISD + 5m FVG Entry after NY Killzone Judas Swing PDH/PDL sweep",
       "analyzed_tips": [
         "Forecast Delta: CPI m/m (+0.3% inflation expansion over -0.1% prev)",
         "Rate Stance Alignment: BoC monetary policy sensitivity",
@@ -151,6 +150,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
       "evidence_tips_count": 4,
       "expected_pip_move": "90 - 180 Pips",
       "gold_impact": "$22 - $40",
+      "ict_blueprint": "London Killzone Asian High Sweep + 5m Order Block retest",
       "analyzed_tips": [
         "Inflation Expansion (+0.3% over previous)",
         "BoE Hawkish 5.00% Benchmark Rate",
@@ -166,6 +166,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
       "evidence_tips_count": 5,
       "expected_pip_move": "150 - 320 Pips",
       "gold_impact": "$35 - $75",
+      "ict_blueprint": "NY Session MSS + 5m FVG Entry targeting External Liquidity Pool",
       "analyzed_tips": [
         "FOMC Rate Projection Adjustment (4.00%)",
         "GDP Growth Rate Shift",
@@ -196,6 +197,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
         "evidence_tips_count": 5,
         "expected_pip_move": "80 - 160 Pips",
         "gold_impact": "$20 - $35",
+        "ict_blueprint": "15m CISD + 5m FVG Entry after NY Killzone Judas Swing PDH/PDL sweep",
         "analyzed_tips": ["Forecast Delta expansion", "BoC sensitivity", "NY Killzone sweep", "SMC FVG", "USDCAD cross-pair correlation"],
         "volatility_risk": "HIGH VOLATILITY",
         "ict_note": "Forecast CPI inflation expansion indicates momentum. Watch for Judas Swing sweep."

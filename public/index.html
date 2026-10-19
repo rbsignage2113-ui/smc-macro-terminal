@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC MACRO PRO TERMINAL — HIGH-PRECISION AI DESK</title>
+    <title>SMC MACRO PRO TERMINAL — HIGH-PRECISION SUITE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, sans-serif; }
@@ -39,12 +39,24 @@
         </div>
     </header>
 
+    <!-- TOGGLEABLE PRO CONTROLS BAR -->
+    <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex flex-wrap justify-between items-center text-xs font-bold gap-2">
+        <span class="text-yellow-400 flex items-center gap-1">🎛️ PRO MODULE TOGGLES (ON/OFF):</span>
+        <div class="flex flex-wrap gap-2 text-[11px]">
+            <button onclick="toggleModule('killzone')" id="tog-killzone" class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">● KILLZONES (ON)</button>
+            <button onclick="toggleModule('slippage')" id="tog-slippage" class="px-2.5 py-1 rounded bg-red-950 text-red-400 border border-red-800">🛡️ SLIPPAGE RISK (ON)</button>
+            <button onclick="toggleModule('rateProb')" id="tog-rateProb" class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">🎯 RATE PROBABILITY (ON)</button>
+            <button onclick="toggleModule('blueprint')" id="tog-blueprint" class="px-2.5 py-1 rounded bg-yellow-950 text-yellow-400 border border-yellow-800">🧠 ICT BLUEPRINT (ON)</button>
+            <button onclick="toggleModule('audioAlert')" id="tog-audioAlert" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">🔔 SOUND ALERT (OFF)</button>
+        </div>
+    </div>
+
     <!-- Central Bank Stance Matrix & Currency Strength Meter -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
         <div class="md:col-span-8 bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
             <div class="flex justify-between items-center border-b border-slate-800 pb-1">
                 <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                    <span>🏛️</span> CENTRAL BANK POLICY STANCE MATRIX (HAWKISH vs DOVISH)
+                    <span>🏛️</span> CENTRAL BANK POLICY STANCE MATRIX
                 </span>
                 <span class="text-[10px] text-slate-500 font-mono">LIVE POLICY BENCHMARKS</span>
             </div>
@@ -53,31 +65,37 @@
                     <p class="font-bold text-slate-400">USD (Fed)</p>
                     <p class="font-black text-green-400">HAWKISH</p>
                     <p class="text-[9px] text-slate-500">Rate: 4.75%</p>
+                    <p class="mod-rateProb text-[8px] text-cyan-400 font-mono mt-0.5">72% 25bps Cut</p>
                 </div>
                 <div class="bg-slate-950 p-2 rounded border border-slate-800">
                     <p class="font-bold text-slate-400">EUR (ECB)</p>
                     <p class="font-black text-red-400">DOVISH</p>
                     <p class="text-[9px] text-slate-500">Rate: 3.25%</p>
+                    <p class="mod-rateProb text-[8px] text-cyan-400 font-mono mt-0.5">85% 25bps Cut</p>
                 </div>
                 <div class="bg-slate-950 p-2 rounded border border-slate-800">
                     <p class="font-bold text-slate-400">GBP (BoE)</p>
                     <p class="font-black text-green-400">HAWKISH</p>
                     <p class="text-[9px] text-slate-500">Rate: 5.00%</p>
+                    <p class="mod-rateProb text-[8px] text-cyan-400 font-mono mt-0.5">35% 25bps Cut</p>
                 </div>
                 <div class="bg-slate-950 p-2 rounded border border-slate-800">
                     <p class="font-bold text-slate-400">CAD (BoC)</p>
                     <p class="font-black text-red-400">DOVISH</p>
                     <p class="text-[9px] text-slate-500">Rate: 3.75%</p>
+                    <p class="mod-rateProb text-[8px] text-cyan-400 font-mono mt-0.5">90% 50bps Cut</p>
                 </div>
                 <div class="bg-slate-950 p-2 rounded border border-slate-800">
                     <p class="font-bold text-slate-400">AUD (RBA)</p>
                     <p class="font-black text-green-400">HAWKISH</p>
                     <p class="text-[9px] text-slate-500">Rate: 4.35%</p>
+                    <p class="mod-rateProb text-[8px] text-cyan-400 font-mono mt-0.5">15% Hold</p>
                 </div>
                 <div class="bg-slate-950 p-2 rounded border border-slate-800">
                     <p class="font-bold text-slate-400">JPY (BoJ)</p>
                     <p class="font-black text-yellow-400">NEUTRAL</p>
                     <p class="text-[9px] text-slate-500">Rate: 0.25%</p>
+                    <p class="mod-rateProb text-[8px] text-cyan-400 font-mono mt-0.5">40% 15bps Hike</p>
                 </div>
             </div>
         </div>
@@ -188,6 +206,38 @@
         let cachedNewsData = null;
         let countdownInterval = null;
 
+        // Toggle Module State Manager
+        const toggles = {
+            killzone: true,
+            slippage: true,
+            rateProb: true,
+            blueprint: true,
+            audioAlert: false
+        };
+
+        function toggleModule(mod) {
+            toggles[mod] = !toggles[mod];
+            const btn = document.getElementById(`tog-${mod}`);
+            
+            const titles = {
+                killzone: `● KILLZONES (${toggles[mod] ? 'ON' : 'OFF'})`,
+                slippage: `🛡️ SLIPPAGE RISK (${toggles[mod] ? 'ON' : 'OFF'})`,
+                rateProb: `🎯 RATE PROBABILITY (${toggles[mod] ? 'ON' : 'OFF'})`,
+                blueprint: `🧠 ICT BLUEPRINT (${toggles[mod] ? 'ON' : 'OFF'})`,
+                audioAlert: `🔔 SOUND ALERT (${toggles[mod] ? 'ON' : 'OFF'})`
+            };
+
+            btn.innerText = titles[mod];
+            btn.className = toggles[mod] ? 
+                "px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800" : 
+                "px-2.5 py-1 rounded bg-slate-800 text-slate-500 border border-slate-700 opacity-60";
+
+            // Apply visibility
+            document.querySelectorAll(`.mod-${mod}`).forEach(el => {
+                el.style.display = toggles[mod] ? 'block' : 'none';
+            });
+        }
+
         function changeChartSymbol(symbol, label) {
             const iframe = document.getElementById('tradingview-iframe');
             iframe.src = `https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=${encodeURIComponent(symbol)}&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata`;
@@ -294,6 +344,7 @@
                     evidence_tips_count: 5,
                     expected_pip_move: pipMetrics.expectedPips,
                     gold_impact: pipMetrics.goldMove,
+                    ict_blueprint: "15m CISD + 5m FVG Entry after NY Killzone Judas Swing PDH/PDL sweep",
                     analyzed_tips: ["Forecast Delta expansion", "BoC sensitivity", "NY Killzone sweep", "SMC FVG"],
                     volatility_risk: "HIGH VOLATILITY",
                     ict_note: "Forecast CPI expansion indicates bullish momentum."
@@ -339,7 +390,7 @@
                             ${eventsHTML}
                         </div>
 
-                        <!-- Affected Pairs & Expected Pip Movement Range Box -->
+                        <!-- Affected Pairs & Expected Movement Range Box -->
                         <div class="grid grid-cols-2 gap-2 text-[10px] bg-slate-900/60 p-2 rounded border border-slate-800/80">
                             <div>
                                 <span class="text-slate-400 font-bold">🎯 Target Pairs:</span>
@@ -352,6 +403,18 @@
                                 <p class="text-emerald-400 font-extrabold font-mono text-[11px] mt-0.5">${aiInfo.expected_pip_move || pipMetrics.expectedPips}</p>
                                 <p class="text-[9px] text-yellow-400/90 font-mono">XAUUSD: ${aiInfo.gold_impact || pipMetrics.goldMove}</p>
                             </div>
+                        </div>
+
+                        <!-- Toggleable Slippage Warning -->
+                        <div class="mod-slippage text-[9px] bg-red-950/40 border border-red-800/80 p-1.5 rounded text-red-300 flex items-center justify-between">
+                            <span>🛡️ HIGH SLIPPAGE RISK: Expect spread expansion on prop accounts during release.</span>
+                            <span class="font-bold text-red-400 font-mono">${aiInfo.volatility_risk || 'EXTREME VOLATILITY'}</span>
+                        </div>
+
+                        <!-- Toggleable ICT Strategy Blueprint -->
+                        <div class="mod-blueprint bg-yellow-950/30 border border-yellow-800/60 p-2 rounded text-[10px]">
+                            <span class="text-yellow-400 font-bold">🧠 ICT BLUEPRINT:</span>
+                            <p class="text-slate-200 mt-0.5">${aiInfo.ict_blueprint || '15m CISD + 5m FVG Entry after Killzone liquidity sweep'}</p>
                         </div>
 
                         <!-- Precision AI Evidence Box -->
