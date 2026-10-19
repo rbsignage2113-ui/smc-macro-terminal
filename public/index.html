@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMC Macro Pro Terminal - AI News Feed</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-950 text-white font-sans p-6">
+
+    <div class="max-w-xl mx-auto">
+        <h1 class="text-2xl font-black text-yellow-500 mb-4 tracking-wider text-center">SMC TERMINAL // AI NEWS ENGINE</h1>
+
+        <!-- AI News Card -->
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
+            <div class="flex justify-between items-center mb-3">
+                <span id="news-impact-tag" class="px-3 py-1 text-xs font-bold rounded bg-red-600 animate-pulse">HIGH IMPACT RED FOLDER</span>
+                <span id="news-time" class="text-xs text-slate-400">Live Syncing...</span>
+            </div>
+
+            <h3 id="news-title" class="text-lg font-bold text-amber-300 mb-3">Loading Economic Event...</h3>
+
+            <!-- AI Bias Grid -->
+            <div class="grid grid-cols-3 gap-3 my-4 text-center">
+                <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
+                    <p class="text-xs text-slate-400 mb-1">USD Index</p>
+                    <p id="usd-status" class="font-bold text-sm text-slate-300">--</p>
+                </div>
+                <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
+                    <p class="text-xs text-slate-400 mb-1">XAUUSD</p>
+                    <p id="gold-status" class="font-bold text-sm text-slate-300">--</p>
+                </div>
+                <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
+                    <p class="text-xs text-slate-400 mb-1">EURUSD</p>
+                    <p id="eur-status" class="font-bold text-sm text-slate-300">--</p>
+                </div>
+            </div>
+
+            <!-- ICT Tactical Note Box -->
+            <div class="p-3.5 bg-slate-950 rounded-xl border-l-4 border-yellow-500 text-xs text-slate-300 leading-relaxed">
+                <strong class="text-yellow-400 block mb-1">ICT Institutional Bias Note:</strong> 
+                <span id="ict-tactical-note">Waiting for AI market structure analysis...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchAINewsData() {
+            try {
+                const response = await fetch('/api/news-ai-bias');
+                const data = await response.json();
+                
+                // Update UI Fields
+                document.getElementById('news-title').innerText = `${data.raw_news.event} (Actual: ${data.raw_news.actual} | Forecast: ${data.raw_news.estimate})`;
+                document.getElementById('news-time').innerText = `Synced: ${new Date().toLocaleTimeString()}`;
+                
+                const bias = data.ai_bias;
+                
+                const usdEl = document.getElementById('usd-status');
+                usdEl.innerText = bias.usd_status;
+                usdEl.className = `font-bold text-sm ${bias.usd_status === 'BULLISH' ? 'text-green-400' : 'text-red-400'}`;
+
+                const goldEl = document.getElementById('gold-status');
+                goldEl.innerText = bias.gold_status;
+                goldEl.className = `font-bold text-sm ${bias.gold_status === 'BULLISH' ? 'text-green-400' : 'text-red-400'}`;
+
+                const eurEl = document.getElementById('eur-status');
+                eurEl.innerText = bias.eur_status;
+                eurEl.className = `font-bold text-sm ${bias.eur_status === 'BULLISH' ? 'text-green-400' : 'text-red-400'}`;
+
+                document.getElementById('ict-tactical-note').innerText = bias.ict_tactical_note;
+
+            } catch (err) {
+                console.error("UI Fetch Error:", err);
+                document.getElementById('ict-tactical-note').innerText = "Failed to connect to backend AI news server.";
+            }
+        }
+
+        // Fetch on load & auto refresh every 2 minutes
+        fetchAINewsData();
+        setInterval(fetchAINewsData, 120000);
+    </script>
+</body>
+</html>
