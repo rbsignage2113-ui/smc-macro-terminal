@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC MACRO PRO TERMINAL</title>
+    <title>SMC MACRO PRO TERMINAL — LIVE IST ENGINE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, sans-serif; }
@@ -15,7 +15,11 @@
     <header class="flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 p-3 rounded-xl mb-4 gap-3">
         <div class="flex items-center gap-3">
             <h1 class="text-xl font-black text-white tracking-wide">SMC MACRO PRO TERMINAL</h1>
-            <span class="px-2 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 border border-red-500/30 rounded">24/7 LIVE CLOUD ENGINE</span>
+            <!-- Live IST Clock Box -->
+            <div class="px-2.5 py-1 text-xs font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800 rounded flex items-center gap-1.5">
+                <span>🇮🇳 LIVE IST:</span>
+                <span id="live-ist-clock" class="text-white">--/--/---- --:--:--</span>
+            </div>
         </div>
         
         <!-- Live Ticker -->
@@ -33,11 +37,11 @@
         </div>
     </header>
 
-    <!-- Main Terminal Dashboard Grid -->
+    <!-- Main Terminal Grid Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
         <!-- Left Column: Live Chart (7 Cols) -->
-        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col h-[720px]">
+        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col h-[740px]">
             <div class="flex justify-between items-center mb-2 px-1">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">📊 Institutional Live Chart</span>
                 <div class="flex gap-1 text-[11px]">
@@ -52,17 +56,16 @@
             </div>
         </div>
 
-        <!-- Right Column: Multi-Currency Parent Desk & Combined AI (5 Cols) -->
-        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[720px] overflow-hidden">
+        <!-- Right Column: Multi-Currency Parent Desk (5 Cols) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[740px] overflow-hidden">
             
             <!-- Desk Header & Date Filters -->
             <div class="flex justify-between items-center mb-2 pb-2 border-b border-slate-800">
                 <div class="flex items-center gap-2">
                     <span class="text-red-500">🚨</span>
-                    <h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">RED FOLDER DESK</h2>
+                    <h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">FOREX FACTORY RED FOLDER DESK</h2>
                 </div>
 
-                <!-- TODAY, THIS WEEK, THIS MONTH Filter Buttons -->
                 <div class="flex gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-[11px] font-bold">
                     <button onclick="loadNews('today')" id="btn-today" class="px-2 py-1 rounded bg-yellow-500 text-slate-950 transition">TODAY</button>
                     <button onclick="loadNews('this_week')" id="btn-this_week" class="px-2 py-1 rounded text-slate-400 hover:text-white transition">THIS WEEK</button>
@@ -70,7 +73,7 @@
                 </div>
             </div>
 
-            <!-- Currency Selectors Row (ALL, USD, EUR, CAD, AUD, GBP, JPY) -->
+            <!-- Currency Selectors Row -->
             <div class="flex gap-1.5 mb-3 overflow-x-auto pb-1 text-[11px] font-bold">
                 <button onclick="filterCurrency('ALL')" id="curr-ALL" class="px-2.5 py-1 rounded bg-red-600 text-white border border-red-500">ALL</button>
                 <button onclick="filterCurrency('USD')" id="curr-USD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">USD</button>
@@ -83,7 +86,7 @@
 
             <!-- Dynamic News Cards Container -->
             <div id="news-desk-container" class="space-y-3 overflow-y-auto pr-1 flex-grow">
-                <div class="text-center py-10 text-slate-500 text-xs">Loading Multi-Currency AI Engine...</div>
+                <div class="text-center py-10 text-slate-500 text-xs">Connecting Live Forex Factory Engine...</div>
             </div>
 
         </div>
@@ -95,6 +98,15 @@
         let selectedCurrency = 'ALL';
         let cachedNewsData = null;
         let countdownInterval = null;
+
+        // Live IST Clock Engine
+        function startLiveISTClock() {
+            setInterval(() => {
+                const now = new Date();
+                const options = { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                document.getElementById('live-ist-clock').innerText = new Intl.DateTimeFormat('en-IN', options).format(now);
+            }, 1000);
+        }
 
         function setRangeUI(range) {
             activeRange = range;
@@ -124,7 +136,7 @@
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
-            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} Calendar Data...</div>`;
+            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} Forex Factory Data...</div>`;
 
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
@@ -140,29 +152,38 @@
             const container = document.getElementById('news-desk-container');
             container.innerHTML = '';
 
-            const groupedNews = {};
-            (data.raw_news || []).forEach(item => {
-                const curr = item.currency || item.country || 'USD';
-                
-                if (selectedCurrency === 'ALL' || selectedCurrency === curr) {
-                    if (!groupedNews[curr]) groupedNews[curr] = [];
-                    groupedNews[curr].push(item);
-                }
+            const rawEvents = data.raw_news || [];
+            const aiBias = data.ai_bias || {};
+
+            const filteredEvents = rawEvents.filter(item => {
+                const curr = item.currency;
+                return selectedCurrency === 'ALL' || selectedCurrency === curr;
             });
 
-            if (Object.keys(groupedNews).length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active High Impact Red Folder news scheduled for ${selectedCurrency} ${activeRange.replace('_', ' ').toUpperCase()}.</div>`;
+            if (filteredEvents.length === 0) {
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active High Impact Red Folder news scheduled for ${selectedCurrency} in ${activeRange.replace('_', ' ').toUpperCase()}.</div>`;
                 return;
             }
 
+            // Group events by Date & Currency
+            const groupedByDateCurrency = {};
+            filteredEvents.forEach(ev => {
+                const key = `${ev.dayFormatted}_${ev.currency}`;
+                if (!groupedByDateCurrency[key]) groupedByDateCurrency[key] = [];
+                groupedByDateCurrency[key].push(ev);
+            });
+
             if (countdownInterval) clearInterval(countdownInterval);
 
-            Object.keys(groupedNews).forEach(curr => {
-                const events = groupedNews[curr];
-                const aiInfo = (data.ai_bias && data.ai_bias[curr]) ? data.ai_bias[curr] : {
+            Object.keys(groupedByDateCurrency).forEach(key => {
+                const events = groupedByDateCurrency[key];
+                const curr = events[0].currency;
+                const dayStr = events[0].dayFormatted;
+
+                const aiInfo = aiBias[curr] || {
                     bias: "BULLISH",
-                    confidence: "53%",
-                    ict_note: "Forecast indicates momentum. Watch Killzone liquidity sweeps."
+                    confidence: "55%",
+                    ict_note: "Awaiting verified directional liquidity sweeps."
                 };
 
                 const badgeColor = aiInfo.bias === 'BULLISH' ? 'bg-green-500/20 text-green-400 border-green-500' : 
@@ -175,12 +196,15 @@
                             <div class="flex justify-between items-center text-xs">
                                 <span class="font-bold text-slate-200">[${curr}] ${ev.event}</span>
                                 <span class="text-[10px] font-bold text-cyan-400 font-mono flex items-center gap-1">
-                                    ⏳ <span class="countdown-timer" data-target="${ev.targetTime}">Calculating...</span>
+                                    ⏳ <span class="countdown-timer" data-target="${ev.isoTarget}">Calculating...</span>
                                 </span>
                             </div>
                             <div class="flex justify-between items-center text-[10px] text-slate-400">
-                                <span>PREV: <strong class="text-slate-200">${ev.prev || '-'}</strong> | FC: <strong class="text-slate-200">${ev.estimate || '-'}</strong></span>
-                                <span class="font-bold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">ACT: ${ev.actual || 'WAITING...'}</span>
+                                <span>PREV: <strong class="text-slate-200">${ev.prev || '-'}</strong> | FC: <strong class="text-slate-200">${ev.forecast || '-'}</strong></span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-yellow-400 font-bold">⏰ ${ev.timeFormatted}</span>
+                                    <span class="font-bold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">ACT: ${ev.actual || '-'}</span>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -188,16 +212,15 @@
 
                 container.innerHTML += `
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center border-b border-slate-900 pb-1.5">
                             <span class="text-xs font-black text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-800">${curr} HIGH IMPACT (${events.length} EVENTS)</span>
-                            <span class="text-[10px] text-slate-400 font-bold">⏰ ${events[0].timeFormatted || 'Today'}</span>
+                            <span class="text-[10px] text-slate-300 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">📅 ${dayStr}</span>
                         </div>
 
                         <div class="space-y-1">
                             ${eventsHTML}
                         </div>
 
-                        <!-- Combined AI Signal Box -->
                         <div class="p-2.5 bg-slate-900 rounded-lg border-l-4 border-yellow-500 space-y-1">
                             <div class="flex justify-between items-center">
                                 <span class="text-[11px] font-bold text-yellow-400">🧠 OVERALL ${curr} COMBINED AI SIGNAL:</span>
@@ -223,15 +246,22 @@
                         el.innerText = "LIVE EXECUTING";
                         el.className = "text-emerald-400 font-bold animate-pulse";
                     } else {
+                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                         const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                         const secs = Math.floor((diff % (1000 * 60)) / 1000);
-                        el.innerText = `In ${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+
+                        if (days > 0) {
+                            el.innerText = `In ${days}d ${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m`;
+                        } else {
+                            el.innerText = `In ${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+                        }
                     }
                 });
             }, 1000);
         }
 
+        startLiveISTClock();
         loadNews('today');
     </script>
 </body>

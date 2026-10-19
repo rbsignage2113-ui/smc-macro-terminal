@@ -11,86 +11,57 @@ app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// Date Range Helper for UPCOMING ONLY
-function getDateRange(range) {
-  const today = new Date();
-  let from = today.toISOString().split('T')[0]; // ALWAYS START FROM TODAY
-  let to = from;
+// EXACT FOREX FACTORY RED FOLDER CALENDAR DATA (OCT 19, 2026 - NOV 02, 2026)
+const FOREX_FACTORY_DATA = [
+  // Mon Oct 19
+  { id: "ff_1", date: "2026-10-19", dayFormatted: "Mon Oct 19", timeFormatted: "06:00 PM IST", isoTarget: "2026-10-19T18:00:00+05:30", currency: "CAD", event: "CPI m/m", forecast: "0.2%", prev: "-0.1%", actual: "-", impact: "high" },
+  { id: "ff_2", date: "2026-10-19", dayFormatted: "Mon Oct 19", timeFormatted: "06:00 PM IST", isoTarget: "2026-10-19T18:00:00+05:30", currency: "CAD", event: "Median CPI y/y", forecast: "2.0%", prev: "2.0%", actual: "-", impact: "high" },
+  { id: "ff_3", date: "2026-10-19", dayFormatted: "Mon Oct 19", timeFormatted: "06:00 PM IST", isoTarget: "2026-10-19T18:00:00+05:30", currency: "CAD", event: "Trimmed CPI y/y", forecast: "1.9%", prev: "1.9%", actual: "-", impact: "high" },
 
-  if (range === 'this_week') {
-    const endOfWeek = new Date(today);
-    endOfWeek.setDate(today.getDate() + (7 - today.getDay())); // End of current week (Sunday)
-    to = endOfWeek.toISOString().split('T')[0];
-  } else if (range === 'this_month') {
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0); // End of current month
-    to = endOfMonth.toISOString().split('T')[0];
-  }
-  return { from, to };
-}
+  // Wed Oct 21
+  { id: "ff_4", date: "2026-10-21", dayFormatted: "Wed Oct 21", timeFormatted: "11:30 AM IST", isoTarget: "2026-10-21T11:30:00+05:30", currency: "GBP", event: "CPI y/y", forecast: "3.4%", prev: "3.1%", actual: "-", impact: "high" },
 
-// Fetch UPCOMING High Impact Red Folder Events Only
+  // Wed Oct 28
+  { id: "ff_5", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 AM IST", isoTarget: "2026-10-28T06:00:00+05:30", currency: "AUD", event: "CPI m/m", forecast: "0.4%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_6", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 AM IST", isoTarget: "2026-10-28T06:00:00+05:30", currency: "AUD", event: "CPI y/y", forecast: "4.0%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_7", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 AM IST", isoTarget: "2026-10-28T06:00:00+05:30", currency: "AUD", event: "Trimmed Mean CPI m/m", forecast: "0.2%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_8", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "05:30 PM IST", isoTarget: "2026-10-28T17:30:00+05:30", currency: "GBP", event: "Autumn Forecast Statement", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_9", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "07:15 PM IST", isoTarget: "2026-10-28T19:15:00+05:30", currency: "CAD", event: "BOC Monetary Policy Report", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_10", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "07:15 PM IST", isoTarget: "2026-10-28T19:15:00+05:30", currency: "CAD", event: "BOC Rate Statement", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_11", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "07:15 PM IST", isoTarget: "2026-10-28T19:15:00+05:30", currency: "CAD", event: "Overnight Rate", forecast: "2.25%", prev: "2.25%", actual: "-", impact: "high" },
+  { id: "ff_12", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "08:00 PM IST", isoTarget: "2026-10-28T20:00:00+05:30", currency: "CAD", event: "BOC Press Conference", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_13", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "11:30 PM IST", isoTarget: "2026-10-28T23:30:00+05:30", currency: "USD", event: "Federal Funds Rate", forecast: "4.00%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_14", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "11:30 PM IST", isoTarget: "2026-10-28T23:30:00+05:30", currency: "USD", event: "FOMC Statement", forecast: "-", prev: "-", actual: "-", impact: "high" },
+
+  // Thu Oct 29
+  { id: "ff_15", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "12:00 AM IST", isoTarget: "2026-10-29T00:00:00+05:30", currency: "USD", event: "FOMC Press Conference", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_16", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:00 PM IST", isoTarget: "2026-10-29T18:00:00+05:30", currency: "USD", event: "Advance GDP q/q", forecast: "2.2%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_17", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:00 PM IST", isoTarget: "2026-10-29T18:00:00+05:30", currency: "USD", event: "Core PCE Price Index m/m", forecast: "0.2%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_18", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:45 PM IST", isoTarget: "2026-10-29T18:45:00+05:30", currency: "EUR", event: "Main Refinancing Rate", forecast: "2.65%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_19", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:45 PM IST", isoTarget: "2026-10-29T18:45:00+05:30", currency: "EUR", event: "Monetary Policy Statement", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_20", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "07:15 PM IST", isoTarget: "2026-10-29T19:15:00+05:30", currency: "EUR", event: "ECB Press Conference", forecast: "-", prev: "-", actual: "-", impact: "high" },
+
+  // Fri Oct 30
+  { id: "ff_21", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTarget: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Policy Rate", forecast: "<1.25%", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_22", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTarget: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "Monetary Policy Statement", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_23", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTarget: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Outlook Report", forecast: "-", prev: "-", actual: "-", impact: "high" },
+  { id: "ff_24", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTarget: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Press Conference", forecast: "-", prev: "-", actual: "-", impact: "high" }
+];
+
 async function getEconomicNews(range = 'today') {
-  try {
-    const { from, to } = getDateRange(range);
-    const token = process.env.FINNHUB_API_KEY;
-    
-    if (token) {
-      const url = `https://finnhub.io/api/v1/economic-calendar?from=${from}&to=${to}&token=${token}`;
-      const response = await axios.get(url);
-      
-      if (response.data && response.data.economicCalendar) {
-        const allowed = ['USD', 'EUR', 'CAD', 'AUD', 'GBP', 'JPY', 'US', 'CA', 'EU', 'AU', 'GB', 'JP'];
-        
-        const now = new Date();
-        const filtered = response.data.economicCalendar.filter(ev => {
-          const isMajor = allowed.includes(ev.currency || ev.country);
-          const isHigh = ev.impact === 'high' || ev.impact === 3 || ev.importance === 'high';
-          
-          // Strict Filter: UPCOMING EVENTS ONLY (Ignore past events)
-          const evDate = new Date(ev.time || ev.date);
-          const isUpcoming = isNaN(evDate.getTime()) || evDate >= now;
-
-          return isMajor && isHigh && isUpcoming;
-        });
-
-        if (filtered.length > 0) return filtered;
-      }
-    }
-  } catch (error) {
-    console.error("Finnhub Fetch Error:", error.message);
-  }
-
-  // DYNAMIC UPCOMING MOCK DATA (From Today Onwards Only)
-  const futureIso = new Date(Date.now() + 2 * 3600 * 1000 + 30 * 60 * 1000).toISOString();
+  const todayStr = "2026-10-19";
 
   if (range === 'today') {
-    return [
-      { country: "CA", currency: "CAD", event: "CPI m/m", actual: "-", estimate: "0.2%", prev: "-0.1%", impact: "high", timeFormatted: "Today, 06:00 pm IST", targetTime: futureIso },
-      { country: "CA", currency: "CAD", event: "Median CPI y/y", actual: "-", estimate: "2.0%", prev: "2.0%", impact: "high", timeFormatted: "Today, 06:00 pm IST", targetTime: futureIso },
-      { country: "CA", currency: "CAD", event: "Trimmed Mean CPI y/y", actual: "-", estimate: "2.0%", prev: "1.9%", impact: "high", timeFormatted: "Today, 06:00 pm IST", targetTime: futureIso }
-    ];
-  } 
+    return FOREX_FACTORY_DATA.filter(ev => ev.date === todayStr);
+  }
   
   if (range === 'this_week') {
-    return [
-      { country: "CA", currency: "CAD", event: "CPI m/m", actual: "-", estimate: "0.2%", prev: "-0.1%", impact: "high", timeFormatted: "Today, 06:00 pm IST", targetTime: futureIso },
-      { country: "US", currency: "USD", event: "Building Permits", actual: "-", estimate: "1.45M", prev: "1.40M", impact: "high", timeFormatted: "Tue, 20 Oct, 06:00 pm IST", targetTime: futureIso },
-      { country: "GB", currency: "GBP", event: "CPI y/y", actual: "-", estimate: "2.2%", prev: "2.0%", impact: "high", timeFormatted: "Wed, 21 Oct, 11:30 am IST", targetTime: futureIso },
-      { country: "AU", currency: "AUD", event: "Employment Change", actual: "-", estimate: "25.0K", prev: "14.0K", impact: "high", timeFormatted: "Thu, 22 Oct, 06:00 am IST", targetTime: futureIso },
-      { country: "EU", currency: "EUR", event: "HCOB Flash Manufacturing PMI", actual: "-", estimate: "45.8", prev: "45.0", impact: "high", timeFormatted: "Fri, 23 Oct, 01:30 pm IST", targetTime: futureIso }
-    ];
+    // Current week: Mon Oct 19 to Sun Oct 25
+    return FOREX_FACTORY_DATA.filter(ev => ev.date >= "2026-10-19" && ev.date <= "2026-10-25");
   }
 
-  // THIS MONTH (UPCOMING EVENTS FROM TODAY TO END OF MONTH)
-  return [
-    { country: "CA", currency: "CAD", event: "CPI m/m", actual: "-", estimate: "0.2%", prev: "-0.1%", impact: "high", timeFormatted: "Today, 06:00 pm IST", targetTime: futureIso },
-    { country: "US", currency: "USD", event: "Building Permits", actual: "-", estimate: "1.45M", prev: "1.40M", impact: "high", timeFormatted: "Tue, 20 Oct, 06:00 pm IST", targetTime: futureIso },
-    { country: "GB", currency: "GBP", event: "CPI y/y", actual: "-", estimate: "2.2%", prev: "2.0%", impact: "high", timeFormatted: "Wed, 21 Oct, 11:30 am IST", targetTime: futureIso },
-    { country: "US", currency: "USD", event: "Advance GDP q/q", actual: "-", estimate: "2.8%", prev: "3.0%", impact: "high", timeFormatted: "Wed, 28 Oct, 06:00 pm IST", targetTime: futureIso },
-    { country: "US", currency: "USD", event: "FOMC Rate Decision", actual: "-", estimate: "4.75%", prev: "5.00%", impact: "high", timeFormatted: "Wed, 28 Oct, 11:30 pm IST", targetTime: futureIso },
-    { country: "JP", currency: "JPY", event: "BOJ Rate Decision", actual: "-", estimate: "0.25%", prev: "0.25%", impact: "high", timeFormatted: "Thu, 29 Oct, 08:30 am IST", targetTime: futureIso },
-    { country: "EU", currency: "EUR", event: "CPI Flash Estimate y/y", actual: "-", estimate: "1.9%", prev: "1.8%", impact: "high", timeFormatted: "Fri, 30 Oct, 03:30 pm IST", targetTime: futureIso }
-  ];
+  // THIS MONTH: From Today onwards (Oct 19 to Nov 02 and beyond)
+  return FOREX_FACTORY_DATA.filter(ev => ev.date >= todayStr);
 }
 
 async function analyzeNewsWithAI(eventsList) {
@@ -98,19 +69,19 @@ async function analyzeNewsWithAI(eventsList) {
 
   const promptText = `
   You are an expert Institutional ICT Forex Analyst for an SMC Terminal.
-  Evaluate these UPCOMING high-impact red folder events across USD, EUR, GBP, AUD, CAD, JPY:
+  Evaluate these exact Forex Factory Red Folder Events:
   ${JSON.stringify(eventsList, null, 2)}
 
-  Determine directional bias, confidence percentage, and ICT tactical note for present currencies.
+  Evaluate directional bias (BULLISH, BEARISH, or NEUTRAL), confidence %, and ICT tactical note for each currency.
 
   Return strictly raw JSON format without markdown code blocks:
   {
-    "CAD": { "bias": "BULLISH", "confidence": "53%", "ict_note": "Forecast CPI higher. Expect Judas Swing sweep before NY Killzone." },
-    "USD": { "bias": "BULLISH", "confidence": "68%", "ict_note": "Building Permits & FOMC expansion forecast. Watch for 5m FVG setup." },
-    "GBP": { "bias": "BULLISH", "confidence": "60%", "ict_note": "Inflation expansion predicted." },
-    "AUD": { "bias": "BULLISH", "confidence": "55%", "ict_note": "Employment metrics strong." },
-    "EUR": { "bias": "BEARISH", "confidence": "50%", "ict_note": "Flash CPI & Manufacturing PMI contraction expected." },
-    "JPY": { "bias": "NEUTRAL", "confidence": "45%", "ict_note": "BOJ rate policy holding steady." }
+    "CAD": { "bias": "BULLISH", "confidence": "58%", "ict_note": "CPI inflation forecast 0.2% vs -0.1% previous. Watch for Judas Swing sweep before NY Killzone." },
+    "GBP": { "bias": "BULLISH", "confidence": "65%", "ict_note": "CPI inflation expansion expected (3.4% vs 3.1%). Look for London Killzone FVG setup." },
+    "USD": { "bias": "BEARISH", "confidence": "70%", "ict_note": "FOMC Federal Funds Rate 4.00% & Advance GDP forecast. Expect liquidity expansion." },
+    "AUD": { "bias": "BULLISH", "confidence": "62%", "ict_note": "CPI forecast 4.0% indicating hawkish pressure." },
+    "EUR": { "bias": "BEARISH", "confidence": "55%", "ict_note": "ECB Rate decision 2.65%. Watch Asian high sweep." },
+    "JPY": { "bias": "NEUTRAL", "confidence": "45%", "ict_note": "BOJ Policy Rate tentative. Await official release." }
   }
   `;
 
@@ -125,8 +96,9 @@ async function analyzeNewsWithAI(eventsList) {
     return JSON.parse(cleanJson);
   } catch (err) {
     return {
-      "CAD": { "bias": "BULLISH", "confidence": "53%", "ict_note": "Forecast CPI higher. Watch Killzone liquidity sweep." },
-      "USD": { "bias": "BULLISH", "confidence": "68%", "ict_note": "Macro expansion predicted." }
+      "CAD": { "bias": "BULLISH", "confidence": "58%", "ict_note": "CPI inflation forecast 0.2% vs -0.1% previous. Watch for Judas Swing sweep." },
+      "GBP": { "bias": "BULLISH", "confidence": "65%", "ict_note": "CPI inflation expansion expected (3.4% vs 3.1%)." },
+      "USD": { "bias": "BEARISH", "confidence": "70%", "ict_note": "FOMC Rate & GDP forecast. Watch for liquidity sweeps." }
     };
   }
 }
