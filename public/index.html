@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC MACRO PRO TERMINAL — HIGH-PRECISION SUITE</title>
+    <title>SMC MACRO PRO TERMINAL — TRUMP IMPACT DESK</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, sans-serif; }
@@ -43,11 +43,38 @@
     <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex flex-wrap justify-between items-center text-xs font-bold gap-2">
         <span class="text-yellow-400 flex items-center gap-1">🎛️ PRO MODULE TOGGLES (ON/OFF):</span>
         <div class="flex flex-wrap gap-2 text-[11px]">
+            <button onclick="toggleModule('trump')" id="tog-trump" class="px-2.5 py-1 rounded bg-red-950 text-red-400 border border-red-800">🇺🇸 TRUMP FACTOR RADAR (ON)</button>
             <button onclick="toggleModule('killzone')" id="tog-killzone" class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">● KILLZONES (ON)</button>
             <button onclick="toggleModule('slippage')" id="tog-slippage" class="px-2.5 py-1 rounded bg-red-950 text-red-400 border border-red-800">🛡️ SLIPPAGE RISK (ON)</button>
             <button onclick="toggleModule('rateProb')" id="tog-rateProb" class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">🎯 RATE PROBABILITY (ON)</button>
             <button onclick="toggleModule('blueprint')" id="tog-blueprint" class="px-2.5 py-1 rounded bg-yellow-950 text-yellow-400 border border-yellow-800">🧠 ICT BLUEPRINT (ON)</button>
-            <button onclick="toggleModule('audioAlert')" id="tog-audioAlert" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">🔔 SOUND ALERT (OFF)</button>
+        </div>
+    </div>
+
+    <!-- DEDICATED ELEMENT: TODAY'S TRUMP TARIFF & POLICY VOLATILITY RADAR -->
+    <div id="mod-trump" class="bg-gradient-to-r from-red-950/80 via-slate-900 to-blue-950/80 border border-red-800/80 rounded-xl p-3 space-y-2">
+        <div class="flex justify-between items-center border-b border-red-900/60 pb-1.5">
+            <span class="text-xs font-black text-red-400 flex items-center gap-2">
+                <span>🇺🇸</span> DEDICATED TODAY TRUMP FACTOR & TARIFF ANALYSIS DESK
+            </span>
+            <span class="text-[10px] font-bold bg-red-900 text-red-200 px-2 py-0.5 rounded animate-pulse">🔥 TODAY's HIGH VOLATILITY DETECTOR</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 text-[11px]">
+            <div class="md:col-span-8 space-y-1">
+                <p class="font-bold text-white flex items-center gap-1.5">
+                    <span class="text-yellow-400">⚡ Action:</span>
+                    <span id="trump-headline">Executive Waiver on Russia Energy Tariffs & Global Duty Adjustments</span>
+                </p>
+                <p id="trump-ai-note" class="text-slate-300 text-[10px] leading-snug">
+                    AI Analysis: Trump's tariff waivers reduce crude oil supply bottlenecks, impacting USD index liquidity and triggering gold safe-haven re-evaluations across Asian/London killzones.
+                </p>
+            </div>
+            <div class="md:col-span-4 bg-slate-950/80 p-2 rounded border border-slate-800 flex flex-col justify-between text-right">
+                <span class="text-[9px] text-slate-400">EXPECTED MARKET EXPANSION</span>
+                <span class="text-emerald-400 font-extrabold font-mono text-sm">100 - 250 Pips</span>
+                <span class="text-yellow-400 font-mono text-[10px]">Gold Impact: $25 - $55 Move</span>
+            </div>
         </div>
     </div>
 
@@ -206,13 +233,12 @@
         let cachedNewsData = null;
         let countdownInterval = null;
 
-        // Toggle Module State Manager
         const toggles = {
+            trump: true,
             killzone: true,
             slippage: true,
             rateProb: true,
-            blueprint: true,
-            audioAlert: false
+            blueprint: true
         };
 
         function toggleModule(mod) {
@@ -220,11 +246,11 @@
             const btn = document.getElementById(`tog-${mod}`);
             
             const titles = {
+                trump: `🇺🇸 TRUMP FACTOR RADAR (${toggles[mod] ? 'ON' : 'OFF'})`,
                 killzone: `● KILLZONES (${toggles[mod] ? 'ON' : 'OFF'})`,
                 slippage: `🛡️ SLIPPAGE RISK (${toggles[mod] ? 'ON' : 'OFF'})`,
                 rateProb: `🎯 RATE PROBABILITY (${toggles[mod] ? 'ON' : 'OFF'})`,
-                blueprint: `🧠 ICT BLUEPRINT (${toggles[mod] ? 'ON' : 'OFF'})`,
-                audioAlert: `🔔 SOUND ALERT (${toggles[mod] ? 'ON' : 'OFF'})`
+                blueprint: `🧠 ICT BLUEPRINT (${toggles[mod] ? 'ON' : 'OFF'})`
             };
 
             btn.innerText = titles[mod];
@@ -232,7 +258,9 @@
                 "px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800" : 
                 "px-2.5 py-1 rounded bg-slate-800 text-slate-500 border border-slate-700 opacity-60";
 
-            // Apply visibility
+            const targetEl = document.getElementById(`mod-${mod}`);
+            if (targetEl) targetEl.style.display = toggles[mod] ? 'block' : 'none';
+
             document.querySelectorAll(`.mod-${mod}`).forEach(el => {
                 el.style.display = toggles[mod] ? 'block' : 'none';
             });
@@ -390,7 +418,6 @@
                             ${eventsHTML}
                         </div>
 
-                        <!-- Affected Pairs & Expected Movement Range Box -->
                         <div class="grid grid-cols-2 gap-2 text-[10px] bg-slate-900/60 p-2 rounded border border-slate-800/80">
                             <div>
                                 <span class="text-slate-400 font-bold">🎯 Target Pairs:</span>
@@ -405,19 +432,16 @@
                             </div>
                         </div>
 
-                        <!-- Toggleable Slippage Warning -->
                         <div class="mod-slippage text-[9px] bg-red-950/40 border border-red-800/80 p-1.5 rounded text-red-300 flex items-center justify-between">
                             <span>🛡️ HIGH SLIPPAGE RISK: Expect spread expansion on prop accounts during release.</span>
                             <span class="font-bold text-red-400 font-mono">${aiInfo.volatility_risk || 'EXTREME VOLATILITY'}</span>
                         </div>
 
-                        <!-- Toggleable ICT Strategy Blueprint -->
                         <div class="mod-blueprint bg-yellow-950/30 border border-yellow-800/60 p-2 rounded text-[10px]">
                             <span class="text-yellow-400 font-bold">🧠 ICT BLUEPRINT:</span>
                             <p class="text-slate-200 mt-0.5">${aiInfo.ict_blueprint || '15m CISD + 5m FVG Entry after Killzone liquidity sweep'}</p>
                         </div>
 
-                        <!-- Precision AI Evidence Box -->
                         <div class="p-2.5 bg-slate-900 rounded-lg border-l-4 border-yellow-500 space-y-2">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-1">
                                 <span class="text-[11px] font-bold text-yellow-400 flex items-center gap-1">

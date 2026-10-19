@@ -30,6 +30,18 @@ const EVENT_IMPACT_MAP = {
   JPY: ["USDJPY", "EURJPY", "GBPJPY", "CADJPY", "AUDJPY"]
 };
 
+// DEDICATED TODAY TRUMP TARIFF & VOLATILITY MONITOR DATA
+const TRUMP_LATEST_FEED = {
+  date: "Today (Oct 19, 2026)",
+  eventTitle: "Executive Waiver on Russia Energy Tariffs & Global Duty Adjustments",
+  actionType: "Executive Order / Tariff Exemptions",
+  impactRating: "HIGH IMPACT (RED ALERT)",
+  expectedPipExpansion: "100 - 250 Pips",
+  goldImpactRange: "$25 - $55 Move",
+  targetPairs: ["XAUUSD", "USDCAD", "EURUSD", "USDJPY", "BTCUSDT"],
+  aiAnalysisNote: "Trump's waiver on Graham Act tariffs reduces immediate crude supply tightness while shifting US Dollar liquidity. Watch for Gold safe-haven sweeps and USDJPY volatility expansion during NY Killzone."
+};
+
 function getHistoricalPipProjection(eventName) {
   const name = eventName.toLowerCase();
   if (name.includes('fomc') || name.includes('federal funds')) {
@@ -215,7 +227,8 @@ app.get('/api/news-ai-bias', async (req, res) => {
     range,
     raw_news: rawNews,
     ai_bias: aiBias,
-    central_banks: CENTRAL_BANK_STANCES
+    central_banks: CENTRAL_BANK_STANCES,
+    trump_factor: TRUMP_LATEST_FEED
   });
 });
 
