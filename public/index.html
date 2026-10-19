@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC MACRO PRO TERMINAL — TRUMP IMPACT DESK</title>
+    <title>SMC MACRO PRO TERMINAL — TIMESTAMP & EXPIRY SUITE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #e2e8f0; font-family: system-ui, sans-serif; }
@@ -43,7 +43,7 @@
     <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex flex-wrap justify-between items-center text-xs font-bold gap-2">
         <span class="text-yellow-400 flex items-center gap-1">🎛️ PRO MODULE TOGGLES (ON/OFF):</span>
         <div class="flex flex-wrap gap-2 text-[11px]">
-            <button onclick="toggleModule('trump')" id="tog-trump" class="px-2.5 py-1 rounded bg-red-950 text-red-400 border border-red-800">🇺🇸 TRUMP FACTOR RADAR (ON)</button>
+            <button onclick="toggleModule('trump')" id="tog-trump" class="px-2.5 py-1 rounded bg-red-950 text-red-400 border border-red-800">🇺🇸 TRUMP TIMESTAMP RADAR (ON)</button>
             <button onclick="toggleModule('killzone')" id="tog-killzone" class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">● KILLZONES (ON)</button>
             <button onclick="toggleModule('slippage')" id="tog-slippage" class="px-2.5 py-1 rounded bg-red-950 text-red-400 border border-red-800">🛡️ SLIPPAGE RISK (ON)</button>
             <button onclick="toggleModule('rateProb')" id="tog-rateProb" class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">🎯 RATE PROBABILITY (ON)</button>
@@ -51,23 +51,23 @@
         </div>
     </div>
 
-    <!-- DEDICATED ELEMENT: TODAY'S TRUMP TARIFF & POLICY VOLATILITY RADAR -->
+    <!-- DEDICATED ELEMENT: TRUMP FACTOR RADAR WITH EXACT TIMESTAMP -->
     <div id="mod-trump" class="bg-gradient-to-r from-red-950/80 via-slate-900 to-blue-950/80 border border-red-800/80 rounded-xl p-3 space-y-2">
         <div class="flex justify-between items-center border-b border-red-900/60 pb-1.5">
             <span class="text-xs font-black text-red-400 flex items-center gap-2">
-                <span>🇺🇸</span> DEDICATED TODAY TRUMP FACTOR & TARIFF ANALYSIS DESK
+                <span>🇺🇸</span> TRUMP POLICY & TARIFF VOLATILITY RADAR
             </span>
-            <span class="text-[10px] font-bold bg-red-900 text-red-200 px-2 py-0.5 rounded animate-pulse">🔥 TODAY's HIGH VOLATILITY DETECTOR</span>
+            <span id="trump-timestamp-badge" class="text-[10px] font-bold bg-yellow-500 text-slate-950 px-2 py-0.5 rounded font-mono">🕒 Oct 19, 2026 — 02:10 PM IST</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-3 text-[11px]">
             <div class="md:col-span-8 space-y-1">
                 <p class="font-bold text-white flex items-center gap-1.5">
-                    <span class="text-yellow-400">⚡ Action:</span>
-                    <span id="trump-headline">Executive Waiver on Russia Energy Tariffs & Global Duty Adjustments</span>
+                    <span class="text-yellow-400">⚡ Latest Action:</span>
+                    <span id="trump-headline">Executive Waiver on Planned 100% Tariffs & Energy Sanctions under Graham Act</span>
                 </p>
                 <p id="trump-ai-note" class="text-slate-300 text-[10px] leading-snug">
-                    AI Analysis: Trump's tariff waivers reduce crude oil supply bottlenecks, impacting USD index liquidity and triggering gold safe-haven re-evaluations across Asian/London killzones.
+                    AI Analysis: Trump's waiver prevents immediate energy supply shocks, redirecting DXY liquidity and triggering aggressive safe-haven volatility across gold and major FX pairs.
                 </p>
             </div>
             <div class="md:col-span-4 bg-slate-950/80 p-2 rounded border border-slate-800 flex flex-col justify-between text-right">
@@ -217,10 +217,9 @@
             </div>
 
             <div class="shrink-0 pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center bg-slate-950 p-2 rounded-lg mt-2">
-                <span class="font-bold text-yellow-400 flex items-center gap-1">📋 PRE-NEWS CHECKLIST:</span>
-                <span>✅ Countdown &lt; 15m</span>
-                <span>✅ Sweep Active</span>
-                <span>✅ AI Consensus Match</span>
+                <span class="font-bold text-yellow-400 flex items-center gap-1">📋 AUTO-EXPIRY (30 MINS):</span>
+                <span>✅ Latest Update Only</span>
+                <span>✅ Auto-Cleaned</span>
             </div>
 
         </div>
@@ -246,7 +245,7 @@
             const btn = document.getElementById(`tog-${mod}`);
             
             const titles = {
-                trump: `🇺🇸 TRUMP FACTOR RADAR (${toggles[mod] ? 'ON' : 'OFF'})`,
+                trump: `🇺🇸 TRUMP TIMESTAMP RADAR (${toggles[mod] ? 'ON' : 'OFF'})`,
                 killzone: `● KILLZONES (${toggles[mod] ? 'ON' : 'OFF'})`,
                 slippage: `🛡️ SLIPPAGE RISK (${toggles[mod] ? 'ON' : 'OFF'})`,
                 rateProb: `🎯 RATE PROBABILITY (${toggles[mod] ? 'ON' : 'OFF'})`,
@@ -321,7 +320,7 @@
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
-            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} High-Precision Intelligence...</div>`;
+            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing High-Precision Intelligence & Applying Auto-Expiry Rules...</div>`;
 
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
@@ -340,18 +339,34 @@
             const rawEvents = data.raw_news || [];
             const aiBias = data.ai_bias || {};
 
-            const filteredEvents = rawEvents.filter(item => {
-                const curr = item.currency;
-                return selectedCurrency === 'ALL' || selectedCurrency === curr;
+            const nowTime = new Date().getTime();
+
+            // FILTER: Keep only events where release time has passed OR is upcoming, 
+            // AND remove events that released more than 30 minutes ago (Auto-Expiry 30-min rule)
+            const activeFilteredEvents = rawEvents.filter(item => {
+                const targetTime = new Date(item.isoTarget).getTime();
+                const diffMinutes = (nowTime - targetTime) / (1000 * 60);
+                
+                // If event released more than 30 minutes ago, drop it automatically
+                if (diffMinutes > 30) {
+                    return false;
+                }
+                
+                // Currency filter check
+                if (selectedCurrency !== 'ALL' && item.currency !== selectedCurrency) {
+                    return false;
+                }
+
+                return true;
             });
 
-            if (filteredEvents.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active High Impact Red Folder news scheduled for ${selectedCurrency} in ${activeRange.replace('_', ' ').toUpperCase()}.</div>`;
+            if (activeFilteredEvents.length === 0) {
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or recent High Impact Red Folder news found for ${selectedCurrency} (Expired after 30m post-release window).</div>`;
                 return;
             }
 
             const groupedByDateCurrency = {};
-            filteredEvents.forEach(ev => {
+            activeFilteredEvents.forEach(ev => {
                 const key = `${ev.dayFormatted}_${ev.currency}`;
                 if (!groupedByDateCurrency[key]) groupedByDateCurrency[key] = [];
                 groupedByDateCurrency[key].push(ev);
@@ -410,7 +425,7 @@
                 container.innerHTML += `
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
                         <div class="flex justify-between items-center border-b border-slate-900 pb-1.5">
-                            <span class="text-xs font-black text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-800">${curr} HIGH IMPACT (${events.length} EVENTS)</span>
+                            <span class="text-xs font-black text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-800">${curr} HIGH IMPACT (${events.length} LATEST UPDATE)</span>
                             <span class="text-[10px] text-slate-300 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">📅 ${dayStr}</span>
                         </div>
 

@@ -30,16 +30,17 @@ const EVENT_IMPACT_MAP = {
   JPY: ["USDJPY", "EURJPY", "GBPJPY", "CADJPY", "AUDJPY"]
 };
 
-// DEDICATED TODAY TRUMP TARIFF & VOLATILITY MONITOR DATA
+// TRUMP FACTOR PRECISION TIMESTAMP FEED (LATEST-ONLY DEDUPLICATED)
 const TRUMP_LATEST_FEED = {
-  date: "Today (Oct 19, 2026)",
-  eventTitle: "Executive Waiver on Russia Energy Tariffs & Global Duty Adjustments",
-  actionType: "Executive Order / Tariff Exemptions",
+  postId: "trump_exec_101",
+  postTimestamp: "October 19, 2026 — 02:10 PM IST",
+  headline: "Executive Waiver on Planned 100% Tariffs & Energy Sanctions under Graham Act",
+  actionType: "Executive Order / Tariff Exemption",
   impactRating: "HIGH IMPACT (RED ALERT)",
   expectedPipExpansion: "100 - 250 Pips",
   goldImpactRange: "$25 - $55 Move",
-  targetPairs: ["XAUUSD", "USDCAD", "EURUSD", "USDJPY", "BTCUSDT"],
-  aiAnalysisNote: "Trump's waiver on Graham Act tariffs reduces immediate crude supply tightness while shifting US Dollar liquidity. Watch for Gold safe-haven sweeps and USDJPY volatility expansion during NY Killzone."
+  targetPairs: ["XAUUSD", "USDCAD", "EURUSD", "USDJPY"],
+  aiAnalysisNote: "Trump's waiver prevents immediate energy supply shocks, redirecting DXY liquidity and triggering aggressive safe-haven volatility across gold and major FX pairs."
 };
 
 function getHistoricalPipProjection(eventName) {
@@ -120,11 +121,19 @@ async function fetchMultiSourceNews(range = 'today') {
     }
   }
 
-  return liveEvents.map(ev => ({
-    ...ev,
-    impactPairs: EVENT_IMPACT_MAP[ev.currency] || ["USDJPY", "EURUSD"],
-    pipMetrics: getHistoricalPipProjection(ev.event)
-  }));
+  // LATEST-ONLY DEDUPLICATION: Group by event name/currency and keep only the latest update
+  const uniqueMap = new Map();
+  liveEvents.forEach(ev => {
+    const key = `${ev.currency}_${ev.event}`;
+    // If duplicate exists, overwrite with the latest entry
+    uniqueMap.set(key, {
+      ...ev,
+      impactPairs: EVENT_IMPACT_MAP[ev.currency] || ["USDJPY", "EURUSD"],
+      pipMetrics: getHistoricalPipProjection(ev.event)
+    });
+  });
+
+  return Array.from(uniqueMap.values());
 }
 
 async function analyzeWithMultiSourceAI(eventsList) {
