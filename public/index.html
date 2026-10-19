@@ -1,112 +1,193 @@
-<script>
-    let activeRange = 'today';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMC MACRO PRO TERMINAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0b0f19; color: #e2e8f0; font-family: sans-serif; }
+    </style>
+</head>
+<body class="p-3 md:p-5">
 
-    function setRangeUI(range) {
-        activeRange = range;
-        ['today', 'this_week', 'this_month'].forEach(r => {
-            const btn = document.getElementById(`btn-${r}`);
-            if (btn) {
-                if (r === range) {
-                    btn.className = "px-2 py-1 rounded bg-yellow-500 text-slate-950 transition font-bold";
-                } else {
-                    btn.className = "px-2 py-1 rounded text-slate-400 hover:text-white transition font-bold";
-                }
-            }
-        });
-    }
+    <!-- Top Navigation Header -->
+    <header class="flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 p-3 rounded-xl mb-4 gap-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-xl font-black text-white tracking-wide">SMC MACRO PRO TERMINAL</h1>
+            <span class="px-2 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 border border-red-500/30 rounded">24/7 LIVE CLOUD ENGINE</span>
+        </div>
+        
+        <!-- Live Ticker Stats -->
+        <div class="flex gap-4 text-xs font-mono">
+            <div><span class="text-slate-400">USDCAD:</span> <span class="text-green-400 font-bold">1.3785</span></div>
+            <div><span class="text-slate-400">GBPUSD:</span> <span class="text-red-400 font-bold">1.3040</span></div>
+            <div><span class="text-slate-400">USDJPY:</span> <span class="text-green-400 font-bold">149.50</span></div>
+            <div><span class="text-slate-400">GOLD:</span> <span class="text-green-400 font-bold">$2,662.80</span></div>
+        </div>
 
-    // Checking 30 mins post news expiry
-    function isExpired(timestamp) {
-        if (!timestamp) return false;
-        const eventTime = new Date(timestamp).getTime();
-        const now = new Date().getTime();
-        if (isNaN(eventTime)) return false;
-        const diffInMinutes = (now - eventTime) / (1000 * 60);
-        return diffInMinutes > 30; // 30 mins over aana dhaan hide aagum
-    }
+        <div class="flex items-center gap-2 text-xs font-bold">
+            <span class="px-2 py-1 rounded bg-slate-800 text-slate-400">ASIA</span>
+            <span class="px-2 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 animate-pulse">● LONDON KILLZONE</span>
+            <span class="px-2 py-1 rounded bg-slate-800 text-slate-400">NY</span>
+        </div>
+    </header>
 
-    async function loadNews(range) {
-        setRangeUI(range);
-        const container = document.getElementById('news-desk-container');
-        container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} Calendar Data...</div>`;
+    <!-- Main Terminal Dashboard Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-        try {
-            const res = await fetch(`/api/news-ai-bias?range=${range}`);
-            const data = await res.json();
+        <!-- Left Column: TradingView Chart (7 Cols) -->
+        <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col h-[680px]">
+            <div class="flex justify-between items-center mb-2 px-1">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">📊 Institutional Live Chart</span>
+                <div class="flex gap-1 text-[11px]">
+                    <button class="px-2 py-0.5 bg-yellow-500 text-slate-950 font-bold rounded">USDCAD</button>
+                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">GBPUSD</button>
+                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">USDJPY</button>
+                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">XAUUSD</button>
+                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">EURUSD</button>
+                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">AUDUSD</button>
+                </div>
+            </div>
+            <!-- TradingView Embed Widget -->
+            <div class="w-full flex-grow rounded-xl overflow-hidden">
+                <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=FX%3AUSDCAD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+
+        <!-- Right Column: Multi-Currency Parent Desk & Combined AI (5 Cols) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[680px] overflow-hidden">
             
-            container.innerHTML = '';
+            <!-- Right Desk Header & Filters -->
+            <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-red-500">🚨</span>
+                    <h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">Multi-Currency Desk (USD, EUR, CAD, AUD, GBP, JPY)</h2>
+                </div>
 
-            const groupedNews = {};
-            (data.raw_news || []).forEach(item => {
-                // Ignore expiration if timestamp is not explicitly provided
-                if (!item.timestamp || !isExpired(item.timestamp)) {
-                    const curr = item.currency || item.country || 'USD';
-                    if (!groupedNews[curr]) groupedNews[curr] = [];
-                    groupedNews[curr].push(item);
+                <!-- TODAY, THIS WEEK, THIS MONTH Filter Buttons -->
+                <div class="flex gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-[11px] font-bold">
+                    <button onclick="loadNews('today')" id="btn-today" class="px-2 py-1 rounded bg-yellow-500 text-slate-950 transition">TODAY</button>
+                    <button onclick="loadNews('this_week')" id="btn-this_week" class="px-2 py-1 rounded text-slate-400 hover:text-white transition">THIS WEEK</button>
+                    <button onclick="loadNews('this_month')" id="btn-this_month" class="px-2 py-1 rounded text-slate-400 hover:text-white transition">THIS MONTH</button>
+                </div>
+            </div>
+
+            <!-- Dynamic News Cards Container -->
+            <div id="news-desk-container" class="space-y-4 overflow-y-auto pr-1 flex-grow">
+                <div class="text-center py-10 text-slate-500 text-xs">Loading Multi-Currency AI Engine...</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let activeRange = 'today';
+
+        function setRangeUI(range) {
+            activeRange = range;
+            ['today', 'this_week', 'this_month'].forEach(r => {
+                const btn = document.getElementById(`btn-${r}`);
+                if (btn) {
+                    if (r === range) {
+                        btn.className = "px-2 py-1 rounded bg-yellow-500 text-slate-950 transition font-bold";
+                    } else {
+                        btn.className = "px-2 py-1 rounded text-slate-400 hover:text-white transition font-bold";
+                    }
                 }
             });
+        }
 
-            if (Object.keys(groupedNews).length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active high-impact events scheduled for this period.</div>`;
-                return;
-            }
+        function isExpired(timestamp) {
+            if (!timestamp) return false;
+            const eventTime = new Date(timestamp).getTime();
+            const now = Date.now();
+            if (isNaN(eventTime)) return false;
+            return (now - eventTime) > (30 * 60 * 1000); // 30 minutes post-news
+        }
 
-            // Render Currency Groups
-            Object.keys(groupedNews).forEach(curr => {
-                const events = groupedNews[curr];
-                const aiInfo = (data.ai_bias && data.ai_bias[curr]) ? data.ai_bias[curr] : {
-                    signal: "BUY",
-                    label: "PRE-NEWS BULLISH",
-                    ict_note: "Forecast indicates momentum. Watch Killzone liquidity sweeps."
-                };
+        async function loadNews(range) {
+            setRangeUI(range);
+            const container = document.getElementById('news-desk-container');
+            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} Calendar Data...</div>`;
 
-                const badgeColor = aiInfo.signal === 'BUY' ? 'bg-green-500/20 text-green-400 border-green-500' : 
-                                  (aiInfo.signal === 'SELL' ? 'bg-red-500/20 text-red-400 border-red-500' : 'bg-yellow-500/20 text-yellow-400 border-yellow-500');
+            try {
+                const res = await fetch(`/api/news-ai-bias?range=${range}`);
+                const data = await res.json();
+                
+                container.innerHTML = '';
 
-                let eventsHTML = '';
-                events.forEach(ev => {
-                    eventsHTML += `
-                        <div class="flex justify-between items-center text-xs py-1 border-b border-slate-800/50 last:border-0">
-                            <div>
-                                <p class="font-bold text-slate-300">[${curr}] ${ev.event}</p>
-                                <p class="text-[10px] text-slate-400">PREV: <span class="text-slate-200">${ev.prev || '-'}</span> | FC: <span class="text-slate-200">${ev.estimate || '-'}</span></p>
+                const groupedNews = {};
+                (data.raw_news || []).forEach(item => {
+                    if (!item.timestamp || !isExpired(item.timestamp)) {
+                        const curr = item.currency || item.country || 'USD';
+                        if (!groupedNews[curr]) groupedNews[curr] = [];
+                        groupedNews[curr].push(item);
+                    }
+                });
+
+                if (Object.keys(groupedNews).length === 0) {
+                    container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active high-impact events scheduled for this period.</div>`;
+                    return;
+                }
+
+                Object.keys(groupedNews).forEach(curr => {
+                    const events = groupedNews[curr];
+                    const aiInfo = (data.ai_bias && data.ai_bias[curr]) ? data.ai_bias[curr] : {
+                        signal: "BUY",
+                        label: "PRE-NEWS BULLISH",
+                        ict_note: "Forecast indicates momentum. Watch Killzone liquidity sweeps."
+                    };
+
+                    const badgeColor = aiInfo.signal === 'BUY' ? 'bg-green-500/20 text-green-400 border-green-500' : 
+                                      (aiInfo.signal === 'SELL' ? 'bg-red-500/20 text-red-400 border-red-500' : 'bg-yellow-500/20 text-yellow-400 border-yellow-500');
+
+                    let eventsHTML = '';
+                    events.forEach(ev => {
+                        eventsHTML += `
+                            <div class="flex justify-between items-center text-xs py-1 border-b border-slate-800/50 last:border-0">
+                                <div>
+                                    <p class="font-bold text-slate-300">[${curr}] ${ev.event}</p>
+                                    <p class="text-[10px] text-slate-400">PREV: <span class="text-slate-200">${ev.prev || '-'}</span> | FC: <span class="text-slate-200">${ev.estimate || '-'}</span></p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">ACT: ${ev.actual || 'WAITING...'}</span>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">ACT: ${ev.actual || 'WAITING...'}</span>
+                        `;
+                    });
+
+                    container.innerHTML += `
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-800">${curr} HIGH IMPACT GROUP (${events.length} EVENTS)</span>
+                                <span class="text-[10px] text-emerald-400 animate-pulse">● LIVE ACTIVE</span>
+                            </div>
+
+                            <div class="space-y-1 bg-slate-900/60 p-2 rounded-lg">
+                                ${eventsHTML}
+                            </div>
+
+                            <div class="p-2.5 bg-slate-900 rounded-lg border-l-4 border-yellow-500 space-y-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[11px] font-bold text-yellow-400">🧠 OVERALL ${curr} COMBINED AI SIGNAL:</span>
+                                    <span class="text-[10px] font-black px-2 py-0.5 rounded border ${badgeColor}">${aiInfo.signal} (${aiInfo.label})</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300 leading-snug">${aiInfo.ict_note}</p>
                             </div>
                         </div>
                     `;
                 });
 
-                container.innerHTML += `
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-black text-red-400 bg-red-950/40 px-2 py-0.5 rounded border border-red-800">${curr} HIGH IMPACT GROUP (${events.length} EVENTS)</span>
-                            <span class="text-[10px] text-emerald-400 animate-pulse">● LIVE ACTIVE</span>
-                        </div>
-
-                        <div class="space-y-1 bg-slate-900/60 p-2 rounded-lg">
-                            ${eventsHTML}
-                        </div>
-
-                        <!-- Combined AI Signal Box -->
-                        <div class="p-2.5 bg-slate-900 rounded-lg border-l-4 border-yellow-500 space-y-1">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[11px] font-bold text-yellow-400">🧠 OVERALL ${curr} COMBINED AI SIGNAL:</span>
-                                <span class="text-[10px] font-black px-2 py-0.5 rounded border ${badgeColor}">${aiInfo.signal} (${aiInfo.label})</span>
-                            </div>
-                            <p class="text-[11px] text-slate-300 leading-snug">${aiInfo.ict_note}</p>
-                        </div>
-                    </div>
-                `;
-            });
-
-        } catch (err) {
-            console.error("UI Load Error:", err);
-            container.innerHTML = `<div class="text-center py-10 text-red-400 text-xs">Failed to fetch AI news engine.</div>`;
+            } catch (err) {
+                console.error("UI Load Error:", err);
+                container.innerHTML = `<div class="text-center py-10 text-red-400 text-xs">Failed to fetch AI news engine.</div>`;
+            }
         }
-    }
 
-    loadNews('today');
-    setInterval(() => loadNews(activeRange), 60000);
-</script>
+        loadNews('today');
+        setInterval(() => loadNews(activeRange), 60000);
+    </script>
+</body>
+</html>
