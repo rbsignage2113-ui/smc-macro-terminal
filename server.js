@@ -11,84 +11,84 @@ app.use(express.static('public'));
 const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// Date Helper Functions
-function getFormattedDate(offsetDays = 0) {
-  const d = new Date();
-  d.setDate(d.getDate() + offsetDays);
-  return d.toISOString().split('T')[0];
+// Date Helper Function
+function getDateRange(range) {
+  const today = new Date();
+  let from = today.toISOString().split('T')[0];
+  let to = from;
+
+  if (range === 'this_week') {
+    const nextWeek = new Date(today);
+    nextWeek.setDate(today.getDate() + 7);
+    to = nextWeek.toISOString().split('T')[0];
+  } else if (range === 'next_week') {
+    const startNext = new Date(today);
+    startNext.setDate(today.getDate() + 7);
+    const endNext = new Date(today);
+    endNext.setDate(today.getDate() + 14);
+    from = startNext.toISOString().split('T')[0];
+    to = endNext.toISOString().split('T')[0];
+  }
+  return { from, to };
 }
 
-// 1. Fetch Calendar Data based on Range (today / this_week / next_week)
+// 1. Fetch Calendar News
 async function getEconomicNews(range = 'today') {
   try {
-    let fromDate = getFormattedDate(0);
-    let toDate = getFormattedDate(0);
-
-    if (range === 'this_week') {
-      toDate = getFormattedDate(7);
-    } else if (range === 'next_week') {
-      fromDate = getFormattedDate(7);
-      toDate = getFormattedDate(14);
-    }
-
+    const { from, to } = getDateRange(range);
     const token = process.env.FINNHUB_API_KEY || "sandbox_key";
-    const url = `https://finnhub.io/api/v1/economic-calendar?from=${fromDate}&to=${toDate}&token=${token}`;
+    const url = `https://finnhub.io/api/v1/economic-calendar?from=${from}&to=${to}&token=${token}`;
     
     const response = await axios.get(url);
-    
     if (response.data && response.data.economicCalendar && response.data.economicCalendar.length > 0) {
-      const majorCurrencies = ['US', 'CA', 'JP', 'AU', 'EU', 'GB', 'NZ', 'CH'];
-      const filtered = response.data.economicCalendar.filter(event => 
-        majorCurrencies.includes(event.country)
-      );
-      if (filtered.length > 0) return filtered;
+      return response.data.economicCalendar;
     }
-    
-    // Fallback Mock Data for Today if API limit or weekend
+
+    // Fallback Mock Data for Today (Simulating CAD 3 Red Folder Events)
     return [
-      { country: "US", event: "Core Retail Sales m/m", actual: "0.4%", estimate: "0.2%", prev: "0.1%" },
-      { country: "CA", event: "CPI m/m", actual: "0.5%", estimate: "0.3%", prev: "0.2%" },
-      { country: "GB", event: "Claimant Count Change", actual: "-10.2K", estimate: "5.0K", prev: "14.0K" }
+      { country: "CA", currency: "CAD", event: "CPI m/m", actual: "WAITING...", estimate: "0.2%", prev: "-0.1%", date: "Today", impact: "high" },
+      { country: "CA", currency: "CAD", event: "Median CPI y/y", actual: "WAITING...", estimate: "2.1%", prev: "2.0%", date: "Today", impact: "high" },
+      { country: "CA", currency: "CAD", event: "Trimmed Mean CPI y/y", actual: "WAITING...", estimate: "2.0%", prev: "1.9%", date: "Today", impact: "high" },
+      { country: "US", currency: "USD", event: "Building Permits", actual: "1.45M", estimate: "1.42M", prev: "1.40M", date: "Today", impact: "high" }
     ];
   } catch (error) {
     console.error("News Fetch Error:", error.message);
     return [
-      { country: "US", event: "CPI Release", actual: "0.4%", estimate: "0.2%", prev: "0.1%" },
-      { country: "CA", event: "Employment Change", actual: "35.0K", estimate: "15.0K", prev: "10.0K" }
+      { country: "CA", currency: "CAD", event: "CPI m/m", actual: "WAITING...", estimate: "0.2%", prev: "-0.1%", date: "Today", impact: "high" },
+      { country: "CA", currency: "CAD", event: "Median CPI y/y", actual: "WAITING...", estimate: "2.1%", prev: "2.0%", date: "Today", impact: "high" },
+      { country: "CA", currency: "CAD", event: "Trimmed Mean CPI y/y", actual: "WAITING...", estimate: "2.0%", prev: "1.9%", date: "Today", impact: "high" }
     ];
   }
 }
 
-// 2. Strict AI News Bias Engine
+// 2. Strict AI Engine for Combined Events & Pre-News Prediction Bias
 async function analyzeNewsWithAI(eventsList) {
   const promptText = `
-  You are an institutional ICT Forex Analyst. Evaluate this economic calendar data:
+  You are an expert Institutional ICT (Smart Money Concepts) Forex Trader.
+  Analyze the following economic calendar events for today:
   ${JSON.stringify(eventsList, null, 2)}
 
-  STRICT DIRECTIONAL RULES:
-  - DO NOT return NEUTRAL unless Actual and Forecast are exactly identical or missing.
-  - If Actual > Estimate for a currency => Currency is BULLISH (BUY).
-  - If Actual < Estimate for a currency => Currency is BEARISH (SELL).
-  - Derive directional bias for USDCAD, XAUUSD, EURUSD, GBPUSD, AUDUSD, USDJPY based on currency strength differential.
+  STRICT INSTITUTIONAL EVALUATION RULES:
+  1. DO NOT DEFAULT TO NEUTRAL if Actual is "WAITING..."! Compare Forecast/Estimate vs Previous:
+     - If Estimate > Previous across majority of events for a currency => Give PRE-NEWS BULLISH (BUY).
+     - If Estimate < Previous across majority of events => Give PRE-NEWS BEARISH (SELL).
+  2. If Actual data is released:
+     - Actual > Estimate => Strong BUY.
+     - Actual < Estimate => Strong SELL.
+  3. Combine multiple news items for each currency (e.g., 3 CAD CPI releases together) into ONE clear combined signal.
 
-  Return ONLY a valid JSON object strictly matching this format:
+  Return strictly raw JSON format without markdown code blocks:
   {
-    "primary_focus_currency": "US / CAD",
-    "overall_market_sentiment": "BUY",
-    "currency_bias_summary": [
-      {"currency": "USD", "decision": "BUY", "reason": "Retail Sales beat 0.4% vs 0.2%"},
-      {"currency": "CAD", "decision": "BUY", "reason": "CPI beat 0.5% vs 0.3%"},
-      {"currency": "GBP", "decision": "BUY", "reason": "Claimant count dropped significantly"}
-    ],
-    "pair_biases": {
-      "USDCAD": "BUY",
-      "XAUUSD": "SELL",
-      "EURUSD": "SELL",
-      "GBPUSD": "BUY",
-      "AUDUSD": "SELL",
-      "USDJPY": "BUY"
+    "CAD": {
+      "signal": "BUY",
+      "label": "PRE-NEWS BULLISH (CPI FORECAST HIGHER)",
+      "ict_note": "Inflation forecast higher than previous (-0.1% vs 0.2%). Expect pre-news Judas Swing liquidity sweep before Killzone expansion."
     },
-    "ict_tactical_note": "Strong USD & CAD inflation data. Expect Asian/London high liquidity sweep before taking 5m FVG expansion entry."
+    "USD": {
+      "signal": "BUY",
+      "label": "STRONG BULLISH (ACTUAL BEAT FORECAST)",
+      "ict_note": "Building permits beat expectations (1.45M vs 1.42M). Look for 5m FVG / Market Structure Shift for longs."
+    }
   }
   `;
 
@@ -104,38 +104,28 @@ async function analyzeNewsWithAI(eventsList) {
   } catch (err) {
     console.error("AI Analysis Error:", err.message);
     return {
-      primary_focus_currency: "USD / CAD",
-      overall_market_sentiment: "BUY",
-      currency_bias_summary: [
-        {"currency": "USD", "decision": "BUY", "reason": "Higher actual vs estimate"},
-        {"currency": "CAD", "decision": "BUY", "reason": "Better economic data"}
-      ],
-      pair_biases: {
-        "USDCAD": "NEUTRAL",
-        "XAUUSD": "SELL",
-        "EURUSD": "SELL",
-        "GBPUSD": "BUY",
-        "AUDUSD": "SELL",
-        "USDJPY": "BUY"
-      },
-      ict_tactical_note: "Wait for London/New York session liquidity sweeps around previous day high/low."
+      "CAD": {
+        "signal": "BUY",
+        "label": "PRE-NEWS BULLISH",
+        "ict_note": "Forecast shows expansion over previous data. Watch for London/NY Killzone liquidity sweep."
+      }
     };
   }
 }
 
-// Endpoint with timeframe query param ?range=today|this_week|next_week
+// API Endpoint for SMC Dashboard UI
 app.get('/api/news-ai-bias', async (req, res) => {
   const range = req.query.range || 'today';
-  const newsList = await getEconomicNews(range);
-  const aiAnalysis = await analyzeNewsWithAI(newsList);
-  
+  const rawNews = await getEconomicNews(range);
+  const aiBias = await analyzeNewsWithAI(rawNews);
+
   res.json({
     range: range,
-    raw_news: newsList,
-    ai_bias: aiAnalysis
+    raw_news: rawNews,
+    ai_bias: aiBias
   });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 SMC News AI Engine running on port ${PORT}`);
+  console.log(`🚀 SMC Macro Pro Terminal Server running on port ${PORT}`);
 });
