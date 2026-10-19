@@ -22,7 +22,7 @@
             </div>
         </div>
         
-        <!-- Live Ticker -->
+        <!-- Live Ticker Stats -->
         <div class="flex gap-4 text-xs font-mono">
             <div><span class="text-slate-400">USDCAD:</span> <span class="text-green-400 font-bold">1.3785</span></div>
             <div><span class="text-slate-400">GBPUSD:</span> <span class="text-red-400 font-bold">1.3040</span></div>
@@ -40,23 +40,36 @@
     <!-- Main Terminal Grid Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-        <!-- Left Column: Live Chart (7 Cols) -->
+        <!-- Left Column: Multi-Pair TradingView Live Chart (7 Cols) -->
         <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-col h-[740px]">
-            <div class="flex justify-between items-center mb-2 px-1">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">📊 Institutional Live Chart</span>
-                <div class="flex gap-1 text-[11px]">
-                    <button class="px-2 py-0.5 bg-yellow-500 text-slate-950 font-bold rounded">USDCAD</button>
-                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">GBPUSD</button>
-                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">USDJPY</button>
-                    <button class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">XAUUSD</button>
+            <div class="flex flex-col gap-2 mb-2 px-1">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">📊 Institutional Live Chart</span>
+                    <span id="active-symbol-label" class="text-xs font-black text-yellow-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">XAUUSD (GOLD)</span>
+                </div>
+
+                <!-- Custom Ordered Chart Selectors: XAUUSD 1st -->
+                <div class="flex gap-1.5 overflow-x-auto pb-1 text-[11px] font-bold">
+                    <button onclick="changeChartSymbol('OANDA:XAUUSD', 'XAUUSD (GOLD)')" id="chart-XAUUSD" class="px-2.5 py-1 rounded bg-yellow-500 text-slate-950 font-bold border border-yellow-400">1. XAUUSD</button>
+                    <button onclick="changeChartSymbol('FX:EURUSD', 'EURUSD')" id="chart-EURUSD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">EURUSD</button>
+                    <button onclick="changeChartSymbol('FX:GBPUSD', 'GBPUSD')" id="chart-GBPUSD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">GBPUSD</button>
+                    <button onclick="changeChartSymbol('FX:USDJPY', 'USDJPY')" id="chart-USDJPY" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">USDJPY</button>
+                    <button onclick="changeChartSymbol('FX:AUDUSD', 'AUDUSD')" id="chart-AUDUSD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">AUDUSD</button>
+                    <button onclick="changeChartSymbol('FX:USDCAD', 'USDCAD')" id="chart-USDCAD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">USDCAD</button>
+                    <button onclick="changeChartSymbol('FX:EURJPY', 'EURJPY')" id="chart-EURJPY" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">EURJPY</button>
+                    <button onclick="changeChartSymbol('FX:GBPJPY', 'GBPJPY')" id="chart-GBPJPY" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">GBPJPY</button>
+                    <button onclick="changeChartSymbol('FX:AUDJPY', 'AUDJPY')" id="chart-AUDJPY" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">AUDJPY</button>
+                    <button onclick="changeChartSymbol('BINANCE:BTCUSDT', 'BTCUSDT')" id="chart-BTCUSDT" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700">BTCUSDT</button>
                 </div>
             </div>
+
+            <!-- Dynamic TradingView Embed Widget -->
             <div class="w-full flex-grow rounded-xl overflow-hidden">
-                <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=FX%3AUSDCAD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata" class="w-full h-full border-0"></iframe>
+                <iframe id="tradingview-iframe" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=OANDA%3AXAUUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata" class="w-full h-full border-0"></iframe>
             </div>
         </div>
 
-        <!-- Right Column: Multi-Currency Parent Desk (5 Cols) -->
+        <!-- Right Column: Multi-Currency Red Folder Desk (5 Cols) -->
         <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col h-[740px] overflow-hidden">
             
             <!-- Desk Header & Date Filters -->
@@ -86,7 +99,7 @@
 
             <!-- Dynamic News Cards Container -->
             <div id="news-desk-container" class="space-y-3 overflow-y-auto pr-1 flex-grow">
-                <div class="text-center py-10 text-slate-500 text-xs">Connecting Live Forex Factory Engine...</div>
+                <div class="text-center py-10 text-slate-500 text-xs">Connecting Live Multi-Source Intelligence...</div>
             </div>
 
         </div>
@@ -98,6 +111,26 @@
         let selectedCurrency = 'ALL';
         let cachedNewsData = null;
         let countdownInterval = null;
+
+        // Dynamic Chart Switcher
+        function changeChartSymbol(symbol, label) {
+            const iframe = document.getElementById('tradingview-iframe');
+            iframe.src = `https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=${encodeURIComponent(symbol)}&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata`;
+            
+            document.getElementById('active-symbol-label').innerText = label;
+
+            const buttons = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'EURJPY', 'GBPJPY', 'AUDJPY', 'BTCUSDT'];
+            buttons.forEach(b => {
+                const btn = document.getElementById(`chart-${b}`);
+                if (btn) {
+                    if (label.includes(b)) {
+                        btn.className = "px-2.5 py-1 rounded bg-yellow-500 text-slate-950 font-bold border border-yellow-400";
+                    } else {
+                        btn.className = "px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold";
+                    }
+                }
+            });
+        }
 
         // Live IST Clock Engine
         function startLiveISTClock() {
@@ -136,7 +169,7 @@
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
-            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} Forex Factory Data...</div>`;
+            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Analyzing ${range.replace('_', ' ').toUpperCase()} Calendar Data...</div>`;
 
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
@@ -165,7 +198,6 @@
                 return;
             }
 
-            // Group events by Date & Currency
             const groupedByDateCurrency = {};
             filteredEvents.forEach(ev => {
                 const key = `${ev.dayFormatted}_${ev.currency}`;
