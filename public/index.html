@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMC Macro Pro Terminal - AI News Feed</title>
+    <title>SMC Macro Pro Terminal - Multi-Currency AI News Engine</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-slate-950 text-white font-sans p-6">
+<body class="bg-slate-950 text-white font-sans p-4 md:p-8">
 
-    <div class="max-w-xl mx-auto">
-        <h1 class="text-2xl font-black text-yellow-500 mb-4 tracking-wider text-center">SMC TERMINAL // AI NEWS ENGINE</h1>
+    <div class="max-w-3xl mx-auto space-y-6">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-4 gap-2">
+            <div>
+                <h1 class="text-2xl font-black text-yellow-500 tracking-wider">SMC TERMINAL // AI MULTI-NEWS ENGINE</h1>
+                <p class="text-xs text-slate-400">Aggregated High Impact News Analysis (USD, CAD, JPY, AUD, EUR, GBP)</p>
+            </div>
+            <span id="sync-time" class="text-xs font-mono bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-slate-400">Syncing...</span>
+        </div>
 
-        <!-- AI News Card -->
-        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <div class="flex justify-between items-center mb-3">
-                <span id="news-impact-tag" class="px-3 py-1 text-xs font-bold rounded bg-red-600 animate-pulse">HIGH IMPACT RED FOLDER</span>
-                <span id="news-time" class="text-xs text-slate-400">Live Syncing...</span>
+        <!-- Main AI Decision Banner -->
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl relative overflow-hidden">
+            <div class="flex justify-between items-center mb-4">
+                <span id="focus-currency-tag" class="px-3 py-1 text-xs font-bold rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">CALENDAR FOCUS: ALL MAJOR PAIRS</span>
+                <span id="overall-bias-badge" class="px-4 py-1.5 text-sm font-black rounded-lg bg-yellow-500/20 text-yellow-400 border border-yellow-500">ANALYZING...</span>
             </div>
 
-            <h3 id="news-title" class="text-lg font-bold text-amber-300 mb-3">Loading Economic Event...</h3>
+            <h2 class="text-xl font-bold text-white mb-2">Multi-News Combined Institutional Decision</h2>
+            
+            <!-- Currency Summary Grid -->
+            <div id="currency-summary-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 my-4">
+                <!-- Dynamically populated -->
+            </div>
 
-            <!-- AI Bias Grid -->
-            <div class="grid grid-cols-3 gap-3 my-4 text-center">
-                <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
-                    <p class="text-xs text-slate-400 mb-1">USD Index</p>
-                    <p id="usd-status" class="font-bold text-sm text-slate-300">--</p>
-                </div>
-                <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
-                    <p class="text-xs text-slate-400 mb-1">XAUUSD</p>
-                    <p id="gold-status" class="font-bold text-sm text-slate-300">--</p>
-                </div>
-                <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
-                    <p class="text-xs text-slate-400 mb-1">EURUSD</p>
-                    <p id="eur-status" class="font-bold text-sm text-slate-300">--</p>
-                </div>
+            <!-- Major Pair Signals Grid -->
+            <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase mt-5 mb-2">Pair Execution Bias</h3>
+            <div id="pair-bias-container" class="grid grid-cols-3 md:grid-cols-6 gap-2 text-center">
+                <!-- Dynamically populated -->
             </div>
 
             <!-- ICT Tactical Note Box -->
-            <div class="p-3.5 bg-slate-950 rounded-xl border-l-4 border-yellow-500 text-xs text-slate-300 leading-relaxed">
-                <strong class="text-yellow-400 block mb-1">ICT Institutional Bias Note:</strong> 
-                <span id="ict-tactical-note">Waiting for AI market structure analysis...</span>
+            <div class="mt-5 p-4 bg-slate-950 rounded-xl border-l-4 border-yellow-500 text-xs text-slate-300 leading-relaxed">
+                <strong class="text-yellow-400 block mb-1 text-sm">ICT Execution & Keyzone Note:</strong> 
+                <span id="ict-note">Processing institutional market structure parameters...</span>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -50,35 +54,66 @@
                 const response = await fetch('/api/news-ai-bias');
                 const data = await response.json();
                 
-                // Update UI Fields
-                document.getElementById('news-title').innerText = `${data.raw_news.event} (Actual: ${data.raw_news.actual} | Forecast: ${data.raw_news.estimate})`;
-                document.getElementById('news-time').innerText = `Synced: ${new Date().toLocaleTimeString()}`;
-                
+                document.getElementById('sync-time').innerText = `Updated: ${new Date().toLocaleTimeString()}`;
                 const bias = data.ai_bias;
-                
-                const usdEl = document.getElementById('usd-status');
-                usdEl.innerText = bias.usd_status;
-                usdEl.className = `font-bold text-sm ${bias.usd_status === 'BULLISH' ? 'text-green-400' : 'text-red-400'}`;
 
-                const goldEl = document.getElementById('gold-status');
-                goldEl.innerText = bias.gold_status;
-                goldEl.className = `font-bold text-sm ${bias.gold_status === 'BULLISH' ? 'text-green-400' : 'text-red-400'}`;
+                // Overall Bias Badge
+                const overallBadge = document.getElementById('overall-bias-badge');
+                overallBadge.innerText = bias.overall_market_sentiment;
+                if(bias.overall_market_sentiment === 'BUY') {
+                    overallBadge.className = 'px-4 py-1.5 text-sm font-black rounded-lg bg-green-500/20 text-green-400 border border-green-500';
+                } else if(bias.overall_market_sentiment === 'SELL') {
+                    overallBadge.className = 'px-4 py-1.5 text-sm font-black rounded-lg bg-red-500/20 text-red-400 border border-red-500';
+                } else {
+                    overallBadge.className = 'px-4 py-1.5 text-sm font-black rounded-lg bg-yellow-500/20 text-yellow-400 border border-yellow-500';
+                }
 
-                const eurEl = document.getElementById('eur-status');
-                eurEl.innerText = bias.eur_status;
-                eurEl.className = `font-bold text-sm ${bias.eur_status === 'BULLISH' ? 'text-green-400' : 'text-red-400'}`;
+                // Focus Currency Tag
+                document.getElementById('focus-currency-tag').innerText = `FOCUS: ${bias.primary_focus_currency || 'MULTIPLE RELEASES'}`;
 
-                document.getElementById('ict-tactical-note').innerText = bias.ict_tactical_note;
+                // Currency Summary Cards
+                const currencyContainer = document.getElementById('currency-summary-container');
+                currencyContainer.innerHTML = '';
+                (bias.currency_bias_summary || []).forEach(item => {
+                    const colorClass = item.decision === 'BUY' ? 'text-green-400' : (item.decision === 'SELL' ? 'text-red-400' : 'text-yellow-400');
+                    currencyContainer.innerHTML += `
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-200">${item.currency}</span>
+                                <span class="text-xs font-black ${colorClass}">${item.decision}</span>
+                            </div>
+                            <p class="text-[10px] text-slate-400 line-clamp-2">${item.reason}</p>
+                        </div>
+                    `;
+                });
+
+                // Pair Biases Grid
+                const pairContainer = document.getElementById('pair-bias-container');
+                pairContainer.innerHTML = '';
+                if(bias.pair_biases) {
+                    Object.entries(bias.pair_biases).forEach(([pair, decision]) => {
+                        const bgClass = decision === 'BUY' ? 'bg-green-950/40 border-green-800 text-green-400' : 
+                                       (decision === 'SELL' ? 'bg-red-950/40 border-red-800 text-red-400' : 'bg-slate-800 border-slate-700 text-yellow-400');
+                        pairContainer.innerHTML += `
+                            <div class="p-2.5 rounded-xl border ${bgClass}">
+                                <p class="text-[10px] text-slate-400 font-bold mb-0.5">${pair}</p>
+                                <p class="font-black text-xs">${decision}</p>
+                            </div>
+                        `;
+                    });
+                }
+
+                // ICT Tactical Note
+                document.getElementById('ict-note').innerText = bias.ict_tactical_note;
 
             } catch (err) {
                 console.error("UI Fetch Error:", err);
-                document.getElementById('ict-tactical-note').innerText = "Failed to connect to backend AI news server.";
+                document.getElementById('ict-note').innerText = "Unable to connect to AI News Analysis Server.";
             }
         }
 
-        // Fetch on load & auto refresh every 2 minutes
         fetchAINewsData();
-        setInterval(fetchAINewsData, 120000);
+        setInterval(fetchAINewsData, 120000); // 2 mins refresh
     </script>
 </body>
 </html>
