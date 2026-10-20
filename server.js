@@ -121,6 +121,24 @@ async function fetchMultiSourceNews(range = 'today') {
     }
   }
 
+  // =========================================================================
+  // 🟢 NEW FEATURE ADDITION: AUTO-HIDE NEWS 30 MINUTES AFTER RELEASE
+  // =========================================================================
+  const nowMs = Date.now();
+  const THIRTY_MINS_MS = 30 * 60 * 1000;
+
+  liveEvents = liveEvents.filter(ev => {
+    if (!ev.isoTarget) return true;
+    const releaseTimeMs = new Date(ev.isoTarget).getTime();
+    
+    // Check if current time has crossed 30 minutes past the news release time
+    if (!isNaN(releaseTimeMs) && (nowMs - releaseTimeMs > THIRTY_MINS_MS)) {
+      return false; // Auto-hide news after 30 minutes
+    }
+    return true;
+  });
+  // =========================================================================
+
   const uniqueMap = new Map();
   liveEvents.forEach(ev => {
     const key = `${ev.currency}_${ev.event}`;
@@ -144,8 +162,8 @@ async function analyzeWithMultiSourceAI(eventsList) {
 
   For each currency category, provide:
   1. Directional Outlook Verdict: "BUY", "SELL", or "NEUTRAL"
-  2. Specific Currency Pairs to BUY and to SELL (e.g. "Buy: USDCAD, XAUUSD | Sell: EURUSD")
-  3. Expected Percentage Movement (e.g. "+0.65% to +1.20%")
+  2. Specific Currency Pairs to BUY and to SELL (e.g. "Buy: USDCAD, CADJPY | Sell: EURCAD")
+  3. Expected Percentage Movement (e.g. "+0.55% to +0.95%")
   4. Core Reasoning & Multi-Platform Analysis
   5. Comparative Impact Level: "HIGH-IMPACT", "LOW-IMPACT", or "NEUTRAL"
 
