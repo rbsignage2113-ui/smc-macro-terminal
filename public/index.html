@@ -219,7 +219,7 @@
             <div class="shrink-0 pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center bg-slate-950 p-2 rounded-lg mt-2">
                 <span class="font-bold text-yellow-400 flex items-center gap-1">📋 AR-RIZQ TERMINAL SUITE:</span>
                 <span>✅ Dynamic Buy / Sell Pairs</span>
-                <span>✅ % Movement</span>
+                <span>✅ 30-Sec Auto Purge</span>
             </div>
 
         </div>
@@ -232,18 +232,11 @@
         let cachedNewsData = null;
         let countdownInterval = null;
 
-        const toggles = {
-            trump: true,
-            killzone: true,
-            slippage: true,
-            rateProb: true,
-            blueprint: true
-        };
+        const toggles = { trump: true, killzone: true, slippage: true, rateProb: true, blueprint: true };
 
         function toggleModule(mod) {
             toggles[mod] = !toggles[mod];
             const btn = document.getElementById(`tog-${mod}`);
-            
             const titles = {
                 trump: `🇺🇸 TRUMP TIMESTAMP RADAR (${toggles[mod] ? 'ON' : 'OFF'})`,
                 killzone: `● KILLZONES (${toggles[mod] ? 'ON' : 'OFF'})`,
@@ -251,36 +244,20 @@
                 rateProb: `🎯 RATE PROBABILITY (${toggles[mod] ? 'ON' : 'OFF'})`,
                 blueprint: `🧠 ICT BLUEPRINT (${toggles[mod] ? 'ON' : 'OFF'})`
             };
-
             btn.innerText = titles[mod];
-            btn.className = toggles[mod] ? 
-                "px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800" : 
-                "px-2.5 py-1 rounded bg-slate-800 text-slate-500 border border-slate-700 opacity-60";
-
+            btn.className = toggles[mod] ? "px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800" : "px-2.5 py-1 rounded bg-slate-800 text-slate-500 border border-slate-700 opacity-60";
             const targetEl = document.getElementById(`mod-${mod}`);
             if (targetEl) targetEl.style.display = toggles[mod] ? 'block' : 'none';
-
-            document.querySelectorAll(`.mod-${mod}`).forEach(el => {
-                el.style.display = toggles[mod] ? 'block' : 'none';
-            });
+            document.querySelectorAll(`.mod-${mod}`).forEach(el => { el.style.display = toggles[mod] ? 'block' : 'none'; });
         }
 
         function changeChartSymbol(symbol, label) {
             const iframe = document.getElementById('tradingview-iframe');
             iframe.src = `https://s.tradingview.com/widgetembed/?frameElementId=tradingview_chart&symbol=${encodeURIComponent(symbol)}&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata`;
-            
             document.getElementById('active-symbol-label').innerText = label;
-
-            const buttons = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'EURJPY', 'GBPJPY', 'AUDJPY', 'BTCUSDT'];
-            buttons.forEach(b => {
+            ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'EURJPY', 'GBPJPY', 'AUDJPY', 'BTCUSDT'].forEach(b => {
                 const btn = document.getElementById(`chart-${b}`);
-                if (btn) {
-                    if (label.includes(b)) {
-                        btn.className = "px-2.5 py-1 rounded bg-yellow-500 text-slate-950 font-bold border border-yellow-400 shrink-0";
-                    } else {
-                        btn.className = "px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold shrink-0";
-                    }
-                }
+                if (btn) btn.className = label.includes(b) ? "px-2.5 py-1 rounded bg-yellow-500 text-slate-950 font-bold border border-yellow-400 shrink-0" : "px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold shrink-0";
             });
         }
 
@@ -296,11 +273,7 @@
             activeRange = range;
             ['today', 'this_week', 'this_month'].forEach(r => {
                 const btn = document.getElementById(`btn-${r}`);
-                if (btn) {
-                    btn.className = (r === range) ? 
-                        "px-2 py-1 rounded bg-yellow-500 text-slate-950 transition font-bold" : 
-                        "px-2 py-1 rounded text-slate-400 hover:text-white transition font-bold";
-                }
+                if (btn) btn.className = (r === range) ? "px-2 py-1 rounded bg-yellow-500 text-slate-950 transition font-bold" : "px-2 py-1 rounded text-slate-400 hover:text-white transition font-bold";
             });
         }
 
@@ -308,11 +281,7 @@
             selectedCurrency = curr;
             ['ALL', 'USD', 'EUR', 'CAD', 'AUD', 'GBP', 'JPY'].forEach(c => {
                 const btn = document.getElementById(`curr-${c}`);
-                if (btn) {
-                    btn.className = (c === curr) ? 
-                        "px-3 py-1 rounded bg-red-600 text-white border border-red-500 font-bold shrink-0" : 
-                        "px-3 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold shrink-0";
-                }
+                if (btn) btn.className = (c === curr) ? "px-3 py-1 rounded bg-red-600 text-white border border-red-500 font-bold shrink-0" : "px-3 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold shrink-0";
             });
             if (cachedNewsData) renderNewsUI(cachedNewsData);
         }
@@ -321,13 +290,11 @@
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
             container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing intelligence and computing dynamic Buy/Sell pair assignments...</div>`;
-
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
                 cachedNewsData = await res.json();
                 renderNewsUI(cachedNewsData);
             } catch (err) {
-                console.error("UI Load Error:", err);
                 container.innerHTML = `<div class="text-center py-10 text-red-400 text-xs">Failed to fetch Multi-Platform AI engine.</div>`;
             }
         }
@@ -338,23 +305,21 @@
 
             const rawEvents = data.raw_news || [];
             const aiBias = data.ai_bias || {};
-
             const nowTime = new Date().getTime();
 
+            // Strict Filter: Auto-delete news older than 30 seconds
             const activeFilteredEvents = rawEvents.filter(item => {
                 if (!item.isoTarget) return true;
                 const targetTime = new Date(item.isoTarget).getTime();
-                const diffMinutes = (nowTime - targetTime) / (1000 * 60);
+                const diffSeconds = (nowTime - targetTime) / 1000;
                 
-                // Exclude news older than 30 minutes
-                if (diffMinutes > 30) return false;
+                if (diffSeconds > 30) return false; // 30-Second Auto Purge
                 if (selectedCurrency !== 'ALL' && item.currency !== selectedCurrency) return false;
-
                 return true;
             });
 
             if (activeFilteredEvents.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or upcoming High Impact Red Folder news found for ${selectedCurrency} (Past news auto-cleared after 30m window).</div>`;
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or upcoming Red Folder news found for ${selectedCurrency} (Past releases auto-purged after 30s).</div>`;
                 return;
             }
 
@@ -367,14 +332,13 @@
 
             if (countdownInterval) clearInterval(countdownInterval);
 
-            // Default Currency Specific Pairs Fallback Mapping
             const currencyPairDefaults = {
                 USD: { buy: "XAUUSD, GBPUSD, AUDUSD", sell: "USDJPY, USDCAD" },
                 GBP: { buy: "GBPUSD, GBPJPY", sell: "EURGBP, GBPCAD" },
-                CAD: { buy: "USDCAD, CADJPY", sell: "EURCAD" },
+                CAD: { buy: "USDCAD, CADJPY", sell: "EURCAD, GBPCAD" },
                 EUR: { buy: "EURJPY", sell: "EURUSD, EURGBP, EURCAD" },
-                AUD: { buy: "AUDUSD, AUDJPY", sell: "EURAUD" },
-                JPY: { buy: "USDJPY, GBPJPY", sell: "CADJPY" }
+                AUD: { buy: "AUDUSD, AUDJPY", sell: "EURAUD, GBPAUD" },
+                JPY: { buy: "USDJPY, GBPJPY", sell: "CADJPY, AUDJPY" }
             };
 
             Object.keys(groupedByDateCurrency).forEach(key => {
@@ -383,7 +347,6 @@
                 const dayStr = events[0].dayFormatted;
                 const impactPairs = events[0].impactPairs || ["USDJPY", "EURUSD"];
                 const pipMetrics = events[0].pipMetrics || { expectedPips: "80 - 160 Pips", goldMove: "$20 - $35", expectedPct: "+0.50% to +0.95%" };
-
                 const defaults = currencyPairDefaults[curr] || { buy: `${curr}USD`, sell: `EUR${curr}` };
 
                 const aiInfo = aiBias[curr] || {
@@ -391,17 +354,16 @@
                     pairs_to_buy: defaults.buy,
                     pairs_to_sell: defaults.sell,
                     expected_percentage: "+0.55% to +0.95%",
-                    reasoning: "Cross-platform analysis indicates strong order flow alignment supporting expansion.",
+                    reasoning: "Cross-platform analysis indicates order flow alignment supporting expansion.",
                     comparative_impact: "HIGH-IMPACT",
                     bias: "BULLISH",
                     probability: "78%",
                     evidence_tips_count: 5,
                     expected_pip_move: pipMetrics.expectedPips,
                     gold_impact: pipMetrics.goldMove,
-                    ict_blueprint: "15m CISD + 5m FVG Entry after NY Killzone Judas Swing PDH/PDL sweep",
-                    analyzed_tips: ["Forecast Delta expansion", "Monetary policy alignment", "NY Killzone sweep"],
-                    volatility_risk: "HIGH VOLATILITY",
-                    ict_note: "Forecast CPI inflation expansion indicates momentum."
+                    ict_blueprint: "15m CISD + 5m FVG Entry after NY Killzone sweep",
+                    analyzed_tips: ["Forecast expansion", "Rate sensitivity"],
+                    volatility_risk: "HIGH VOLATILITY"
                 };
 
                 const outlookColor = aiInfo.outlook === 'BUY' ? 'bg-green-600 text-white border-green-500' : 
@@ -455,7 +417,7 @@
                             </div>
                         </div>
 
-                        <!-- DYNAMIC CURRENCY SPECIFIC BUY/SELL PAIRS & PERCENTAGE MOVEMENT -->
+                        <!-- CURRENCY DYNAMIC ACCURATE BUY/SELL PAIRS -->
                         <div class="bg-slate-900 p-2 rounded-lg border border-slate-800 space-y-1.5 text-[10px]">
                             <div class="flex justify-between items-center">
                                 <span class="text-green-400 font-bold">🟢 Pairs to BUY:</span>
@@ -526,18 +488,16 @@
 
         function startLiveCountdowns() {
             if (countdownInterval) clearInterval(countdownInterval);
-
             countdownInterval = setInterval(() => {
                 const now = new Date().getTime();
                 document.querySelectorAll('.countdown-timer').forEach(el => {
                     const targetStr = el.getAttribute('data-target');
                     if (!targetStr) return;
-
                     const targetTime = new Date(targetStr).getTime();
                     const diff = targetTime - now;
 
                     if (diff <= 0) {
-                        el.innerText = "RELEASED (Auto-clearing in <30m)";
+                        el.innerText = "RELEASED (Auto-purging in <30s)";
                     } else {
                         const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
