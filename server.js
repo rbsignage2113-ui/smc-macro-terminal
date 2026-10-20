@@ -121,23 +121,18 @@ async function fetchMultiSourceNews(range = 'today') {
     }
   }
 
-  // =========================================================================
-  // 🟢 NEW FEATURE ADDITION: AUTO-HIDE NEWS 30 MINUTES AFTER RELEASE
-  // =========================================================================
+  // Auto-hide news after 30 minutes from release timestamp
   const nowMs = Date.now();
   const THIRTY_MINS_MS = 30 * 60 * 1000;
 
   liveEvents = liveEvents.filter(ev => {
     if (!ev.isoTarget) return true;
     const releaseTimeMs = new Date(ev.isoTarget).getTime();
-    
-    // Check if current time has crossed 30 minutes past the news release time
     if (!isNaN(releaseTimeMs) && (nowMs - releaseTimeMs > THIRTY_MINS_MS)) {
-      return false; // Auto-hide news after 30 minutes
+      return false; // Automatically drop expired news (> 30 mins)
     }
     return true;
   });
-  // =========================================================================
 
   const uniqueMap = new Map();
   liveEvents.forEach(ev => {
@@ -162,7 +157,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
 
   For each currency category, provide:
   1. Directional Outlook Verdict: "BUY", "SELL", or "NEUTRAL"
-  2. Specific Currency Pairs to BUY and to SELL (e.g. "Buy: USDCAD, CADJPY | Sell: EURCAD")
+  2. Specific Currency Pairs to BUY and to SELL relevant strictly to that currency (e.g. CAD -> Buy: USDCAD, CADJPY | Sell: EURCAD; GBP -> Buy: GBPUSD, GBPJPY | Sell: EURGBP; USD -> Buy: XAUUSD, GBPUSD | Sell: USDJPY, USDCAD)
   3. Expected Percentage Movement (e.g. "+0.55% to +0.95%")
   4. Core Reasoning & Multi-Platform Analysis
   5. Comparative Impact Level: "HIGH-IMPACT", "LOW-IMPACT", or "NEUTRAL"
@@ -195,7 +190,7 @@ async function analyzeWithMultiSourceAI(eventsList) {
     "GBP": {
       "outlook": "BUY",
       "pairs_to_buy": "GBPUSD, GBPJPY",
-      "pairs_to_sell": "EURGBP",
+      "pairs_to_sell": "EURGBP, GBPCAD",
       "expected_percentage": "+0.60% to +1.10%",
       "reasoning": "Multi-platform sentiment confirms strong London session order flow backing sticky inflation numbers against BoE hawkish stance.",
       "comparative_impact": "HIGH-IMPACT",
@@ -236,6 +231,57 @@ async function analyzeWithMultiSourceAI(eventsList) {
       ],
       "volatility_risk": "EXTREME VOLATILITY",
       "ict_note": "FOMC Federal Funds Rate & Advance GDP forecast alignment. Look for MSS & CISD execution."
+    },
+    "AUD": {
+      "outlook": "BUY",
+      "pairs_to_buy": "AUDUSD, AUDJPY",
+      "pairs_to_sell": "EURAUD",
+      "expected_percentage": "+0.40% to +0.80%",
+      "reasoning": "Hawkish RBA rate stance combined with inflation stability fuels institutional buy-side liquidity.",
+      "comparative_impact": "HIGH-IMPACT",
+      "bias": "BULLISH",
+      "probability": "70%",
+      "evidence_tips_count": 4,
+      "expected_pip_move": "60 - 120 Pips",
+      "gold_impact": "$15 - $30",
+      "ict_blueprint": "Asian Session Low Grab + 15m MSS",
+      "analyzed_tips": ["RBA 4.35% Hawkish Hold", "Asian session liquidity sweep", "Strong commodity support"],
+      "volatility_risk": "HIGH VOLATILITY",
+      "ict_note": "Monitor CPI m/m data release for breakout confirmation."
+    },
+    "EUR": {
+      "outlook": "SELL",
+      "pairs_to_buy": "EURJPY",
+      "pairs_to_sell": "EURUSD, EURGBP, EURCAD",
+      "expected_percentage": "-0.50% to -0.90%",
+      "reasoning": "ECB dovish policy bias and rate cut expectations signal downside expansion against majors.",
+      "comparative_impact": "HIGH-IMPACT",
+      "bias": "BEARISH",
+      "probability": "76%",
+      "evidence_tips_count": 4,
+      "expected_pip_move": "70 - 140 Pips",
+      "gold_impact": "$18 - $35",
+      "ict_blueprint": "London Killzone FVG Liquidity Reject",
+      "analyzed_tips": ["ECB Rate Cut Expectation", "Dovish Stance Matrix", "Bearish FVG Gap"],
+      "volatility_risk": "HIGH VOLATILITY",
+      "ict_note": "Look for ECB Main Refinancing Rate reaction."
+    },
+    "JPY": {
+      "outlook": "NEUTRAL",
+      "pairs_to_buy": "USDJPY, GBPJPY",
+      "pairs_to_sell": "CADJPY",
+      "expected_percentage": "±0.30% to ±0.60%",
+      "reasoning": "BOJ Policy Rate hold keep JPY cross pairs within defined range limits.",
+      "comparative_impact": "MODERATE-IMPACT",
+      "bias": "NEUTRAL",
+      "probability": "65%",
+      "evidence_tips_count": 3,
+      "expected_pip_move": "50 - 100 Pips",
+      "gold_impact": "$10 - $20",
+      "ict_blueprint": "Range Low/High Sweep & Retest",
+      "analyzed_tips": ["BOJ Slow Normalization", "Range Bound Liquidity"],
+      "volatility_risk": "MODERATE HIGH",
+      "ict_note": "Wait for BOJ Press Conference statement."
     }
   }
   `;
@@ -250,24 +296,14 @@ async function analyzeWithMultiSourceAI(eventsList) {
     const cleanJson = rawText.replace(/```json|```/g, '').trim();
     return JSON.parse(cleanJson);
   } catch (err) {
+    // Dynamic Fallback Mapping for each currency
     return {
-      "CAD": {
-        "outlook": "BUY",
-        "pairs_to_buy": "USDCAD, CADJPY",
-        "pairs_to_sell": "EURCAD",
-        "expected_percentage": "+0.55% to +0.95%",
-        "reasoning": "Cross-platform analysis indicates strong order flow backing inflation expansion and BoC sensitivity.",
-        "comparative_impact": "HIGH-IMPACT",
-        "bias": "BULLISH",
-        "probability": "78%",
-        "evidence_tips_count": 5,
-        "expected_pip_move": "80 - 160 Pips",
-        "gold_impact": "$20 - $35",
-        "ict_blueprint": "15m CISD + 5m FVG Entry after NY Killzone Judas Swing PDH/PDL sweep",
-        "analyzed_tips": ["Forecast Delta expansion", "BoC sensitivity", "NY Killzone sweep", "SMC FVG", "USDCAD cross-pair correlation"],
-        "volatility_risk": "HIGH VOLATILITY",
-        "ict_note": "Forecast CPI inflation expansion indicates momentum. Watch for Judas Swing sweep."
-      }
+      "CAD": { outlook: "BUY", pairs_to_buy: "USDCAD, CADJPY", pairs_to_sell: "EURCAD", expected_percentage: "+0.55% to +0.95%", reasoning: "Cross-platform analysis indicates strong order flow backing inflation expansion.", comparative_impact: "HIGH-IMPACT", bias: "BULLISH", probability: "78%", evidence_tips_count: 5, expected_pip_move: "80 - 160 Pips", gold_impact: "$20 - $35", ict_blueprint: "15m CISD + 5m FVG Entry after NY Killzone Judas Swing sweep", analyzed_tips: ["Forecast Delta expansion", "BoC sensitivity", "NY Killzone sweep"], volatility_risk: "HIGH VOLATILITY", ict_note: "Forecast CPI expansion indicates momentum." },
+      "GBP": { outlook: "BUY", pairs_to_buy: "GBPUSD, GBPJPY", pairs_to_sell: "EURGBP", expected_percentage: "+0.60% to +1.10%", reasoning: "London session order flow backing sticky inflation numbers.", comparative_impact: "HIGH-IMPACT", bias: "BULLISH", probability: "74%", evidence_tips_count: 4, expected_pip_move: "90 - 180 Pips", gold_impact: "$22 - $40", ict_blueprint: "London Killzone Asian High Sweep", analyzed_tips: ["Inflation Expansion", "BoE Hawkish benchmark"], volatility_risk: "MODERATE HIGH", ict_note: "CPI expansion expected." },
+      "USD": { outlook: "SELL", pairs_to_buy: "XAUUSD, GBPUSD, AUDUSD", pairs_to_sell: "USDJPY, USDCAD", expected_percentage: "-0.85% to -1.50%", reasoning: "DXY distribution aligning with Fed rate cut probabilities.", comparative_impact: "HIGH-IMPACT", bias: "BEARISH", probability: "82%", evidence_tips_count: 5, expected_pip_move: "150 - 320 Pips", gold_impact: "$35 - $75", ict_blueprint: "NY Session MSS + 5m FVG Entry", analyzed_tips: ["FOMC Adjustment", "Liquidity Grab PDH"], volatility_risk: "EXTREME VOLATILITY", ict_note: "Look for MSS & CISD execution." },
+      "AUD": { outlook: "BUY", pairs_to_buy: "AUDUSD, AUDJPY", pairs_to_sell: "EURAUD", expected_percentage: "+0.40% to +0.80%", reasoning: "Hawkish RBA rate stance fuels institutional buy-side liquidity.", comparative_impact: "HIGH-IMPACT", bias: "BULLISH", probability: "70%", evidence_tips_count: 3, expected_pip_move: "60 - 120 Pips", gold_impact: "$15 - $30", ict_blueprint: "15m MSS Entry", analyzed_tips: ["RBA Hawkish Hold"], volatility_risk: "HIGH VOLATILITY", ict_note: "Monitor CPI data." },
+      "EUR": { outlook: "SELL", pairs_to_buy: "EURJPY", pairs_to_sell: "EURUSD, EURGBP", expected_percentage: "-0.50% to -0.90%", reasoning: "ECB dovish policy bias signals downside expansion.", comparative_impact: "HIGH-IMPACT", bias: "BEARISH", probability: "76%", evidence_tips_count: 3, expected_pip_move: "70 - 140 Pips", gold_impact: "$18 - $35", ict_blueprint: "London FVG Reject", analyzed_tips: ["ECB Dovish Stance"], volatility_risk: "HIGH VOLATILITY", ict_note: "Look for Main Refinancing Rate." },
+      "JPY": { outlook: "NEUTRAL", pairs_to_buy: "USDJPY, GBPJPY", pairs_to_sell: "CADJPY", expected_percentage: "±0.30% to ±0.60%", reasoning: "BOJ rate hold keeps JPY cross pairs bound.", comparative_impact: "MODERATE-IMPACT", bias: "NEUTRAL", probability: "65%", evidence_tips_count: 2, expected_pip_move: "50 - 100 Pips", gold_impact: "$10 - $20", ict_blueprint: "Range Sweep", analyzed_tips: ["BOJ Policy Hold"], volatility_risk: "MODERATE HIGH", ict_note: "Wait for BOJ Statement." }
     };
   }
 }

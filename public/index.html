@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="flex gap-1.5 overflow-x-auto pb-1 text-[11px] font-bold">
-                    <button onclick="changeChartSymbol('OANDA:XAUUSD', 'XAUUSD (GOLD)')" id="chart-XAUUSD" class="px-2.5 py-1 rounded bg-yellow-500 text-slate-950 font-bold border border-yellow-400 shrink-0">1. XAUUSD</button>
+                    <button onclick="changeChartSymbol('OANDA:XAUUSD', 'XAUUSD (GOLD)')" id="chart-XAUUSD" class="px-2.5 py-1 rounded bg-yellow-500 text-slate-950 font-bold border border-yellow-400 shrink-0">XAUUSD</button>
                     <button onclick="changeChartSymbol('FX:EURUSD', 'EURUSD')" id="chart-EURUSD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 shrink-0">EURUSD</button>
                     <button onclick="changeChartSymbol('FX:GBPUSD', 'GBPUSD')" id="chart-GBPUSD" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 shrink-0">GBPUSD</button>
                     <button onclick="changeChartSymbol('FX:USDJPY', 'USDJPY')" id="chart-USDJPY" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 shrink-0">USDJPY</button>
@@ -218,7 +218,7 @@
 
             <div class="shrink-0 pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center bg-slate-950 p-2 rounded-lg mt-2">
                 <span class="font-bold text-yellow-400 flex items-center gap-1">📋 AR-RIZQ TERMINAL SUITE:</span>
-                <span>✅ Buy / Sell Pairs</span>
+                <span>✅ Dynamic Buy / Sell Pairs</span>
                 <span>✅ % Movement</span>
             </div>
 
@@ -320,7 +320,7 @@
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
-            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing intelligence and computing Buy/Sell pair assignments...</div>`;
+            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing intelligence and computing dynamic Buy/Sell pair assignments...</div>`;
 
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
@@ -342,9 +342,11 @@
             const nowTime = new Date().getTime();
 
             const activeFilteredEvents = rawEvents.filter(item => {
+                if (!item.isoTarget) return true;
                 const targetTime = new Date(item.isoTarget).getTime();
                 const diffMinutes = (nowTime - targetTime) / (1000 * 60);
                 
+                // Exclude news older than 30 minutes
                 if (diffMinutes > 30) return false;
                 if (selectedCurrency !== 'ALL' && item.currency !== selectedCurrency) return false;
 
@@ -352,7 +354,7 @@
             });
 
             if (activeFilteredEvents.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or recent High Impact Red Folder news found for ${selectedCurrency} (Expired after 30m post-release window).</div>`;
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or upcoming High Impact Red Folder news found for ${selectedCurrency} (Past news auto-cleared after 30m window).</div>`;
                 return;
             }
 
@@ -365,6 +367,16 @@
 
             if (countdownInterval) clearInterval(countdownInterval);
 
+            // Default Currency Specific Pairs Fallback Mapping
+            const currencyPairDefaults = {
+                USD: { buy: "XAUUSD, GBPUSD, AUDUSD", sell: "USDJPY, USDCAD" },
+                GBP: { buy: "GBPUSD, GBPJPY", sell: "EURGBP, GBPCAD" },
+                CAD: { buy: "USDCAD, CADJPY", sell: "EURCAD" },
+                EUR: { buy: "EURJPY", sell: "EURUSD, EURGBP, EURCAD" },
+                AUD: { buy: "AUDUSD, AUDJPY", sell: "EURAUD" },
+                JPY: { buy: "USDJPY, GBPJPY", sell: "CADJPY" }
+            };
+
             Object.keys(groupedByDateCurrency).forEach(key => {
                 const events = groupedByDateCurrency[key];
                 const curr = events[0].currency;
@@ -372,10 +384,12 @@
                 const impactPairs = events[0].impactPairs || ["USDJPY", "EURUSD"];
                 const pipMetrics = events[0].pipMetrics || { expectedPips: "80 - 160 Pips", goldMove: "$20 - $35", expectedPct: "+0.50% to +0.95%" };
 
+                const defaults = currencyPairDefaults[curr] || { buy: `${curr}USD`, sell: `EUR${curr}` };
+
                 const aiInfo = aiBias[curr] || {
                     outlook: "BUY",
-                    pairs_to_buy: "USDCAD, CADJPY",
-                    pairs_to_sell: "EURCAD",
+                    pairs_to_buy: defaults.buy,
+                    pairs_to_sell: defaults.sell,
                     expected_percentage: "+0.55% to +0.95%",
                     reasoning: "Cross-platform analysis indicates strong order flow alignment supporting expansion.",
                     comparative_impact: "HIGH-IMPACT",
@@ -385,7 +399,7 @@
                     expected_pip_move: pipMetrics.expectedPips,
                     gold_impact: pipMetrics.goldMove,
                     ict_blueprint: "15m CISD + 5m FVG Entry after NY Killzone Judas Swing PDH/PDL sweep",
-                    analyzed_tips: ["Forecast Delta expansion", "BoC sensitivity", "NY Killzone sweep", "SMC FVG"],
+                    analyzed_tips: ["Forecast Delta expansion", "Monetary policy alignment", "NY Killzone sweep"],
                     volatility_risk: "HIGH VOLATILITY",
                     ict_note: "Forecast CPI inflation expansion indicates momentum."
                 };
@@ -441,15 +455,15 @@
                             </div>
                         </div>
 
-                        <!-- SPECIFIC BUY/SELL PAIRS & PERCENTAGE MOVEMENT -->
+                        <!-- DYNAMIC CURRENCY SPECIFIC BUY/SELL PAIRS & PERCENTAGE MOVEMENT -->
                         <div class="bg-slate-900 p-2 rounded-lg border border-slate-800 space-y-1.5 text-[10px]">
                             <div class="flex justify-between items-center">
                                 <span class="text-green-400 font-bold">🟢 Pairs to BUY:</span>
-                                <span class="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${aiInfo.pairs_to_buy || 'USDCAD'}</span>
+                                <span class="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${aiInfo.pairs_to_buy || defaults.buy}</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-red-400 font-bold">🔴 Pairs to SELL:</span>
-                                <span class="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${aiInfo.pairs_to_sell || 'EURCAD'}</span>
+                                <span class="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">${aiInfo.pairs_to_sell || defaults.sell}</span>
                             </div>
                             <div class="flex justify-between items-center pt-1 border-t border-slate-800">
                                 <span class="text-yellow-400 font-bold">📈 Expected % Move:</span>
@@ -481,33 +495,28 @@
                             </div>
                         </div>
 
-                        <div class="mod-slippage text-[9px] bg-red-950/40 border border-red-800/80 p-1.5 rounded text-red-300 flex items-center justify-between">
-                            <span>🛡️ HIGH SLIPPAGE RISK: Expect spread expansion on prop accounts during release.</span>
-                            <span class="font-bold text-red-400 font-mono">${aiInfo.volatility_risk || 'EXTREME VOLATILITY'}</span>
-                        </div>
-
-                        <div class="mod-blueprint bg-yellow-950/30 border border-yellow-800/60 p-2 rounded text-[10px]">
-                            <span class="text-yellow-400 font-bold">🧠 ICT BLUEPRINT:</span>
-                            <p class="text-slate-200 mt-0.5">${aiInfo.ict_blueprint || '15m CISD + 5m FVG Entry after Killzone liquidity sweep'}</p>
-                        </div>
-
-                        <div class="p-2.5 bg-slate-900 rounded-lg border-l-4 border-yellow-500 space-y-2">
-                            <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                                <span class="text-[11px] font-bold text-yellow-400 flex items-center gap-1">
-                                    🧠 MULTI-PLATFORM AI CONSENSUS:
-                                </span>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="text-[9px] font-bold bg-cyan-950 text-cyan-400 px-1.5 py-0.5 rounded border border-cyan-800">⚡ ${aiInfo.evidence_tips_count || 5} TIPS</span>
-                                    <span class="text-[10px] font-black px-2 py-0.5 rounded border">${aiInfo.bias}</span>
-                                </div>
+                        <div class="mod-slippage bg-red-950/20 border border-red-800/40 p-2 rounded text-[10px] flex items-center gap-2">
+                            <span class="text-red-500 animate-pulse text-sm">🛡️</span>
+                            <div>
+                                <span class="text-red-400 font-bold uppercase">High Slippage Risk:</span>
+                                <span class="text-slate-300"> Expect spread expansion on prop accounts during release window (${aiInfo.volatility_risk || 'HIGH VOLATILITY'}).</span>
                             </div>
-
-                            <ul class="space-y-0.5 bg-slate-950/60 p-2 rounded border border-slate-800/50">
-                                ${tipsListHTML}
-                            </ul>
-
-                            <p class="text-[11px] text-slate-300 leading-snug pt-0.5">${aiInfo.ict_note}</p>
                         </div>
+
+                        <div class="mod-blueprint bg-slate-900 p-2 rounded border border-slate-800/80 space-y-1 text-[10px]">
+                            <div class="flex justify-between items-center">
+                                <span class="text-yellow-400 font-bold flex items-center gap-1">🧠 ICT Execution Blueprint:</span>
+                                <span class="text-[9px] text-cyan-400 font-mono">Win Prob: ${aiInfo.probability || '78%'}</span>
+                            </div>
+                            <p class="text-slate-200 font-mono text-[10px] bg-slate-950 p-1.5 rounded border border-slate-800">${aiInfo.ict_blueprint || '15m CISD + 5m FVG Entry'}</p>
+                            <div class="mt-1 space-y-0.5">
+                                <span class="text-slate-400 font-bold text-[9px]">Key Evidence Points (${aiInfo.evidence_tips_count || 4}):</span>
+                                <ul class="space-y-0.5 pl-1">
+                                    ${tipsListHTML}
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 `;
             });
@@ -516,33 +525,33 @@
         }
 
         function startLiveCountdowns() {
+            if (countdownInterval) clearInterval(countdownInterval);
+
             countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
                 document.querySelectorAll('.countdown-timer').forEach(el => {
-                    const target = new Date(el.getAttribute('data-target')).getTime();
-                    const now = new Date().getTime();
-                    const diff = target - now;
+                    const targetStr = el.getAttribute('data-target');
+                    if (!targetStr) return;
+
+                    const targetTime = new Date(targetStr).getTime();
+                    const diff = targetTime - now;
 
                     if (diff <= 0) {
-                        el.innerText = "LIVE EXECUTING";
-                        el.className = "text-emerald-400 font-bold animate-pulse";
+                        el.innerText = "RELEASED (Auto-clearing in <30m)";
                     } else {
-                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                         const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                         const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-                        if (days > 0) {
-                            el.innerText = `In ${days}d ${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m`;
-                        } else {
-                            el.innerText = `In ${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
-                        }
+                        el.innerText = `In ${String(hrs).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
                     }
                 });
             }, 1000);
         }
 
-        startLiveISTClock();
-        loadNews('today');
+        window.onload = () => {
+            startLiveISTClock();
+            loadNews('today');
+        };
     </script>
 </body>
 </html>
