@@ -219,6 +219,7 @@
             <div class="shrink-0 pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center bg-slate-950 p-2 rounded-lg mt-2">
                 <span class="font-bold text-yellow-400 flex items-center gap-1">📋 AR-RIZQ TERMINAL SUITE:</span>
                 <span>✅ Dynamic Buy / Sell Pairs</span>
+                <span>🔄 10-Min Auto Refresh</span>
                 <span>✅ 30-Min Auto Purge</span>
             </div>
 
@@ -289,13 +290,17 @@
         async function loadNews(range) {
             setRangeUI(range);
             const container = document.getElementById('news-desk-container');
-            container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing intelligence and computing dynamic Buy/Sell pair assignments...</div>`;
+            if (!cachedNewsData) {
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">Cross-referencing intelligence and computing dynamic Buy/Sell pair assignments...</div>`;
+            }
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${range}`);
                 cachedNewsData = await res.json();
                 renderNewsUI(cachedNewsData);
             } catch (err) {
-                container.innerHTML = `<div class="text-center py-10 text-red-400 text-xs">Failed to fetch Multi-Platform AI engine.</div>`;
+                if (!cachedNewsData) {
+                    container.innerHTML = `<div class="text-center py-10 text-red-400 text-xs">Failed to fetch Multi-Platform AI engine.</div>`;
+                }
             }
         }
 
@@ -493,6 +498,11 @@
         window.onload = () => {
             startLiveISTClock();
             loadNews('today');
+
+            // 🔄 Automatic 10-Minute Background Refresh (10 * 60 * 1000 ms)
+            setInterval(() => {
+                loadNews(activeRange);
+            }, 600000);
         };
     </script>
 </body>
