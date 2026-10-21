@@ -310,33 +310,39 @@
 
             const rawEvents = data.raw_news || [];
             const aiBias = data.ai_bias || {};
-            const nowTime = new Date().getTime();
+            const now = new Date();
+            const nowTime = now.getTime();
+            const todayDateStr = now.toDateString(); // IST / Current Local Day String
 
-            // Strict Filter: Auto-purge news older than 30 minutes (1800 seconds) after release
+            // Strict Filter: Range check, Date check, and 30-min Auto-Purge Filter
             const activeFilteredEvents = rawEvents.filter(item => {
-                // 1. Currency Filter
+                // 1. Currency Filter Check
                 if (selectedCurrency !== 'ALL' && item.currency !== selectedCurrency) return false;
 
-                // 2. Strict 30-Min Expiry Filter
                 if (item.isoTarget) {
-                    const targetTime = new Date(item.isoTarget).getTime();
+                    const targetDate = new Date(item.isoTarget);
+                    const targetTime = targetDate.getTime();
                     const diffSeconds = (nowTime - targetTime) / 1000;
-                    
-                    // If news event passed and is older than 30 mins (1800s) -> Remove
-                    if (diffSeconds > 1800) return false; 
-                }
 
-                // If event already has actual value filled and > 30 mins old
-                if (item.actual && item.actual !== '-' && item.isoTarget) {
-                    const diffSecs = (nowTime - new Date(item.isoTarget).getTime()) / 1000;
-                    if (diffSecs > 1800) return false;
+                    // 2. Strict TODAY Tab Filter: Must be today's event
+                    if (activeRange === 'today') {
+                        const isSameDay = targetDate.toDateString() === todayDateStr;
+                        if (!isSameDay) return false; // Hide non-today / future date items in Today view
+
+                        // 3. Auto-Purge: Remove news 30 mins (1800s) after release time
+                        if (diffSeconds > 1800) return false;
+                    } 
+                    else if (activeRange === 'this_week' || activeRange === 'this_month') {
+                        // For week/month view: Auto-remove past events older than 30 mins
+                        if (diffSeconds > 1800) return false;
+                    }
                 }
 
                 return true;
             });
 
             if (activeFilteredEvents.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active Red Folder news right now for ${selectedCurrency} (Past releases auto-purged after 30 mins).</div>`;
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or upcoming Red Folder news for ${selectedCurrency} in ${activeRange.toUpperCase()} view (Past releases auto-purged after 30 mins).</div>`;
                 return;
             }
 
@@ -482,7 +488,10 @@
                     const target = el.getAttribute('data-target');
                     if (!target) return;
                     const diff = new Date(target).getTime() - now;
-                    if (diff <= 0) {
+                    if (diff <= -1800000) {
+                        // Passed 30 mins -> Re-render to clear from DOM
+                        renderNewsUI(cachedNewsData);
+                    } else if (diff <= 0) {
                         el.innerText = 'RELEASED / ACTIVE';
                         el.className = 'countdown-timer text-emerald-400 font-bold';
                     } else {
