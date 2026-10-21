@@ -51,23 +51,23 @@
         </div>
     </div>
 
-    <!-- DEDICATED ELEMENT: TRUMP FACTOR RADAR WITH EXACT TIMESTAMP -->
+    <!-- DEDICATED ELEMENT: TRUMP FACTOR RADAR WITH REAL-TIME WATCH -->
     <div id="mod-trump" class="bg-gradient-to-r from-red-950/80 via-slate-900 to-blue-950/80 border border-red-800/80 rounded-xl p-3 space-y-2">
         <div class="flex justify-between items-center border-b border-red-900/60 pb-1.5">
             <span class="text-xs font-black text-red-400 flex items-center gap-2">
                 <span>🇺🇸</span> TRUMP POLICY & TARIFF VOLATILITY RADAR
             </span>
-            <span id="trump-timestamp-badge" class="text-[10px] font-bold bg-yellow-500 text-slate-950 px-2 py-0.5 rounded font-mono">🕒 Oct 19, 2026 — 02:10 PM IST</span>
+            <span id="trump-timestamp-badge" class="text-[10px] font-bold bg-yellow-500 text-slate-950 px-2 py-0.5 rounded font-mono">🕒 REAL-TIME MARKET WATCH</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-3 text-[11px]">
             <div class="md:col-span-8 space-y-1">
                 <p class="font-bold text-white flex items-center gap-1.5">
-                    <span class="text-yellow-400">⚡ Latest Action:</span>
-                    <span id="trump-headline">Executive Waiver on Planned 100% Tariffs & Energy Sanctions under Graham Act</span>
+                    <span class="text-yellow-400">⚡ Latest Action & Policy Watch:</span>
+                    <span id="trump-headline">Monitoring Tariff Announcements, Energy Sanctions & Trade Policy Rhetoric</span>
                 </p>
                 <p id="trump-ai-note" class="text-slate-300 text-[10px] leading-snug">
-                    AI Analysis: Trump's waiver prevents immediate energy supply shocks, redirecting DXY liquidity and triggering aggressive safe-haven volatility across gold and major FX pairs.
+                    AI Analysis: Tracking Executive Orders & Tariff Speeches for immediate DXY liquidity redirection and safe-haven expansion across Gold and FX pairs.
                 </p>
             </div>
             <div class="md:col-span-4 bg-slate-950/80 p-2 rounded border border-slate-800 flex flex-col justify-between text-right">
@@ -307,19 +307,31 @@
             const aiBias = data.ai_bias || {};
             const nowTime = new Date().getTime();
 
-            // 30-Minute Auto-Purge Filter (30 mins * 60s = 1800s)
+            // Strict Filter: Auto-purge news older than 30 minutes (1800 seconds) after release
             const activeFilteredEvents = rawEvents.filter(item => {
-                if (!item.isoTarget) return true;
-                const targetTime = new Date(item.isoTarget).getTime();
-                const diffSeconds = (nowTime - targetTime) / 1000;
-                
-                if (diffSeconds > 1800) return false; // Auto Purge after 30 Minutes
+                // 1. Currency Filter
                 if (selectedCurrency !== 'ALL' && item.currency !== selectedCurrency) return false;
+
+                // 2. Strict 30-Min Expiry Filter
+                if (item.isoTarget) {
+                    const targetTime = new Date(item.isoTarget).getTime();
+                    const diffSeconds = (nowTime - targetTime) / 1000;
+                    
+                    // If news event passed and is older than 30 mins (1800s) -> Remove
+                    if (diffSeconds > 1800) return false; 
+                }
+
+                // If event already has actual value filled and > 30 mins old
+                if (item.actual && item.actual !== '-' && item.isoTarget) {
+                    const diffSecs = (nowTime - new Date(item.isoTarget).getTime()) / 1000;
+                    if (diffSecs > 1800) return false;
+                }
+
                 return true;
             });
 
             if (activeFilteredEvents.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active or upcoming Red Folder news found for ${selectedCurrency} (Past releases auto-purged after 30 mins).</div>`;
+                container.innerHTML = `<div class="text-center py-10 text-slate-500 text-xs">No active Red Folder news right now for ${selectedCurrency} (Past releases auto-purged after 30 mins).</div>`;
                 return;
             }
 
@@ -350,7 +362,7 @@
                 const defaults = currencyPairDefaults[curr] || { buy: `${curr}USD`, sell: `EUR${curr}` };
 
                 const aiInfo = aiBias[curr] || {
-                    outlook: "BUY",
+                    outlook: "NEUTRAL",
                     pairs_to_buy: defaults.buy,
                     pairs_to_sell: defaults.sell,
                     expected_percentage: "+0.55% to +0.95%",
@@ -404,7 +416,7 @@
                         <div class="grid grid-cols-2 gap-2 text-[10px] bg-slate-900/90 p-2 rounded-lg border border-slate-800">
                             <div class="flex items-center justify-between px-2 py-1 rounded bg-slate-950 border border-slate-800">
                                 <span class="text-slate-400 font-bold">🎯 Outlook Verdict:</span>
-                                <span class="font-black px-2 py-0.5 rounded border font-mono ${outlookColor}">${aiInfo.outlook}</span>
+                                <span class="font-black px-2 py-0.5 rounded border font-mono ${outlookColor}">${aiInfo.outlook || 'NEUTRAL'}</span>
                             </div>
                             <div class="flex items-center justify-between px-2 py-1 rounded bg-slate-950 border border-slate-800">
                                 <span class="text-slate-400 font-bold">⚖️ Impact Scale:</span>
