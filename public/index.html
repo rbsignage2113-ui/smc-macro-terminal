@@ -312,28 +312,32 @@
             const aiBias = data.ai_bias || {};
             const now = new Date();
             const nowTime = now.getTime();
-            const todayDateStr = now.toDateString(); // IST / Current Local Day String
+            const todayDateStr = now.toDateString(); 
 
-            // Strict Filter: Range check, Date check, and 30-min Auto-Purge Filter
+            // Strict Filter: Range check, Date check, 30-min Auto-Purge, and Hard Block for outdated CAD events
             const activeFilteredEvents = rawEvents.filter(item => {
-                // 1. Currency Filter Check
+                // 1. Currency Filter
                 if (selectedCurrency !== 'ALL' && item.currency !== selectedCurrency) return false;
+
+                // 2. HARD BLOCK: Purge past CAD CPI events that have wrong future timestamps
+                if (item.currency === 'CAD' && item.event && item.event.includes('CPI')) {
+                    if (activeRange === 'today') return false; // Force hide outdated CAD CPI from Today view
+                }
 
                 if (item.isoTarget) {
                     const targetDate = new Date(item.isoTarget);
                     const targetTime = targetDate.getTime();
                     const diffSeconds = (nowTime - targetTime) / 1000;
 
-                    // 2. Strict TODAY Tab Filter: Must be today's event
+                    // 3. Strict TODAY Tab Filter
                     if (activeRange === 'today') {
                         const isSameDay = targetDate.toDateString() === todayDateStr;
-                        if (!isSameDay) return false; // Hide non-today / future date items in Today view
+                        if (!isSameDay) return false; 
 
-                        // 3. Auto-Purge: Remove news 30 mins (1800s) after release time
+                        // Auto-Purge: Remove news 30 mins (1800s) after release time
                         if (diffSeconds > 1800) return false;
                     } 
                     else if (activeRange === 'this_week' || activeRange === 'this_month') {
-                        // For week/month view: Auto-remove past events older than 30 mins
                         if (diffSeconds > 1800) return false;
                     }
                 }
@@ -489,7 +493,6 @@
                     if (!target) return;
                     const diff = new Date(target).getTime() - now;
                     if (diff <= -1800000) {
-                        // Passed 30 mins -> Re-render to clear from DOM
                         renderNewsUI(cachedNewsData);
                     } else if (diff <= 0) {
                         el.innerText = 'RELEASED / ACTIVE';
@@ -508,7 +511,7 @@
             startLiveISTClock();
             loadNews('today');
 
-            // 🔄 Automatic 10-Minute Background Refresh (10 * 60 * 1000 ms)
+            // 🔄 Automatic 10-Minute Background Refresh
             setInterval(() => {
                 loadNews(activeRange);
             }, 600000);
