@@ -51,8 +51,8 @@
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULES:</span>
         <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
             <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-emerald-800">v PO3 Phase (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-emerald-800">v Strength Meter (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v FVG / SMT (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Journal History (ON)</span>
         </div>
     </div>
 
@@ -62,7 +62,7 @@
         <!-- LEFT & CENTER: Charts & Tools -->
         <div class="lg:col-span-2 space-y-4">
             
-            <!-- Trump Policy & Macro Radar Box (Restored) -->
+            <!-- Trump Policy & Macro Radar Box -->
             <div class="terminal-card p-3 rounded-lg border-l-4 border-red-500">
                 <div class="flex justify-between items-center mb-1">
                     <h3 class="text-xs font-bold text-red-400 uppercase tracking-wider">USD & AUD MACRO VOLATILITY RADAR</h3>
@@ -88,7 +88,35 @@
                 <div class="h-[350px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
-            <!-- ICT PO3 PHASE & HTF BIAS CHECKLIST (Separate Boxes) -->
+            <!-- NEW ADDITION: Multi-Timeframe MSS Matrix & FVG Alert Panel -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-table-cells"></i> Multi-TF MSS Matrix</span>
+                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">BULLISH</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1.5 text-center text-[11px]">
+                        <div class="bg-slate-950 p-1.5 rounded border border-slate-800"><span class="text-slate-400 block text-[9px]">15M</span><strong class="text-emerald-400">BOS</strong></div>
+                        <div class="bg-slate-950 p-1.5 rounded border border-slate-800"><span class="text-slate-400 block text-[9px]">1H</span><strong class="text-emerald-400">MSS</strong></div>
+                        <div class="bg-slate-950 p-1.5 rounded border border-slate-800"><span class="text-slate-400 block text-[9px]">4H</span><strong class="text-amber-400">CHOCH</strong></div>
+                    </div>
+                </div>
+
+                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                        <span class="text-purple-400 font-bold uppercase"><i class="fa-solid fa-bolt"></i> Live FVG & SMT Log</span>
+                        <span class="px-1.5 py-0.5 bg-purple-950 text-purple-400 rounded text-[9px]">ACTIVE</span>
+                    </div>
+                    <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1 text-[10px] text-slate-300 max-h-16 overflow-y-auto">
+                        <div><span class="text-amber-400">[12:45]</span> Gold 15M Bullish FVG @ 4005.20</div>
+                        <div><span class="text-amber-400">[12:10]</span> EURUSD vs DXY SMT Sweep Detected</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ICT PO3 SESSION PHASE & HTF BIAS CHECKLIST -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
@@ -117,7 +145,7 @@
 
         </div>
 
-        <!-- RIGHT: SEPARATE INDIVIDUAL BOXES (Thanni Thanniya Boxes) -->
+        <!-- RIGHT: SEPARATE INDIVIDUAL BOXES WITH JOURNAL HISTORY TABLE -->
         <div class="space-y-4">
             
             <!-- Box 1: Forex Factory Red Folder Desk -->
@@ -178,11 +206,11 @@
                 </div>
             </div>
 
-            <!-- Box 4: Quick Trade Journal Logger -->
+            <!-- Box 4: Quick Trade Journal Logger & History Table -->
             <div class="terminal-card p-3 rounded-lg space-y-2 font-mono text-xs">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-emerald-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-book"></i> Quick Trade Journal Logger</span>
-                    <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded text-[9px]">NOTE</span>
+                    <span class="text-emerald-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-book"></i> Trade Journal Logger & History</span>
+                    <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded text-[9px]">LOCALSTORAGE</span>
                 </div>
                 <div class="grid grid-cols-2 gap-1.5 pt-1">
                     <input id="j-pair" type="text" placeholder="Pair (e.g. XAUUSD)" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
@@ -193,6 +221,14 @@
                     </select>
                 </div>
                 <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-1 rounded text-[11px] transition-all mt-1">Save Trade Note</button>
+                
+                <!-- Saved Journal History List -->
+                <div class="pt-2 border-t border-slate-800 space-y-1">
+                    <span class="text-[10px] text-slate-400 block font-bold">Saved Trade Notes History:</span>
+                    <div id="journal-history-list" class="space-y-1 max-h-24 overflow-y-auto text-[10px]">
+                        <div class="text-slate-500 italic">No trade notes saved yet.</div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -451,8 +487,36 @@
             document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
         }
 
+        // LocalStorage Trade Journal Management
         function logTrade() {
-            alert(`Trade Note Saved Successfully!`);
+            const pair = document.getElementById('j-pair').value.trim() || 'XAUUSD';
+            const setup = document.getElementById('j-setup').value;
+            const timeStr = new Date().toLocaleTimeString();
+
+            let savedNotes = JSON.parse(localStorage.getItem('ar_rizq_journal')) || [];
+            savedNotes.unshift({ pair, setup, timeStr });
+            localStorage.setItem('ar_rizq_journal', JSON.stringify(savedNotes));
+
+            document.getElementById('j-pair').value = '';
+            loadJournalHistory();
+        }
+
+        function loadJournalHistory() {
+            const listEl = document.getElementById('journal-history-list');
+            let savedNotes = JSON.parse(localStorage.getItem('ar_rizq_journal')) || [];
+
+            if(savedNotes.length === 0) {
+                listEl.innerHTML = `<div class="text-slate-500 italic">No trade notes saved yet.</div>`;
+                return;
+            }
+
+            listEl.innerHTML = '';
+            savedNotes.forEach(note => {
+                const item = document.createElement('div');
+                item.className = "flex justify-between bg-slate-950 p-1 rounded border border-slate-800 text-[10px]";
+                item.innerHTML = `<span><strong class="text-amber-400">${note.pair}</strong> (${note.setup})</span><span class="text-slate-500">${note.timeStr}</span>`;
+                listEl.appendChild(item);
+            });
         }
 
         function updateClock() {
@@ -463,6 +527,7 @@
         window.onload = () => {
             loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
+            loadJournalHistory();
             setInterval(updateClock, 1000);
         };
     </script>
