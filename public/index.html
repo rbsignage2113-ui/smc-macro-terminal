@@ -71,7 +71,7 @@
                 <p class="text-xs text-slate-300">Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
             </div>
 
-            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
+            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER (Optimized PC & Mobile Size) -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2 gap-2">
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono max-w-full pb-1">
@@ -85,10 +85,11 @@
                     <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">XAUUSD</span>
                 </div>
                 
-                <div class="h-[350px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
+                <!-- Responsive Height: Mobile 340px, PC 480px -->
+                <div class="h-[340px] sm:h-[480px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
-            <!-- NEW ADDITION: Multi-Timeframe MSS Matrix & FVG Alert Panel -->
+            <!-- Multi-Timeframe MSS Matrix & FVG Alert Panel -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
@@ -145,7 +146,7 @@
 
         </div>
 
-        <!-- RIGHT: SEPARATE INDIVIDUAL BOXES WITH JOURNAL HISTORY TABLE -->
+        <!-- RIGHT: SEPARATE INDIVIDUAL BOXES -->
         <div class="space-y-4">
             
             <!-- Box 1: Forex Factory Red Folder Desk -->
@@ -206,7 +207,7 @@
                 </div>
             </div>
 
-            <!-- Box 4: Quick Trade Journal Logger & History Table -->
+            <!-- Box 4: Quick Trade Journal Logger & History -->
             <div class="terminal-card p-3 rounded-lg space-y-2 font-mono text-xs">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
                     <span class="text-emerald-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-book"></i> Trade Journal Logger & History</span>
