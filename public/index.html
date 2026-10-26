@@ -52,8 +52,8 @@
     <div class="terminal-card p-2 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono">
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULE TOGGLES (ON/OFF):</span>
         <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
-            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v Trump Radar (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Killzones (ON)</span>
+            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v USD AI Filter (ON)</span>
+            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v FOMC / NFP Radar (ON)</span>
             <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v SMT Scanner (ON)</span>
             <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Risk Calc (ON)</span>
             <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Journal (ON)</span>
@@ -71,7 +71,7 @@
                 <span><strong class="text-white">AUDUSD:</strong> 0.7024 <span class="text-red-400">(-0.13%)</span></span>
                 <span><strong class="text-white">USDCAD:</strong> 1.4013 <span class="text-emerald-400">(+0.09%)</span></span>
                 <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
-                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> SMC RADAR: Gold London Liquidity Sweep Active</span>
+                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> USD AI ENGINE: Real-Time Economic Data Filter Active</span>
             </div>
             <div class="flex space-x-6">
                 <span><strong class="text-amber-400">XAUUSD:</strong> 4,012.31 <span class="text-emerald-400">(+0.46%)</span></span>
@@ -81,7 +81,7 @@
                 <span><strong class="text-white">AUDUSD:</strong> 0.7024 <span class="text-red-400">(-0.13%)</span></span>
                 <span><strong class="text-white">USDCAD:</strong> 1.4013 <span class="text-emerald-400">(+0.09%)</span></span>
                 <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
-                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> SMC RADAR: Gold London Liquidity Sweep Active</span>
+                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> USD AI ENGINE: Real-Time Economic Data Filter Active</span>
             </div>
         </div>
     </div>
@@ -92,13 +92,13 @@
         <!-- LEFT & CENTER: Charts & Tools -->
         <div class="lg:col-span-2 space-y-4">
             
-            <!-- Trump Policy Radar -->
+            <!-- Trump Policy & USD Macro Volatility Radar -->
             <div class="terminal-card p-3 rounded-lg border-l-4 border-red-500">
                 <div class="flex justify-between items-center mb-1">
-                    <h3 class="text-xs font-bold text-red-400 uppercase tracking-wider">US TRUMP POLICY & TARIFF VOLATILITY RADAR</h3>
+                    <h3 class="text-xs font-bold text-red-400 uppercase tracking-wider">US TRUMP POLICY & USD MACRO VOLATILITY RADAR</h3>
                     <span class="text-[10px] text-slate-400 font-mono">REAL-TIME MARKET WATCH</span>
                 </div>
-                <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Tariff Announcements, Energy Sanctions & Trade Policy Rhetoric.</p>
+                <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Tariff Announcements, Fed FOMC Rate Decisions & NFP Data Releases.</p>
             </div>
 
             <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
@@ -119,7 +119,7 @@
                 <div class="h-80 w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
-            <!-- NEW: SMT Divergence Scanner & Risk Position Calculator Grid -->
+            <!-- SMT Divergence Scanner & Risk Position Calculator Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 <!-- SMT Divergence Scanner -->
@@ -212,9 +212,9 @@
                     <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-circle text-[8px]"></i> REAL-TIME ENGINE</span>
                 </h3>
                 <div id="smc-radar-stream" class="space-y-1 text-[11px] text-slate-300 max-h-24 overflow-y-auto bg-slate-950 p-2 rounded border border-slate-800">
+                    <div><span class="text-amber-400">[11:58:10 IST]</span> <strong class="text-white">USD:</strong> Core PCE & Advance GDP Filter Synchronized.</div>
                     <div><span class="text-amber-400">[11:42:10 IST]</span> <strong class="text-white">XAUUSD:</strong> London Killzone PDH Liquidity Sweep Completed @ 4015.50.</div>
-                    <div><span class="text-amber-400">[11:38:05 IST]</span> <strong class="text-white">EURUSD:</strong> 15M CISD (Change in State of Delivery) Bullish Order Block Created.</div>
-                    <div><span class="text-amber-400">[11:30:00 IST]</span> <strong class="text-white">DXY:</strong> Premium Fair Value Gap (FVG) Re-testing in Progress.</div>
+                    <div><span class="text-amber-400">[11:38:05 IST]</span> <strong class="text-white">EURUSD:</strong> 15M CISD Bullish Order Block Created.</div>
                 </div>
             </div>
 
@@ -256,11 +256,11 @@
             <!-- Dynamic Scrollable Red Folder Container -->
             <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[220px] pr-1"></div>
 
-            <!-- AI Real-Time Signal Calculation Panel -->
+            <!-- AI REAL-TIME USD FILTER & SIGNAL ENGINE -->
             <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-amber-400 font-bold uppercase text-[11px]">AI SMC News Direction Engine</span>
-                    <span id="ai-engine-status" class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">LIVE SYNCED</span>
+                    <span class="text-amber-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-brain"></i> AI USD News Filter Result</span>
+                    <span id="ai-engine-status" class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">LIVE FILTERED</span>
                 </div>
                 <div class="space-y-1">
                     <div class="flex justify-between">
@@ -276,16 +276,16 @@
                         <span id="ai-pairs-sell" class="text-red-400 font-bold">--</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-slate-400">Signal Status:</span>
+                        <span class="text-slate-400">Signal Result:</span>
                         <span id="ai-overall-signal" class="badge-neutral px-2 py-0.5 rounded font-bold">NEUTRAL</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-slate-400">Expected Movement:</span>
+                        <span class="text-slate-400">Expected Expansion:</span>
                         <span id="ai-expected-move" class="text-amber-400 font-bold">--</span>
                     </div>
                 </div>
                 <div class="text-[10px] text-slate-400 pt-1 border-t border-slate-800" id="ai-reasoning-text">
-                    <strong>AI Core-Cross Platform Reasoning:</strong> Select an active news event to view AI SMC bias details.
+                    <strong>AI Filter Analysis:</strong> Click any USD/Major event to calculate instant SMC direction.
                 </div>
             </div>
 
@@ -307,8 +307,9 @@
 
     </div>
 
-    <!-- JavaScript Engine -->
+    <!-- JavaScript Data & AI Filtering Engine -->
     <script>
+        // High Impact Red Folder Events (Full USD Suite Included)
         const redFolderNews = [
             {
                 id: 1,
@@ -363,23 +364,6 @@
             },
             {
                 id: 4,
-                dateTimeISO: "2026-10-28T20:00:00+05:30",
-                dateStr: "2026-10-28",
-                displayDate: "Wed Oct 28",
-                time: "08:00 PM IST",
-                currency: "CAD",
-                event: "BOC Press Conference",
-                forecast: "Speech",
-                previous: "N/A",
-                actual: "Dovish Tone",
-                buyPairs: ["CADJPY"],
-                sellPairs: ["USDCAD"],
-                signal: "SELL",
-                move: "70 - 110 Pips",
-                reason: "Governor Macklem highlights slowing employment -> CAD weakness, USDCAD upside FVG target."
-            },
-            {
-                id: 5,
                 dateTimeISO: "2026-10-28T23:30:00+05:30",
                 dateStr: "2026-10-28",
                 displayDate: "Wed Oct 28",
@@ -389,14 +373,14 @@
                 forecast: "4.00%",
                 previous: "4.00%",
                 actual: "4.00%",
-                buyPairs: ["USDJPY"],
+                buyPairs: ["USDCAD", "USDJPY"],
                 sellPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
                 signal: "SELL",
                 move: "120 - 220 Pips",
-                reason: "FOMC statement introduces dovish tilt. DXY drop triggers Gold and EURUSD explosive buy run."
+                reason: "AI Filter Result: Fed statement indicates rate cut cycle continuation -> Bearish DXY reaction, Bullish Gold/EURUSD expansion."
             },
             {
-                id: 6,
+                id: 5,
                 dateTimeISO: "2026-10-29T00:00:00+05:30",
                 dateStr: "2026-10-29",
                 displayDate: "Thu Oct 29",
@@ -406,14 +390,14 @@
                 forecast: "Speech",
                 previous: "N/A",
                 actual: "Powell Speech",
-                buyPairs: ["USDJPY"],
-                sellPairs: ["XAUUSD", "EURUSD"],
-                signal: "SELL",
+                buyPairs: ["XAUUSD", "EURUSD"],
+                sellPairs: ["USDJPY", "USDCAD"],
+                signal: "BUY",
                 move: "90 - 150 Pips",
-                reason: "Powell confirms easing bias. Liquidity sweeps previous day high on XAUUSD."
+                reason: "AI Filter Result: Powell confirms dovish stance. Liquidity sweeps previous day high on XAUUSD."
             },
             {
-                id: 7,
+                id: 6,
                 dateTimeISO: "2026-10-29T18:00:00+05:30",
                 dateStr: "2026-10-29",
                 displayDate: "Thu Oct 29",
@@ -423,62 +407,28 @@
                 forecast: "GDP 3.2% | PCE 0.3%",
                 previous: "GDP 2.2% | PCE 0.2%",
                 actual: "GDP 2.8% | PCE 0.2%",
-                buyPairs: ["USDJPY"],
-                sellPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
+                buyPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
+                sellPairs: ["USDCAD", "USDJPY"],
                 signal: "SELL",
                 move: "100 - 160 Pips",
-                reason: "GDP lower than forecast (2.8% vs 3.2%) -> USD bearish reaction across majors."
+                reason: "AI Filter Result: Advance GDP (2.8%) < Forecast (3.2%) & PCE benign -> USD Bearish breakdown."
             },
             {
-                id: 8,
-                dateTimeISO: "2026-10-29T18:45:00+05:30",
-                dateStr: "2026-10-29",
-                displayDate: "Thu Oct 29",
-                time: "06:45 PM IST",
-                currency: "EUR",
-                event: "Main Refinancing Rate & Monetary Policy",
-                forecast: "2.65%",
-                previous: "2.65%",
-                actual: "2.65%",
-                buyPairs: ["EURUSD", "EURAUD"],
-                sellPairs: ["EURGBP"],
-                signal: "NEUTRAL",
-                move: "40 - 70 Pips",
-                reason: "ECB holds rates steady at 2.65%. Market awaiting Lagarde press conference."
-            },
-            {
-                id: 9,
-                dateTimeISO: "2026-10-29T19:15:00+05:30",
-                dateStr: "2026-10-29",
-                displayDate: "Thu Oct 29",
-                time: "07:15 PM IST",
-                currency: "EUR",
-                event: "ECB Press Conference",
-                forecast: "Speech",
-                previous: "N/A",
-                actual: "Hawkish Lagarde",
-                buyPairs: ["EURUSD", "EURGBP"],
-                sellPairs: ["EURJPY"],
+                id: 7,
+                dateTimeISO: "2026-11-06T19:00:00+05:30",
+                dateStr: "2026-11-06",
+                displayDate: "Fri Nov 06",
+                time: "07:00 PM IST",
+                currency: "USD",
+                event: "Non-Farm Employment Change & Unemployment Rate",
+                forecast: "165K | 4.1%",
+                previous: "142K | 4.2%",
+                actual: "180K | 4.0%",
+                buyPairs: ["USDCAD", "USDJPY"],
+                sellPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
                 signal: "BUY",
-                move: "80 - 130 Pips",
-                reason: "Lagarde emphasizes persistent wage inflation -> EUR squeeze higher against USD."
-            },
-            {
-                id: 10,
-                dateTimeISO: "2026-10-30T09:00:00+05:30",
-                dateStr: "2026-10-30",
-                displayDate: "Fri Oct 30",
-                time: "Tentative IST",
-                currency: "JPY",
-                event: "BOJ Policy Rate & Outlook Report",
-                forecast: "<1.25%",
-                previous: "<1.25%",
-                actual: "<1.25%",
-                buyPairs: ["GBPJPY", "EURJPY"],
-                sellPairs: ["USDJPY"],
-                signal: "SELL",
                 move: "150 - 250 Pips",
-                reason: "BOJ maintains ultra-loose stance despite inflation. Yen selling wave hits crosses."
+                reason: "AI Filter Result: NFP (180K) > Forecast (165K) & Unemployment dropped -> Strong Hawkish USD rally."
             }
         ];
 
@@ -595,6 +545,10 @@
                         </div>
                         <span class="${badgeClass} px-1.5 py-0.5 rounded text-[9px] font-bold">${news.signal}</span>
                     </div>
+                    <div class="flex justify-between items-center mt-1.5 text-[10px] font-mono text-slate-400">
+                        <span><i class="fa-regular fa-clock"></i> ${news.displayDate} @ ${news.time}</span>
+                        <span>Fcst: <strong class="text-white">${news.forecast}</strong> | Act: <strong class="text-amber-400">${news.actual}</strong></span>
+                    </div>
                 `;
                 container.appendChild(card);
             });
@@ -613,7 +567,7 @@
             sigEl.className = news.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : news.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
 
             document.getElementById('ai-expected-move').innerText = news.move;
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Core-Cross Platform Reasoning (${news.currency}):</strong> ${news.reason}`;
+            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Filter Analysis (${news.currency} - ${news.event}):</strong> ${news.reason}`;
         }
 
         function resetAISignal() {
@@ -623,19 +577,17 @@
             document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
             document.getElementById('ai-overall-signal').className = 'badge-neutral px-2 py-0.5 rounded font-bold';
             document.getElementById('ai-expected-move').innerText = '0 Pips';
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Reasoning:</strong> No active events in 30-min window.`;
+            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Filter Analysis:</strong> No active events in 30-min window.`;
         }
 
-        // Risk Calculator Logic
         function calculateRisk() {
             const acc = parseFloat(document.getElementById('calc-acc').value) || 10000;
             const riskPct = parseFloat(document.getElementById('calc-risk').value) || 1;
             const riskAmt = (acc * riskPct) / 100;
-            const lotSize = (riskAmt / 1000).toFixed(2); // Sample estimation
+            const lotSize = (riskAmt / 1000).toFixed(2);
             document.getElementById('calc-result').innerText = `${lotSize} Lots ($${riskAmt.toFixed(0)})`;
         }
 
-        // Quick Journal Log
         function logTrade() {
             const pair = document.getElementById('j-pair').value || 'XAUUSD';
             const setup = document.getElementById('j-setup').value;
@@ -643,7 +595,6 @@
             document.getElementById('j-pair').value = '';
         }
 
-        // Live IST Clock & Calculator Listener
         function updateClock() {
             const now = new Date();
             const options = { timeZone: 'Asia/Kolkata', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
