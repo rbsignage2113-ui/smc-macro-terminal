@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -46,7 +47,7 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME WATCHLIST DESK</p>
+                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME TICKER DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -61,38 +62,28 @@
         </div>
     </header>
 
-    <!-- LIVE TICKER TAPE FOR MARKET RATES -->
-    <div class="glass-card rounded-lg p-2 mb-3 border border-gray-800 overflow-hidden">
-        <div class="flex items-center justify-between text-xs font-mono gap-4 overflow-x-auto custom-scrollbar whitespace-nowrap px-1">
-            <div class="flex items-center gap-2">
-                <span class="text-amber-400 font-bold">XAUUSD (GOLD):</span>
-                <span id="rate-gold" class="text-emerald-400 font-bold">2,735.40 ▲</span>
-            </div>
-            <div class="text-gray-700">|</div>
-            <div class="flex items-center gap-2">
-                <span class="text-cyan-400 font-bold">DXY (US DOLLAR):</span>
-                <span id="rate-dxy" class="text-red-400 font-bold">104.15 ▼</span>
-            </div>
-            <div class="text-gray-700">|</div>
-            <div class="flex items-center gap-2">
-                <span class="text-gray-300 font-bold">EURUSD:</span>
-                <span id="rate-eurusd" class="text-emerald-400 font-bold">1.0815 ▲</span>
-            </div>
-            <div class="text-gray-700">|</div>
-            <div class="flex items-center gap-2">
-                <span class="text-gray-300 font-bold">GBPUSD:</span>
-                <span id="rate-gbpusd" class="text-emerald-400 font-bold">1.2980 ▲</span>
-            </div>
-            <div class="text-gray-700">|</div>
-            <div class="flex items-center gap-2">
-                <span class="text-gray-300 font-bold">USDJPY:</span>
-                <span id="rate-usdjpy" class="text-red-400 font-bold">152.30 ▼</span>
-            </div>
-            <div class="text-gray-700">|</div>
-            <div class="flex items-center gap-2">
-                <span class="text-gray-300 font-bold">AUDUSD:</span>
-                <span id="rate-audusd" class="text-emerald-400 font-bold">0.6625 ▲</span>
-            </div>
+    <!-- TRADINGVIEW LIVE TICKER TAPE (REAL-TIME AUTOMATIC STREAMING MARKET RATES) -->
+    <div class="glass-card rounded-lg mb-3 border border-gray-800 overflow-hidden">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+                "symbols": [
+                    { "proName": "OANDA:XAUUSD", "title": "GOLD (XAUUSD)" },
+                    { "proName": "CAPITALCOM:DXY", "title": "US DOLLAR (DXY)" },
+                    { "proName": "FX:EURUSD", "title": "EURUSD" },
+                    { "proName": "FX:GBPUSD", "title": "GBPUSD" },
+                    { "proName": "FX:USDJPY", "title": "USDJPY" },
+                    { "proName": "FX:AUDUSD", "title": "AUDUSD" },
+                    { "proName": "FX:USDCAD", "title": "USDCAD" }
+                ],
+                "showSymbolLogo": true,
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "displayMode": "adaptive",
+                "locale": "en"
+            }
+            </script>
         </div>
     </div>
 
@@ -172,7 +163,7 @@
                     <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
                 </div>
 
-                <!-- FLEX CONTAINER: CHART (LEFT) + WATCHLIST (RIGHT) -->
+                <!-- FLEX CONTAINER: WATCHLIST (LEFT) + CHART (RIGHT) -->
                 <div class="flex gap-2 flex-grow overflow-hidden">
                     
                     <!-- WATCHLIST SIDEBAR -->
@@ -289,25 +280,6 @@
                 "hide_side_toolbar": false,
                 "container_id": "tradingview_chart"
             });
-        }
-
-        // REAL-TIME DYNAMIC RATES ENGINE
-        let liveRates = { gold: 2735.40, dxy: 104.15, eurusd: 1.0815, gbpusd: 1.2980, usdjpy: 152.30, audusd: 0.6625 };
-
-        function tickLiveRates() {
-            liveRates.gold += (Math.random() - 0.49) * 0.30;
-            liveRates.dxy += (Math.random() - 0.50) * 0.02;
-            liveRates.eurusd += (Math.random() - 0.50) * 0.0002;
-            liveRates.gbpusd += (Math.random() - 0.50) * 0.0002;
-            liveRates.usdjpy += (Math.random() - 0.50) * 0.03;
-            liveRates.audusd += (Math.random() - 0.50) * 0.0001;
-
-            document.getElementById('rate-gold').innerText = `${liveRates.gold.toFixed(2)} ▲`;
-            document.getElementById('rate-dxy').innerText = `${liveRates.dxy.toFixed(2)} ▼`;
-            document.getElementById('rate-eurusd').innerText = `${liveRates.eurusd.toFixed(4)} ▲`;
-            document.getElementById('rate-gbpusd').innerText = `${liveRates.gbpusd.toFixed(4)} ▲`;
-            document.getElementById('rate-usdjpy').innerText = `${liveRates.usdjpy.toFixed(2)} ▼`;
-            document.getElementById('rate-audusd').innerText = `${liveRates.audusd.toFixed(4)} ▲`;
         }
 
         function calculateAIDecision(item) {
@@ -493,9 +465,7 @@
             renderWatchlist();
             loadChart('OANDA:XAUUSD');
             setInterval(updateClock, 1000);
-            setInterval(tickLiveRates, 1500);
             updateClock();
-            tickLiveRates();
         };
     </script>
 </body>
