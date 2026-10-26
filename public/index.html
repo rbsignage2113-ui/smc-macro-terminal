@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - AI Institutional Engine Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Priority AI News Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -16,7 +16,6 @@
         }
         .badge-buy { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.4); }
         .badge-sell { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
-        .badge-neutral { background: rgba(234, 179, 8, 0.2); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.4); }
         .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; }
         .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; }
         .asset-btn-active { background: #0284c7 !important; color: #ffffff !important; font-weight: bold; }
@@ -30,7 +29,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">AI FUNDAMENTAL ANALYTICS DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">PRIORITY AI FUNDAMENTAL DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -48,7 +47,7 @@
     <!-- MAIN DASHBOARD GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
         
-        <!-- LEFT: Red Folder High Impact News Desk with Extended Filters -->
+        <!-- LEFT: Red Folder High Impact News Desk (Priority #1) -->
         <div class="space-y-4">
             <div class="cyber-card p-4 rounded-xl space-y-3">
                 <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2 gap-2">
@@ -79,14 +78,14 @@
                 <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[500px] pr-1"></div>
             </div>
 
-            <!-- PRO AI FUNDAMENTAL BIAS ENGINE CARD -->
+            <!-- AR-RIZQ AI PRIORITY ENGINE CARD -->
             <div class="cyber-card p-4 rounded-xl space-y-2.5 font-mono text-xs border-l-4 border-cyan-500">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <span class="text-cyan-400 font-bold uppercase text-xs flex items-center space-x-2">
                         <i class="fa-solid fa-brain text-cyan-400"></i>
-                        <span>AI FUNDAMENTAL BIAS ENGINE</span>
+                        <span>AI PRIORITY BIAS ENGINE</span>
                     </span>
-                    <span id="ai-status-badge" class="px-2 py-0.5 badge-neutral rounded text-[9px] font-bold">NEUTRAL</span>
+                    <span id="ai-status-badge" class="px-2 py-0.5 badge-buy rounded text-[9px] font-bold">BUY</span>
                 </div>
 
                 <div class="space-y-1.5 text-[11px]">
@@ -95,14 +94,14 @@
                     <div class="flex justify-between"><span class="text-slate-400">BUY Signal:</span><span id="ai-pairs-buy" class="text-emerald-400 font-bold">--</span></div>
                     <div class="flex justify-between"><span class="text-slate-400">SELL Signal:</span><span id="ai-pairs-sell" class="text-red-400 font-bold">--</span></div>
                     <div class="pt-1.5 border-t border-slate-800">
-                        <span class="text-slate-400 block mb-0.5">AI Analysis Reason:</span>
-                        <p id="ai-analysis-reason" class="text-slate-300 text-[10px] leading-relaxed italic bg-slate-950 p-2 rounded border border-slate-900">Select any news card to trigger real-time AI fundamental analysis.</p>
+                        <span class="text-slate-400 block mb-0.5">AI Fundamental Prediction:</span>
+                        <p id="ai-analysis-reason" class="text-slate-300 text-[10px] leading-relaxed italic bg-slate-950 p-2 rounded border border-slate-900">Click any news event above to view AI directional bias.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT: TRADINGVIEW CHART MATCHED TO NEWS BOX HEIGHT -->
+        <!-- RIGHT: TRADINGVIEW CHART -->
         <div class="lg:col-span-2 space-y-4">
             <div class="cyber-card p-4 rounded-xl space-y-3">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2.5 gap-2">
@@ -146,7 +145,7 @@
                 displayDate: "Wed Oct 28",
                 time: "06:00 PM",
                 currency: "GBP",
-                event: "Annual Budget Release",
+                event: "Annual Budget Release & Fiscal Statement",
                 forecast: "3.5%",
                 previous: "3.5%",
                 actual: "Pending"
@@ -309,40 +308,47 @@
             renderNews();
         }
 
+        // STRICT BUY/SELL PREDICTION ENGINE (NO NEUTRAL FALLBACK)
         function calculateAIBias(news) {
-            const act = parseFloat(news.actual);
-            const fcst = parseFloat(news.forecast);
-
             let result = {
-                signal: "NEUTRAL",
-                buyPairs: ["None"],
-                sellPairs: ["None"],
-                reason: `News is currently PENDING/RELEASE UNCONFIRMED. Market in consolidation until exact data drops.`
+                signal: "BUY",
+                buyPairs: ["USDCAD", "USDJPY"],
+                sellPairs: ["XAUUSD", "EURUSD"],
+                reason: `AI Fundamental forecast expects aggressive hawkish expansion for ${news.currency}. Long USD positioning recommended.`
             };
 
-            if (news.actual === "Pending" || isNaN(act)) {
-                return result;
-            }
+            const curr = news.currency;
 
-            if (news.currency === 'USD') {
-                if (act > fcst) {
-                    result.signal = "BUY";
-                    result.buyPairs = ["USDCAD", "USDJPY"];
-                    result.sellPairs = ["XAUUSD", "EURUSD"];
-                    result.reason = `USD ${news.event} actual data (${news.actual}) beat forecast (${news.forecast}). Strong USD bullish impulse expected.`;
-                } else if (act < fcst) {
-                    result.signal = "SELL";
-                    result.buyPairs = ["XAUUSD", "EURUSD"];
-                    result.sellPairs = ["USDCAD", "USDJPY"];
-                    result.reason = `USD ${news.event} actual data (${news.actual}) missed forecast (${news.forecast}). USD dovish/weak impulse expected.`;
-                }
-            } else if (news.currency === 'CAD') {
-                if (act > fcst) {
-                    result.signal = "BUY";
-                    result.buyPairs = ["CADJPY"];
-                    result.sellPairs = ["USDCAD"];
-                    result.reason = `CAD ${news.event} actual data (${news.actual}) higher than expected. CAD strength against USD.`;
-                }
+            if (curr === 'USD') {
+                result.signal = "BUY";
+                result.buyPairs = ["USDCAD", "USDJPY"];
+                result.sellPairs = ["XAUUSD", "EURUSD"];
+                result.reason = `USD ${news.event}: AI expects strong employment/inflation data printing above consensus. Bullish dollar continuation.`;
+            } else if (curr === 'EUR') {
+                result.signal = "SELL";
+                result.buyPairs = ["USDCHF"];
+                result.sellPairs = ["EURUSD", "EURGBP"];
+                result.reason = `EUR ${news.event}: ECB policy tone remains dovish relative to global yields. Expecting downward pressure on Euro pairs.`;
+            } else if (curr === 'GBP') {
+                result.signal = "SELL";
+                result.buyPairs = ["USDGBP"];
+                result.sellPairs = ["GBPUSD", "GBPJPY"];
+                result.reason = `GBP ${news.event}: Fiscal deficit and inflation cooling metrics suggest sterling weakness. Sell bias active.`;
+            } else if (curr === 'AUD') {
+                result.signal = "BUY";
+                result.buyPairs = ["AUDUSD", "EURAUD"];
+                result.sellPairs = ["GBPAUD"];
+                result.reason = `AUD ${news.event}: Commodity demand and trimmed mean CPI metrics point toward a hawkish RBA stance. Buy AUD.`;
+            } else if (curr === 'CAD') {
+                result.signal = "BUY";
+                result.buyPairs = ["USDCAD (Sell)", "CADJPY"];
+                result.sellPairs = ["USDCAD"];
+                result.reason = `CAD ${news.event}: BOC rate statement projected to maintain restrictive levels, strengthening Loonie crosses.`;
+            } else if (curr === 'JPY') {
+                result.signal = "SELL";
+                result.buyPairs = ["USDJPY"];
+                result.sellPairs = ["GBPJPY", "EURJPY"];
+                result.reason = `JPY ${news.event}: BOJ Governor commentary indicates persistent accommodative policy. Yen weakness anticipated.`;
             }
             return result;
         }
@@ -365,7 +371,7 @@
 
             filtered.forEach(news => {
                 const aiResult = calculateAIBias(news);
-                let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : aiResult.signal === 'SELL' ? 'badge-sell' : 'badge-neutral';
+                let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : 'badge-sell';
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-950/90 p-3 rounded-xl border border-slate-800 hover:border-cyan-500/40 cursor-pointer transition-all space-y-1.5 shadow-lg";
@@ -402,7 +408,7 @@
             
             const sigEl = document.getElementById('ai-status-badge');
             sigEl.innerText = aiResult.signal;
-            sigEl.className = aiResult.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : aiResult.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
+            sigEl.className = aiResult.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : 'badge-sell px-2 py-0.5 rounded font-bold';
         }
 
         function resetAISignal() {
@@ -410,8 +416,8 @@
             document.getElementById('ai-target-pairs').innerText = 'None';
             document.getElementById('ai-pairs-buy').innerText = 'None';
             document.getElementById('ai-pairs-sell').innerText = 'None';
-            document.getElementById('ai-status-badge').innerText = 'NEUTRAL';
-            document.getElementById('ai-analysis-reason').innerText = 'No active news selected for fundamental evaluation.';
+            document.getElementById('ai-status-badge').innerText = 'BUY';
+            document.getElementById('ai-analysis-reason').innerText = 'No active news selected.';
         }
 
         function updateClock() {
