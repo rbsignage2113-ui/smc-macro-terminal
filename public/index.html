@@ -15,8 +15,6 @@
         .badge-neutral { background: rgba(234, 179, 8, 0.2); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.4); }
         .tab-btn-active { background-color: #d97706 !important; color: #ffffff !important; font-weight: bold; }
         .curr-btn-active { background-color: #dc2626 !important; color: #ffffff !important; font-weight: bold; }
-        
-        /* Active Asset Button Highlight Style */
         .asset-btn-active { background-color: #f59e0b !important; color: #020617 !important; font-weight: bold; }
         
         /* Smooth Scrolling Ticker Styling */
@@ -44,9 +42,9 @@
             <span>GOLD: <strong class="text-amber-400">$4,012.31</strong></span>
         </div>
         <div class="flex space-x-2">
-            <span class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">ASIA</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-xs font-semibold border border-emerald-800 animate-pulse">LONDON KILLZONE</span>
-            <span class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">NY</span>
+            <span id="session-asia" class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">ASIA</span>
+            <span id="session-london" class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-xs font-semibold border border-emerald-800 animate-pulse">LONDON KILLZONE</span>
+            <span id="session-ny" class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">NY</span>
         </div>
     </header>
 
@@ -54,11 +52,11 @@
     <div class="terminal-card p-2 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono">
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULE TOGGLES (ON/OFF):</span>
         <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
-            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v Trump Timestamp Radar (ON)</span>
+            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v Trump Radar (ON)</span>
             <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Killzones (ON)</span>
-            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v Slippage Risk (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Rate Probability (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v ICT Blueprint (ON)</span>
+            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v SMT Scanner (ON)</span>
+            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Risk Calc (ON)</span>
+            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Journal (ON)</span>
         </div>
     </div>
 
@@ -91,7 +89,7 @@
     <!-- MAIN GRID SECTION -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         
-        <!-- LEFT & CENTER: Charts & Matrices -->
+        <!-- LEFT & CENTER: Charts & Tools -->
         <div class="lg:col-span-2 space-y-4">
             
             <!-- Trump Policy Radar -->
@@ -101,16 +99,11 @@
                     <span class="text-[10px] text-slate-400 font-mono">REAL-TIME MARKET WATCH</span>
                 </div>
                 <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Tariff Announcements, Energy Sanctions & Trade Policy Rhetoric.</p>
-                <div class="mt-2 text-[11px] text-slate-400 flex justify-between">
-                    <span>AI Analytic Tracking Executive Orders & Tariff Speeches for immediate DXY liquidity redirection and safe-haven expansion across Gold and FX pairs.</span>
-                    <span class="text-amber-400 font-mono">EXPECTED MARKET EXPANSION: 180 - 250 Pips | Gold Impact: $25 - $55 Move</span>
-                </div>
             </div>
 
             <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2">
-                    <!-- Dynamic Yellow Selection Buttons -->
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono">
                         <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded transition-all">XAUUSD</button>
                         <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">EURUSD</button>
@@ -123,10 +116,53 @@
                     <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">LIVE CHART: XAUUSD</span>
                 </div>
                 
-                <!-- Live TradingView Embedded Widget -->
-                <div class="h-80 w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container">
-                    <!-- TradingView Widget loads here -->
+                <div class="h-80 w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
+            </div>
+
+            <!-- NEW: SMT Divergence Scanner & Risk Position Calculator Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- SMT Divergence Scanner -->
+                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-code-compare"></i> SMT Divergence Scanner</span>
+                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">ACTIVE</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300">Comparing correlated pairs for smart money manipulation signals.</p>
+                    <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1 text-[11px]">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">EURUSD vs DXY:</span>
+                            <span class="text-emerald-400 font-bold">BULLISH SMT DETECTED</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">XAUUSD vs Silver:</span>
+                            <span class="text-amber-400 font-bold">CLEAN CORRELATION</span>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Risk & Lot Size Calculator -->
+                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-calculator"></i> Risk & Lot Calculator</span>
+                        <span class="text-[9px] text-slate-400">FundedNext Ready</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] text-slate-400 block">Account ($):</label>
+                            <input id="calc-acc" type="number" value="10000" class="w-full bg-slate-900 border border-slate-700 p-1 rounded text-white text-xs">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400 block">Risk (%):</label>
+                            <input id="calc-risk" type="number" value="1" class="w-full bg-slate-900 border border-slate-700 p-1 rounded text-white text-xs">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-1">
+                        <span class="text-slate-400">Recommended Lot Size:</span>
+                        <span id="calc-result" class="text-amber-400 font-bold">0.10 Lots</span>
+                    </div>
+                </div>
+
             </div>
 
             <!-- CENTRAL BANK POLICY STANCE MATRIX -->
@@ -218,12 +254,10 @@
             </div>
 
             <!-- Dynamic Scrollable Red Folder Container -->
-            <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[330px] pr-1">
-                <!-- Purely populated by JavaScript -->
-            </div>
+            <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[220px] pr-1"></div>
 
             <!-- AI Real-Time Signal Calculation Panel -->
-            <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs mt-auto">
+            <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
                     <span class="text-amber-400 font-bold uppercase text-[11px]">AI SMC News Direction Engine</span>
                     <span id="ai-engine-status" class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">LIVE SYNCED</span>
@@ -253,6 +287,20 @@
                 <div class="text-[10px] text-slate-400 pt-1 border-t border-slate-800" id="ai-reasoning-text">
                     <strong>AI Core-Cross Platform Reasoning:</strong> Select an active news event to view AI SMC bias details.
                 </div>
+            </div>
+
+            <!-- Quick Trade Journal Logger -->
+            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs mt-auto">
+                <span class="text-emerald-400 font-bold uppercase text-[10px] block"><i class="fa-solid fa-book"></i> Quick Trade Journal Logger</span>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <input id="j-pair" type="text" placeholder="Pair (e.g. XAUUSD)" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
+                    <select id="j-setup" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
+                        <option>PO3 Model</option>
+                        <option>FVG Mitigation</option>
+                        <option>CISD Sweep</option>
+                    </select>
+                </div>
+                <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-1 rounded text-[11px] transition-all">Save Trade Note</button>
             </div>
 
         </div>
@@ -437,9 +485,7 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
-        // Load TradingView Embedded Chart & Highlight Selected Button Yellow
         function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
-            // Update Active Yellow Button State
             const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'BTCUSD'];
             assetList.forEach(asset => {
                 const btn = document.getElementById(`asset-${asset}`);
@@ -471,7 +517,6 @@
             document.getElementById('active-asset-title').innerText = "LIVE CHART: " + pairName;
         }
 
-        // Checks if event is within 30-min post-release window
         function isNewsActiveAndNotExpired(newsDateTime) {
             const now = new Date();
             const newsTime = new Date(newsDateTime);
@@ -479,7 +524,6 @@
             return now <= expiryTime;
         }
 
-        // Checks if news matches active Time Range Tab
         function matchesTimeRange(news) {
             const now = new Date();
             const todayStr = now.toISOString().split('T')[0];
@@ -497,29 +541,18 @@
 
         function setTimeRange(range) {
             activeTimeRange = range;
-            
             document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
             document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
             document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
-
-            const labelEl = document.getElementById('selected-news-date-label');
-            if(range === 'TODAY') labelEl.innerHTML = `<i class="fa-regular fa-calendar"></i> Today's Schedule (${new Date().toLocaleDateString('en-GB')})`;
-            if(range === 'THIS_WEEK') labelEl.innerHTML = `<i class="fa-regular fa-calendar"></i> Oct 26 - Nov 2, 2026 Week`;
-            if(range === 'THIS_MONTH') labelEl.innerHTML = `<i class="fa-regular fa-calendar"></i> October 2026 Schedule`;
-
             renderNews();
         }
 
         function filterCurrency(curr) {
             activeCurrency = curr;
-            
             ['ALL', 'USD', 'EUR', 'CAD', 'AUD', 'GBP', 'JPY'].forEach(c => {
                 const btn = document.getElementById(`curr-${c}`);
-                if (btn) {
-                    btn.className = c === curr ? 'px-2 py-0.5 rounded curr-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded';
-                }
+                if (btn) btn.className = c === curr ? 'px-2 py-0.5 rounded curr-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded';
             });
-
             renderNews();
         }
 
@@ -536,11 +569,10 @@
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-10 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded bg-slate-900/50">
-                        <i class="fa-solid fa-calendar-check text-emerald-500 text-2xl mb-2"></i>
-                        <p class="text-slate-300 font-bold text-sm">No Active Red Folder News</p>
-                        <p class="text-[10px] text-slate-500 mt-1">No scheduled events for ${activeTimeRange.replace('_', ' ')} (${activeCurrency}).</p>
-                        <p class="text-[9px] text-slate-600 mt-1">Past events automatically purged (+30m expiry window).</p>
+                    <div class="text-center py-6 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded bg-slate-900/50">
+                        <i class="fa-solid fa-calendar-check text-emerald-500 text-xl mb-1"></i>
+                        <p class="text-slate-300 font-bold text-xs">No Active Red Folder News</p>
+                        <p class="text-[9px] text-slate-500">Past events purged (+30m window).</p>
                     </div>
                 `;
                 resetAISignal();
@@ -553,19 +585,15 @@
                 if(news.signal === 'SELL') badgeClass = 'badge-sell';
 
                 const card = document.createElement('div');
-                card.className = "bg-slate-900 p-2.5 rounded border border-slate-800 hover:border-slate-700 cursor-pointer transition-all";
+                card.className = "bg-slate-900 p-2 rounded border border-slate-800 hover:border-slate-700 cursor-pointer transition-all";
                 card.onclick = () => loadAISignal(news);
                 card.innerHTML = `
                     <div class="flex justify-between items-start text-xs font-mono">
                         <div class="flex items-center space-x-2">
-                            <span class="px-1.5 py-0.5 bg-red-950 text-red-400 rounded text-[10px] font-bold border border-red-900">${news.currency}</span>
-                            <span class="text-slate-300 font-bold">${news.event}</span>
+                            <span class="px-1 py-0.5 bg-red-950 text-red-400 rounded text-[9px] font-bold border border-red-900">${news.currency}</span>
+                            <span class="text-slate-300 font-bold text-[11px]">${news.event}</span>
                         </div>
-                        <span class="${badgeClass} px-2 py-0.5 rounded text-[10px] font-bold">${news.signal}</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-2 text-[11px] font-mono text-slate-400">
-                        <span><i class="fa-regular fa-clock"></i> ${news.displayDate} @ ${news.time}</span>
-                        <span>Fcst: <strong class="text-white">${news.forecast}</strong> | Act: <strong class="text-amber-400">${news.actual}</strong></span>
+                        <span class="${badgeClass} px-1.5 py-0.5 rounded text-[9px] font-bold">${news.signal}</span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -585,7 +613,7 @@
             sigEl.className = news.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : news.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
 
             document.getElementById('ai-expected-move').innerText = news.move;
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Core-Cross Platform Reasoning (${news.currency} - ${news.event}):</strong> ${news.reason}`;
+            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Core-Cross Platform Reasoning (${news.currency}):</strong> ${news.reason}`;
         }
 
         function resetAISignal() {
@@ -595,26 +623,40 @@
             document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
             document.getElementById('ai-overall-signal').className = 'badge-neutral px-2 py-0.5 rounded font-bold';
             document.getElementById('ai-expected-move').innerText = '0 Pips';
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Core-Cross Platform Reasoning:</strong> No high-impact red folder events active in 30-min window for this selection.`;
+            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Reasoning:</strong> No active events in 30-min window.`;
         }
 
-        // Live IST Clock
+        // Risk Calculator Logic
+        function calculateRisk() {
+            const acc = parseFloat(document.getElementById('calc-acc').value) || 10000;
+            const riskPct = parseFloat(document.getElementById('calc-risk').value) || 1;
+            const riskAmt = (acc * riskPct) / 100;
+            const lotSize = (riskAmt / 1000).toFixed(2); // Sample estimation
+            document.getElementById('calc-result').innerText = `${lotSize} Lots ($${riskAmt.toFixed(0)})`;
+        }
+
+        // Quick Journal Log
+        function logTrade() {
+            const pair = document.getElementById('j-pair').value || 'XAUUSD';
+            const setup = document.getElementById('j-setup').value;
+            alert(`Trade Logged Successfully!\nPair: ${pair}\nSetup: ${setup}`);
+            document.getElementById('j-pair').value = '';
+        }
+
+        // Live IST Clock & Calculator Listener
         function updateClock() {
             const now = new Date();
             const options = { timeZone: 'Asia/Kolkata', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const timeString = now.toLocaleString('en-GB', options).replace(',', '');
-            document.getElementById('live-ist-clock').innerText = `IN LIVE IST: ${timeString}`;
+            document.getElementById('live-ist-clock').innerText = `IN LIVE IST: ${now.toLocaleString('en-GB', options).replace(',', '')}`;
         }
 
-        // Initialize Terminal App
         window.onload = () => {
             loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
-            
-            setInterval(() => {
-                renderNews();
-            }, 600000);
+            document.getElementById('calc-acc').oninput = calculateRisk;
+            document.getElementById('calc-risk').oninput = calculateRisk;
+            calculateRisk();
         };
     </script>
 </body>
