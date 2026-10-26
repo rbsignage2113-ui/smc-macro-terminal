@@ -16,15 +16,6 @@
         .tab-btn-active { background-color: #d97706 !important; color: #ffffff !important; font-weight: bold; }
         .curr-btn-active { background-color: #dc2626 !important; color: #ffffff !important; font-weight: bold; }
         .asset-btn-active { background-color: #f59e0b !important; color: #020617 !important; font-weight: bold; }
-        
-        /* Smooth Scrolling Ticker Styling */
-        .ticker-wrap { width: 100%; overflow: hidden; background-color: #090d16; border: 1px solid #1e293b; }
-        .ticker { display: flex; width: max-content; animation: ticker-scroll 35s linear infinite; }
-        .ticker:hover { animation-play-state: paused; }
-        @keyframes ticker-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
     </style>
 </head>
 <body class="p-2 sm:p-4 space-y-4">
@@ -52,14 +43,14 @@
         <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
             <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
             <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Red Folder (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Chart Desk (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v TradingView Desk (ON)</span>
         </div>
     </div>
 
     <!-- MAIN GRID SECTION -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
         
-        <!-- LEFT & CENTER: Charts & Macro Radar -->
+        <!-- LEFT & CENTER: TradingView Chart & Macro Radar -->
         <div class="lg:col-span-2 space-y-4">
             
             <!-- Trump Policy & Macro Radar Box -->
@@ -71,7 +62,7 @@
                 <p class="text-xs text-slate-300">Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
             </div>
 
-            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
+            <!-- FRESH TRADINGVIEW CHART CONTAINER -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2 gap-2">
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono max-w-full pb-1">
