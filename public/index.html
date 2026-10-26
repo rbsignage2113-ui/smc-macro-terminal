@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC TERMINAL | News & Live Chart</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Institutional Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -107,15 +107,22 @@
                     <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
 
-                <!-- FILTER BUTTONS -->
+                <!-- DATE FILTERS: TODAY / THIS WEEK / THIS MONTH -->
+                <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
+                    <button onclick="setDateFilter('TODAY')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
+                    <button onclick="setDateFilter('WEEK')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
+                    <button onclick="setDateFilter('MONTH')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
+                </div>
+
+                <!-- CURRENCY FILTERS -->
                 <div class="flex flex-wrap gap-1 mb-2">
-                    <button onclick="setFilter('ALL')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
-                    <button onclick="setFilter('USD')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
-                    <button onclick="setFilter('EUR')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">EUR</button>
-                    <button onclick="setFilter('AUD')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">AUD</button>
-                    <button onclick="setFilter('GBP')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">GBP</button>
-                    <button onclick="setFilter('CAD')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">CAD</button>
-                    <button onclick="setFilter('JPY')" class="btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
+                    <button onclick="setCurrFilter('ALL')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
+                    <button onclick="setCurrFilter('USD')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
+                    <button onclick="setCurrFilter('EUR')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">EUR</button>
+                    <button onclick="setCurrFilter('AUD')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">AUD</button>
+                    <button onclick="setCurrFilter('GBP')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">GBP</button>
+                    <button onclick="setCurrFilter('CAD')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">CAD</button>
+                    <button onclick="setCurrFilter('JPY')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
                 </div>
 
                 <!-- SCROLLABLE NEWS CARDS CONTAINER -->
@@ -149,16 +156,16 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div><span class="text-gray-400">Selected Event:</span> <span id="ai-event" class="font-bold text-white">AUD - CPI m/m</span></div>
-                    <div><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-amber-400 font-bold">AUDUSD, EURAUD, GBPAUD</span></div>
-                    <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">89.4% (Institutional Grade)</span></div>
+                    <div><span class="text-gray-400">Selected Event:</span> <span id="ai-event" class="font-bold text-white">USD - CB Consumer Confidence</span></div>
+                    <div><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-amber-400 font-bold">XAUUSD, EURUSD, GBPUSD</span></div>
+                    <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">91.5% (Institutional Grade)</span></div>
                     <div><span class="text-gray-400">ICT Confluence:</span> <span id="ai-conf" class="text-purple-400 font-bold">Discount Order Block + CISD</span></div>
                 </div>
 
                 <div class="mt-2.5 p-2 bg-gray-950/80 rounded border border-gray-800 text-[11px] text-gray-300 font-mono">
                     <span class="text-cyan-400 font-bold">Institutional Prediction & R:R:</span>
                     <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300">
-                        AUD CPI m/m metrics point toward a hawkish RBA liquidity injection. Look for Asian range sweep into 5M FVG for 1:3 R:R expansion.
+                        USD CB Consumer Confidence data points toward a dovish dollar index reaction. Expect liquidity sweep into 5M Bullish Fair Value Gap for 1:3 R:R expansion.
                     </p>
                 </div>
             </div>
@@ -169,26 +176,44 @@
     <!-- SCRIPT ENGINE -->
     <script>
         const newsList = [
-            { id: 1, curr: 'AUD', title: 'CPI m/m', date: 'Wed Oct 28 @ 6:00am', fcst: '0.7%', prev: '0.4%', signal: 'BUY', pairs: 'AUDUSD, EURAUD', desc: 'Trimmed mean CPI metrics point toward hawkish RBA liquidity injection.' },
-            { id: 2, curr: 'AUD', title: 'CPI y/y', date: 'Wed Oct 28 @ 6:00am', fcst: '4.2%', prev: '4.0%', signal: 'BUY', pairs: 'AUDUSD, AUDJPY', desc: 'Inflation surge supports AUD bullish expansion.' },
-            { id: 3, curr: 'GBP', title: 'Annual Budget Release', date: 'Wed Oct 28 @ 6:00pm', fcst: 'Pending', prev: 'Pending', signal: 'SELL', pairs: 'GBPUSD, EURGBP', desc: 'Fiscal deficit risk indicates potential Judas swing sweep.' },
-            { id: 4, curr: 'CAD', title: 'BOC Rate Statement', date: 'Wed Oct 28 @ 7:15pm', fcst: 'Pending', prev: 'Pending', signal: 'BUY', pairs: 'USDCAD, CADJPY', desc: 'BOC hawkish hold projection.' },
-            { id: 5, curr: 'CAD', title: 'Overnight Rate', date: 'Wed Oct 28 @ 7:15pm', fcst: '2.50%', prev: '2.25%', signal: 'BUY', pairs: 'USDCAD', desc: '25bps rate hike expected to dump USDCAD.' },
-            { id: 6, curr: 'USD', title: 'Federal Funds Rate', date: 'Wed Oct 28 @ 11:30pm', fcst: '4.00%', prev: '4.00%', signal: 'SELL', pairs: 'XAUUSD, EURUSD', desc: 'Fed rate pause triggers Gold bullish expansion.' },
-            { id: 7, curr: 'USD', title: 'Advance GDP q/q', date: 'Thu Oct 29 @ 6:00pm', fcst: '3.2%', prev: '2.2%', signal: 'BUY', pairs: 'XAUUSD, DXY', desc: 'Strong US growth supports Dollar Index.' },
-            { id: 8, curr: 'EUR', title: 'Main Refinancing Rate', date: 'Thu Oct 29 @ 6:45pm', fcst: '2.65%', prev: '2.65%', signal: 'SELL', pairs: 'EURUSD, EURJPY', desc: 'ECB dovish cut expectations.' }
+            // TODAY (Oct 27)
+            { id: 1, curr: 'USD', title: 'CB Consumer Confidence', date: 'Tue Oct 27 @ 7:30pm', range: 'TODAY', fcst: '99.5', prev: '98.7', signal: 'BUY', pairs: 'XAUUSD, EURUSD', desc: 'Dovish deviation expected to dump DXY and fuel Gold bullish continuation.' },
+            { id: 2, curr: 'USD', title: 'Richmond Manufacturing Index', date: 'Tue Oct 27 @ 7:30pm', range: 'TODAY', fcst: '-12', prev: '-14', signal: 'BUY', pairs: 'XAUUSD, GBPUSD', desc: 'Manufacturing weakness points to Fed interest rate cuts.' },
+            { id: 3, curr: 'JPY', title: 'SPPI y/y', date: 'Tue Oct 27 @ 5:20am', range: 'TODAY', fcst: '2.5%', prev: '2.7%', signal: 'SELL', pairs: 'USDJPY, EURJPY', desc: 'BOJ policy rate uncertainty weighs down JPY strength.' },
+
+            // THIS WEEK (Oct 28 - Oct 31)
+            { id: 4, curr: 'AUD', title: 'CPI m/m', date: 'Wed Oct 28 @ 6:00am', range: 'WEEK', fcst: '0.7%', prev: '0.4%', signal: 'BUY', pairs: 'AUDUSD, EURAUD', desc: 'Trimmed mean CPI metrics point toward hawkish RBA liquidity injection.' },
+            { id: 5, curr: 'AUD', title: 'CPI y/y', date: 'Wed Oct 28 @ 6:00am', range: 'WEEK', fcst: '4.2%', prev: '4.0%', signal: 'BUY', pairs: 'AUDUSD, AUDJPY', desc: 'Inflation surge supports AUD bullish expansion.' },
+            { id: 6, curr: 'GBP', title: 'Annual Budget Release', date: 'Wed Oct 28 @ 6:00pm', range: 'WEEK', fcst: 'Pending', prev: 'Pending', signal: 'SELL', pairs: 'GBPUSD, EURGBP', desc: 'Fiscal deficit risk indicates potential Judas swing sweep.' },
+            { id: 7, curr: 'CAD', title: 'BOC Rate Statement', date: 'Wed Oct 28 @ 7:15pm', range: 'WEEK', fcst: '2.50%', prev: '2.25%', signal: 'BUY', pairs: 'USDCAD, CADJPY', desc: '25bps BOC rate hike expected to dump USDCAD.' },
+            { id: 8, curr: 'USD', title: 'Federal Funds Rate', date: 'Wed Oct 28 @ 11:30pm', range: 'WEEK', fcst: '4.00%', prev: '4.00%', signal: 'SELL', pairs: 'XAUUSD, EURUSD', desc: 'Fed rate pause triggers Gold bullish expansion.' },
+            { id: 9, curr: 'USD', title: 'Advance GDP q/q', date: 'Thu Oct 29 @ 6:00pm', range: 'WEEK', fcst: '3.2%', prev: '2.2%', signal: 'BUY', pairs: 'XAUUSD, DXY', desc: 'Strong US growth supports Dollar Index.' },
+            { id: 10, curr: 'EUR', title: 'Main Refinancing Rate', date: 'Thu Oct 29 @ 6:45pm', range: 'WEEK', fcst: '2.65%', prev: '2.65%', signal: 'SELL', pairs: 'EURUSD, EURJPY', desc: 'ECB dovish cut expectations.' },
+
+            // THIS MONTH
+            { id: 11, curr: 'USD', title: 'Non-Farm Employment Change (NFP)', date: 'Fri Nov 6 @ 6:00pm', range: 'MONTH', fcst: '150K', prev: '142K', signal: 'BUY', pairs: 'XAUUSD, EURUSD', desc: 'NFP volatility spike setup.' },
+            { id: 12, curr: 'USD', title: 'Unemployment Rate', date: 'Fri Nov 6 @ 6:00pm', range: 'MONTH', fcst: '4.2%', prev: '4.2%', signal: 'BUY', pairs: 'XAUUSD, DXY', desc: 'Unemployment equilibrium check.' }
         ];
 
-        let activeFilter = 'ALL';
+        let dateFilter = 'TODAY';
+        let currFilter = 'ALL';
         let activeId = 1;
 
-        function setFilter(curr) {
-            activeFilter = curr;
-            document.querySelectorAll('.btn-filter').forEach(btn => {
+        function setDateFilter(range) {
+            dateFilter = range;
+            document.getElementById('btn-today').className = range === 'TODAY' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            document.getElementById('btn-week').className = range === 'WEEK' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            document.getElementById('btn-month').className = range === 'MONTH' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            renderNews();
+        }
+
+        function setCurrFilter(curr) {
+            currFilter = curr;
+            document.querySelectorAll('.btn-curr').forEach(btn => {
                 if (btn.innerText === curr) {
-                    btn.className = "btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white";
+                    btn.className = "btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white";
                 } else {
-                    btn.className = "btn-filter px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300";
+                    btn.className = "btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300";
                 }
             });
             renderNews();
@@ -197,9 +222,18 @@
         function renderNews() {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
-            
-            const filtered = newsList.filter(n => activeFilter === 'ALL' || n.curr === activeFilter);
-            
+
+            const filtered = newsList.filter(n => {
+                const dateMatch = dateFilter === 'MONTH' ? true : (dateFilter === 'WEEK' ? (n.range === 'TODAY' || n.range === 'WEEK') : n.range === 'TODAY');
+                const currMatch = currFilter === 'ALL' || n.curr === currFilter;
+                return dateMatch && currMatch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center py-8 text-xs text-gray-500 font-mono">No High-Impact Red Folder events scheduled for ${currFilter} (${dateFilter}).</div>`;
+                return;
+            }
+
             filtered.forEach(item => {
                 const isSel = item.id === activeId;
                 const card = document.createElement('div');
