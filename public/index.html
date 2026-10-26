@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Ultra-Professional Institutional Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Perfectly Balanced Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -30,7 +30,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">ULTRA-PROFESSIONAL INSTITUTIONAL DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">BALANCED INSTITUTIONAL DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <!-- RIGHT: TRADINGVIEW CHART MATCHED TO NEWS BOX HEIGHT -->
+        <!-- RIGHT: TRADINGVIEW CHART MATCHED TO LEFT COLUMN TOTAL HEIGHT -->
         <div class="lg:col-span-2 space-y-4">
             <div class="cyber-card p-4 rounded-xl space-y-3">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2.5 gap-2">
@@ -116,7 +116,8 @@
                     <span id="active-asset-title" class="text-xs font-mono text-cyan-400 font-bold px-2.5 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">XAUUSD</span>
                 </div>
                 
-                <div class="h-[735px] w-full bg-slate-950 rounded-xl border border-slate-900 overflow-hidden" id="tv_chart_container"></div>
+                <!-- Perfectly Matched Height to Left Side Total Container -->
+                <div class="h-[612px] w-full bg-slate-950 rounded-xl border border-slate-900 overflow-hidden" id="tv_chart_container"></div>
             </div>
         </div>
 
@@ -124,7 +125,6 @@
 
     <!-- JavaScript Engine -->
     <script>
-        // EXACT FOREX FACTORY DATASET (OCT 26 - NOV 2, 2026) WITH PENDING/LIVE SUPPORT
         const redFolderNews = [
             { id: 1, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "CPI m/m, CPI y/y, Trimmed Mean CPI", forecast: "0.7% / 4.2%", previous: "0.4% / 4.0%", actual: "Pending" },
             { id: 2, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00pm", currency: "GBP", event: "Annual Budget Release", forecast: "Pending", previous: "Pending", actual: "Pending" },
@@ -188,7 +188,6 @@
             renderNews();
         }
 
-        // ULTRA-PROFESSIONAL AI & ICT CONFLUENCE ENGINE (BUY / SELL / NEUTRAL WITH WIN PROBABILITY)
         function calculateAIBias(news) {
             if (!news) return { signal: "NEUTRAL", buyPairs: ["None"], sellPairs: ["None"], winProb: "50.0%", ict: "Consolidation Range", reason: "No high-impact red folder news active." };
 
