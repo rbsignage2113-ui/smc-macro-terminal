@@ -52,7 +52,7 @@
         <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
             <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
             <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Red Folder (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Journal History (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Chart Desk (ON)</span>
         </div>
     </div>
 
@@ -150,31 +150,6 @@
                     <div>
                         <div class="flex justify-between text-[10px] text-slate-400"><span>AUD Strength:</span><span class="text-amber-400 font-bold">65%</span></div>
                         <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-amber-500 h-full" style="width: 65%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box 4: Quick Trade Journal Logger & History -->
-            <div class="terminal-card p-3 rounded-lg space-y-2 font-mono text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-emerald-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-book"></i> Trade Journal & History</span>
-                    <span class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded text-[9px]">LOCALSTORAGE</span>
-                </div>
-                <div class="grid grid-cols-2 gap-1.5 pt-1">
-                    <input id="j-pair" type="text" placeholder="Pair (e.g. XAUUSD)" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
-                    <select id="j-setup" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
-                        <option>PO3 Model</option>
-                        <option>FVG Mitigation</option>
-                        <option>CISD Sweep</option>
-                    </select>
-                </div>
-                <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-1 rounded text-[11px] transition-all mt-1">Save Trade Note</button>
-                
-                <!-- Saved Journal History List -->
-                <div class="pt-2 border-t border-slate-800 space-y-1">
-                    <span class="text-[10px] text-slate-400 block font-bold">Saved Trade Notes History:</span>
-                    <div id="journal-history-list" class="space-y-1 max-h-24 overflow-y-auto text-[10px]">
-                        <div class="text-slate-500 italic">No trade notes saved yet.</div>
                     </div>
                 </div>
             </div>
@@ -431,38 +406,6 @@
             document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
         }
 
-        // LocalStorage Trade Journal Management
-        function logTrade() {
-            const pair = document.getElementById('j-pair').value.trim() || 'XAUUSD';
-            const setup = document.getElementById('j-setup').value;
-            const timeStr = new Date().toLocaleTimeString();
-
-            let savedNotes = JSON.parse(localStorage.getItem('ar_rizq_journal')) || [];
-            savedNotes.unshift({ pair, setup, timeStr });
-            localStorage.setItem('ar_rizq_journal', JSON.stringify(savedNotes));
-
-            document.getElementById('j-pair').value = '';
-            loadJournalHistory();
-        }
-
-        function loadJournalHistory() {
-            const listEl = document.getElementById('journal-history-list');
-            let savedNotes = JSON.parse(localStorage.getItem('ar_rizq_journal')) || [];
-
-            if(savedNotes.length === 0) {
-                listEl.innerHTML = `<div class="text-slate-500 italic">No trade notes saved yet.</div>`;
-                return;
-            }
-
-            listEl.innerHTML = '';
-            savedNotes.forEach(note => {
-                const item = document.createElement('div');
-                item.className = "flex justify-between bg-slate-950 p-1 rounded border border-slate-800 text-[10px]";
-                item.innerHTML = `<span><strong class="text-amber-400">${note.pair}</strong> (${note.setup})</span><span class="text-slate-500">${note.timeStr}</span>`;
-                listEl.appendChild(item);
-            });
-        }
-
         function updateClock() {
             const now = new Date();
             document.getElementById('live-ist-clock').innerText = `IN LIVE IST: ${now.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true }).replace(',', '')}`;
@@ -471,7 +414,6 @@
         window.onload = () => {
             loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
-            loadJournalHistory();
             setInterval(updateClock, 1000);
         };
     </script>
