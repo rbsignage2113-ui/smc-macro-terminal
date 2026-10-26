@@ -64,13 +64,13 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-3" id="currency-overview-grid"></div>
 
     <!-- MAIN TWO-COLUMN LAYOUT -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
         <!-- LEFT: RED FOLDER NEWS DESK + PRO ICT AI BIAS ENGINE (5 COLS) -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
             <!-- 1. FOREX FACTORY RED FOLDERS BOX -->
-            <div class="glass-card rounded-xl p-3 flex flex-col h-[360px]">
+            <div class="glass-card rounded-xl p-3 flex flex-col h-[320px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-folder text-red-500"></i> FOREX FACTORY RED FOLDERS
@@ -101,34 +101,34 @@
             </div>
 
             <!-- 2. PRO ICT & AI BIAS ENGINE PANEL -->
-            <div id="ai-panel" class="glass-card rounded-xl p-3 border border-cyan-500/40">
-                <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-2">
+            <div id="ai-panel" class="glass-card rounded-xl p-3 border border-cyan-500/40 h-[210px] flex flex-col justify-between">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-1">
                     <span class="text-xs font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-brain text-cyan-400"></i> PRO ICT & AI BIAS ENGINE
                     </span>
                     <span id="ai-tag" class="px-2 py-0.5 text-xs font-bold rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">BUY</span>
                 </div>
 
-                <div class="grid grid-cols-2 gap-2 text-xs">
+                <div class="grid grid-cols-2 gap-2 text-xs my-1">
                     <div><span class="text-gray-400">Selected Event:</span> <span id="ai-event" class="font-bold text-white">Select Event</span></div>
                     <div><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-amber-400 font-bold">XAUUSD</span></div>
-                    <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">91.5% (Institutional)</span></div>
+                    <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">89.4% (Institutional)</span></div>
                     <div><span class="text-gray-400">ICT Confluence:</span> <span id="ai-conf" class="text-purple-400 font-bold">Discount OB + CISD</span></div>
                 </div>
 
-                <div class="mt-2.5 p-2 bg-gray-950/80 rounded border border-gray-800 text-[11px] text-gray-300 font-mono">
-                    <span class="text-cyan-400 font-bold">Institutional Macro Prediction & R:R Strategy:</span>
-                    <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300">
-                        Select a red folder event from the desk to calculate multi-currency macro deviation.
+                <div class="p-2 bg-gray-950/80 rounded border border-gray-800 text-[11px] text-gray-300 font-mono">
+                    <span class="text-cyan-400 font-bold">Institutional Prediction & R:R Strategy:</span>
+                    <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300 truncate">
+                        Select a red folder event from the desk to calculate institutional AI direction.
                     </p>
                 </div>
             </div>
 
         </div>
 
-        <!-- RIGHT: LIVE TRADINGVIEW CHART CONTAINER -->
+        <!-- RIGHT: LIVE TRADINGVIEW CHART CONTAINER (MATCHING EXACT LEFT COLUMN HEIGHT) -->
         <div class="lg:col-span-7 flex flex-col">
-            <div class="glass-card rounded-xl p-2 h-full min-h-[580px] flex flex-col">
+            <div class="glass-card rounded-xl p-2 h-[542px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
                     <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
                         <i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART (XAUUSD / GOLD)
@@ -167,7 +167,7 @@
             // FRIDAY OCT 30, 2026
             { id: 17, curr: 'JPY', title: 'BOJ Policy Rate', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', act: '<1.25%', fcst: '<1.25%', prev: '<1.25%', devType: 'RATE' },
             { id: 18, curr: 'JPY', title: 'Monetary Policy Statement', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', act: 'Pending', fcst: 'Pending', prev: 'Pending', devType: 'SPEECH' },
-            { id: 19, curr: 'JPY', title: 'BOJ Outlook Report', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', act: 'Pending', fcst: 'Pending', prev: 'Pending', devType: 'SPEECH' },
+            { id: 19, curr: 'JPY', title: 'BOJ Outlook Report', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', act: 'Pending', fcst: 'Pending', devType: 'SPEECH' },
             { id: 20, curr: 'JPY', title: 'BOJ Press Conference', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', act: 'Pending', fcst: 'Pending', prev: 'Pending', devType: 'SPEECH' }
         ];
 
@@ -175,27 +175,25 @@
         let currFilter = 'ALL';
         let activeId = 1;
 
-        // UNIVERSAL MULTI-CURRENCY ACCURATE AI DEVIATION ENGINE
         function calculateAIDecision(item) {
             if (item.act === 'Pending' || item.fcst === 'Pending') {
                 return {
                     signal: 'NEUTRAL',
                     prob: '75.0% (Pending Data)',
                     pairs: `${item.curr}USD`,
-                    desc: `${item.curr} ${item.title}: Event metrics pending release. Market awaiting institutional liquidity injection. Exercise 15-min News Guard.`
+                    desc: `${item.curr} ${item.title}: Event metrics pending release. Exercise 15-min News Guard.`
                 };
             }
 
             const actVal = parseFloat(item.act);
             const fcstVal = parseFloat(item.fcst);
 
-            // NEUTRAL STATE: ACTUAL EQUALS FORECAST
             if (!isNaN(actVal) && !isNaN(fcstVal) && actVal === fcstVal) {
                 return {
                     signal: 'NEUTRAL',
                     prob: '80.0% (In-Line Data)',
                     pairs: `${item.curr}USD`,
-                    desc: `${item.curr} ${item.title}: Actual (${item.act}) matched Forecast (${item.fcst}) exactly. No surprise macro deviation. High probability of range-bound price action.`
+                    desc: `${item.curr} ${item.title}: Actual (${item.act}) matched Forecast (${item.fcst}) exactly. No surprise macro deviation.`
                 };
             }
 
@@ -204,22 +202,20 @@
 
             if (item.devType === 'INFLATION' || item.devType === 'GROWTH' || item.devType === 'RATE') {
                 if (actHigher) {
-                    // Strong Currency -> USD SELL, others (AUD, CAD, etc.) BUY
                     let sig = isUSD ? 'SELL' : 'BUY';
                     return {
                         signal: sig,
                         prob: '92.4% (High Confidence)',
                         pairs: isUSD ? 'XAUUSD, EURUSD' : `${item.curr}USD, ${item.curr}JPY`,
-                        desc: `${item.curr} ${item.title}: Positive deviation (Actual ${item.act} vs Fcst ${item.fcst}). Strengthens ${item.curr}. ${isUSD ? 'XAUUSD expected to sell off into Discount Order Block.' : 'Triggers bullish expansion on pair confluences.'}`
+                        desc: `${item.curr} ${item.title}: Positive deviation (Actual ${item.act} vs Fcst ${item.fcst}). Strengthens ${item.curr}.`
                     };
                 } else {
-                    // Weak Currency -> USD BUY, others SELL
                     let sig = isUSD ? 'BUY' : 'SELL';
                     return {
                         signal: sig,
                         prob: '91.8% (High Confidence)',
                         pairs: isUSD ? 'XAUUSD, EURUSD' : `${item.curr}USD, ${item.curr}JPY`,
-                        desc: `${item.curr} ${item.title}: Negative deviation (Actual ${item.act} vs Fcst ${item.fcst}). Weakens ${item.curr}. ${isUSD ? 'Triggers XAUUSD bullish liquidity sweep of Sell-Side Liquidity into FVG.' : 'Triggers bearish retracement setup.'}`
+                        desc: `${item.curr} ${item.title}: Negative deviation (Actual ${item.act} vs Fcst ${item.fcst}). Weakens ${item.curr}.`
                     };
                 }
             }
