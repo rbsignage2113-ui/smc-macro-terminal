@@ -27,66 +27,36 @@
         }
     </style>
 </head>
-<body class="p-4 space-y-4">
+<body class="p-2 sm:p-4 space-y-4">
 
     <!-- Top Header Bar -->
-    <header class="terminal-card p-3 rounded-lg flex flex-wrap justify-between items-center text-sm shadow-lg">
+    <header class="terminal-card p-3 rounded-lg flex flex-wrap justify-between items-center text-sm shadow-lg gap-2">
         <div class="flex items-center space-x-3">
-            <span class="font-bold text-lg text-emerald-400 tracking-wider">AR-RIZQ TRADING TERMINAL</span>
-            <span id="live-ist-clock" class="bg-slate-800 px-2.5 py-1 rounded text-xs text-emerald-300 font-mono border border-slate-700">IN LIVE IST: --</span>
+            <span class="font-bold text-sm sm:text-lg text-emerald-400 tracking-wider">AR-RIZQ TERMINAL</span>
+            <span id="live-ist-clock" class="bg-slate-800 px-2 py-1 rounded text-[10px] sm:text-xs text-emerald-300 font-mono border border-slate-700">IN LIVE IST: --</span>
         </div>
-        <div class="flex items-center space-x-4 font-mono text-xs text-slate-300">
+        <div class="hidden md:flex items-center space-x-4 font-mono text-xs text-slate-300">
             <span>USDCAD: <strong class="text-white">1.4013</strong></span>
             <span>GBPUSD: <strong class="text-white">1.3040</strong></span>
             <span>USDJPY: <strong class="text-white">157.06</strong></span>
             <span>GOLD: <strong class="text-amber-400">$4,012.31</strong></span>
         </div>
-        <div class="flex space-x-2">
-            <span id="session-asia" class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">ASIA</span>
-            <span id="session-london" class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-xs font-semibold border border-emerald-800 animate-pulse">LONDON KILLZONE</span>
-            <span id="session-ny" class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">NY</span>
+        <div class="flex space-x-1 sm:space-x-2">
+            <span id="session-london" class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] sm:text-xs font-semibold border border-emerald-800 animate-pulse">LONDON KILLZONE</span>
         </div>
     </header>
 
     <!-- PRO MODULE TOGGLES -->
     <div class="terminal-card p-2 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono">
-        <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULE TOGGLES (ON/OFF):</span>
-        <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
-            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v USD/AUD AI Engine (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Killzones (ON)</span>
-            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v SMT Scanner (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Strength Index (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Journal (ON)</span>
+        <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULES:</span>
+        <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
+            <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-emerald-800">v Bookmap (ON)</span>
+            <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v SMT (ON)</span>
         </div>
     </div>
 
-    <!-- CONTINUOUS LIVE RUNNING MARKET TICKER -->
-    <div class="ticker-wrap p-2 rounded-lg font-mono text-xs text-slate-300">
-        <div class="ticker space-x-6">
-            <div class="flex space-x-6">
-                <span><strong class="text-amber-400">XAUUSD:</strong> 4,012.31 <span class="text-emerald-400">(+0.46%)</span></span>
-                <span><strong class="text-white">USDJPY:</strong> 157.06 <span class="text-emerald-400">(+0.16%)</span></span>
-                <span><strong class="text-white">EURUSD:</strong> 1.0842 <span class="text-red-400">(-0.12%)</span></span>
-                <span><strong class="text-white">GBPUSD:</strong> 1.3040 <span class="text-emerald-400">(+0.08%)</span></span>
-                <span><strong class="text-white">AUDUSD:</strong> 0.7024 <span class="text-red-400">(-0.13%)</span></span>
-                <span><strong class="text-white">USDCAD:</strong> 1.4013 <span class="text-emerald-400">(+0.09%)</span></span>
-                <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
-                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> AI ENGINE: USD & AUD High-Impact Event Logic Synchronized</span>
-            </div>
-            <div class="flex space-x-6">
-                <span><strong class="text-amber-400">XAUUSD:</strong> 4,012.31 <span class="text-emerald-400">(+0.46%)</span></span>
-                <span><strong class="text-white">USDJPY:</strong> 157.06 <span class="text-emerald-400">(+0.16%)</span></span>
-                <span><strong class="text-white">EURUSD:</strong> 1.0842 <span class="text-red-400">(-0.12%)</span></span>
-                <span><strong class="text-white">GBPUSD:</strong> 1.3040 <span class="text-emerald-400">(+0.08%)</span></span>
-                <span><strong class="text-white">AUDUSD:</strong> 0.7024 <span class="text-red-400">(-0.13%)</span></span>
-                <span><strong class="text-white">USDCAD:</strong> 1.4013 <span class="text-emerald-400">(+0.09%)</span></span>
-                <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
-                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> AI ENGINE: USD & AUD High-Impact Event Logic Synchronized</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN GRID SECTION -->
+    <!-- MAIN GRID SECTION (Responsive Mobile Stacked) -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         
         <!-- LEFT & CENTER: Charts & Tools -->
@@ -96,27 +66,26 @@
             <div class="terminal-card p-3 rounded-lg border-l-4 border-red-500">
                 <div class="flex justify-between items-center mb-1">
                     <h3 class="text-xs font-bold text-red-400 uppercase tracking-wider">USD & AUD MACRO VOLATILITY RADAR</h3>
-                    <span class="text-[10px] text-slate-400 font-mono">REAL-TIME MARKET WATCH</span>
+                    <span class="text-[10px] text-slate-400 font-mono">LIVE WATCH</span>
                 </div>
-                <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
+                <p class="text-xs text-slate-300">Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
             </div>
 
-            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER (Compact Height) -->
+            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
             <div class="terminal-card p-3 rounded-lg">
-                <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2">
-                    <div class="flex space-x-1 overflow-x-auto text-xs font-mono">
-                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded transition-all">XAUUSD</button>
-                        <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">EURUSD</button>
-                        <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">GBPUSD</button>
-                        <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">USDJPY</button>
-                        <button id="asset-AUDUSD" onclick="loadTvChart('FX:AUDUSD', 'AUDUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">AUDUSD</button>
-                        <button id="asset-USDCAD" onclick="loadTvChart('FX:USDCAD', 'USDCAD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">USDCAD</button>
-                        <button id="asset-BTCUSD" onclick="loadTvChart('BITSTAMP:BTCUSD', 'BTCUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">BTCUSD</button>
+                <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2 gap-2">
+                    <div class="flex space-x-1 overflow-x-auto text-xs font-mono max-w-full pb-1">
+                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-2.5 py-1 asset-btn-active rounded transition-all text-xs">XAUUSD</button>
+                        <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all text-xs">EURUSD</button>
+                        <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all text-xs">GBPUSD</button>
+                        <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all text-xs">USDJPY</button>
+                        <button id="asset-AUDUSD" onclick="loadTvChart('FX:AUDUSD', 'AUDUSD')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all text-xs">AUDUSD</button>
+                        <button id="asset-USDCAD" onclick="loadTvChart('FX:USDCAD', 'USDCAD')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all text-xs">USDCAD</button>
                     </div>
-                    <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">LIVE CHART: XAUUSD</span>
+                    <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">XAUUSD</span>
                 </div>
                 
-                <div class="h-[380px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
+                <div class="h-[320px] sm:h-[380px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
             <!-- SMT Divergence Scanner & Risk Calculator -->
@@ -124,26 +93,25 @@
                 
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-code-compare"></i> SMT Divergence Scanner</span>
+                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-code-compare"></i> SMT Scanner</span>
                         <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">ACTIVE</span>
                     </div>
-                    <p class="text-[11px] text-slate-300">Comparing correlated pairs for smart money manipulation signals.</p>
                     <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1 text-[11px]">
                         <div class="flex justify-between">
                             <span class="text-slate-400">EURUSD vs DXY:</span>
-                            <span class="text-emerald-400 font-bold">BULLISH SMT DETECTED</span>
+                            <span class="text-emerald-400 font-bold">BULLISH SMT</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-slate-400">AUDUSD vs NZDUSD:</span>
-                            <span class="text-amber-400 font-bold">SMT DIVERGENCE ACTIVE</span>
+                            <span class="text-amber-400 font-bold">DIVERGENCE</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-calculator"></i> Risk & Lot Calculator</span>
-                        <span class="text-[9px] text-slate-400">FundedNext Ready</span>
+                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-calculator"></i> Risk Calculator</span>
+                        <span class="text-[9px] text-slate-400">FundedNext</span>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
@@ -156,180 +124,81 @@
                         </div>
                     </div>
                     <div class="flex justify-between items-center pt-1">
-                        <span class="text-slate-400">Recommended Lot Size:</span>
+                        <span class="text-slate-400">Lot Size:</span>
                         <span id="calc-result" class="text-amber-400 font-bold">0.10 Lots</span>
                     </div>
                 </div>
 
             </div>
 
-            <!-- CENTRAL BANK POLICY STANCE MATRIX -->
-            <div class="terminal-card p-3 rounded-lg">
-                <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 flex justify-between">
-                    <span>CENTRAL BANK POLICY STANCE MATRIX</span>
-                    <span class="text-[10px] text-amber-400 font-mono">MONETARY POLICY BIAS</span>
-                </h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-center text-xs font-mono">
-                    <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                        <div class="text-slate-400 text-[10px]">USD (Fed)</div>
-                        <div class="text-red-400 font-bold">HAWKISH</div>
-                        <div class="text-[10px] text-slate-500">Rate: 4.00%<br>25bps Cuts</div>
-                    </div>
-                    <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                        <div class="text-slate-400 text-[10px]">EUR (ECB)</div>
-                        <div class="text-emerald-400 font-bold">DOVISH</div>
-                        <div class="text-[10px] text-slate-500">Rate: 2.65%<br>50bps Cuts</div>
-                    </div>
-                    <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                        <div class="text-slate-400 text-[10px]">GBP (BoE)</div>
-                        <div class="text-red-400 font-bold">HAWKISH</div>
-                        <div class="text-[10px] text-slate-500">Rate: 4.75%<br>25bps Hold</div>
-                    </div>
-                    <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                        <div class="text-slate-400 text-[10px]">CAD (BoC)</div>
-                        <div class="text-emerald-400 font-bold">DOVISH</div>
-                        <div class="text-[10px] text-slate-500">Rate: 2.25%<br>50bps Cuts</div>
-                    </div>
-                    <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                        <div class="text-slate-400 text-[10px]">AUD (RBA)</div>
-                        <div class="text-red-400 font-bold">HAWKISH</div>
-                        <div class="text-[10px] text-slate-500">Rate: 4.60%<br>Hold/Hike</div>
-                    </div>
-                    <div class="bg-slate-900 p-2 rounded border border-slate-800">
-                        <div class="text-slate-400 text-[10px]">JPY (BoJ)</div>
-                        <div class="text-amber-400 font-bold">NEUTRAL</div>
-                        <div class="text-[10px] text-slate-500">Rate: &lt;1.25%<br>Rate Hike</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LIVE SMC LIQUIDITY RADAR LOG -->
-            <div class="terminal-card p-3 rounded-lg font-mono">
-                <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 flex justify-between items-center">
-                    <span><i class="fa-solid fa-radar text-red-500 animate-spin"></i> LIVE SMC LIQUIDITY & CISD RADAR STREAM</span>
-                    <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-circle text-[8px]"></i> REAL-TIME ENGINE</span>
-                </h3>
-                <div id="smc-radar-stream" class="space-y-1 text-[11px] text-slate-300 max-h-24 overflow-y-auto bg-slate-950 p-2 rounded border border-slate-800">
-                    <div><span class="text-amber-400">[12:00:10 IST]</span> <strong class="text-white">AUD:</strong> RBA Rate Statement & CPI Engine Filter Loaded.</div>
-                    <div><span class="text-amber-400">[11:58:10 IST]</span> <strong class="text-white">USD:</strong> FOMC & PCE Signal Calculations Active.</div>
-                    <div><span class="text-amber-400">[11:42:10 IST]</span> <strong class="text-white">XAUUSD:</strong> London Killzone PDH Liquidity Sweep Completed @ 4015.50.</div>
-                </div>
-            </div>
-
         </div>
 
-        <!-- RIGHT: FOREX FACTORY RED FOLDER DESK & COMPACT WIDGETS -->
+        <!-- RIGHT: FOREX FACTORY RED FOLDER DESK & BOOKMAP -->
         <div class="terminal-card p-3 rounded-lg space-y-3 flex flex-col justify-between">
             
             <div class="space-y-3">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-xs font-bold text-red-400 uppercase flex items-center space-x-1.5">
                         <i class="fa-solid fa-folder-open text-red-500"></i>
-                        <span>FOREX FACTORY RED FOLDER DESK</span>
+                        <span>FOREX FACTORY RED FOLDER</span>
                     </h3>
                     
                     <div class="flex space-x-1 text-[10px] font-mono">
-                        <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold">TODAY</button>
-                        <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold tab-btn-active">THIS WEEK</button>
-                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold">THIS MONTH</button>
+                        <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded font-bold">TODAY</button>
+                        <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded font-bold tab-btn-active">WEEK</button>
                     </div>
                 </div>
 
                 <!-- Currency Filter Buttons -->
                 <div class="flex space-x-1 text-[10px] font-mono justify-between bg-slate-900 p-1.5 rounded border border-slate-800">
                     <button id="curr-ALL" onclick="filterCurrency('ALL')" class="px-2 py-0.5 rounded curr-btn-active">ALL</button>
-                    <button id="curr-USD" onclick="filterCurrency('USD')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USD</button>
-                    <button id="curr-EUR" onclick="filterCurrency('EUR')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">EUR</button>
-                    <button id="curr-CAD" onclick="filterCurrency('CAD')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">CAD</button>
-                    <button id="curr-AUD" onclick="filterCurrency('AUD')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">AUD</button>
-                    <button id="curr-GBP" onclick="filterCurrency('GBP')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">GBP</button>
-                    <button id="curr-JPY" onclick="filterCurrency('JPY')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">JPY</button>
-                </div>
-
-                <!-- Selected View Date Label -->
-                <div class="flex justify-between items-center text-xs font-mono text-slate-400 px-1">
-                    <span id="selected-news-date-label" class="text-amber-400 font-bold"><i class="fa-regular fa-calendar"></i> Oct 26 - Nov 2, 2026 Week</span>
-                    <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-arrows-rotate animate-spin"></i> Auto-Purge (+30m) Active</span>
+                    <button id="curr-USD" onclick="filterCurrency('USD')" class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">USD</button>
+                    <button id="curr-EUR" onclick="filterCurrency('EUR')" class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">EUR</button>
+                    <button id="curr-AUD" onclick="filterCurrency('AUD')" class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">AUD</button>
+                    <button id="curr-GBP" onclick="filterCurrency('GBP')" class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded">GBP</button>
                 </div>
 
                 <!-- Dynamic Scrollable Red Folder Container -->
-                <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[180px] pr-1"></div>
+                <div id="red-folder-container" class="space-y-2 overflow-y-auto max-h-[160px] pr-1"></div>
 
                 <!-- AI REAL-TIME USD/AUD FILTER & SIGNAL ENGINE -->
-                <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
+                <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
                         <span class="text-amber-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-brain"></i> AI News Direction Engine</span>
-                        <span id="ai-engine-status" class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">LIVE FILTERED</span>
+                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">LIVE</span>
                     </div>
-                    <div class="space-y-1">
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Target Pairs:</span>
-                            <span id="ai-target-pairs" class="text-white font-semibold">--</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Pairs to BUY:</span>
-                            <span id="ai-pairs-buy" class="text-emerald-400 font-bold">--</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Pairs to SELL:</span>
-                            <span id="ai-pairs-sell" class="text-red-400 font-bold">--</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Signal Result:</span>
-                            <span id="ai-overall-signal" class="badge-neutral px-2 py-0.5 rounded font-bold">NEUTRAL</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Expected Expansion:</span>
-                            <span id="ai-expected-move" class="text-amber-400 font-bold">--</span>
-                        </div>
-                    </div>
-                    <div class="text-[10px] text-slate-400 pt-1 border-t border-slate-800" id="ai-reasoning-text">
-                        <strong>AI Filter Analysis:</strong> Click any event to calculate instant SMC directional bias.
+                    <div class="space-y-1 text-[11px]">
+                        <div class="flex justify-between"><span class="text-slate-400">Target Pairs:</span><span id="ai-target-pairs" class="text-white font-semibold">--</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">BUY:</span><span id="ai-pairs-buy" class="text-emerald-400 font-bold">--</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">SELL:</span><span id="ai-pairs-sell" class="text-red-400 font-bold">--</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Signal:</span><span id="ai-overall-signal" class="badge-neutral px-2 py-0.5 rounded font-bold">NEUTRAL</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- PRE-NEWS CURRENCY STRENGTH INDEX -->
-            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
+            <!-- BOOKMAP ORDER FLOW & LIQUIDITY DEPTH MODULE -->
+            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs mt-2">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                    <span class="text-sky-400 font-bold uppercase text-[10px]"><i class="fa-solid fa-chart-simple"></i> Pre-News Currency Strength</span>
-                    <span class="text-[9px] text-emerald-400">LIVE</span>
+                    <span class="text-purple-400 font-bold uppercase text-[10px]"><i class="fa-solid fa-water"></i> Bookmap Order Flow Heatmap</span>
+                    <span class="text-[9px] text-emerald-400">ACTIVE</span>
                 </div>
-                <div class="space-y-1 text-[11px]">
-                    <div>
-                        <div class="flex justify-between text-[10px] text-slate-400"><span>USD Strength:</span><span class="text-emerald-400 font-bold">75%</span></div>
-                        <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 75%"></div></div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-[10px] text-slate-400"><span>GBP Strength:</span><span class="text-emerald-400 font-bold">65%</span></div>
-                        <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-emerald-400 h-full" style="width: 65%"></div></div>
-                    </div>
+                <div class="space-y-1 text-[10px] text-slate-300">
+                    <div class="flex justify-between"><span>Ask Liquidity Wall (Sell):</span><strong class="text-red-400">4,018.50 ($14.2M)</strong></div>
+                    <div class="flex justify-between"><span>Bid Liquidity Pool (Buy):</span><strong class="text-emerald-400">4,008.20 ($18.6M)</strong></div>
+                    <div class="flex justify-between"><span>Order Flow Imbalance:</span><strong class="text-emerald-400">Bullish Delta (+68%)</strong></div>
                 </div>
             </div>
 
-            <!-- ICT KILLZONE SESSION SCHEDULE -->
-            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                    <span class="text-amber-400 font-bold uppercase text-[10px]"><i class="fa-regular fa-clock"></i> ICT Killzone Schedule</span>
-                    <span class="text-[9px] text-amber-400">IST</span>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-[10px]">
-                    <div class="bg-slate-950 p-1.5 rounded border border-slate-800">
-                        <span class="text-slate-400 block">London Killzone</span>
-                        <span class="text-emerald-400 font-bold">12:30 PM - 03:30 PM</span>
-                        <span class="text-[9px] text-emerald-300 block">● ACTIVE NOW</span>
-                    </div>
-                    <div class="bg-slate-950 p-1.5 rounded border border-slate-800">
-                        <span class="text-slate-400 block">NY Killzone</span>
-                        <span class="text-amber-400 font-bold">05:30 PM - 08:30 PM</span>
-                        <span class="text-[9px] text-slate-500 block">UPCOMING</span>
-                    </div>
+            <!-- ICT KILLZONE SCHEDULE -->
+            <div class="bg-slate-900 p-2 rounded border border-slate-800 space-y-1 font-mono text-xs">
+                <div class="flex justify-between items-center text-[10px]">
+                    <span class="text-amber-400 font-bold">London Killzone (Active):</span>
+                    <span class="text-emerald-300 font-bold">12:30 PM - 03:30 PM</span>
                 </div>
             </div>
 
             <!-- Quick Trade Journal Logger -->
             <div class="bg-slate-900 p-2 rounded border border-slate-800 space-y-1 font-mono text-xs">
-                <span class="text-emerald-400 font-bold uppercase text-[10px] block"><i class="fa-solid fa-book"></i> Quick Trade Journal Logger</span>
                 <div class="grid grid-cols-2 gap-1">
                     <input id="j-pair" type="text" placeholder="Pair (e.g. XAUUSD)" class="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white text-[11px]">
                     <select id="j-setup" class="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white text-[11px]">
@@ -338,7 +207,7 @@
                         <option>CISD Sweep</option>
                     </select>
                 </div>
-                <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-0.5 rounded text-[11px] transition-all">Save Trade Note</button>
+                <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-0.5 rounded text-[11px] transition-all mt-1">Save Trade Note</button>
             </div>
 
         </div>
@@ -432,14 +301,14 @@
         let activeCurrency = 'ALL';
 
         function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
-            const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'BTCUSD'];
+            const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD'];
             assetList.forEach(asset => {
                 const btn = document.getElementById(`asset-${asset}`);
                 if(btn) {
                     if(asset === pairName) {
-                        btn.className = "px-3 py-1 asset-btn-active rounded transition-all";
+                        btn.className = "px-2.5 py-1 asset-btn-active rounded transition-all text-xs";
                     } else {
-                        btn.className = "px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all";
+                        btn.className = "px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all text-xs";
                     }
                 }
             });
@@ -460,7 +329,7 @@
                 "allow_symbol_change": true,
                 "container_id": "tv_chart_container"
             });
-            document.getElementById('active-asset-title').innerText = "LIVE CHART: " + pairName;
+            document.getElementById('active-asset-title').innerText = pairName;
         }
 
         function isNewsActiveAndNotExpired(newsDateTime) {
@@ -478,26 +347,22 @@
                 return news.dateStr === todayStr;
             } else if (activeTimeRange === 'THIS_WEEK') {
                 return true; 
-            } else if (activeTimeRange === 'THIS_MONTH') {
-                const newsTime = new Date(news.dateTimeISO);
-                return newsTime.getMonth() === now.getMonth() && newsTime.getFullYear() === now.getFullYear();
             }
             return true;
         }
 
         function setTimeRange(range) {
             activeTimeRange = range;
-            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
-            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
-            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
+            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 text-slate-300 rounded font-bold';
+            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 text-slate-300 rounded font-bold';
             renderNews();
         }
 
         function filterCurrency(curr) {
             activeCurrency = curr;
-            ['ALL', 'USD', 'EUR', 'CAD', 'AUD', 'GBP', 'JPY'].forEach(c => {
+            ['ALL', 'USD', 'EUR', 'AUD', 'GBP'].forEach(c => {
                 const btn = document.getElementById(`curr-${c}`);
-                if (btn) btn.className = c === curr ? 'px-2 py-0.5 rounded curr-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded';
+                if (btn) btn.className = c === curr ? 'px-2 py-0.5 rounded curr-btn-active' : 'px-2 py-0.5 bg-slate-800 text-slate-300 rounded';
             });
             renderNews();
         }
@@ -510,44 +375,33 @@
                 signal: "NEUTRAL",
                 buyPairs: ["None"],
                 sellPairs: ["None"],
-                move: "Low Volatility (10 - 25 Pips)",
-                reason: `Actual data (${news.actual}) is in-line with Forecast (${news.forecast}). Zero unexpected deviation -> Market remains NEUTRAL.`
+                move: "Low Volatility",
+                reason: `In-line with forecast.`
             };
 
-            if (isNaN(act) || isNaN(fcst) || act === fcst) {
-                return outcome;
-            }
+            if (isNaN(act) || isNaN(fcst) || act === fcst) return outcome;
 
             if (news.currency === 'USD') {
                 if (act > fcst) {
                     outcome.signal = "BUY";
                     outcome.buyPairs = ["USDCAD", "USDJPY"];
-                    outcome.sellPairs = ["XAUUSD", "EURUSD", "GBPUSD", "AUDUSD"];
-                    outcome.move = news.move || "100 - 180 Pips";
-                    outcome.reason = `Actual (${news.actual}) > Forecast (${news.forecast}) -> Hawkish USD Strength. Buy USD pairs, Sell Gold & Majors.`;
+                    outcome.sellPairs = ["XAUUSD", "EURUSD"];
                 } else if (act < fcst) {
                     outcome.signal = "SELL";
-                    outcome.buyPairs = ["XAUUSD", "EURUSD", "GBPUSD", "AUDUSD"];
+                    outcome.buyPairs = ["XAUUSD", "EURUSD"];
                     outcome.sellPairs = ["USDCAD", "USDJPY"];
-                    outcome.move = news.move || "100 - 180 Pips";
-                    outcome.reason = `Actual (${news.actual}) < Forecast (${news.forecast}) -> Dovish USD Weakness. Buy Gold & Majors, Sell USD pairs.`;
                 }
             } else if (news.currency === 'AUD') {
                 if (act > fcst) {
                     outcome.signal = "BUY";
-                    outcome.buyPairs = ["AUDUSD", "AUDJPY"];
-                    outcome.sellPairs = ["EURAUD", "GBPAUD"];
-                    outcome.move = news.move || "80 - 140 Pips";
-                    outcome.reason = `Actual (${news.actual}) > Forecast (${news.forecast}) -> Hawkish RBA outcome. Strong AUD rally.`;
+                    outcome.buyPairs = ["AUDUSD"];
+                    outcome.sellPairs = ["EURAUD"];
                 } else if (act < fcst) {
                     outcome.signal = "SELL";
-                    outcome.buyPairs = ["EURAUD", "GBPAUD"];
-                    outcome.sellPairs = ["AUDUSD", "AUDJPY"];
-                    outcome.move = news.move || "80 - 140 Pips";
-                    outcome.reason = `Actual (${news.actual}) < Forecast (${news.forecast}) -> Dovish AUD weakness. Sell AUD crosses.`;
+                    outcome.buyPairs = ["EURAUD"];
+                    outcome.sellPairs = ["AUDUSD"];
                 }
             }
-
             return outcome;
         }
 
@@ -563,59 +417,46 @@
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-4 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded bg-slate-900/50">
-                        <i class="fa-solid fa-calendar-check text-emerald-500 text-lg mb-1"></i>
-                        <p class="text-slate-300 font-bold text-xs">No Active Red Folder News</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="text-center py-3 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded bg-slate-900/50">No Active Red Folder News</div>`;
                 resetAISignal();
                 return;
             }
 
             filtered.forEach(news => {
                 const aiResult = calculateAISignal(news);
-
-                let badgeClass = 'badge-neutral';
-                if(aiResult.signal === 'BUY') badgeClass = 'badge-buy';
-                if(aiResult.signal === 'SELL') badgeClass = 'badge-sell';
+                let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : aiResult.signal === 'SELL' ? 'badge-sell' : 'badge-neutral';
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-900 p-2 rounded border border-slate-800 hover:border-slate-700 cursor-pointer transition-all";
                 card.onclick = () => loadAISignal(news);
                 card.innerHTML = `
                     <div class="flex justify-between items-start text-xs font-mono">
-                        <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-1.5">
                             <span class="px-1 py-0.5 bg-red-950 text-red-400 rounded text-[9px] font-bold border border-red-900">${news.currency}</span>
                             <span class="text-slate-300 font-bold text-[11px]">${news.event}</span>
                         </div>
-                        <span class="${badgeClass} px-1.5 py-0.5 rounded text-[9px] font-bold">${aiResult.signal}</span>
+                        <span class="${badgeClass} px-1 py-0.5 rounded text-[9px] font-bold">${aiResult.signal}</span>
                     </div>
                     <div class="flex justify-between items-center mt-1 text-[10px] font-mono text-slate-400">
-                        <span><i class="fa-regular fa-clock"></i> ${news.displayDate} @ ${news.time}</span>
-                        <span>Fcst: <strong class="text-white">${news.forecast}</strong> | Act: <strong class="text-amber-400">${news.actual}</strong></span>
+                        <span>${news.displayDate} @ ${news.time}</span>
+                        <span>Act: <strong class="text-amber-400">${news.actual}</strong></span>
                     </div>
                 `;
                 container.appendChild(card);
             });
-
             loadAISignal(filtered[0]);
         }
 
         function loadAISignal(news) {
             if(!news) return;
             const aiResult = calculateAISignal(news);
-
             document.getElementById('ai-target-pairs').innerText = [...aiResult.buyPairs, ...aiResult.sellPairs].filter(p => p !== 'None').join(', ') || 'None';
             document.getElementById('ai-pairs-buy').innerText = aiResult.buyPairs.join(', ');
             document.getElementById('ai-pairs-sell').innerText = aiResult.sellPairs.join(', ');
             
             const sigEl = document.getElementById('ai-overall-signal');
-            sigEl.innerText = `${aiResult.signal} (${aiResult.signal === 'BUY' ? 'BULLISH' : aiResult.signal === 'SELL' ? 'BEARISH' : 'NEUTRAL'})`;
+            sigEl.innerText = aiResult.signal;
             sigEl.className = aiResult.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : aiResult.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
-
-            document.getElementById('ai-expected-move').innerText = aiResult.move;
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Filter Analysis (${news.currency} - ${news.event}):</strong> ${aiResult.reason}`;
         }
 
         function resetAISignal() {
@@ -623,30 +464,22 @@
             document.getElementById('ai-pairs-buy').innerText = 'None';
             document.getElementById('ai-pairs-sell').innerText = 'None';
             document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
-            document.getElementById('ai-overall-signal').className = 'badge-neutral px-2 py-0.5 rounded font-bold';
-            document.getElementById('ai-expected-move').innerText = '0 Pips';
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Filter Analysis:</strong> No active events in 30-min window.`;
         }
 
         function calculateRisk() {
             const acc = parseFloat(document.getElementById('calc-acc').value) || 10000;
             const riskPct = parseFloat(document.getElementById('calc-risk').value) || 1;
-            const riskAmt = (acc * riskPct) / 100;
-            const lotSize = (riskAmt / 1000).toFixed(2);
-            document.getElementById('calc-result').innerText = `${lotSize} Lots ($${riskAmt.toFixed(0)})`;
+            const lotSize = ((acc * riskPct) / 100000).toFixed(2);
+            document.getElementById('calc-result').innerText = `${lotSize} Lots`;
         }
 
         function logTrade() {
-            const pair = document.getElementById('j-pair').value || 'XAUUSD';
-            const setup = document.getElementById('j-setup').value;
-            alert(`Trade Logged Successfully!\nPair: ${pair}\nSetup: ${setup}`);
-            document.getElementById('j-pair').value = '';
+            alert(`Trade Logged Successfully!`);
         }
 
         function updateClock() {
             const now = new Date();
-            const options = { timeZone: 'Asia/Kolkata', hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('live-ist-clock').innerText = `IN LIVE IST: ${now.toLocaleString('en-GB', options).replace(',', '')}`;
+            document.getElementById('live-ist-clock').innerText = `IN LIVE IST: ${now.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true }).replace(',', '')}`;
         }
 
         window.onload = () => {
