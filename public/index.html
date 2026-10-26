@@ -52,8 +52,8 @@
     <div class="terminal-card p-2 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono">
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULE TOGGLES (ON/OFF):</span>
         <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
-            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v USD AI Filter (ON)</span>
-            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v FOMC / NFP Radar (ON)</span>
+            <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v USD/AUD AI Engine (ON)</span>
+            <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v RBA / FOMC Radar (ON)</span>
             <span class="px-2 py-1 bg-red-950 text-red-400 rounded border border-red-800">v SMT Scanner (ON)</span>
             <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Risk Calc (ON)</span>
             <span class="px-2 py-1 bg-emerald-950 text-emerald-400 rounded border border-emerald-800">v Journal (ON)</span>
@@ -71,7 +71,7 @@
                 <span><strong class="text-white">AUDUSD:</strong> 0.7024 <span class="text-red-400">(-0.13%)</span></span>
                 <span><strong class="text-white">USDCAD:</strong> 1.4013 <span class="text-emerald-400">(+0.09%)</span></span>
                 <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
-                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> USD AI ENGINE: Real-Time Economic Data Filter Active</span>
+                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> AI ENGINE: USD & AUD High-Impact Event Logic Synchronized</span>
             </div>
             <div class="flex space-x-6">
                 <span><strong class="text-amber-400">XAUUSD:</strong> 4,012.31 <span class="text-emerald-400">(+0.46%)</span></span>
@@ -81,7 +81,7 @@
                 <span><strong class="text-white">AUDUSD:</strong> 0.7024 <span class="text-red-400">(-0.13%)</span></span>
                 <span><strong class="text-white">USDCAD:</strong> 1.4013 <span class="text-emerald-400">(+0.09%)</span></span>
                 <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
-                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> USD AI ENGINE: Real-Time Economic Data Filter Active</span>
+                <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> AI ENGINE: USD & AUD High-Impact Event Logic Synchronized</span>
             </div>
         </div>
     </div>
@@ -92,13 +92,13 @@
         <!-- LEFT & CENTER: Charts & Tools -->
         <div class="lg:col-span-2 space-y-4">
             
-            <!-- Trump Policy & USD Macro Volatility Radar -->
+            <!-- Trump Policy & Macro Radar -->
             <div class="terminal-card p-3 rounded-lg border-l-4 border-red-500">
                 <div class="flex justify-between items-center mb-1">
-                    <h3 class="text-xs font-bold text-red-400 uppercase tracking-wider">US TRUMP POLICY & USD MACRO VOLATILITY RADAR</h3>
+                    <h3 class="text-xs font-bold text-red-400 uppercase tracking-wider">USD & AUD MACRO VOLATILITY RADAR</h3>
                     <span class="text-[10px] text-slate-400 font-mono">REAL-TIME MARKET WATCH</span>
                 </div>
-                <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Tariff Announcements, Fed FOMC Rate Decisions & NFP Data Releases.</p>
+                <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
             </div>
 
             <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
@@ -119,10 +119,9 @@
                 <div class="h-80 w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
-            <!-- SMT Divergence Scanner & Risk Position Calculator Grid -->
+            <!-- SMT Divergence Scanner & Risk Calculator -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
-                <!-- SMT Divergence Scanner -->
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-1">
                         <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-code-compare"></i> SMT Divergence Scanner</span>
@@ -135,13 +134,12 @@
                             <span class="text-emerald-400 font-bold">BULLISH SMT DETECTED</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-slate-400">XAUUSD vs Silver:</span>
-                            <span class="text-amber-400 font-bold">CLEAN CORRELATION</span>
+                            <span class="text-slate-400">AUDUSD vs NZDUSD:</span>
+                            <span class="text-amber-400 font-bold">SMT DIVERGENCE ACTIVE</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Risk & Lot Size Calculator -->
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-1">
                         <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-calculator"></i> Risk & Lot Calculator</span>
@@ -195,7 +193,7 @@
                     <div class="bg-slate-900 p-2 rounded border border-slate-800">
                         <div class="text-slate-400 text-[10px]">AUD (RBA)</div>
                         <div class="text-red-400 font-bold">HAWKISH</div>
-                        <div class="text-[10px] text-slate-500">Rate: 4.35%<br>25bps Hold</div>
+                        <div class="text-[10px] text-slate-500">Rate: 4.60%<br>Hold/Hike</div>
                     </div>
                     <div class="bg-slate-900 p-2 rounded border border-slate-800">
                         <div class="text-slate-400 text-[10px]">JPY (BoJ)</div>
@@ -212,9 +210,9 @@
                     <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-circle text-[8px]"></i> REAL-TIME ENGINE</span>
                 </h3>
                 <div id="smc-radar-stream" class="space-y-1 text-[11px] text-slate-300 max-h-24 overflow-y-auto bg-slate-950 p-2 rounded border border-slate-800">
-                    <div><span class="text-amber-400">[11:58:10 IST]</span> <strong class="text-white">USD:</strong> Core PCE & Advance GDP Filter Synchronized.</div>
+                    <div><span class="text-amber-400">[12:00:10 IST]</span> <strong class="text-white">AUD:</strong> RBA Rate Statement & CPI Engine Filter Loaded.</div>
+                    <div><span class="text-amber-400">[11:58:10 IST]</span> <strong class="text-white">USD:</strong> FOMC & PCE Signal Calculations Active.</div>
                     <div><span class="text-amber-400">[11:42:10 IST]</span> <strong class="text-white">XAUUSD:</strong> London Killzone PDH Liquidity Sweep Completed @ 4015.50.</div>
-                    <div><span class="text-amber-400">[11:38:05 IST]</span> <strong class="text-white">EURUSD:</strong> 15M CISD Bullish Order Block Created.</div>
                 </div>
             </div>
 
@@ -256,10 +254,10 @@
             <!-- Dynamic Scrollable Red Folder Container -->
             <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[220px] pr-1"></div>
 
-            <!-- AI REAL-TIME USD FILTER & SIGNAL ENGINE -->
+            <!-- AI REAL-TIME USD/AUD FILTER & SIGNAL ENGINE -->
             <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-amber-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-brain"></i> AI USD News Filter Result</span>
+                    <span class="text-amber-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-brain"></i> AI News Direction Engine</span>
                     <span id="ai-engine-status" class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">LIVE FILTERED</span>
                 </div>
                 <div class="space-y-1">
@@ -285,7 +283,7 @@
                     </div>
                 </div>
                 <div class="text-[10px] text-slate-400 pt-1 border-t border-slate-800" id="ai-reasoning-text">
-                    <strong>AI Filter Analysis:</strong> Click any USD/Major event to calculate instant SMC direction.
+                    <strong>AI Filter Analysis:</strong> Click any event to calculate instant SMC directional bias.
                 </div>
             </div>
 
@@ -307,9 +305,9 @@
 
     </div>
 
-    <!-- JavaScript Data & AI Filtering Engine -->
+    <!-- JavaScript Data & Pure AI Filtering Engine -->
     <script>
-        // High Impact Red Folder Events (Full USD Suite Included)
+        // Forex Factory Red Folder High-Impact Dataset (USD + AUD Full Suite)
         const redFolderNews = [
             {
                 id: 1,
@@ -321,12 +319,8 @@
                 event: "CPI m/m, CPI y/y, Trimmed Mean CPI",
                 forecast: "4.2%",
                 previous: "4.0%",
-                actual: "4.3%",
-                buyPairs: ["AUDUSD", "AUDJPY"],
-                sellPairs: ["EURAUD", "GBPAUD"],
-                signal: "BUY",
-                move: "65 - 90 Pips",
-                reason: "Actual CPI (4.3%) > Forecast (4.2%) -> Hawkish RBA trigger, strong AUD buy bias."
+                actual: "4.5%",
+                move: "65 - 90 Pips"
             },
             {
                 id: 2,
@@ -336,34 +330,13 @@
                 time: "06:00 PM IST",
                 currency: "GBP",
                 event: "Annual Budget Release",
-                forecast: "N/A",
-                previous: "N/A",
-                actual: "Fiscal Stimulus",
-                buyPairs: ["GBPUSD", "GBPJPY"],
-                sellPairs: ["EURGBP"],
-                signal: "BUY",
-                move: "110 - 150 Pips",
-                reason: "Annual Budget reflects infrastructure expansion and lower borrowing projections -> GBP Bullish."
+                forecast: "3.5%",
+                previous: "3.5%",
+                actual: "3.5%",
+                move: "10 - 20 Pips"
             },
             {
                 id: 3,
-                dateTimeISO: "2026-10-28T19:15:00+05:30",
-                dateStr: "2026-10-28",
-                displayDate: "Wed Oct 28",
-                time: "07:15 PM IST",
-                currency: "CAD",
-                event: "BOC Monetary Policy Report & Overnight Rate",
-                forecast: "2.50%",
-                previous: "2.25%",
-                actual: "2.50%",
-                buyPairs: ["CADJPY"],
-                sellPairs: ["USDCAD", "EURCAD"],
-                signal: "NEUTRAL",
-                move: "50 - 80 Pips",
-                reason: "Rate held at 2.50% in-line with expectations. Awaiting BOC Press Conference guidance."
-            },
-            {
-                id: 4,
                 dateTimeISO: "2026-10-28T23:30:00+05:30",
                 dateStr: "2026-10-28",
                 displayDate: "Wed Oct 28",
@@ -372,63 +345,47 @@
                 event: "Federal Funds Rate & FOMC Statement",
                 forecast: "4.00%",
                 previous: "4.00%",
-                actual: "4.00%",
-                buyPairs: ["USDCAD", "USDJPY"],
-                sellPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
-                signal: "SELL",
-                move: "120 - 220 Pips",
-                reason: "AI Filter Result: Fed statement indicates rate cut cycle continuation -> Bearish DXY reaction, Bullish Gold/EURUSD expansion."
+                actual: "3.75%",
+                move: "120 - 220 Pips"
             },
             {
-                id: 5,
-                dateTimeISO: "2026-10-29T00:00:00+05:30",
-                dateStr: "2026-10-29",
-                displayDate: "Thu Oct 29",
-                time: "12:00 AM IST",
-                currency: "USD",
-                event: "FOMC Press Conference",
-                forecast: "Speech",
-                previous: "N/A",
-                actual: "Powell Speech",
-                buyPairs: ["XAUUSD", "EURUSD"],
-                sellPairs: ["USDJPY", "USDCAD"],
-                signal: "BUY",
-                move: "90 - 150 Pips",
-                reason: "AI Filter Result: Powell confirms dovish stance. Liquidity sweeps previous day high on XAUUSD."
-            },
-            {
-                id: 6,
+                id: 4,
                 dateTimeISO: "2026-10-29T18:00:00+05:30",
                 dateStr: "2026-10-29",
                 displayDate: "Thu Oct 29",
                 time: "06:00 PM IST",
                 currency: "USD",
                 event: "Advance GDP q/q & Core PCE Price Index m/m",
-                forecast: "GDP 3.2% | PCE 0.3%",
-                previous: "GDP 2.2% | PCE 0.2%",
-                actual: "GDP 2.8% | PCE 0.2%",
-                buyPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
-                sellPairs: ["USDCAD", "USDJPY"],
-                signal: "SELL",
-                move: "100 - 160 Pips",
-                reason: "AI Filter Result: Advance GDP (2.8%) < Forecast (3.2%) & PCE benign -> USD Bearish breakdown."
+                forecast: "3.2%",
+                previous: "2.2%",
+                actual: "2.8%",
+                move: "100 - 160 Pips"
             },
             {
-                id: 7,
+                id: 5,
+                dateTimeISO: "2026-11-03T09:00:00+05:30",
+                dateStr: "2026-11-03",
+                displayDate: "Tue Nov 03",
+                time: "09:00 AM IST",
+                currency: "AUD",
+                event: "RBA Rate Decision & Cash Rate Statement",
+                forecast: "4.60%",
+                previous: "4.60%",
+                actual: "4.85%",
+                move: "100 - 180 Pips"
+            },
+            {
+                id: 6,
                 dateTimeISO: "2026-11-06T19:00:00+05:30",
                 dateStr: "2026-11-06",
                 displayDate: "Fri Nov 06",
                 time: "07:00 PM IST",
                 currency: "USD",
-                event: "Non-Farm Employment Change & Unemployment Rate",
-                forecast: "165K | 4.1%",
-                previous: "142K | 4.2%",
-                actual: "180K | 4.0%",
-                buyPairs: ["USDCAD", "USDJPY"],
-                sellPairs: ["XAUUSD", "EURUSD", "GBPUSD"],
-                signal: "BUY",
-                move: "150 - 250 Pips",
-                reason: "AI Filter Result: NFP (180K) > Forecast (165K) & Unemployment dropped -> Strong Hawkish USD rally."
+                event: "Non-Farm Employment Change (NFP) & Unemployment Rate",
+                forecast: "165K",
+                previous: "142K",
+                actual: "165K",
+                move: "15 - 30 Pips"
             }
         ];
 
@@ -506,6 +463,60 @@
             renderNews();
         }
 
+        // Pure AI Filtering Calculation Logic Engine (Quantitative Comparison)
+        function calculateAISignal(news) {
+            const act = parseFloat(news.actual);
+            const fcst = parseFloat(news.forecast);
+
+            // Default In-Line / Equal Case
+            let outcome = {
+                signal: "NEUTRAL",
+                buyPairs: ["None"],
+                sellPairs: ["None"],
+                move: "Low Volatility (10 - 25 Pips)",
+                reason: `Actual data (${news.actual}) is in-line with Forecast (${news.forecast}). Zero unexpected deviation -> Market remains NEUTRAL.`
+            };
+
+            if (isNaN(act) || isNaN(fcst) || act === fcst) {
+                return outcome;
+            }
+
+            // USD Specific Logic
+            if (news.currency === 'USD') {
+                if (act > fcst) {
+                    outcome.signal = "BUY"; // USD Bullish
+                    outcome.buyPairs = ["USDCAD", "USDJPY"];
+                    outcome.sellPairs = ["XAUUSD", "EURUSD", "GBPUSD", "AUDUSD"];
+                    outcome.move = news.move || "100 - 180 Pips";
+                    outcome.reason = `Actual (${news.actual}) > Forecast (${news.forecast}) -> Hawkish USD Strength. Buy USD pairs, Sell Gold & Majors.`;
+                } else if (act < fcst) {
+                    outcome.signal = "SELL"; // USD Bearish
+                    outcome.buyPairs = ["XAUUSD", "EURUSD", "GBPUSD", "AUDUSD"];
+                    outcome.sellPairs = ["USDCAD", "USDJPY"];
+                    outcome.move = news.move || "100 - 180 Pips";
+                    outcome.reason = `Actual (${news.actual}) < Forecast (${news.forecast}) -> Dovish USD Weakness. Buy Gold & Majors, Sell USD pairs.`;
+                }
+            } 
+            // AUD Specific Logic
+            else if (news.currency === 'AUD') {
+                if (act > fcst) {
+                    outcome.signal = "BUY"; // AUD Bullish
+                    outcome.buyPairs = ["AUDUSD", "AUDJPY"];
+                    outcome.sellPairs = ["EURAUD", "GBPAUD"];
+                    outcome.move = news.move || "80 - 140 Pips";
+                    outcome.reason = `Actual (${news.actual}) > Forecast (${news.forecast}) -> Hawkish RBA outcome. Strong AUD rally.`;
+                } else if (act < fcst) {
+                    outcome.signal = "SELL"; // AUD Bearish
+                    outcome.buyPairs = ["EURAUD", "GBPAUD"];
+                    outcome.sellPairs = ["AUDUSD", "AUDJPY"];
+                    outcome.move = news.move || "80 - 140 Pips";
+                    outcome.reason = `Actual (${news.actual}) < Forecast (${news.forecast}) -> Dovish AUD weakness. Sell AUD crosses.`;
+                }
+            }
+
+            return outcome;
+        }
+
         function renderNews() {
             const container = document.getElementById('red-folder-container');
             container.innerHTML = '';
@@ -530,9 +541,11 @@
             }
 
             filtered.forEach(news => {
+                const aiResult = calculateAISignal(news);
+
                 let badgeClass = 'badge-neutral';
-                if(news.signal === 'BUY') badgeClass = 'badge-buy';
-                if(news.signal === 'SELL') badgeClass = 'badge-sell';
+                if(aiResult.signal === 'BUY') badgeClass = 'badge-buy';
+                if(aiResult.signal === 'SELL') badgeClass = 'badge-sell';
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-900 p-2 rounded border border-slate-800 hover:border-slate-700 cursor-pointer transition-all";
@@ -543,7 +556,7 @@
                             <span class="px-1 py-0.5 bg-red-950 text-red-400 rounded text-[9px] font-bold border border-red-900">${news.currency}</span>
                             <span class="text-slate-300 font-bold text-[11px]">${news.event}</span>
                         </div>
-                        <span class="${badgeClass} px-1.5 py-0.5 rounded text-[9px] font-bold">${news.signal}</span>
+                        <span class="${badgeClass} px-1.5 py-0.5 rounded text-[9px] font-bold">${aiResult.signal}</span>
                     </div>
                     <div class="flex justify-between items-center mt-1.5 text-[10px] font-mono text-slate-400">
                         <span><i class="fa-regular fa-clock"></i> ${news.displayDate} @ ${news.time}</span>
@@ -558,16 +571,18 @@
 
         function loadAISignal(news) {
             if(!news) return;
-            document.getElementById('ai-target-pairs').innerText = [...news.buyPairs, ...news.sellPairs].join(', ');
-            document.getElementById('ai-pairs-buy').innerText = news.buyPairs.join(', ') || 'None';
-            document.getElementById('ai-pairs-sell').innerText = news.sellPairs.join(', ') || 'None';
+            const aiResult = calculateAISignal(news);
+
+            document.getElementById('ai-target-pairs').innerText = [...aiResult.buyPairs, ...aiResult.sellPairs].filter(p => p !== 'None').join(', ') || 'None';
+            document.getElementById('ai-pairs-buy').innerText = aiResult.buyPairs.join(', ');
+            document.getElementById('ai-pairs-sell').innerText = aiResult.sellPairs.join(', ');
             
             const sigEl = document.getElementById('ai-overall-signal');
-            sigEl.innerText = `${news.signal} (${news.signal === 'BUY' ? 'BULLISH' : news.signal === 'SELL' ? 'BEARISH' : 'NEUTRAL'})`;
-            sigEl.className = news.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : news.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
+            sigEl.innerText = `${aiResult.signal} (${aiResult.signal === 'BUY' ? 'BULLISH' : aiResult.signal === 'SELL' ? 'BEARISH' : 'NEUTRAL'})`;
+            sigEl.className = aiResult.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : aiResult.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
 
-            document.getElementById('ai-expected-move').innerText = news.move;
-            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Filter Analysis (${news.currency} - ${news.event}):</strong> ${news.reason}`;
+            document.getElementById('ai-expected-move').innerText = aiResult.move;
+            document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Filter Analysis (${news.currency} - ${news.event}):</strong> ${aiResult.reason}`;
         }
 
         function resetAISignal() {
