@@ -178,7 +178,6 @@
 
     <!-- SCRIPT ENGINE -->
     <script>
-        // OFFICIAL BLS, BEA, & FED USD MACRO DATABASE
         const newsList = [
             { id: 1, curr: 'USD', title: 'Non-Farm Employment Change (NFP)', date: 'Fri Oct 30 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '142K', prev: '114K', rev: 'Revised from 106K', source: 'BLS', devType: 'EMPLOYMENT' },
             { id: 2, curr: 'USD', title: 'Unemployment Rate', date: 'Fri Oct 30 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '4.2%', prev: '4.2%', rev: 'Stable', source: 'BLS', devType: 'EMPLOYMENT' },
@@ -196,7 +195,6 @@
             { id: 14, curr: 'AUD', title: 'CPI q/q', date: 'Wed Oct 28 @ 6:00am IST', range: 'WEEK', act: 'Pending', fcst: '0.9%', prev: '1.0%', rev: 'None', source: 'ABS', devType: 'INFLATION' }
         ];
 
-        // WATCHLIST SYMBOLS DATA
         const watchlistPairs = [
             { sym: 'XAUUSD', name: 'XAUUSD', price: '4,012.66', chg: '+0.47%', up: true, tv: 'OANDA:XAUUSD' },
             { sym: 'EURUSD', name: 'EURUSD', price: '1.1182', chg: '-0.18%', up: false, tv: 'FX:EURUSD' },
@@ -216,7 +214,7 @@
         let activeChartSymbol = 'OANDA:XAUUSD';
         let dateFilter = 'TODAY';
         let currFilter = 'ALL';
-        let activeId = 0;
+        let activeId = 1;
 
         function renderWatchlist() {
             const container = document.getElementById('watchlist-container');
@@ -257,15 +255,9 @@
             });
         }
 
-        // STRICT INSTITUTIONAL AI DEVIATION & REVISION ENGINE
         function calculateAIDecision(item) {
             if (!item) {
-                return {
-                    signal: 'NEUTRAL',
-                    prob: '0%',
-                    pairs: 'XAUUSD',
-                    desc: 'Select an active macro event from the BLS · BEA · Fed desk to trigger AI analysis.'
-                };
+                return { signal: 'NEUTRAL', prob: '0%', pairs: 'XAUUSD', desc: 'Select an active macro event.' };
             }
 
             let fVal = parseFloat(item.fcst);
