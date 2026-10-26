@@ -6,6 +6,7 @@
     <title>AR-RIZQ TRADING TERMINAL - SMC & Macro Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         body { background-color: #0b0f19; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
         .terminal-card { background: #131b2e; border: 1px solid #1e293b; }
@@ -25,10 +26,10 @@
             <span id="live-ist-clock" class="bg-slate-800 px-2.5 py-1 rounded text-xs text-emerald-300 font-mono border border-slate-700">IN LIVE IST: --</span>
         </div>
         <div class="flex items-center space-x-4 font-mono text-xs text-slate-300">
-            <span>USDCAD: <strong class="text-white">1.3785</strong></span>
+            <span>USDCAD: <strong class="text-white">1.4013</strong></span>
             <span>GBPUSD: <strong class="text-white">1.3040</strong></span>
-            <span>USDJPY: <strong class="text-white">149.50</strong></span>
-            <span>GOLD: <strong class="text-amber-400">$2,662.80</strong></span>
+            <span>USDJPY: <strong class="text-white">157.06</strong></span>
+            <span>GOLD: <strong class="text-amber-400">$4,012.31</strong></span>
         </div>
         <div class="flex space-x-2">
             <span class="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-400 border border-slate-700">ASIA</span>
@@ -105,34 +106,89 @@
                 </div>
             </div>
 
-            <!-- Chart View -->
+            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2">
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono">
-                        <button onclick="switchAsset('XAUUSD')" class="px-3 py-1 bg-amber-500 text-slate-950 font-bold rounded">XAUUSD</button>
-                        <button onclick="switchAsset('EURUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">EURUSD</button>
-                        <button onclick="switchAsset('GBPUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">GBPUSD</button>
-                        <button onclick="switchAsset('USDJPY')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USDJPY</button>
-                        <button onclick="switchAsset('AUDUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">AUDUSD</button>
-                        <button onclick="switchAsset('USDCAD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USDCAD</button>
+                        <button onclick="loadTvChart('OANDA:XAUUSD')" class="px-3 py-1 bg-amber-500 text-slate-950 font-bold rounded">XAUUSD</button>
+                        <button onclick="loadTvChart('FX:EURUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">EURUSD</button>
+                        <button onclick="loadTvChart('FX:GBPUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">GBPUSD</button>
+                        <button onclick="loadTvChart('FX:USDJPY')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USDJPY</button>
+                        <button onclick="loadTvChart('FX:AUDUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">AUDUSD</button>
+                        <button onclick="loadTvChart('FX:USDCAD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USDCAD</button>
+                        <button onclick="loadTvChart('BITSTAMP:BTCUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">BTCUSD</button>
                     </div>
-                    <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">XAUUSD (GOLD)</span>
+                    <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">LIVE CHART FEED</span>
                 </div>
-                <div class="h-64 flex flex-col justify-between bg-slate-950 p-3 rounded border border-slate-800 font-mono text-xs">
-                    <div class="flex justify-between text-slate-400">
-                        <span id="chart-pair-info">Gold Spot / U.S. Dollar · 15-M · OANDA</span>
-                        <span>Vol · Ticks: 311</span>
-                    </div>
-                    <div class="flex items-center justify-center text-slate-500 h-full border border-dashed border-slate-800 rounded">
-                        <div class="text-center">
-                            <i class="fa-solid fa-chart-candlestick text-3xl mb-1 text-slate-600"></i>
-                            <p class="text-xs">Live TradingView Feed Synchronized</p>
-                            <p class="text-[10px] text-slate-600">Active ICT Killzone Liquidity Sweep Matrix Ready</p>
+                
+                <!-- Live TradingView Embedded Widget -->
+                <div class="h-80 w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container">
+                    <!-- TradingView Widget loads here -->
+                </div>
+            </div>
+
+            <!-- LIVE MARKET WATCHLIST MATRIX -->
+            <div class="terminal-card p-3 rounded-lg font-mono">
+                <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 flex justify-between items-center">
+                    <span><i class="fa-solid fa-chart-line text-emerald-400"></i> REAL-TIME MARKET WATCHLIST</span>
+                    <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE SYNCED</span>
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">USDJPY</span>
+                            <span class="text-[10px] text-slate-500">157.060</span>
                         </div>
+                        <span class="text-emerald-400 font-bold text-[11px]">+0.16%</span>
                     </div>
-                    <div class="flex justify-between text-[11px] text-slate-400">
-                        <span class="text-emerald-400">O: 4,015.590 H: 4,016.290 L: 4,015.620 C: 4,015.690 -0.235 (-0.01%)</span>
-                        <span class="text-amber-400 font-bold">PDH / PDL Liquidity Model Active</span>
+                    <div class="bg-slate-900 p-2 rounded border border-amber-900/50 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-amber-400 block">XAUUSD</span>
+                            <span class="text-[10px] text-slate-500">4,012.31</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-[11px]">+0.46%</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">AUDUSD</span>
+                            <span class="text-[10px] text-slate-500">0.70241</span>
+                        </div>
+                        <span class="text-red-400 font-bold text-[11px]">-0.13%</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">NZDUSD</span>
+                            <span class="text-[10px] text-slate-500">0.56986</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-[11px]">+0.01%</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">USDCAD</span>
+                            <span class="text-[10px] text-slate-500">1.40138</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-[11px]">+0.09%</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">EURJPY</span>
+                            <span class="text-[10px] text-slate-500">176.158</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-[11px]">+0.29%</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">GBPJPY</span>
+                            <span class="text-[10px] text-slate-500">210.012</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-[11px]">+0.14%</span>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">BTCUSD</span>
+                            <span class="text-[10px] text-slate-500">80,117.95</span>
+                        </div>
+                        <span class="text-red-400 font-bold text-[11px]">-0.05%</span>
                     </div>
                 </div>
             </div>
@@ -215,7 +271,7 @@
 
     </div>
 
-    <!-- JavaScript Data Engine -->
+    <!-- JavaScript Engine -->
     <script>
         // Forex Factory Red Folder News Dataset (Oct 26 - Nov 2, 2026)
         const redFolderNews = [
@@ -394,6 +450,27 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
+        // Load TradingView Embedded Chart Widget
+        function loadTvChart(symbol = 'OANDA:XAUUSD') {
+            document.getElementById('tv_chart_container').innerHTML = '';
+            new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": symbol,
+                "interval": "15",
+                "timezone": "Asia/Kolkata",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#0b0f19",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "container_id": "tv_chart_container"
+            });
+            document.getElementById('active-asset-title').innerText = "LIVE CHART: " + symbol.split(':')[1];
+        }
+
         // Checks if event is within 30-min post-release window
         function isNewsActiveAndNotExpired(newsDateTime) {
             const now = new Date();
@@ -410,7 +487,7 @@
             if (activeTimeRange === 'TODAY') {
                 return news.dateStr === todayStr;
             } else if (activeTimeRange === 'THIS_WEEK') {
-                return true; // Displays Oct 26 - Nov 2 Schedule
+                return true; 
             } else if (activeTimeRange === 'THIS_MONTH') {
                 const newsTime = new Date(news.dateTimeISO);
                 return newsTime.getMonth() === now.getMonth() && newsTime.getFullYear() === now.getFullYear();
@@ -421,7 +498,6 @@
         function setTimeRange(range) {
             activeTimeRange = range;
             
-            // Highlight active tab
             document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
             document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
             document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2 py-0.5 rounded font-bold tab-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold';
@@ -451,7 +527,6 @@
             const container = document.getElementById('red-folder-container');
             container.innerHTML = '';
             
-            // Combine Tab Filter + Currency Filter + 30-Min Expiry Filter
             const filtered = redFolderNews.filter(n => {
                 const currencyMatch = (activeCurrency === 'ALL' || n.currency === activeCurrency);
                 const rangeMatch = matchesTimeRange(n);
@@ -523,11 +598,6 @@
             document.getElementById('ai-reasoning-text').innerHTML = `<strong>AI Core-Cross Platform Reasoning:</strong> No high-impact red folder events active in 30-min window for this selection.`;
         }
 
-        function switchAsset(asset) {
-            document.getElementById('active-asset-title').innerText = asset + (asset === 'XAUUSD' ? ' (GOLD)' : ' (FX)');
-            document.getElementById('chart-pair-info').innerText = asset + " / U.S. Dollar · 15-M · OANDA";
-        }
-
         // Live IST Clock
         function updateClock() {
             const now = new Date();
@@ -538,13 +608,13 @@
 
         // Initialize Terminal App
         window.onload = () => {
+            loadTvChart('OANDA:XAUUSD'); // Initial Live Chart Load
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
             
-            // Background 10-Minute Auto-Refresh with 30-Min Expiry Purge
+            // Background Auto-Refresh
             setInterval(() => {
                 renderNews();
-                console.log("Terminal background auto-refreshed with 30-min auto-purge cleaner.");
             }, 600000);
         };
     </script>
