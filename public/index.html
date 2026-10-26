@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Multi-Chart Glass Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Unified Glass Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -15,7 +15,6 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             backdrop-filter: blur(8px);
         }
-        .cyber-card:hover { border-color: rgba(56, 189, 248, 0.4); }
         .badge-buy { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
         .badge-sell { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
         .badge-neutral { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); }
@@ -31,7 +30,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">MULTI-CHART SPLIT DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">UNIFIED MULTI-CHART DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900/80 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -51,7 +50,7 @@
         <span class="text-slate-400 font-bold uppercase tracking-wide">ACTIVE MODULES:</span>
         <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
             <span class="px-2.5 py-0.5 bg-red-950/80 text-red-400 rounded-md text-[10px] border border-red-800/60">v Red Folder Desk</span>
-            <span class="px-2.5 py-0.5 bg-cyan-950/80 text-cyan-400 rounded-md text-[10px] border border-cyan-800/60">v Multi-Chart Split View</span>
+            <span class="px-2.5 py-0.5 bg-cyan-950/80 text-cyan-400 rounded-md text-[10px] border border-cyan-800/60">v Unified Multi-Chart Container</span>
             <span class="px-2.5 py-0.5 bg-amber-950/80 text-amber-400 rounded-md text-[10px] border border-amber-800/60">v AI News Engine</span>
         </div>
     </div>
@@ -86,34 +85,45 @@
                 </div>
 
                 <!-- Red Folder News Container -->
-                <div id="red-folder-container" class="space-y-3 overflow-y-auto max-h-[520px] pr-1"></div>
+                <div id="red-folder-container" class="space-y-3 overflow-y-auto max-h-[550px] pr-1"></div>
             </div>
         </div>
 
-        <!-- CENTER & RIGHT: Multi-Chart Split View (Side-by-Side TradingView Charts) -->
+        <!-- CENTER & RIGHT: Single Unified Container for Both Charts & Tools -->
         <div class="lg:col-span-2 space-y-5">
             
-            <!-- Side-by-Side Dual Charts Grid (Inspired by Reference Image) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                
-                <!-- Chart 1: Gold / XAUUSD Desk -->
-                <div class="cyber-card p-4 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
-                        <span class="text-xs font-mono text-amber-400 font-bold"><i class="fa-solid fa-chart-line"></i> XAUUSD / GOLD</span>
-                        <span class="px-2 py-0.5 bg-amber-950 text-amber-400 rounded text-[9px] font-mono">CHART 1</span>
-                    </div>
-                    <div class="h-[380px] w-full bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden shadow-2xl" id="tv_chart_1"></div>
+            <!-- MASTER UNIFIED CONTAINER FOR CHARTS -->
+            <div class="cyber-card p-5 rounded-xl space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
+                    <span class="text-xs sm:text-sm font-bold text-cyan-400 uppercase flex items-center space-x-2 font-mono">
+                        <i class="fa-solid fa-chart-candlestick text-cyan-400"></i>
+                        <span>MULTI-CHART WORKSPACE (XAUUSD & EURUSD)</span>
+                    </span>
+                    <span class="px-2.5 py-0.5 bg-cyan-950 text-cyan-300 rounded-lg text-[10px] font-mono border border-cyan-800/60">SYNCHRONIZED</span>
                 </div>
 
-                <!-- Chart 2: EURUSD Desk -->
-                <div class="cyber-card p-4 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
-                        <span class="text-xs font-mono text-cyan-400 font-bold"><i class="fa-solid fa-chart-line"></i> EURUSD / FOREX</span>
-                        <span class="px-2 py-0.5 bg-cyan-950 text-cyan-400 rounded text-[9px] font-mono">CHART 2</span>
+                <!-- Side-by-Side Perfectly Aligned Dual Charts Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Chart 1: Gold / XAUUSD -->
+                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/90 space-y-2.5">
+                        <div class="flex justify-between items-center border-b border-slate-900 pb-2">
+                            <span class="text-xs font-mono text-amber-400 font-bold"><i class="fa-solid fa-coins"></i> XAUUSD / GOLD</span>
+                            <span class="px-2 py-0.5 bg-amber-950/80 text-amber-400 rounded text-[9px] font-mono">CHART 1</span>
+                        </div>
+                        <div class="h-[340px] w-full bg-slate-950 rounded-lg border border-slate-900 overflow-hidden" id="tv_chart_1"></div>
                     </div>
-                    <div class="h-[380px] w-full bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden shadow-2xl" id="tv_chart_2"></div>
-                </div>
 
+                    <!-- Chart 2: EURUSD / FOREX -->
+                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/90 space-y-2.5">
+                        <div class="flex justify-between items-center border-b border-slate-900 pb-2">
+                            <span class="text-xs font-mono text-cyan-400 font-bold"><i class="fa-solid fa-chart-line"></i> EURUSD / FOREX</span>
+                            <span class="px-2 py-0.5 bg-cyan-950/80 text-cyan-400 rounded text-[9px] font-mono">CHART 2</span>
+                        </div>
+                        <div class="h-[340px] w-full bg-slate-950 rounded-lg border border-slate-900 overflow-hidden" id="tv_chart_2"></div>
+                    </div>
+
+                </div>
             </div>
 
             <!-- Bottom Row: AI Engine & Currency Strength Side-by-Side -->
