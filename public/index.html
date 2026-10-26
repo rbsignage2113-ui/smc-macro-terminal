@@ -42,7 +42,7 @@
             <span>GOLD: <strong class="text-amber-400">$4,012.31</strong></span>
         </div>
         <div class="flex space-x-1 sm:space-x-2">
-            <span id="session-london" class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] sm:text-xs font-semibold border border-emerald-800 animate-pulse">LONDON KILLZONE</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] sm:text-xs font-semibold border border-emerald-800 animate-pulse">LONDON KILLZONE</span>
         </div>
     </header>
 
@@ -51,8 +51,8 @@
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULES:</span>
         <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
             <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-emerald-800">v Bookmap (ON)</span>
-            <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v SMT (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-emerald-800">v PO3 Phase (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-emerald-800">v Strength Meter (ON)</span>
         </div>
     </div>
 
@@ -88,44 +88,28 @@
                 <div class="h-[320px] sm:h-[380px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
-            <!-- SMT Divergence Scanner & Risk Calculator -->
+            <!-- NEW: ICT PO3 PHASE & HTF BIAS CHECKLIST -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-code-compare"></i> SMT Scanner</span>
-                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">ACTIVE</span>
+                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-shapes"></i> ICT PO3 Session Phase</span>
+                        <span class="px-1.5 py-0.5 bg-amber-950 text-amber-400 rounded text-[9px]">MANIPULATION</span>
                     </div>
-                    <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1 text-[11px]">
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">EURUSD vs DXY:</span>
-                            <span class="text-emerald-400 font-bold">BULLISH SMT</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">AUDUSD vs NZDUSD:</span>
-                            <span class="text-amber-400 font-bold">DIVERGENCE</span>
-                        </div>
+                    <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1.5 text-[11px]">
+                        <div class="flex justify-between"><span class="text-slate-400">Current Phase:</span><span class="text-amber-400 font-bold">London Manipulation (Judgement Day)</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">Expected Next:</span><span class="text-emerald-400 font-bold">NY Distribution Expansion</span></div>
                     </div>
                 </div>
 
                 <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
                     <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-calculator"></i> Risk Calculator</span>
-                        <span class="text-[9px] text-slate-400">FundedNext</span>
+                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-list-check"></i> HTF Bias Checklist</span>
+                        <span class="text-[9px] text-slate-400">SMC Confluence</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="text-[10px] text-slate-400 block">Account ($):</label>
-                            <input id="calc-acc" type="number" value="10000" class="w-full bg-slate-900 border border-slate-700 p-1 rounded text-white text-xs">
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 block">Risk (%):</label>
-                            <input id="calc-risk" type="number" value="1" class="w-full bg-slate-900 border border-slate-700 p-1 rounded text-white text-xs">
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center pt-1">
-                        <span class="text-slate-400">Lot Size:</span>
-                        <span id="calc-result" class="text-amber-400 font-bold">0.10 Lots</span>
+                    <div class="space-y-1 text-[11px] text-slate-300">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" checked class="accent-emerald-500"> <span>Daily FVG Mitigation Checked</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" checked class="accent-emerald-500"> <span>Previous Day High/Low Swept</span></label>
                     </div>
                 </div>
 
@@ -133,7 +117,7 @@
 
         </div>
 
-        <!-- RIGHT: FOREX FACTORY RED FOLDER DESK & BOOKMAP -->
+        <!-- RIGHT: FOREX FACTORY RED FOLDER DESK & NEW METERS -->
         <div class="terminal-card p-3 rounded-lg space-y-3 flex flex-col justify-between">
             
             <div class="space-y-3">
@@ -159,7 +143,7 @@
                 </div>
 
                 <!-- Dynamic Scrollable Red Folder Container -->
-                <div id="red-folder-container" class="space-y-2 overflow-y-auto max-h-[160px] pr-1"></div>
+                <div id="red-folder-container" class="space-y-2 overflow-y-auto max-h-[150px] pr-1"></div>
 
                 <!-- AI REAL-TIME USD/AUD FILTER & SIGNAL ENGINE -->
                 <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
@@ -176,24 +160,25 @@
                 </div>
             </div>
 
-            <!-- BOOKMAP ORDER FLOW & LIQUIDITY DEPTH MODULE -->
-            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs mt-2">
+            <!-- LIVE CURRENCY STRENGTH METER (Heatmap) -->
+            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                    <span class="text-purple-400 font-bold uppercase text-[10px]"><i class="fa-solid fa-water"></i> Bookmap Order Flow Heatmap</span>
-                    <span class="text-[9px] text-emerald-400">ACTIVE</span>
+                    <span class="text-sky-400 font-bold uppercase text-[10px]"><i class="fa-solid fa-gauge-high"></i> Live Currency Strength Meter</span>
+                    <span class="text-[9px] text-emerald-400">REAL-TIME</span>
                 </div>
-                <div class="space-y-1 text-[10px] text-slate-300">
-                    <div class="flex justify-between"><span>Ask Liquidity Wall (Sell):</span><strong class="text-red-400">4,018.50 ($14.2M)</strong></div>
-                    <div class="flex justify-between"><span>Bid Liquidity Pool (Buy):</span><strong class="text-emerald-400">4,008.20 ($18.6M)</strong></div>
-                    <div class="flex justify-between"><span>Order Flow Imbalance:</span><strong class="text-emerald-400">Bullish Delta (+68%)</strong></div>
-                </div>
-            </div>
-
-            <!-- ICT KILLZONE SCHEDULE -->
-            <div class="bg-slate-900 p-2 rounded border border-slate-800 space-y-1 font-mono text-xs">
-                <div class="flex justify-between items-center text-[10px]">
-                    <span class="text-amber-400 font-bold">London Killzone (Active):</span>
-                    <span class="text-emerald-300 font-bold">12:30 PM - 03:30 PM</span>
+                <div class="space-y-1 text-[11px]">
+                    <div>
+                        <div class="flex justify-between text-[10px] text-slate-400"><span>USD Index Strength:</span><span class="text-emerald-400 font-bold">78% (Bullish)</span></div>
+                        <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 78%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-[10px] text-slate-400"><span>AUD Strength:</span><span class="text-emerald-400 font-bold">65% (Moderate)</span></div>
+                        <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-amber-500 h-full" style="width: 65%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-[10px] text-slate-400"><span>EUR Weakness:</span><span class="text-red-400 font-bold">32% (Bearish)</span></div>
+                        <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width: 32%"></div></div>
+                    </div>
                 </div>
             </div>
 
@@ -362,7 +347,7 @@
             activeCurrency = curr;
             ['ALL', 'USD', 'EUR', 'AUD', 'GBP'].forEach(c => {
                 const btn = document.getElementById(`curr-${c}`);
-                if (btn) btn.className = c === curr ? 'px-2 py-0.5 rounded curr-btn-active' : 'px-2 py-0.5 bg-slate-800 text-slate-300 rounded';
+                if (btn) btn.className = c === curr ? 'px-2 py-0.5 rounded curr-btn-active' : 'px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded';
             });
             renderNews();
         }
@@ -466,15 +451,8 @@
             document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
         }
 
-        function calculateRisk() {
-            const acc = parseFloat(document.getElementById('calc-acc').value) || 10000;
-            const riskPct = parseFloat(document.getElementById('calc-risk').value) || 1;
-            const lotSize = ((acc * riskPct) / 100000).toFixed(2);
-            document.getElementById('calc-result').innerText = `${lotSize} Lots`;
-        }
-
         function logTrade() {
-            alert(`Trade Logged Successfully!`);
+            alert(`Trade Note Saved Successfully!`);
         }
 
         function updateClock() {
@@ -486,9 +464,6 @@
             loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
-            document.getElementById('calc-acc').oninput = calculateRisk;
-            document.getElementById('calc-risk').oninput = calculateRisk;
-            calculateRisk();
         };
     </script>
 </body>
