@@ -6,6 +6,7 @@
     <title>AR-RIZQ TRADING TERMINAL - Futuristic Glass Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         body { background-color: #050811; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
         .cyber-card { 
@@ -20,6 +21,7 @@
         .badge-neutral { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); }
         .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; box-shadow: 0 0 15px rgba(217, 119, 6, 0.4); }
         .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
+        .asset-btn-active { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; color: #020617 !important; font-weight: bold; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
     </style>
 </head>
 <body class="p-3 sm:p-6 space-y-5">
@@ -45,33 +47,43 @@
         </div>
     </header>
 
+    <!-- PRO MODULE TOGGLES -->
+    <div class="cyber-card p-2.5 rounded-xl flex flex-wrap items-center justify-between text-xs font-mono">
+        <span class="text-slate-400 font-bold uppercase tracking-wide">ACTIVE MODULES:</span>
+        <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
+            <span class="px-2.5 py-0.5 bg-red-950/80 text-red-400 rounded-md text-[10px] border border-red-800/60">v Red Folder Desk</span>
+            <span class="px-2.5 py-0.5 bg-cyan-950/80 text-cyan-400 rounded-md text-[10px] border border-cyan-800/60">v TradingView Chart</span>
+            <span class="px-2.5 py-0.5 bg-amber-950/80 text-amber-400 rounded-md text-[10px] border border-amber-800/60">v AI News Engine</span>
+        </div>
+    </div>
+
     <!-- MAIN DASHBOARD GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
         
-        <!-- LEFT & CENTER: Red Folder High Impact News Desk (Primary View) -->
-        <div class="lg:col-span-2 space-y-5">
+        <!-- LEFT: Red Folder High Impact News Desk -->
+        <div class="space-y-5">
             <div class="cyber-card p-5 rounded-xl space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
                     <h3 class="text-xs sm:text-sm font-bold text-red-400 uppercase flex items-center space-x-2">
                         <i class="fa-solid fa-shield-halved text-red-500"></i>
-                        <span>RED FOLDER HIGH IMPACT NEWS DESK</span>
+                        <span>RED FOLDER NEWS DESK</span>
                     </h3>
-                    <div class="flex space-x-1.5 text-xs font-mono">
-                        <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-3 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800">TODAY</button>
-                        <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-3 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold tab-btn-active border border-amber-600/50">WEEK</button>
-                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-3 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800">MONTH</button>
+                    <div class="flex space-x-1 text-xs font-mono">
+                        <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800">TODAY</button>
+                        <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold tab-btn-active border border-amber-600/50">WEEK</button>
+                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800">MONTH</button>
                     </div>
                 </div>
 
                 <!-- Currency Filter Panel -->
-                <div class="grid grid-cols-4 sm:grid-cols-7 gap-2 text-xs font-mono bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-                    <button id="curr-ALL" onclick="filterCurrency('ALL')" class="py-1.5 rounded-lg curr-btn-active font-bold">ALL</button>
-                    <button id="curr-USD" onclick="filterCurrency('USD')" class="py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">USD</button>
-                    <button id="curr-EUR" onclick="filterCurrency('EUR')" class="py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">EUR</button>
-                    <button id="curr-AUD" onclick="filterCurrency('AUD')" class="py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">AUD</button>
-                    <button id="curr-GBP" onclick="filterCurrency('GBP')" class="py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">GBP</button>
-                    <button id="curr-CAD" onclick="filterCurrency('CAD')" class="py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">CAD</button>
-                    <button id="curr-JPY" onclick="filterCurrency('JPY')" class="py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">JPY</button>
+                <div class="grid grid-cols-4 gap-1.5 text-xs font-mono bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
+                    <button id="curr-ALL" onclick="filterCurrency('ALL')" class="py-1 rounded-lg curr-btn-active font-bold">ALL</button>
+                    <button id="curr-USD" onclick="filterCurrency('USD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">USD</button>
+                    <button id="curr-EUR" onclick="filterCurrency('EUR')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">EUR</button>
+                    <button id="curr-AUD" onclick="filterCurrency('AUD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">AUD</button>
+                    <button id="curr-GBP" onclick="filterCurrency('GBP')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">GBP</button>
+                    <button id="curr-CAD" onclick="filterCurrency('CAD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">CAD</button>
+                    <button id="curr-JPY" onclick="filterCurrency('JPY')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">JPY</button>
                 </div>
 
                 <!-- Red Folder News Container -->
@@ -79,45 +91,68 @@
             </div>
         </div>
 
-        <!-- RIGHT: AI News Engine & Currency Strength Meter (Cyber Cards) -->
-        <div class="space-y-5">
+        <!-- CENTER & RIGHT: TradingView Chart & AI/Strength Tools -->
+        <div class="lg:col-span-2 space-y-5">
             
-            <!-- AI News Engine Card -->
-            <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
-                    <span class="text-cyan-400 font-bold uppercase text-xs flex items-center space-x-2">
-                        <i class="fa-solid fa-microchip text-cyan-400"></i>
-                        <span>AI News Engine</span>
-                    </span>
-                    <span class="px-2 py-0.5 bg-cyan-950 text-cyan-300 rounded-md text-[10px] border border-cyan-800/60">ACTIVE</span>
+            <!-- TradingView Chart Container Box -->
+            <div class="cyber-card p-4 rounded-xl space-y-3">
+                <div class="flex flex-wrap items-center justify-between border-b border-slate-800/80 pb-3 gap-2">
+                    <div class="flex space-x-1.5 overflow-x-auto text-xs font-mono max-w-full pb-1">
+                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded-lg transition-all text-xs">XAUUSD</button>
+                        <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">EURUSD</button>
+                        <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">GBPUSD</button>
+                        <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">USDJPY</button>
+                        <button id="asset-AUDUSD" onclick="loadTvChart('FX:AUDUSD', 'AUDUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">AUDUSD</button>
+                        <button id="asset-USDCAD" onclick="loadTvChart('FX:USDCAD', 'USDCAD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">USDCAD</button>
+                    </div>
+                    <span id="active-asset-title" class="text-xs font-mono text-cyan-400 font-bold px-2.5 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">XAUUSD</span>
                 </div>
-                <div class="space-y-2 text-xs">
-                    <div class="flex justify-between"><span class="text-slate-400">Target Pairs:</span><span id="ai-target-pairs" class="text-white font-semibold">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-400">BUY:</span><span id="ai-pairs-buy" class="text-emerald-400 font-bold">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-400">SELL:</span><span id="ai-pairs-sell" class="text-red-400 font-bold">--</span></div>
-                    <div class="flex justify-between pt-1 border-t border-slate-800/60"><span class="text-slate-400">Signal:</span><span id="ai-overall-signal" class="badge-neutral px-2.5 py-0.5 rounded-lg font-bold">NEUTRAL</span></div>
-                </div>
+                
+                <!-- TradingView Embed Height -->
+                <div class="h-[420px] sm:h-[530px] w-full bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden shadow-2xl" id="tv_chart_container"></div>
             </div>
 
-            <!-- Currency Strength Meter Card -->
-            <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
-                    <span class="text-amber-400 font-bold uppercase text-xs flex items-center space-x-2">
-                        <i class="fa-solid fa-gauge-high text-amber-400"></i>
-                        <span>Currency Strength</span>
-                    </span>
-                    <span class="px-2 py-0.5 bg-amber-950 text-amber-300 rounded-md text-[10px] border border-amber-800/60">REAL-TIME</span>
-                </div>
-                <div class="space-y-2.5 text-xs">
-                    <div>
-                        <div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>USD Strength:</span><span class="text-emerald-400 font-bold">78%</span></div>
-                        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800"><div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full" style="width: 78%"></div></div>
+            <!-- Bottom Row: AI Engine & Currency Strength Side-by-Side -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                
+                <!-- AI News Engine Card -->
+                <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
+                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+                        <span class="text-cyan-400 font-bold uppercase text-xs flex items-center space-x-2">
+                            <i class="fa-solid fa-microchip text-cyan-400"></i>
+                            <span>AI News Engine</span>
+                        </span>
+                        <span class="px-2 py-0.5 bg-cyan-950 text-cyan-300 rounded-md text-[10px] border border-cyan-800/60">ACTIVE</span>
                     </div>
-                    <div>
-                        <div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>AUD Strength:</span><span class="text-amber-400 font-bold">65%</span></div>
-                        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800"><div class="bg-gradient-to-r from-amber-600 to-amber-400 h-full rounded-full" style="width: 65%"></div></div>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-400">Target Pairs:</span><span id="ai-target-pairs" class="text-white font-semibold">--</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">BUY:</span><span id="ai-pairs-buy" class="text-emerald-400 font-bold">--</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">SELL:</span><span id="ai-pairs-sell" class="text-red-400 font-bold">--</span></div>
+                        <div class="flex justify-between pt-1 border-t border-slate-800/60"><span class="text-slate-400">Signal:</span><span id="ai-overall-signal" class="badge-neutral px-2.5 py-0.5 rounded-lg font-bold">NEUTRAL</span></div>
                     </div>
                 </div>
+
+                <!-- Currency Strength Meter Card -->
+                <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
+                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+                        <span class="text-amber-400 font-bold uppercase text-xs flex items-center space-x-2">
+                            <i class="fa-solid fa-gauge-high text-amber-400"></i>
+                            <span>Currency Strength</span>
+                        </span>
+                        <span class="px-2 py-0.5 bg-amber-950 text-amber-300 rounded-md text-[10px] border border-amber-800/60">REAL-TIME</span>
+                    </div>
+                    <div class="space-y-2.5 text-xs">
+                        <div>
+                            <div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>USD Strength:</span><span class="text-emerald-400 font-bold">78%</span></div>
+                            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800"><div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full" style="width: 78%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>AUD Strength:</span><span class="text-amber-400 font-bold">65%</span></div>
+                            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800"><div class="bg-gradient-to-r from-amber-600 to-amber-400 h-full rounded-full" style="width: 65%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -264,6 +299,38 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
+        function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
+            const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD'];
+            assetList.forEach(asset => {
+                const btn = document.getElementById(`asset-${asset}`);
+                if(btn) {
+                    if(asset === pairName) {
+                        btn.className = "px-3 py-1 asset-btn-active rounded-lg transition-all text-xs";
+                    } else {
+                        btn.className = "px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs";
+                    }
+                }
+            });
+
+            document.getElementById('tv_chart_container').innerHTML = '';
+            new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": symbol,
+                "interval": "15",
+                "timezone": "Asia/Kolkata",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#050811",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "container_id": "tv_chart_container"
+            });
+            document.getElementById('active-asset-title').innerText = pairName;
+        }
+
         function matchesTimeRange(news) {
             const now = new Date();
             const todayStr = now.toISOString().split('T')[0];
@@ -281,9 +348,9 @@
 
         function setTimeRange(range) {
             activeTimeRange = range;
-            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-3 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-3 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-3 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-3 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-3 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-3 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2.5 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2.5 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2.5 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2.5 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2.5 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2.5 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
             renderNews();
         }
 
@@ -291,7 +358,7 @@
             activeCurrency = curr;
             ['ALL', 'USD', 'EUR', 'AUD', 'GBP', 'CAD', 'JPY'].forEach(c => {
                 const btn = document.getElementById(`curr-${c}`);
-                if (btn) btn.className = c === curr ? 'py-1.5 rounded-lg curr-btn-active font-bold' : 'py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800';
+                if (btn) btn.className = c === curr ? 'py-1 rounded-lg curr-btn-active font-bold' : 'py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800';
             });
             renderNews();
         }
@@ -348,19 +415,19 @@
                 let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : aiResult.signal === 'SELL' ? 'badge-sell' : 'badge-neutral';
 
                 const card = document.createElement('div');
-                card.className = "bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 hover:border-cyan-500/40 cursor-pointer transition-all space-y-2 shadow-lg";
+                card.className = "bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 hover:border-cyan-500/40 cursor-pointer transition-all space-y-1.5 shadow-lg";
                 card.onclick = () => loadAISignal(news);
                 card.innerHTML = `
                     <div class="flex justify-between items-start text-xs font-mono">
                         <div class="flex items-center space-x-2">
-                            <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded-md text-[10px] font-bold border border-red-800/80 shadow-sm">${news.currency}</span>
+                            <span class="px-1.5 py-0.5 bg-red-950 text-red-400 rounded-md text-[10px] font-bold border border-red-800/80 shadow-sm">${news.currency}</span>
                             <span class="text-slate-100 font-bold text-xs tracking-wide">${news.event}</span>
                         </div>
-                        <span class="${badgeClass} px-2.5 py-0.5 rounded-lg text-[10px] font-bold shadow-sm">${aiResult.signal}</span>
+                        <span class="${badgeClass} px-2 py-0.5 rounded-lg text-[10px] font-bold shadow-sm">${aiResult.signal}</span>
                     </div>
-                    <div class="flex justify-between items-center text-[11px] font-mono text-slate-400 pt-1.5 border-t border-slate-900">
+                    <div class="flex justify-between items-center text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-900">
                         <span><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> ${news.displayDate} @ ${news.time}</span>
-                        <div class="space-x-3">
+                        <div class="space-x-2">
                             <span>Fcst: <strong class="text-slate-200">${news.forecast}</strong></span>
                             <span>Prev: <strong class="text-amber-400">${news.previous}</strong></span>
                         </div>
@@ -396,6 +463,7 @@
         }
 
         window.onload = () => {
+            loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
         };
