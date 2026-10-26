@@ -101,7 +101,7 @@
                 <p class="text-xs text-slate-300"><strong>Latest Action & Policy Watch:</strong> Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
             </div>
 
-            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
+            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER (Compact Height) -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2">
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono">
@@ -116,7 +116,7 @@
                     <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">LIVE CHART: XAUUSD</span>
                 </div>
                 
-                <div class="h-80 w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
+                <div class="h-[380px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
             <!-- SMT Divergence Scanner & Risk Calculator -->
@@ -218,7 +218,7 @@
 
         </div>
 
-        <!-- RIGHT: FOREX FACTORY RED FOLDER DESK & NEW EMPTY-SPACE FILLERS -->
+        <!-- RIGHT: FOREX FACTORY RED FOLDER DESK & COMPACT WIDGETS -->
         <div class="terminal-card p-3 rounded-lg space-y-3 flex flex-col justify-between">
             
             <div class="space-y-3">
@@ -253,7 +253,7 @@
                 </div>
 
                 <!-- Dynamic Scrollable Red Folder Container -->
-                <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[200px] pr-1"></div>
+                <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[180px] pr-1"></div>
 
                 <!-- AI REAL-TIME USD/AUD FILTER & SIGNAL ENGINE -->
                 <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
@@ -289,13 +289,13 @@
                 </div>
             </div>
 
-            <!-- NEW FEATURE 1: PRE-NEWS CURRENCY STRENGTH INDEX (Fills Empty Space) -->
-            <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-sky-400 font-bold uppercase text-[11px]"><i class="fa-solid fa-chart-simple"></i> Pre-News Currency Strength Index</span>
+            <!-- PRE-NEWS CURRENCY STRENGTH INDEX -->
+            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                    <span class="text-sky-400 font-bold uppercase text-[10px]"><i class="fa-solid fa-chart-simple"></i> Pre-News Currency Strength</span>
                     <span class="text-[9px] text-emerald-400">LIVE</span>
                 </div>
-                <div class="space-y-1.5 text-[11px]">
+                <div class="space-y-1 text-[11px]">
                     <div>
                         <div class="flex justify-between text-[10px] text-slate-400"><span>USD Strength:</span><span class="text-emerald-400 font-bold">75%</span></div>
                         <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 75%"></div></div>
@@ -304,45 +304,41 @@
                         <div class="flex justify-between text-[10px] text-slate-400"><span>GBP Strength:</span><span class="text-emerald-400 font-bold">65%</span></div>
                         <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-emerald-400 h-full" style="width: 65%"></div></div>
                     </div>
-                    <div>
-                        <div class="flex justify-between text-[10px] text-slate-400"><span>CAD Strength:</span><span class="text-red-400 font-bold">30%</span></div>
-                        <div class="w-full bg-slate-950 h-1.5 rounded overflow-hidden"><div class="bg-red-500 h-full" style="width: 30%"></div></div>
-                    </div>
                 </div>
             </div>
 
-            <!-- NEW FEATURE 2: ICT KILLZONE SESSION DESK & EXPANSION MATRIX -->
-            <div class="bg-slate-900 p-3 rounded border border-slate-800 space-y-2 font-mono text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                    <span class="text-amber-400 font-bold uppercase text-[11px]"><i class="fa-regular fa-clock"></i> ICT Session Killzone Schedule</span>
-                    <span class="text-[9px] text-amber-400">IST TIME</span>
+            <!-- ICT KILLZONE SESSION SCHEDULE -->
+            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                    <span class="text-amber-400 font-bold uppercase text-[10px]"><i class="fa-regular fa-clock"></i> ICT Killzone Schedule</span>
+                    <span class="text-[9px] text-amber-400">IST</span>
                 </div>
                 <div class="grid grid-cols-2 gap-2 text-[10px]">
-                    <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <div class="bg-slate-950 p-1.5 rounded border border-slate-800">
                         <span class="text-slate-400 block">London Killzone</span>
                         <span class="text-emerald-400 font-bold">12:30 PM - 03:30 PM</span>
-                        <span class="text-[9px] text-emerald-300 block mt-0.5">● ACTIVE NOW</span>
+                        <span class="text-[9px] text-emerald-300 block">● ACTIVE NOW</span>
                     </div>
-                    <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                    <div class="bg-slate-950 p-1.5 rounded border border-slate-800">
                         <span class="text-slate-400 block">NY Killzone</span>
                         <span class="text-amber-400 font-bold">05:30 PM - 08:30 PM</span>
-                        <span class="text-[9px] text-slate-500 block mt-0.5">UPCOMING</span>
+                        <span class="text-[9px] text-slate-500 block">UPCOMING</span>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Trade Journal Logger -->
-            <div class="bg-slate-900 p-2.5 rounded border border-slate-800 space-y-1.5 font-mono text-xs">
+            <div class="bg-slate-900 p-2 rounded border border-slate-800 space-y-1 font-mono text-xs">
                 <span class="text-emerald-400 font-bold uppercase text-[10px] block"><i class="fa-solid fa-book"></i> Quick Trade Journal Logger</span>
-                <div class="grid grid-cols-2 gap-1.5">
-                    <input id="j-pair" type="text" placeholder="Pair (e.g. XAUUSD)" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
-                    <select id="j-setup" class="bg-slate-950 border border-slate-800 px-2 py-1 rounded text-white text-[11px]">
+                <div class="grid grid-cols-2 gap-1">
+                    <input id="j-pair" type="text" placeholder="Pair (e.g. XAUUSD)" class="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white text-[11px]">
+                    <select id="j-setup" class="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded text-white text-[11px]">
                         <option>PO3 Model</option>
                         <option>FVG Mitigation</option>
                         <option>CISD Sweep</option>
                     </select>
                 </div>
-                <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-1 rounded text-[11px] transition-all">Save Trade Note</button>
+                <button onclick="logTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-0.5 rounded text-[11px] transition-all">Save Trade Note</button>
             </div>
 
         </div>
@@ -568,10 +564,9 @@
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-6 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded bg-slate-900/50">
-                        <i class="fa-solid fa-calendar-check text-emerald-500 text-xl mb-1"></i>
+                    <div class="text-center py-4 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded bg-slate-900/50">
+                        <i class="fa-solid fa-calendar-check text-emerald-500 text-lg mb-1"></i>
                         <p class="text-slate-300 font-bold text-xs">No Active Red Folder News</p>
-                        <p class="text-[9px] text-slate-500">Past events purged (+30m window).</p>
                     </div>
                 `;
                 resetAISignal();
@@ -596,7 +591,7 @@
                         </div>
                         <span class="${badgeClass} px-1.5 py-0.5 rounded text-[9px] font-bold">${aiResult.signal}</span>
                     </div>
-                    <div class="flex justify-between items-center mt-1.5 text-[10px] font-mono text-slate-400">
+                    <div class="flex justify-between items-center mt-1 text-[10px] font-mono text-slate-400">
                         <span><i class="fa-regular fa-clock"></i> ${news.displayDate} @ ${news.time}</span>
                         <span>Fcst: <strong class="text-white">${news.forecast}</strong> | Act: <strong class="text-amber-400">${news.actual}</strong></span>
                     </div>
