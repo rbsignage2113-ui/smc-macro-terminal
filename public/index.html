@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Unified Glass Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Institutional Modular Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        body { background-color: #050811; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: #060913; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
         .cyber-card { 
-            background: linear-gradient(135deg, rgba(19, 27, 46, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(9, 14, 26, 0.98) 100%);
             border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         }
         .badge-buy { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
         .badge-sell { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
         .badge-neutral { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); }
-        .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; box-shadow: 0 0 15px rgba(217, 119, 6, 0.4); }
-        .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
+        .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; }
+        .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; }
+        .asset-btn-active { background: #0284c7 !important; color: #ffffff !important; font-weight: bold; }
     </style>
 </head>
-<body class="p-3 sm:p-6 space-y-5">
+<body class="p-3 sm:p-5 space-y-4">
 
-    <!-- Top Futuristic Header Bar -->
-    <header class="cyber-card p-4 rounded-xl flex flex-wrap justify-between items-center text-sm shadow-2xl gap-3">
+    <!-- Top Header Bar -->
+    <header class="cyber-card p-3 rounded-xl flex flex-wrap justify-between items-center text-sm shadow-2xl gap-2">
         <div class="flex items-center space-x-3">
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">UNIFIED MULTI-CHART DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">BOOKMAP & INSTITUTIONAL DESK</span>
             </div>
-            <span id="live-ist-clock" class="bg-slate-900/80 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
+            <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
         <div class="hidden md:flex items-center space-x-5 font-mono text-xs text-slate-300">
             <span>USDCAD: <strong class="text-white">1.4013</strong></span>
@@ -45,36 +45,26 @@
         </div>
     </header>
 
-    <!-- PRO MODULE TOGGLES -->
-    <div class="cyber-card p-2.5 rounded-xl flex flex-wrap items-center justify-between text-xs font-mono">
-        <span class="text-slate-400 font-bold uppercase tracking-wide">ACTIVE MODULES:</span>
-        <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
-            <span class="px-2.5 py-0.5 bg-red-950/80 text-red-400 rounded-md text-[10px] border border-red-800/60">v Red Folder Desk</span>
-            <span class="px-2.5 py-0.5 bg-cyan-950/80 text-cyan-400 rounded-md text-[10px] border border-cyan-800/60">v Unified Multi-Chart Container</span>
-            <span class="px-2.5 py-0.5 bg-amber-950/80 text-amber-400 rounded-md text-[10px] border border-amber-800/60">v AI News Engine</span>
-        </div>
-    </div>
-
     <!-- MAIN DASHBOARD GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
         
-        <!-- LEFT: Red Folder High Impact News Desk -->
-        <div class="space-y-5">
-            <div class="cyber-card p-5 rounded-xl space-y-4">
-                <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
+        <!-- LEFT: Red Folder High Impact News Desk (UNTOUCHED & AS-IS) -->
+        <div class="space-y-4">
+            <div class="cyber-card p-4 rounded-xl space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-xs sm:text-sm font-bold text-red-400 uppercase flex items-center space-x-2">
                         <i class="fa-solid fa-shield-halved text-red-500"></i>
                         <span>RED FOLDER NEWS DESK</span>
                     </h3>
                     <div class="flex space-x-1 text-xs font-mono">
-                        <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800">TODAY</button>
-                        <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold tab-btn-active border border-amber-600/50">WEEK</button>
-                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800">MONTH</button>
+                        <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">TODAY</button>
+                        <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold tab-btn-active">WEEK</button>
+                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">MONTH</button>
                     </div>
                 </div>
 
                 <!-- Currency Filter Panel -->
-                <div class="grid grid-cols-4 gap-1.5 text-xs font-mono bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
+                <div class="grid grid-cols-4 gap-1 text-xs font-mono bg-slate-950/80 p-2 rounded-xl border border-slate-800">
                     <button id="curr-ALL" onclick="filterCurrency('ALL')" class="py-1 rounded-lg curr-btn-active font-bold">ALL</button>
                     <button id="curr-USD" onclick="filterCurrency('USD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">USD</button>
                     <button id="curr-EUR" onclick="filterCurrency('EUR')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">EUR</button>
@@ -85,85 +75,94 @@
                 </div>
 
                 <!-- Red Folder News Container -->
-                <div id="red-folder-container" class="space-y-3 overflow-y-auto max-h-[550px] pr-1"></div>
+                <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[560px] pr-1"></div>
             </div>
         </div>
 
-        <!-- CENTER & RIGHT: Single Unified Container for Both Charts & Tools -->
-        <div class="lg:col-span-2 space-y-5">
+        <!-- RIGHT (2 COLUMNS): SEPARATE MODULAR BOXES MATCHING SCREENSHOT -->
+        <div class="lg:col-span-2 space-y-4">
             
-            <!-- MASTER UNIFIED CONTAINER FOR CHARTS -->
-            <div class="cyber-card p-5 rounded-xl space-y-4">
-                <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
-                    <span class="text-xs sm:text-sm font-bold text-cyan-400 uppercase flex items-center space-x-2 font-mono">
-                        <i class="fa-solid fa-chart-candlestick text-cyan-400"></i>
-                        <span>MULTI-CHART WORKSPACE (XAUUSD & EURUSD)</span>
-                    </span>
-                    <span class="px-2.5 py-0.5 bg-cyan-950 text-cyan-300 rounded-lg text-[10px] font-mono border border-cyan-800/60">SYNCHRONIZED</span>
-                </div>
-
-                <!-- Side-by-Side Perfectly Aligned Dual Charts Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
-                    <!-- Chart 1: Gold / XAUUSD -->
-                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/90 space-y-2.5">
-                        <div class="flex justify-between items-center border-b border-slate-900 pb-2">
-                            <span class="text-xs font-mono text-amber-400 font-bold"><i class="fa-solid fa-coins"></i> XAUUSD / GOLD</span>
-                            <span class="px-2 py-0.5 bg-amber-950/80 text-amber-400 rounded text-[9px] font-mono">CHART 1</span>
-                        </div>
-                        <div class="h-[340px] w-full bg-slate-950 rounded-lg border border-slate-900 overflow-hidden" id="tv_chart_1"></div>
+            <!-- BOX 1: SINGLE MAIN TRADINGVIEW CHART WITH ASSET SWITCHER -->
+            <div class="cyber-card p-4 rounded-xl space-y-3">
+                <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2.5 gap-2">
+                    <div class="flex space-x-1.5 overflow-x-auto text-xs font-mono max-w-full pb-1">
+                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded-lg text-xs">XAUUSD</button>
+                        <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">EURUSD</button>
+                        <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">GBPUSD</button>
+                        <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">USDJPY</button>
+                        <button id="asset-AUDUSD" onclick="loadTvChart('FX:AUDUSD', 'AUDUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">AUDUSD</button>
+                        <button id="asset-USDCAD" onclick="loadTvChart('FX:USDCAD', 'USDCAD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">USDCAD</button>
                     </div>
-
-                    <!-- Chart 2: EURUSD / FOREX -->
-                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/90 space-y-2.5">
-                        <div class="flex justify-between items-center border-b border-slate-900 pb-2">
-                            <span class="text-xs font-mono text-cyan-400 font-bold"><i class="fa-solid fa-chart-line"></i> EURUSD / FOREX</span>
-                            <span class="px-2 py-0.5 bg-cyan-950/80 text-cyan-400 rounded text-[9px] font-mono">CHART 2</span>
-                        </div>
-                        <div class="h-[340px] w-full bg-slate-950 rounded-lg border border-slate-900 overflow-hidden" id="tv_chart_2"></div>
-                    </div>
-
+                    <span id="active-asset-title" class="text-xs font-mono text-cyan-400 font-bold px-2.5 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">XAUUSD</span>
                 </div>
+                
+                <div class="h-[400px] sm:h-[460px] w-full bg-slate-950 rounded-xl border border-slate-900 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
-            <!-- Bottom Row: AI Engine & Currency Strength Side-by-Side -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- TWO SIDE-BY-SIDE MODULAR BOXES (MATCHING SCREENSHOT RIGHT SIDE) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                <!-- AI News Engine Card -->
+                <!-- BOX 2: BOOKMAP ORDER FLOW & LIQUIDITY HEATMAP -->
                 <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                         <span class="text-cyan-400 font-bold uppercase text-xs flex items-center space-x-2">
-                            <i class="fa-solid fa-microchip text-cyan-400"></i>
-                            <span>AI News Engine</span>
+                            <i class="fa-solid fa-layer-group text-cyan-400"></i>
+                            <span>BOOKMAP LIQUIDITY HEATMAP</span>
                         </span>
-                        <span class="px-2 py-0.5 bg-cyan-950 text-cyan-300 rounded-md text-[10px] border border-cyan-800/60">ACTIVE</span>
+                        <span class="px-2 py-0.5 bg-cyan-950 text-cyan-300 rounded text-[9px]">REALTIME</span>
                     </div>
-                    <div class="space-y-2 text-xs">
-                        <div class="flex justify-between"><span class="text-slate-400">Target Pairs:</span><span id="ai-target-pairs" class="text-white font-semibold">--</span></div>
-                        <div class="flex justify-between"><span class="text-slate-400">BUY:</span><span id="ai-pairs-buy" class="text-emerald-400 font-bold">--</span></div>
-                        <div class="flex justify-between"><span class="text-slate-400">SELL:</span><span id="ai-pairs-sell" class="text-red-400 font-bold">--</span></div>
-                        <div class="flex justify-between pt-1 border-t border-slate-800/60"><span class="text-slate-400">Signal:</span><span id="ai-overall-signal" class="badge-neutral px-2.5 py-0.5 rounded-lg font-bold">NEUTRAL</span></div>
+
+                    <!-- Order Flow Volume Ladder -->
+                    <div class="space-y-1.5 bg-slate-950 p-2.5 rounded-lg border border-slate-900">
+                        <div class="flex justify-between text-[11px]"><span class="text-red-400">Ask 2662.50 (Limit Sells)</span><span class="text-red-400 font-bold">1,420 Vol</span></div>
+                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-red-500 h-full" style="width: 85%"></div></div>
+
+                        <div class="flex justify-between text-[11px]"><span class="text-red-400">Ask 2661.80 (Ask Liquidity)</span><span class="text-red-400 font-bold">890 Vol</span></div>
+                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-red-400 h-full" style="width: 55%"></div></div>
+
+                        <div class="my-1 border-t border-slate-800 text-center py-0.5 text-amber-400 font-bold text-[11px]">MID PRICE: 2660.50</div>
+
+                        <div class="flex justify-between text-[11px]"><span class="text-emerald-400">Bid 2659.20 (Bid Liquidity)</span><span class="text-emerald-400 font-bold">1,150 Vol</span></div>
+                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-400 h-full" style="width: 70%"></div></div>
+
+                        <div class="flex justify-between text-[11px]"><span class="text-emerald-400">Bid 2658.00 (Limit Buys Pool)</span><span class="text-emerald-400 font-bold">1,890 Vol</span></div>
+                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 92%"></div></div>
                     </div>
                 </div>
 
-                <!-- Currency Strength Meter Card -->
+                <!-- BOX 3: WATCHLIST & QUICK BID/ASK EXECUTION (LIKE SCREENSHOT) -->
                 <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                         <span class="text-amber-400 font-bold uppercase text-xs flex items-center space-x-2">
-                            <i class="fa-solid fa-gauge-high text-amber-400"></i>
-                            <span>Currency Strength</span>
+                            <i class="fa-solid fa-list-check text-amber-400"></i>
+                            <span>INSTITUTIONAL WATCHLIST</span>
                         </span>
-                        <span class="px-2 py-0.5 bg-amber-950 text-amber-300 rounded-md text-[10px] border border-amber-800/60">REAL-TIME</span>
+                        <span class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded text-[9px]">LIVE BIDS</span>
                     </div>
-                    <div class="space-y-2.5 text-xs">
-                        <div>
-                            <div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>USD Strength:</span><span class="text-emerald-400 font-bold">78%</span></div>
-                            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800"><div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full" style="width: 78%"></div></div>
+
+                    <!-- Bid / Ask Tiles Grid -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-center">
+                            <span class="text-[10px] text-slate-400 block">XAUUSD</span>
+                            <div class="flex justify-between mt-1 text-[11px]">
+                                <span class="text-red-400 font-bold bg-red-950/50 px-2 py-1 rounded">2660.10<br><small class="text-[9px]">SELL</small></span>
+                                <span class="text-emerald-400 font-bold bg-emerald-950/50 px-2 py-1 rounded">2660.50<br><small class="text-[9px]">BUY</small></span>
+                            </div>
                         </div>
-                        <div>
-                            <div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>AUD Strength:</span><span class="text-amber-400 font-bold">65%</span></div>
-                            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800"><div class="bg-gradient-to-r from-amber-600 to-amber-400 h-full rounded-full" style="width: 65%"></div></div>
+
+                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-center">
+                            <span class="text-[10px] text-slate-400 block">EURUSD</span>
+                            <div class="flex justify-between mt-1 text-[11px]">
+                                <span class="text-red-400 font-bold bg-red-950/50 px-2 py-1 rounded">1.0820<br><small class="text-[9px]">SELL</small></span>
+                                <span class="text-emerald-400 font-bold bg-emerald-950/50 px-2 py-1 rounded">1.0822<br><small class="text-[9px]">BUY</small></span>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- AI & Currency Strength Summary -->
+                    <div class="pt-2 border-t border-slate-800 text-[11px] space-y-1">
+                        <div class="flex justify-between"><span class="text-slate-400">USD Strength:</span><span class="text-emerald-400 font-bold">78%</span></div>
+                        <div class="flex justify-between"><span class="text-slate-400">AI Direction Signal:</span><span id="ai-overall-signal" class="badge-neutral px-2 py-0.5 rounded text-[10px] font-bold">NEUTRAL</span></div>
                     </div>
                 </div>
 
@@ -313,38 +312,36 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
-        function loadDualCharts() {
-            // Chart 1: XAUUSD
-            new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": "OANDA:XAUUSD",
-                "interval": "15",
-                "timezone": "Asia/Kolkata",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#050811",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "container_id": "tv_chart_1"
+        function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
+            const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD'];
+            assetList.forEach(asset => {
+                const btn = document.getElementById(`asset-${asset}`);
+                if(btn) {
+                    if(asset === pairName) {
+                        btn.className = "px-3 py-1 asset-btn-active rounded-lg text-xs font-bold";
+                    } else {
+                        btn.className = "px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs";
+                    }
+                }
             });
 
-            // Chart 2: EURUSD
+            document.getElementById('tv_chart_container').innerHTML = '';
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
-                "symbol": "FX:EURUSD",
+                "symbol": symbol,
                 "interval": "15",
                 "timezone": "Asia/Kolkata",
                 "theme": "dark",
                 "style": "1",
                 "locale": "en",
-                "toolbar_bg": "#050811",
+                "toolbar_bg": "#060913",
                 "enable_publishing": false,
                 "hide_side_toolbar": false,
-                "container_id": "tv_chart_2"
+                "allow_symbol_change": true,
+                "container_id": "tv_chart_container"
             });
+            document.getElementById('active-asset-title').innerText = pairName;
         }
 
         function matchesTimeRange(news) {
@@ -364,9 +361,9 @@
 
         function setTimeRange(range) {
             activeTimeRange = range;
-            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800';
             renderNews();
         }
 
@@ -377,37 +374,6 @@
                 if (btn) btn.className = c === curr ? 'py-1 rounded-lg curr-btn-active font-bold' : 'py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800';
             });
             renderNews();
-        }
-
-        function calculateAISignal(news) {
-            let outcome = {
-                signal: "NEUTRAL",
-                buyPairs: ["None"],
-                sellPairs: ["None"]
-            };
-
-            if (news.currency === 'USD') {
-                outcome.signal = "BUY";
-                outcome.buyPairs = ["USDCAD", "USDJPY"];
-                outcome.sellPairs = ["XAUUSD", "EURUSD"];
-            } else if (news.currency === 'CAD') {
-                outcome.signal = "BUY";
-                outcome.buyPairs = ["USDCAD"];
-                outcome.sellPairs = ["CADJPY"];
-            } else if (news.currency === 'EUR') {
-                outcome.signal = "SELL";
-                outcome.buyPairs = ["USDCHF"];
-                outcome.sellPairs = ["EURUSD"];
-            } else if (news.currency === 'AUD') {
-                outcome.signal = "BUY";
-                outcome.buyPairs = ["AUDUSD"];
-                outcome.sellPairs = ["EURAUD"];
-            } else if (news.currency === 'JPY') {
-                outcome.signal = "SELL";
-                outcome.buyPairs = ["USDJPY"];
-                outcome.sellPairs = ["GBPJPY"];
-            }
-            return outcome;
         }
 
         function renderNews() {
@@ -422,24 +388,19 @@
 
             if (filtered.length === 0) {
                 container.innerHTML = `<div class="text-center py-8 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded-xl bg-slate-900/40">No Red Folder News Found for Selected Filter</div>`;
-                resetAISignal();
                 return;
             }
 
             filtered.forEach(news => {
-                const aiResult = calculateAISignal(news);
-                let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : aiResult.signal === 'SELL' ? 'badge-sell' : 'badge-neutral';
-
                 const card = document.createElement('div');
-                card.className = "bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 hover:border-cyan-500/40 cursor-pointer transition-all space-y-1.5 shadow-lg";
-                card.onclick = () => loadAISignal(news);
+                card.className = "bg-slate-950/90 p-3 rounded-xl border border-slate-800 hover:border-cyan-500/40 cursor-pointer transition-all space-y-1.5 shadow-lg";
                 card.innerHTML = `
                     <div class="flex justify-between items-start text-xs font-mono">
                         <div class="flex items-center space-x-2">
-                            <span class="px-1.5 py-0.5 bg-red-950 text-red-400 rounded-md text-[10px] font-bold border border-red-800/80 shadow-sm">${news.currency}</span>
+                            <span class="px-1.5 py-0.5 bg-red-950 text-red-400 rounded-md text-[10px] font-bold border border-red-800">${news.currency}</span>
                             <span class="text-slate-100 font-bold text-xs tracking-wide">${news.event}</span>
                         </div>
-                        <span class="${badgeClass} px-2 py-0.5 rounded-lg text-[10px] font-bold shadow-sm">${aiResult.signal}</span>
+                        <span class="badge-neutral px-2 py-0.5 rounded-lg text-[10px] font-bold">HIGH IMPACT</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-900">
                         <span><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> ${news.displayDate} @ ${news.time}</span>
@@ -451,26 +412,6 @@
                 `;
                 container.appendChild(card);
             });
-            loadAISignal(filtered[0]);
-        }
-
-        function loadAISignal(news) {
-            if(!news) return;
-            const aiResult = calculateAISignal(news);
-            document.getElementById('ai-target-pairs').innerText = [...aiResult.buyPairs, ...aiResult.sellPairs].filter(p => p !== 'None').join(', ') || 'None';
-            document.getElementById('ai-pairs-buy').innerText = aiResult.buyPairs.join(', ');
-            document.getElementById('ai-pairs-sell').innerText = aiResult.sellPairs.join(', ');
-            
-            const sigEl = document.getElementById('ai-overall-signal');
-            sigEl.innerText = aiResult.signal;
-            sigEl.className = aiResult.signal === 'BUY' ? 'badge-buy px-2.5 py-0.5 rounded-lg font-bold' : aiResult.signal === 'SELL' ? 'badge-sell px-2.5 py-0.5 rounded-lg font-bold' : 'badge-neutral px-2.5 py-0.5 rounded-lg font-bold';
-        }
-
-        function resetAISignal() {
-            document.getElementById('ai-target-pairs').innerText = 'None';
-            document.getElementById('ai-pairs-buy').innerText = 'None';
-            document.getElementById('ai-pairs-sell').innerText = 'None';
-            document.getElementById('ai-overall-signal').innerText = 'NEUTRAL';
         }
 
         function updateClock() {
@@ -479,7 +420,7 @@
         }
 
         window.onload = () => {
-            loadDualCharts();
+            loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
         };
