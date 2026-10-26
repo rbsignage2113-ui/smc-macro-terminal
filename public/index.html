@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Institutional Modular Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Clean Modular Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -14,9 +14,6 @@
             border: 1px solid rgba(56, 189, 248, 0.2);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         }
-        .badge-buy { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
-        .badge-sell { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .badge-neutral { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); }
         .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; }
         .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; }
         .asset-btn-active { background: #0284c7 !important; color: #ffffff !important; font-weight: bold; }
@@ -30,7 +27,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">BOOKMAP & INSTITUTIONAL DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">CLEAN INSTITUTIONAL DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -79,10 +76,8 @@
             </div>
         </div>
 
-        <!-- RIGHT (2 COLUMNS): SEPARATE MODULAR BOXES MATCHING SCREENSHOT -->
+        <!-- RIGHT: SINGLE MAIN TRADINGVIEW CHART WITH ASSET SWITCHER -->
         <div class="lg:col-span-2 space-y-4">
-            
-            <!-- BOX 1: SINGLE MAIN TRADINGVIEW CHART WITH ASSET SWITCHER -->
             <div class="cyber-card p-4 rounded-xl space-y-3">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2.5 gap-2">
                     <div class="flex space-x-1.5 overflow-x-auto text-xs font-mono max-w-full pb-1">
@@ -96,78 +91,8 @@
                     <span id="active-asset-title" class="text-xs font-mono text-cyan-400 font-bold px-2.5 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">XAUUSD</span>
                 </div>
                 
-                <div class="h-[400px] sm:h-[460px] w-full bg-slate-950 rounded-xl border border-slate-900 overflow-hidden" id="tv_chart_container"></div>
+                <div class="h-[520px] w-full bg-slate-950 rounded-xl border border-slate-900 overflow-hidden" id="tv_chart_container"></div>
             </div>
-
-            <!-- TWO SIDE-BY-SIDE MODULAR BOXES (MATCHING SCREENSHOT RIGHT SIDE) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                
-                <!-- BOX 2: BOOKMAP ORDER FLOW & LIQUIDITY HEATMAP -->
-                <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="text-cyan-400 font-bold uppercase text-xs flex items-center space-x-2">
-                            <i class="fa-solid fa-layer-group text-cyan-400"></i>
-                            <span>BOOKMAP LIQUIDITY HEATMAP</span>
-                        </span>
-                        <span class="px-2 py-0.5 bg-cyan-950 text-cyan-300 rounded text-[9px]">REALTIME</span>
-                    </div>
-
-                    <!-- Order Flow Volume Ladder -->
-                    <div class="space-y-1.5 bg-slate-950 p-2.5 rounded-lg border border-slate-900">
-                        <div class="flex justify-between text-[11px]"><span class="text-red-400">Ask 2662.50 (Limit Sells)</span><span class="text-red-400 font-bold">1,420 Vol</span></div>
-                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-red-500 h-full" style="width: 85%"></div></div>
-
-                        <div class="flex justify-between text-[11px]"><span class="text-red-400">Ask 2661.80 (Ask Liquidity)</span><span class="text-red-400 font-bold">890 Vol</span></div>
-                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-red-400 h-full" style="width: 55%"></div></div>
-
-                        <div class="my-1 border-t border-slate-800 text-center py-0.5 text-amber-400 font-bold text-[11px]">MID PRICE: 2660.50</div>
-
-                        <div class="flex justify-between text-[11px]"><span class="text-emerald-400">Bid 2659.20 (Bid Liquidity)</span><span class="text-emerald-400 font-bold">1,150 Vol</span></div>
-                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-400 h-full" style="width: 70%"></div></div>
-
-                        <div class="flex justify-between text-[11px]"><span class="text-emerald-400">Bid 2658.00 (Limit Buys Pool)</span><span class="text-emerald-400 font-bold">1,890 Vol</span></div>
-                        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 92%"></div></div>
-                    </div>
-                </div>
-
-                <!-- BOX 3: WATCHLIST & QUICK BID/ASK EXECUTION (LIKE SCREENSHOT) -->
-                <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="text-amber-400 font-bold uppercase text-xs flex items-center space-x-2">
-                            <i class="fa-solid fa-list-check text-amber-400"></i>
-                            <span>INSTITUTIONAL WATCHLIST</span>
-                        </span>
-                        <span class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded text-[9px]">LIVE BIDS</span>
-                    </div>
-
-                    <!-- Bid / Ask Tiles Grid -->
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-center">
-                            <span class="text-[10px] text-slate-400 block">XAUUSD</span>
-                            <div class="flex justify-between mt-1 text-[11px]">
-                                <span class="text-red-400 font-bold bg-red-950/50 px-2 py-1 rounded">2660.10<br><small class="text-[9px]">SELL</small></span>
-                                <span class="text-emerald-400 font-bold bg-emerald-950/50 px-2 py-1 rounded">2660.50<br><small class="text-[9px]">BUY</small></span>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-center">
-                            <span class="text-[10px] text-slate-400 block">EURUSD</span>
-                            <div class="flex justify-between mt-1 text-[11px]">
-                                <span class="text-red-400 font-bold bg-red-950/50 px-2 py-1 rounded">1.0820<br><small class="text-[9px]">SELL</small></span>
-                                <span class="text-emerald-400 font-bold bg-emerald-950/50 px-2 py-1 rounded">1.0822<br><small class="text-[9px]">BUY</small></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- AI & Currency Strength Summary -->
-                    <div class="pt-2 border-t border-slate-800 text-[11px] space-y-1">
-                        <div class="flex justify-between"><span class="text-slate-400">USD Strength:</span><span class="text-emerald-400 font-bold">78%</span></div>
-                        <div class="flex justify-between"><span class="text-slate-400">AI Direction Signal:</span><span id="ai-overall-signal" class="badge-neutral px-2 py-0.5 rounded text-[10px] font-bold">NEUTRAL</span></div>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
 
     </div>
@@ -400,7 +325,7 @@
                             <span class="px-1.5 py-0.5 bg-red-950 text-red-400 rounded-md text-[10px] font-bold border border-red-800">${news.currency}</span>
                             <span class="text-slate-100 font-bold text-xs tracking-wide">${news.event}</span>
                         </div>
-                        <span class="badge-neutral px-2 py-0.5 rounded-lg text-[10px] font-bold">HIGH IMPACT</span>
+                        <span class="bg-amber-950/80 text-amber-400 px-2 py-0.5 rounded-lg text-[10px] font-bold border border-amber-800/50">HIGH IMPACT</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-900">
                         <span><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> ${news.displayDate} @ ${news.time}</span>
