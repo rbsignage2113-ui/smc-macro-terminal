@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Futuristic Glass Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Multi-Chart Glass Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -21,7 +21,6 @@
         .badge-neutral { background: rgba(234, 179, 8, 0.15); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3); }
         .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; box-shadow: 0 0 15px rgba(217, 119, 6, 0.4); }
         .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
-        .asset-btn-active { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; color: #020617 !important; font-weight: bold; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
     </style>
 </head>
 <body class="p-3 sm:p-6 space-y-5">
@@ -32,7 +31,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">SECURE INSTITUTIONAL DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">MULTI-CHART SPLIT DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900/80 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -52,7 +51,7 @@
         <span class="text-slate-400 font-bold uppercase tracking-wide">ACTIVE MODULES:</span>
         <div class="flex flex-wrap gap-2 mt-1 sm:mt-0">
             <span class="px-2.5 py-0.5 bg-red-950/80 text-red-400 rounded-md text-[10px] border border-red-800/60">v Red Folder Desk</span>
-            <span class="px-2.5 py-0.5 bg-cyan-950/80 text-cyan-400 rounded-md text-[10px] border border-cyan-800/60">v TradingView Chart</span>
+            <span class="px-2.5 py-0.5 bg-cyan-950/80 text-cyan-400 rounded-md text-[10px] border border-cyan-800/60">v Multi-Chart Split View</span>
             <span class="px-2.5 py-0.5 bg-amber-950/80 text-amber-400 rounded-md text-[10px] border border-amber-800/60">v AI News Engine</span>
         </div>
     </div>
@@ -91,25 +90,30 @@
             </div>
         </div>
 
-        <!-- CENTER & RIGHT: TradingView Chart & AI/Strength Tools -->
+        <!-- CENTER & RIGHT: Multi-Chart Split View (Side-by-Side TradingView Charts) -->
         <div class="lg:col-span-2 space-y-5">
             
-            <!-- TradingView Chart Container Box -->
-            <div class="cyber-card p-4 rounded-xl space-y-3">
-                <div class="flex flex-wrap items-center justify-between border-b border-slate-800/80 pb-3 gap-2">
-                    <div class="flex space-x-1.5 overflow-x-auto text-xs font-mono max-w-full pb-1">
-                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded-lg transition-all text-xs">XAUUSD</button>
-                        <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">EURUSD</button>
-                        <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">GBPUSD</button>
-                        <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">USDJPY</button>
-                        <button id="asset-AUDUSD" onclick="loadTvChart('FX:AUDUSD', 'AUDUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">AUDUSD</button>
-                        <button id="asset-USDCAD" onclick="loadTvChart('FX:USDCAD', 'USDCAD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs">USDCAD</button>
-                    </div>
-                    <span id="active-asset-title" class="text-xs font-mono text-cyan-400 font-bold px-2.5 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">XAUUSD</span>
-                </div>
+            <!-- Side-by-Side Dual Charts Grid (Inspired by Reference Image) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 
-                <!-- TradingView Embed Height -->
-                <div class="h-[420px] sm:h-[530px] w-full bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden shadow-2xl" id="tv_chart_container"></div>
+                <!-- Chart 1: Gold / XAUUSD Desk -->
+                <div class="cyber-card p-4 rounded-xl space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
+                        <span class="text-xs font-mono text-amber-400 font-bold"><i class="fa-solid fa-chart-line"></i> XAUUSD / GOLD</span>
+                        <span class="px-2 py-0.5 bg-amber-950 text-amber-400 rounded text-[9px] font-mono">CHART 1</span>
+                    </div>
+                    <div class="h-[380px] w-full bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden shadow-2xl" id="tv_chart_1"></div>
+                </div>
+
+                <!-- Chart 2: EURUSD Desk -->
+                <div class="cyber-card p-4 rounded-xl space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
+                        <span class="text-xs font-mono text-cyan-400 font-bold"><i class="fa-solid fa-chart-line"></i> EURUSD / FOREX</span>
+                        <span class="px-2 py-0.5 bg-cyan-950 text-cyan-400 rounded text-[9px] font-mono">CHART 2</span>
+                    </div>
+                    <div class="h-[380px] w-full bg-slate-950 rounded-xl border border-slate-800/80 overflow-hidden shadow-2xl" id="tv_chart_2"></div>
+                </div>
+
             </div>
 
             <!-- Bottom Row: AI Engine & Currency Strength Side-by-Side -->
@@ -299,24 +303,12 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
-        function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
-            const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD'];
-            assetList.forEach(asset => {
-                const btn = document.getElementById(`asset-${asset}`);
-                if(btn) {
-                    if(asset === pairName) {
-                        btn.className = "px-3 py-1 asset-btn-active rounded-lg transition-all text-xs";
-                    } else {
-                        btn.className = "px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-all text-xs";
-                    }
-                }
-            });
-
-            document.getElementById('tv_chart_container').innerHTML = '';
+        function loadDualCharts() {
+            // Chart 1: XAUUSD
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
-                "symbol": symbol,
+                "symbol": "OANDA:XAUUSD",
                 "interval": "15",
                 "timezone": "Asia/Kolkata",
                 "theme": "dark",
@@ -325,10 +317,24 @@
                 "toolbar_bg": "#050811",
                 "enable_publishing": false,
                 "hide_side_toolbar": false,
-                "allow_symbol_change": true,
-                "container_id": "tv_chart_container"
+                "container_id": "tv_chart_1"
             });
-            document.getElementById('active-asset-title').innerText = pairName;
+
+            // Chart 2: EURUSD
+            new TradingView.widget({
+                "width": "100%",
+                "height": "100%",
+                "symbol": "FX:EURUSD",
+                "interval": "15",
+                "timezone": "Asia/Kolkata",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#050811",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "container_id": "tv_chart_2"
+            });
         }
 
         function matchesTimeRange(news) {
@@ -348,9 +354,9 @@
 
         function setTimeRange(range) {
             activeTimeRange = range;
-            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2.5 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2.5 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2.5 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2.5 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2.5 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2.5 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
+            document.getElementById('tab-month').className = range === 'THIS_MONTH' ? 'px-2 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-2 py-1 bg-slate-900/90 text-slate-300 rounded-lg font-bold border border-slate-800';
             renderNews();
         }
 
@@ -463,7 +469,7 @@
         }
 
         window.onload = () => {
-            loadTvChart('OANDA:XAUUSD', 'XAUUSD');
+            loadDualCharts();
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
         };
