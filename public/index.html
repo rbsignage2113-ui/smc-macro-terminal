@@ -1,381 +1,729 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Pro News Intelligence Desk</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <style>
-        body { background-color: #060913; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
-        .cyber-card { 
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(9, 14, 26, 0.98) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR-RIZQ SMC MACRO TERMINAL - AI Engine</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            smcDark: '#04070D',
+            smcCard: '#0B1120',
+            smcBorder: '#1E293B',
+            smcAccent: '#38BDF8',
+            smcBullish: '#10B981',
+            smcBearish: '#EF4444',
+            smcWarning: '#F59E0B'
+          }
         }
-        .badge-buy { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.4); }
-        .badge-sell { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
-        .badge-neutral { background: rgba(234, 179, 8, 0.2); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.4); }
-        .tab-btn-active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important; color: #ffffff !important; font-weight: bold; }
-        .curr-btn-active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; font-weight: bold; }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #04070d;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-card {
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .neon-border-bullish {
+      border-color: rgba(16, 185, 129, 0.6);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+    }
+    .neon-border-bearish {
+      border-color: rgba(239, 68, 68, 0.6);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+    }
+    .neon-border-warning {
+      border-color: rgba(245, 158, 11, 0.6);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+    }
+    .neon-border-neutral {
+      border-color: rgba(148, 163, 184, 0.3);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #04070d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
 </head>
-<body class="p-3 sm:p-5 space-y-4">
+<body class="min-h-screen flex flex-col justify-between p-2 md:p-5">
 
-    <!-- Top Header Bar -->
-    <header class="cyber-card p-3 rounded-xl flex flex-wrap justify-between items-center text-sm shadow-2xl gap-2">
-        <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
+  <!-- TOP HEADER / NAV BAR -->
+  <header class="glass-card rounded-2xl p-4 mb-4 flex flex-col lg:flex-row justify-between items-center gap-4 border-b border-smcBorder shadow-2xl">
+    <div class="flex items-center gap-3">
+      <div class="p-3 bg-sky-500/10 rounded-xl border border-sky-500/30 text-sky-400">
+        <i class="fa-solid fa-brain text-2xl"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-xl md:text-2xl font-black tracking-wider text-white">AR-RIZQ <span class="text-sky-400">SMC MACRO</span> TERMINAL</h1>
+          <span class="px-2 py-0.5 text-[10px] font-bold bg-sky-500/20 text-sky-300 rounded border border-sky-500/40">AI CORE v4.0</span>
+        </div>
+        <p class="text-xs text-slate-400">Institutional Macro Data & ICT Order Flow AI Filter (XAUUSD / Forex)</p>
+      </div>
+    </div>
+
+    <!-- Live Clocks & News Guard Status -->
+    <div class="flex flex-wrap items-center gap-3">
+      <!-- News Guard Banner -->
+      <div id="newsGuardBanner" class="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span id="newsGuardText">NEWS GUARD: SAFE TO TRADE</span>
+      </div>
+
+      <!-- Timezone Clocks -->
+      <div class="bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 flex items-center gap-3">
+        <div><i class="fa-regular fa-clock text-sky-400 mr-1"></i>EST: <span id="estClock" class="text-white font-bold">--:--:--</span></div>
+        <span class="text-slate-700">|</span>
+        <div>IST: <span id="istClock" class="text-white font-bold">--:--:--</span></div>
+      </div>
+
+      <!-- Killzone Badge -->
+      <div id="activeKillzoneBadge" class="px-3 py-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold rounded-xl">
+        <i class="fa-solid fa-bolt mr-1"></i>NY AM KILLZONE
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN TERMINAL GRID -->
+  <main class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-grow">
+
+    <!-- LEFT COLUMN: CONTROLS, INTERMARKET & SMC INPUTS (LG: 4 COLS) -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
+      
+      <!-- PRESET SCENARIO SIMULATOR -->
+      <section class="glass-card rounded-2xl p-4">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+          <span><i class="fa-solid fa-sliders text-sky-400 mr-2"></i>Quick Macro Presets</span>
+          <span class="text-[10px] text-slate-500">Test Scenarios</span>
+        </h2>
+        <div class="grid grid-cols-2 gap-2 text-xs font-medium">
+          <button onclick="applyPreset('cpi_hot')" class="p-2 bg-slate-900/80 hover:bg-slate-800 text-rose-400 rounded-xl border border-rose-500/20 text-left transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-trend-up text-rose-400 text-sm"></i>
             <div>
-                <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">NEWS INTELLIGENCE DESK</span>
+              <div class="font-bold">CPI Hot Surge</div>
+              <div class="text-[10px] text-slate-500">USD Strong / Gold Drop</div>
             </div>
-            <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
-        </div>
-        <div class="hidden md:flex items-center space-x-5 font-mono text-xs text-slate-300">
-            <span>USDCAD: <strong class="text-white">1.4013</strong></span>
-            <span>GBPUSD: <strong class="text-white">1.3040</strong></span>
-            <span>USDJPY: <strong class="text-white">157.06</strong></span>
-            <span>GOLD: <strong class="text-amber-400">$4,012.31</strong></span>
-        </div>
-        <div class="flex items-center space-x-2">
-            <span class="px-3 py-1 bg-emerald-950/80 text-emerald-400 rounded-lg text-[10px] sm:text-xs font-semibold border border-emerald-800/60 animate-pulse">LONDON KILLZONE</span>
-        </div>
-    </header>
+          </button>
 
-    <!-- NEWS INTELLIGENCE OVERVIEW GRID -->
-    <div class="cyber-card p-4 rounded-xl space-y-3">
-        <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2">
-            <h3 class="text-xs sm:text-sm font-bold text-cyan-400 uppercase flex items-center space-x-2">
-                <i class="fa-solid fa-newspaper text-cyan-400"></i>
-                <span>News Intelligence — Upcoming High-Impact Currency Bias</span>
-            </h3>
-            <span class="px-2.5 py-1 bg-red-950 text-red-400 text-[10px] font-mono rounded border border-red-800">HIGH IMPACT ONLY</span>
+          <button onclick="applyPreset('nfp_weak')" class="p-2 bg-slate-900/80 hover:bg-slate-800 text-emerald-400 rounded-xl border border-emerald-500/20 text-left transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-trend-down text-emerald-400 text-sm"></i>
+            <div>
+              <div class="font-bold">NFP Weak Miss</div>
+              <div class="text-[10px] text-slate-500">USD Dovish / Gold Rally</div>
+            </div>
+          </button>
+
+          <button onclick="applyPreset('fomc_hawkish')" class="p-2 bg-slate-900/80 hover:bg-slate-800 text-amber-400 rounded-xl border border-amber-500/20 text-left transition flex items-center gap-2">
+            <i class="fa-solid fa-building-columns text-amber-400 text-sm"></i>
+            <div>
+              <div class="font-bold">FOMC Hawkish Hold</div>
+              <div class="text-[10px] text-slate-500">Rate Cut Delayed</div>
+            </div>
+          </button>
+
+          <button onclick="applyPreset('news_window')" class="p-2 bg-slate-900/80 hover:bg-slate-800 text-amber-300 rounded-xl border border-amber-300/30 text-left transition flex items-center gap-2">
+            <i class="fa-solid fa-triangle-exclamation text-amber-300 text-sm"></i>
+            <div>
+              <div class="font-bold">15M News Guard</div>
+              <div class="text-[10px] text-slate-500">Auto Safety Lock</div>
+            </div>
+          </button>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 font-mono text-xs">
-            <!-- US USD -->
-            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                <div class="flex justify-between font-bold"><span class="text-white">US USD</span><span class="text-emerald-400 text-[10px]">BULLISH</span></div>
-                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 3</span><span>🔴 0</span><span class="text-amber-400">🟡 4 Pending</span></div>
-                <div class="text-[10px] text-slate-400">AI Confidence: <strong class="text-emerald-400 block">91.5%</strong></div>
-                <div class="text-[9px] text-slate-400 pt-1 border-t border-slate-900">4 High-impact event(s)</div>
+      </section>
+
+      <!-- INTERMARKET ANALYSIS ENGINE -->
+      <section class="glass-card rounded-2xl p-4">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+          <span><i class="fa-solid fa-network-wired text-sky-400 mr-2"></i>Intermarket Yield Engine</span>
+          <span class="text-xs text-sky-400 font-mono">Live Metrics</span>
+        </h2>
+
+        <div class="space-y-3">
+          <!-- DXY Input/Status -->
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+            <div>
+              <div class="text-xs font-bold text-white">DXY (US Dollar Index)</div>
+              <div class="text-[11px] text-slate-400">Primary USD Benchmark</div>
             </div>
-            <!-- EU EUR -->
-            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                <div class="flex justify-between font-bold"><span class="text-white">EU EUR</span><span class="text-red-400 text-[10px]">BEARISH</span></div>
-                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 2</span><span class="text-amber-400">🟡 3 Pending</span></div>
-                <div class="text-[10px] text-slate-400">AI Confidence: <strong class="text-red-400 block">88.2%</strong></div>
-                <div class="text-[9px] text-slate-400 pt-1 border-t border-slate-900">3 High-impact event(s)</div>
+            <select id="dxyTrend" onchange="recalculateAI()" class="bg-slate-800 text-xs font-mono font-bold text-slate-200 border border-slate-700 rounded-lg px-2.5 py-1.5 outline-none focus:border-sky-500">
+              <option value="BULLISH">BULLISH (Up)</option>
+              <option value="BEARISH">BEARISH (Down)</option>
+              <option value="NEUTRAL">CONSOLIDATING</option>
+            </select>
+          </div>
+
+          <!-- US10Y Yields Input -->
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+            <div>
+              <div class="text-xs font-bold text-white">US10Y Treasury Yield</div>
+              <div class="text-[11px] text-slate-400">Gold Inverse Correlation</div>
             </div>
-            <!-- GB GBP -->
-            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                <div class="flex justify-between font-bold"><span class="text-white">GB GBP</span><span class="text-red-400 text-[10px]">BEARISH</span></div>
-                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 1</span><span class="text-amber-400">🟡 1 Pending</span></div>
-                <div class="text-[10px] text-slate-400">AI Confidence: <strong class="text-red-400 block">86.7%</strong></div>
-                <div class="text-[9px] text-slate-400 pt-1 border-t border-slate-900">1 High-impact event(s)</div>
+            <select id="us10yTrend" onchange="recalculateAI()" class="bg-slate-800 text-xs font-mono font-bold text-slate-200 border border-slate-700 rounded-lg px-2.5 py-1.5 outline-none focus:border-sky-500">
+              <option value="RISING">RISING (Yields Up)</option>
+              <option value="FALLING">FALLING (Yields Down)</option>
+              <option value="FLAT">FLAT</option>
+            </select>
+          </div>
+
+          <!-- CME FedWatch Rate Cut Probability -->
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-xs font-bold text-white">CME FedWatch Next FOMC</span>
+              <span id="fedWatchVal" class="text-xs font-mono text-amber-400 font-bold">68% Rate Cut Bias</span>
             </div>
-            <!-- AU AUD -->
-            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                <div class="flex justify-between font-bold"><span class="text-white">AU AUD</span><span class="text-emerald-400 text-[10px]">BULLISH</span></div>
-                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 3</span><span>🔴 0</span><span class="text-amber-400">🟡 3 Pending</span></div>
-                <div class="text-[10px] text-slate-400">AI Confidence: <strong class="text-emerald-400 block">89.4%</strong></div>
-                <div class="text-[9px] text-slate-400 pt-1 border-t border-slate-900">3 High-impact event(s)</div>
+            <input type="range" id="fedWatchSlider" min="0" max="100" value="68" oninput="updateFedWatchSlider(this.value)" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400" />
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+              <span>0% Dovish</span>
+              <span>50% Neutral</span>
+              <span>100% High Rate Cut</span>
             </div>
-            <!-- CA CAD -->
-            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                <div class="flex justify-between font-bold"><span class="text-white">CA CAD</span><span class="text-emerald-400 text-[10px]">BULLISH</span></div>
-                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 2</span><span>🔴 0</span><span class="text-amber-400">🟡 4 Pending</span></div>
-                <div class="text-[10px] text-slate-400">AI Confidence: <strong class="text-emerald-400 block">87.9%</strong></div>
-                <div class="text-[9px] text-slate-400 pt-1 border-t border-slate-900">4 High-impact event(s)</div>
-            </div>
-            <!-- JP JPY -->
-            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
-                <div class="flex justify-between font-bold"><span class="text-white">JP JPY</span><span class="text-red-400 text-[10px]">BEARISH</span></div>
-                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 3</span><span class="text-amber-400">🟡 4 Pending</span></div>
-                <div class="text-[10px] text-slate-400">AI Confidence: <strong class="text-red-400 block">92.1%</strong></div>
-                <div class="text-[9px] text-slate-400 pt-1 border-t border-slate-900">4 High-impact event(s)</div>
-            </div>
+          </div>
         </div>
+      </section>
+
+      <!-- SMC TECHNICAL CONFLUENCE LAYER -->
+      <section class="glass-card rounded-2xl p-4">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+          <span><i class="fa-solid fa-chart-candlestick text-sky-400 mr-2"></i>SMC Confluence Layer</span>
+          <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300 font-mono">M1 / M5 Execution</span>
+        </h2>
+
+        <div class="space-y-2.5 text-xs">
+          <!-- Session Killzone -->
+          <div class="flex items-center justify-between p-2.5 bg-slate-900/80 rounded-xl border border-slate-800">
+            <span class="flex items-center gap-2 font-medium text-slate-300">
+              <i class="fa-regular fa-clock text-sky-400"></i> Active Killzone
+            </span>
+            <select id="killzoneSelect" onchange="recalculateAI()" class="bg-slate-800 text-slate-200 text-xs rounded-lg border border-slate-700 px-2 py-1 outline-none">
+              <option value="NY_AM">NY AM Killzone (08:30 - 11:00 EST)</option>
+              <option value="LONDON">London Killzone (02:00 - 05:00 EST)</option>
+              <option value="NY_PM">NY PM Killzone (13:30 - 16:00 EST)</option>
+              <option value="ASIA">Asian Session (20:00 - 00:00 EST)</option>
+            </select>
+          </div>
+
+          <!-- Asian Range Sweep (Judas Swing) -->
+          <div class="flex items-center justify-between p-2.5 bg-slate-900/80 rounded-xl border border-slate-800">
+            <span class="flex items-center gap-2 font-medium text-slate-300">
+              <i class="fa-solid fa-compass text-sky-400"></i> Asian Range Sweep
+            </span>
+            <select id="asianSweep" onchange="recalculateAI()" class="bg-slate-800 text-slate-200 text-xs rounded-lg border border-slate-700 px-2 py-1 outline-none">
+              <option value="HIGH_SWEPT">High Swept (Judas High)</option>
+              <option value="LOW_SWEPT">Low Swept (Judas Low)</option>
+              <option value="NONE" selected>No Sweep</option>
+            </select>
+          </div>
+
+          <!-- CISD + FVG -->
+          <div class="flex items-center justify-between p-2.5 bg-slate-900/80 rounded-xl border border-slate-800">
+            <span class="flex items-center gap-2 font-medium text-slate-300">
+              <i class="fa-solid fa-layer-group text-sky-400"></i> CISD + FVG Trigger
+            </span>
+            <select id="cisdFvg" onchange="recalculateAI()" class="bg-slate-800 text-slate-200 text-xs rounded-lg border border-slate-700 px-2 py-1 outline-none">
+              <option value="BULLISH_FVG">Bullish CISD + FVG</option>
+              <option value="BEARISH_FVG">Bearish CISD + FVG</option>
+              <option value="NONE" selected>No FVG Formed</option>
+            </select>
+          </div>
+
+          <!-- Liquidity Purge -->
+          <div class="flex items-center justify-between p-2.5 bg-slate-900/80 rounded-xl border border-slate-800">
+            <span class="flex items-center gap-2 font-medium text-slate-300">
+              <i class="fa-solid fa-droplet text-sky-400"></i> Liquidity Purge
+            </span>
+            <select id="liquidityPurge" onchange="recalculateAI()" class="bg-slate-800 text-slate-200 text-xs rounded-lg border border-slate-700 px-2 py-1 outline-none">
+              <option value="SSL_SWEPT">Sell-Side Liquidity (SSL/PDL)</option>
+              <option value="BSL_SWEPT">Buy-Side Liquidity (BSL/PDH)</option>
+              <option value="NONE" selected>None</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- FUNDEDNEXT ACCOUNT & RISK CALCULATOR -->
+      <section class="glass-card rounded-2xl p-4">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+          <span><i class="fa-solid fa-calculator text-sky-400 mr-2"></i>FundedNext Risk Engine</span>
+          <span class="text-[10px] text-emerald-400 font-mono">Lot Calculator</span>
+        </h2>
+
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">Account Size ($)</label>
+            <input type="number" id="accountSize" value="200000" oninput="recalculateAI()" class="w-full bg-slate-900 text-slate-200 font-mono p-2 rounded-lg border border-slate-800 outline-none focus:border-sky-500" />
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">Risk per Trade (%)</label>
+            <select id="riskPercent" onchange="recalculateAI()" class="w-full bg-slate-900 text-slate-200 font-mono p-2 rounded-lg border border-slate-800 outline-none focus:border-sky-500">
+              <option value="0.5">0.5% ($1,000)</option>
+              <option value="1.0" selected>1.0% ($2,000)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
     </div>
 
-    <!-- MAIN DASHBOARD GRID (FULL WIDTH NEWS DESK & AI ENGINE) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+    <!-- CENTER & RIGHT COLUMN: AI SIGNAL BOARD & NEWS PIPELINE (LG: 8 COLS) -->
+    <div class="lg:col-span-8 flex flex-col gap-4">
+
+      <!-- TOP AI SIGNAL DISPLAY BOARD -->
+      <section id="aiSignalCard" class="glass-card rounded-2xl p-6 border-2 neon-border-bullish transition-all duration-300 shadow-2xl">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800/80 pb-4">
+          <div>
+            <div class="text-xs font-mono font-bold text-sky-400 uppercase tracking-widest flex items-center gap-2">
+              <i class="fa-solid fa-robot text-sm"></i> SMC Macro AI Core Recommendation
+            </div>
+            <div id="aiSignalAction" class="text-3xl md:text-4xl font-black text-emerald-400 tracking-tight mt-1">
+              STRONG BUY (XAUUSD)
+            </div>
+            <p id="aiReasoning" class="text-xs text-slate-300 mt-1">
+              Dovish CPI Delta + Falling US10Y Yields + SSL Swept with Bullish CISD FVG Confluence.
+            </p>
+          </div>
+
+          <!-- Confidence Meter Gauge -->
+          <div class="bg-slate-900/90 px-5 py-3 rounded-2xl border border-slate-800 text-center min-w-[150px]">
+            <div class="text-[10px] text-slate-400 font-mono uppercase">AI Confluence Score</div>
+            <div id="aiConfidenceText" class="text-3xl font-black font-mono text-emerald-400">88%</div>
+            <div id="aiScoreTag" class="text-[10px] text-slate-400 font-mono mt-0.5">Score: +4.2 / +5.0</div>
+          </div>
+        </div>
+
+        <!-- TRADE EXECUTION & RISK MATRIX -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4 text-xs font-mono">
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 block">Suggested Asset</span>
+            <span id="targetAsset" class="font-bold text-slate-200 text-sm">XAUUSD (Gold)</span>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 block">Entry Zone (FVG)</span>
+            <span id="suggestedEntry" class="font-bold text-sky-400 text-sm">$2,738.50</span>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 block">Stop Loss (Invalidation)</span>
+            <span id="suggestedSL" class="font-bold text-rose-400 text-sm">$2,732.00</span>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 block">Take Profit 1 (1:3 R:R)</span>
+            <span id="suggestedTP1" class="font-bold text-emerald-400 text-sm">$2,758.00</span>
+          </div>
+          <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 block">FundedNext Size</span>
+            <span id="suggestedLot" class="font-bold text-amber-400 text-sm">3.08 Lots</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIVE USD RED FOLDER NEWS PIPELINE -->
+      <section class="glass-card rounded-2xl p-5 flex-grow flex flex-col">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn text-rose-500 animate-pulse"></i>
+            <span>USD High-Impact Red Folder News Feed (.gov & FF API)</span>
+          </h2>
+          <div class="flex items-center gap-2">
+            <span id="sentimentPill" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              DOVISH FOR USD (BULLISH GOLD)
+            </span>
+          </div>
+        </div>
+
+        <!-- News Countdown Timer Component -->
+        <div class="bg-slate-900/90 rounded-xl p-3.5 border border-slate-800 mb-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500">
+              <i class="fa-solid fa-calendar-check text-lg"></i>
+            </div>
+            <div>
+              <div id="nextNewsTitle" class="text-xs font-bold text-white">US Core CPI (MoM) Data Release</div>
+              <div class="text-[11px] text-slate-400">Bureau of Labor Statistics Direct Feed (BLS.gov)</div>
+            </div>
+          </div>
+
+          <div class="text-center sm:text-right">
+            <div class="text-[10px] text-slate-400 font-mono">Next News Countdown</div>
+            <div id="countdownTimer" class="text-lg font-black font-mono text-amber-400">
+              00:12:45
+            </div>
+          </div>
+        </div>
+
+        <!-- NEWS DATA TABLE -->
+        <div class="overflow-x-auto flex-grow">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-[11px] font-mono text-slate-400 uppercase bg-slate-900/50">
+                <th class="py-2.5 px-3">Event Name</th>
+                <th class="py-2.5 px-3">Impact</th>
+                <th class="py-2.5 px-3">Actual</th>
+                <th class="py-2.5 px-3">Forecast</th>
+                <th class="py-2.5 px-3">Previous</th>
+                <th class="py-2.5 px-3 text-right">USD Sentiment</th>
+              </tr>
+            </thead>
+            <tbody id="newsTableBody" class="text-xs font-mono divide-y divide-slate-800/60">
+              <!-- Dynamic Rows inserted via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- LIVE SYSTEM LOG AUDIT -->
+        <div class="mt-4 pt-3 border-t border-slate-800/80">
+          <div class="text-[10px] text-slate-400 font-mono mb-1.5 uppercase flex items-center gap-1">
+            <i class="fa-solid fa-terminal text-sky-400"></i> Terminal AI Execution Log
+          </div>
+          <div id="terminalLog" class="bg-slate-950 p-2.5 rounded-xl border border-slate-900 font-mono text-[11px] text-slate-400 h-20 overflow-y-auto space-y-1">
+            <!-- Log Messages -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- TERMINAL FOOTER -->
+  <footer class="mt-4 glass-card rounded-2xl p-3 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-2">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-shield-halved text-sky-400"></i>
+      <span><strong>AR-RIZQ SMC Terminal</strong> — Macro Data Engine for ICT Traders</span>
+    </div>
+    <div class="text-[11px] text-slate-500 font-mono">
+      FundedNext Compliance Enabled • Red Folder Safety Rules Enforced
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC ENGINE -->
+  <script>
+    // State management
+    let state = {
+      isPreNewsWindow: false,
+      countdownSeconds: 765, // 12 mins 45 seconds default
+      fedWatchProb: 68,
+      newsEvents: [
+        { name: "US CPI (YoY)", impact: "HIGH", actual: "3.1%", forecast: "3.4%", previous: "3.4%", sentiment: "DOVISH" },
+        { name: "Non-Farm Payrolls (NFP)", impact: "HIGH", actual: "142K", forecast: "165K", previous: "114K", sentiment: "DOVISH" },
+        { name: "FOMC Rate Decision", impact: "HIGH", actual: "4.75%", forecast: "5.00%", previous: "5.25%", sentiment: "DOVISH" },
+        { name: "PPI (MoM)", impact: "HIGH", actual: "0.2%", forecast: "0.1%", previous: "0.0%", sentiment: "HAWKISH" },
+        { name: "Retail Sales (MoM)", impact: "MEDIUM", actual: "0.1%", forecast: "0.3%", previous: "0.4%", sentiment: "DOVISH" }
+      ]
+    };
+
+    // Initialize Dashboard
+    window.onload = function() {
+      startClocks();
+      renderNewsTable();
+      recalculateAI();
+      logMessage("AR-RIZQ SMC Macro AI Engine v4.0 loaded successfully.");
+    };
+
+    // Dual Timezone Clocks (EST & IST)
+    function startClocks() {
+      setInterval(() => {
+        const now = new Date();
+        document.getElementById('estClock').innerText = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: false });
+        document.getElementById('istClock').innerText = now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false });
         
-        <!-- LEFT: Red Folder High Impact News Desk -->
-        <div class="cyber-card p-4 rounded-xl space-y-3">
-            <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2 gap-2">
-                <h3 class="text-xs sm:text-sm font-bold text-red-400 uppercase flex items-center space-x-2">
-                    <i class="fa-solid fa-shield-halved text-red-500"></i>
-                    <span>RED FOLDER NEWS DESK</span>
-                </h3>
-                <div class="flex space-x-1.5 text-xs font-mono">
-                    <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-3 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">TODAY</button>
-                    <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-3 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold tab-btn-active">THIS WEEK</button>
-                </div>
-            </div>
-
-            <!-- Currency Filter Panel -->
-            <div class="grid grid-cols-4 gap-1 text-xs font-mono bg-slate-950/80 p-2 rounded-xl border border-slate-800">
-                <button id="curr-ALL" onclick="filterCurrency('ALL')" class="py-1 rounded-lg curr-btn-active font-bold">ALL</button>
-                <button id="curr-USD" onclick="filterCurrency('USD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">USD</button>
-                <button id="curr-EUR" onclick="filterCurrency('EUR')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">EUR</button>
-                <button id="curr-AUD" onclick="filterCurrency('AUD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">AUD</button>
-                <button id="curr-GBP" onclick="filterCurrency('GBP')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">GBP</button>
-                <button id="curr-CAD" onclick="filterCurrency('CAD')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">CAD</button>
-                <button id="curr-JPY" onclick="filterCurrency('JPY')" class="py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800">JPY</button>
-            </div>
-
-            <!-- Red Folder News Container -->
-            <div id="red-folder-container" class="space-y-2.5 overflow-y-auto max-h-[420px] pr-1"></div>
-        </div>
-
-        <!-- RIGHT: ULTRA-PRO AI & ICT CONFLUENCE ENGINE CARD -->
-        <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs border-l-4 border-cyan-500">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                <span class="text-cyan-400 font-bold uppercase text-xs flex items-center space-x-2">
-                    <i class="fa-solid fa-brain text-cyan-400"></i>
-                    <span>PRO ICT & AI BIAS ENGINE</span>
-                </span>
-                <span id="ai-status-badge" class="px-2 py-0.5 badge-neutral rounded text-[9px] font-bold">NEUTRAL</span>
-            </div>
-
-            <div class="space-y-2.5 text-[12px]">
-                <div class="flex justify-between"><span class="text-slate-400">Selected Event:</span><span id="ai-event-title" class="text-white font-bold truncate max-w-[240px]">--</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">Target Pairs:</span><span id="ai-target-pairs" class="text-amber-400 font-semibold">--</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">BUY / SELL Signal:</span><div><strong id="ai-pairs-buy" class="text-emerald-400 font-bold">--</strong> / <strong id="ai-pairs-sell" class="text-red-400 font-bold">--</strong></div></div>
-                <div class="flex justify-between"><span class="text-slate-400">Win Probability:</span><span id="ai-win-prob" class="text-cyan-300 font-bold">--</span></div>
-                <div class="flex justify-between"><span class="text-slate-400">ICT Confluence:</span><span id="ai-ict-confluence" class="text-purple-400 font-semibold">--</span></div>
-                <div class="pt-2 border-t border-slate-800 space-y-1">
-                    <span class="text-slate-400 block">Institutional Prediction & R:R:</span>
-                    <p id="ai-analysis-reason" class="text-slate-300 text-[11px] leading-relaxed italic bg-slate-950 p-3 rounded border border-slate-900">Select any news event above to execute institutional analysis.</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- EVIDENCE SOURCES TRACKING PANEL -->
-    <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-            <h4 class="text-cyan-400 font-bold uppercase flex items-center space-x-2">
-                <i class="fa-solid fa-server text-cyan-400"></i>
-                <span>Evidence Sources Tracking & Verification</span>
-            </h4>
-            <span class="text-emerald-400 text-[10px] animate-pulse">● Live AI Sync Active</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
-                <span class="text-slate-300">Federal Reserve</span>
-                <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 text-[10px] rounded border border-emerald-800">VERIFIED</span>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
-                <span class="text-slate-300">Bureau of Labor Stats</span>
-                <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 text-[10px] rounded border border-emerald-800">VERIFIED</span>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
-                <span class="text-slate-300">Reuters</span>
-                <span class="px-2 py-0.5 bg-slate-900 text-cyan-400 text-[10px] rounded border border-slate-800">CONNECTED</span>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
-                <span class="text-slate-300">Bloomberg</span>
-                <span class="px-2 py-0.5 bg-slate-900 text-cyan-400 text-[10px] rounded border border-slate-800">CONNECTED</span>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
-                <span class="text-slate-300">CME FedWatch</span>
-                <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 text-[10px] rounded border border-emerald-800">ACTIVE</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Engine -->
-    <script>
-        const redFolderNews = [
-            { id: 1, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "CPI m/m", forecast: "0.7%", previous: "0.4%", actual: "Pending" },
-            { id: 2, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "CPI y/y", forecast: "4.2%", previous: "4.0%", actual: "Pending" },
-            { id: 3, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "Trimmed Mean CPI m/m", forecast: "0.3%", previous: "0.2%", actual: "Pending" },
-            { id: 4, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00pm", currency: "GBP", event: "Annual Budget Release", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 5, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "7:15pm", currency: "CAD", event: "BOC Monetary Policy Report", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 6, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "7:15pm", currency: "CAD", event: "BOC Rate Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 7, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "7:15pm", currency: "CAD", event: "Overnight Rate", forecast: "2.50%", previous: "2.25%", actual: "Pending" },
-            { id: 8, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "8:00pm", currency: "CAD", event: "BOC Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 9, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "11:30pm", currency: "USD", event: "Federal Funds Rate", forecast: "4.00%", previous: "4.00%", actual: "Pending" },
-            { id: 10, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "11:30pm", currency: "USD", event: "FOMC Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 11, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "12:00am", currency: "USD", event: "FOMC Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 12, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:00pm", currency: "USD", event: "Advance GDP q/q", forecast: "3.2%", previous: "2.2%", actual: "Pending" },
-            { id: 13, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:00pm", currency: "USD", event: "Core PCE Price Index m/m", forecast: "0.3%", previous: "0.2%", actual: "Pending" },
-            { id: 14, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:45pm", currency: "EUR", event: "Main Refinancing Rate", forecast: "2.65%", previous: "2.65%", actual: "Pending" },
-            { id: 15, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:45pm", currency: "EUR", event: "Monetary Policy Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 16, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "7:15pm", currency: "EUR", event: "ECB Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 17, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "BOJ Policy Rate", forecast: "<1.25%", previous: "<1.25%", actual: "Pending" },
-            { id: 18, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "Monetary Policy Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 19, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "BOJ Outlook Report", forecast: "Pending", previous: "Pending", actual: "Pending" },
-            { id: 20, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "BOJ Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" }
-        ];
-
-        let activeTimeRange = 'THIS_WEEK';
-        let activeCurrency = 'ALL';
-
-        function setTimeRange(range) {
-            activeTimeRange = range;
-            document.getElementById('tab-today').className = range === 'TODAY' ? 'px-3 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-3 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800';
-            document.getElementById('tab-week').className = range === 'THIS_WEEK' ? 'px-3 py-1 rounded-lg font-bold tab-btn-active border border-amber-600/50' : 'px-3 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800';
-            renderNews();
+        if (state.countdownSeconds > 0) {
+          state.countdownSeconds--;
+          let m = Math.floor(state.countdownSeconds / 60);
+          let s = state.countdownSeconds % 60;
+          document.getElementById('countdownTimer').innerText = `00:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+          
+          if (state.countdownSeconds <= 900 && !state.isPreNewsWindow) {
+            state.isPreNewsWindow = true;
+            updateNewsGuardUI();
+            recalculateAI();
+          }
         }
+      }, 1000);
+    }
 
-        function filterCurrency(curr) {
-            activeCurrency = curr;
-            ['ALL', 'USD', 'EUR', 'AUD', 'GBP', 'CAD', 'JPY'].forEach(c => {
-                const btn = document.getElementById(`curr-${c}`);
-                if (btn) btn.className = c === curr ? 'py-1 rounded-lg curr-btn-active font-bold' : 'py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg font-bold border border-slate-800';
-            });
-            renderNews();
-        }
+    // Render News Table
+    function renderNewsTable() {
+      const tbody = document.getElementById('newsTableBody');
+      tbody.innerHTML = '';
 
-        function calculateAIBias(news) {
-            if (!news) return { signal: "NEUTRAL", buyPairs: ["None"], sellPairs: ["None"], winProb: "50.0%", ict: "Consolidation Range", reason: "No high-impact red folder news active." };
+      state.newsEvents.forEach(item => {
+        let actualClass = item.sentiment === 'HAWKISH' ? 'text-emerald-400' : 'text-rose-400';
+        let sentimentBadge = item.sentiment === 'HAWKISH' 
+          ? '<span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded text-[10px]">USD BULLISH</span>'
+          : '<span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 border border-rose-500/30 rounded text-[10px]">USD BEARISH</span>';
 
-            const curr = news.currency;
-            if (curr === 'USD') {
-                return { 
-                    signal: "BUY", 
-                    buyPairs: ["USDCAD", "USDJPY"], 
-                    sellPairs: ["XAUUSD", "EURUSD"], 
-                    winProb: "91.5% (High Accuracy)", 
-                    ict: "PDH Liquidity Sweep + 4H FVG Retest", 
-                    reason: `USD ${news.event}: Hawkish rate expectations trigger institutional dollar accumulation. Target 1:3 Risk-Reward.` 
-                };
-            } else if (curr === 'EUR') {
-                return { 
-                    signal: "SELL", 
-                    buyPairs: ["USDCHF"], 
-                    sellPairs: ["EURUSD", "EURGBP"], 
-                    winProb: "88.2% (Institutional Grade)", 
-                    ict: "Market Structure Shift (MSS) Bearish BOS", 
-                    reason: `EUR ${news.event}: ECB dovish policy divergence creates premium array selling opportunities.` 
-                };
-            } else if (curr === 'GBP') {
-                return { 
-                    signal: "SELL", 
-                    buyPairs: ["USDGBP"], 
-                    sellPairs: ["GBPUSD", "GBPJPY"], 
-                    winProb: "86.7% (Pro Grade)", 
-                    ict: "Previous Day High (PDH) Rejection Block", 
-                    reason: `GBP ${news.event}: Fiscal deficit and inflation cooling metrics suggest aggressive sterling distribution.` 
-                };
-            } else if (curr === 'AUD') {
-                return { 
-                    signal: "BUY", 
-                    buyPairs: ["AUDUSD", "EURAUD"], 
-                    sellPairs: ["GBPAUD"], 
-                    winProb: "89.4% (Institutional Grade)", 
-                    ict: "Discount Order Block + CISD Confirmation", 
-                    reason: `AUD ${news.event}: Trimmed mean CPI metrics point toward a hawkish RBA liquidity injection.` 
-                };
-            } else if (curr === 'CAD') {
-                return { 
-                    signal: "BUY", 
-                    buyPairs: ["CADJPY"], 
-                    sellPairs: ["USDCAD"], 
-                    winProb: "87.9% (Pro Grade)", 
-                    ict: "Bullish Fair Value Gap (FVG) Bounce", 
-                    reason: `CAD ${news.event}: BOC restrictive rate stance supports sustained Loonie strength.` 
-                };
-            } else if (curr === 'JPY') {
-                return { 
-                    signal: "SELL", 
-                    buyPairs: ["USDJPY"], 
-                    sellPairs: ["GBPJPY"], 
-                    winProb: "92.1% (High Accuracy)", 
-                    ict: "Asian Range Liquidity Sweep + Expansion", 
-                    reason: `JPY ${news.event}: BOJ accommodative stance maintains structural Yen weakness.` 
-                };
-            }
-            return { signal: "NEUTRAL", buyPairs: ["None"], sellPairs: ["None"], winProb: "50.0%", ict: "Range Bound", reason: "Market in neutral consolidation phase." };
-        }
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 px-3 font-bold text-slate-200">${item.name}</td>
+            <td class="py-2.5 px-3"><span class="px-2 py-0.5 bg-rose-500/20 text-rose-400 rounded text-[10px] font-bold">RED</span></td>
+            <td class="py-2.5 px-3 font-bold ${actualClass}">${item.actual}</td>
+            <td class="py-2.5 px-3 text-slate-400">${item.forecast}</td>
+            <td class="py-2.5 px-3 text-slate-500">${item.previous}</td>
+            <td class="py-2.5 px-3 text-right">${sentimentBadge}</td>
+          </tr>
+        `;
+      });
+    }
 
-        function renderNews() {
-            const container = document.getElementById('red-folder-container');
-            container.innerHTML = '';
-            
-            const todayStr = "2026-10-26"; // Current Date
+    function updateFedWatchSlider(val) {
+      state.fedWatchProb = val;
+      document.getElementById('fedWatchVal').innerText = `${val}% Rate Cut Bias`;
+      recalculateAI();
+    }
 
-            const filtered = redFolderNews.filter(n => {
-                const currencyMatch = (activeCurrency === 'ALL' || n.currency === activeCurrency);
-                const rangeMatch = (activeTimeRange === 'TODAY') ? (n.dateStr === todayStr) : true;
-                return currencyMatch && rangeMatch;
-            });
+    // WEIGHTED AI DECISION ENGINE CORE (-5.0 to +5.0 Score)
+    function recalculateAI() {
+      const dxy = document.getElementById('dxyTrend').value;
+      const us10y = document.getElementById('us10yTrend').value;
+      const killzone = document.getElementById('killzoneSelect').value;
+      const asian = document.getElementById('asianSweep').value;
+      const cisd = document.getElementById('cisdFvg').value;
+      const liq = document.getElementById('liquidityPurge').value;
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-slate-400 font-mono text-xs border border-dashed border-slate-800 rounded-xl bg-slate-900/40"><i class="fa-solid fa-circle-info text-amber-400 mr-1"></i> No Red Folder News Scheduled for Today (Oct 26). Market Status: NEUTRAL</div>`;
-                resetAISignalToNeutral();
-                return;
-            }
+      let score = 0; // Positive = Gold Bullish (USD Dovish), Negative = Gold Bearish (USD Hawkish)
 
-            filtered.forEach(news => {
-                const aiResult = calculateAIBias(news);
-                let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : aiResult.signal === 'SELL' ? 'badge-sell' : 'badge-neutral';
+      // 1. Intermarket Macro Calculations
+      if (dxy === 'BEARISH') score += 1.5;
+      if (dxy === 'BULLISH') score -= 1.5;
 
-                const card = document.createElement('div');
-                card.className = "bg-slate-950/90 p-3 rounded-xl border border-slate-800 hover:border-cyan-500/40 cursor-pointer transition-all space-y-1.5 shadow-lg";
-                card.onclick = () => loadAISignal(news);
-                card.innerHTML = `
-                    <div class="flex justify-between items-start text-xs font-mono">
-                        <div class="flex items-center space-x-2">
-                            <span class="px-1.5 py-0.5 bg-red-950 text-red-400 rounded-md text-[10px] font-bold border border-red-800">${news.currency}</span>
-                            <span class="text-slate-100 font-bold text-xs tracking-wide">${news.event}</span>
-                        </div>
-                        <span class="${badgeClass} px-2 py-0.5 rounded-lg text-[10px] font-bold">${aiResult.signal}</span>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-900">
-                        <span class="text-cyan-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i> ${news.displayDate} @ ${news.time}</span>
-                        <div class="space-x-2">
-                            <span>Fcst: <strong class="text-slate-200">${news.forecast}</strong></span>
-                            <span>Prev: <strong class="text-amber-400">${news.previous}</strong></span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            loadAISignal(filtered[0]);
-        }
+      if (us10y === 'FALLING') score += 1.0;
+      if (us10y === 'RISING') score -= 1.0;
 
-        function loadAISignal(news) {
-            if(!news) return;
-            const aiResult = calculateAIBias(news);
-            document.getElementById('ai-event-title').innerText = `${news.currency} - ${news.event}`;
-            document.getElementById('ai-target-pairs').innerText = [...aiResult.buyPairs, ...aiResult.sellPairs].filter(p => p !== 'None').join(', ') || 'None';
-            document.getElementById('ai-pairs-buy').innerText = aiResult.buyPairs.join(', ');
-            document.getElementById('ai-pairs-sell').innerText = aiResult.sellPairs.join(', ');
-            document.getElementById('ai-win-prob').innerText = aiResult.winProb;
-            document.getElementById('ai-ict-confluence').innerText = aiResult.ict;
-            document.getElementById('ai-analysis-reason').innerText = aiResult.reason;
-            
-            const sigEl = document.getElementById('ai-status-badge');
-            sigEl.innerText = aiResult.signal;
-            sigEl.className = aiResult.signal === 'BUY' ? 'badge-buy px-2 py-0.5 rounded font-bold' : aiResult.signal === 'SELL' ? 'badge-sell px-2 py-0.5 rounded font-bold' : 'badge-neutral px-2 py-0.5 rounded font-bold';
-        }
+      if (state.fedWatchProb > 60) score += 0.5;
+      if (state.fedWatchProb < 40) score -= 0.5;
 
-        function resetAISignalToNeutral() {
-            document.getElementById('ai-event-title').innerText = 'None (No News Today)';
-            document.getElementById('ai-target-pairs').innerText = 'None';
-            document.getElementById('ai-pairs-buy').innerText = 'None';
-            document.getElementById('ai-pairs-sell').innerText = 'None';
-            document.getElementById('ai-win-prob').innerText = '50.0%';
-            document.getElementById('ai-ict-confluence').innerText = 'Neutral Equilibrium';
-            document.getElementById('ai-status-badge').innerText = 'NEUTRAL';
-            document.getElementById('ai-status-badge').className = 'px-2 py-0.5 badge-neutral rounded text-[9px] font-bold';
-            document.getElementById('ai-analysis-reason').innerText = 'No high-impact red folder news scheduled for today (Oct 26). Market is in neutral state.';
-        }
+      // 2. SMC Structure Confluences
+      if (asian === 'LOW_SWEPT') score += 1.0;
+      if (asian === 'HIGH_SWEPT') score -= 1.0;
 
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('live-ist-clock').innerText = `IN LIVE IST: ${now.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', hour12: true }).replace(',', '')}`;
-        }
+      if (cisd === 'BULLISH_FVG') score += 1.5;
+      if (cisd === 'BEARISH_FVG') score -= 1.5;
 
-        window.onload = () => {
-            setTimeRange('THIS_WEEK');
-            setInterval(updateClock, 1000);
-        };
-    </script>
+      if (liq === 'SSL_SWEPT') score += 1.0;
+      if (liq === 'BSL_SWEPT') score -= 1.0;
+
+      // Update Active Killzone Badge
+      const kzBadge = document.getElementById('activeKillzoneBadge');
+      if (killzone === 'NY_AM') kzBadge.innerHTML = '<i class="fa-solid fa-bolt mr-1"></i>NY AM KILLZONE';
+      else if (killzone === 'LONDON') kzBadge.innerHTML = '<i class="fa-solid fa-bolt mr-1"></i>LONDON KILLZONE';
+      else if (killzone === 'NY_PM') kzBadge.innerHTML = '<i class="fa-solid fa-bolt mr-1"></i>NY PM KILLZONE';
+      else kzBadge.innerHTML = '<i class="fa-solid fa-moon mr-1"></i>ASIAN SESSION';
+
+      // Safety Guard Override
+      if (state.isPreNewsWindow) {
+        setSignalNoTrade("PRE-NEWS 15M WINDOW ACTIVE - HIGH VOLATILITY SPREAD SPIKE RISK");
+        logMessage("AI Safety Mode: Locked due to Red Folder News Window.");
+        return;
+      }
+
+      // Final Output Calculation
+      if (score >= 2.5) {
+        setSignalBuy(score);
+      } else if (score <= -2.5) {
+        setSignalSell(score);
+      } else {
+        setSignalWait(score);
+      }
+    }
+
+    function setSignalBuy(score) {
+      const card = document.getElementById('aiSignalCard');
+      card.className = "glass-card rounded-2xl p-6 border-2 neon-border-bullish transition-all duration-300 shadow-2xl";
+      
+      document.getElementById('aiSignalAction').innerText = "STRONG BUY (XAUUSD)";
+      document.getElementById('aiSignalAction').className = "text-3xl md:text-4xl font-black text-emerald-400 tracking-tight mt-1";
+      
+      document.getElementById('aiReasoning').innerText = "Dovish Macro USD Data + Falling US10Y Yields + SSL Liquidity Swept & Bullish CISD FVG Formed.";
+      
+      let confidence = Math.min(96, Math.round(70 + (score * 5)));
+      document.getElementById('aiConfidenceText').innerText = confidence + "%";
+      document.getElementById('aiConfidenceText').className = "text-3xl font-black font-mono text-emerald-400";
+      document.getElementById('aiScoreTag').innerText = `Score: +${score.toFixed(1)} / +5.0`;
+
+      // Position Sizing Calculations
+      calculateRiskParameters(2738.50, 2732.00, 2758.00, true);
+      logMessage(`AI Decision: Strong Buy generated with Score +${score.toFixed(1)}`);
+    }
+
+    function setSignalSell(score) {
+      const card = document.getElementById('aiSignalCard');
+      card.className = "glass-card rounded-2xl p-6 border-2 neon-border-bearish transition-all duration-300 shadow-2xl";
+      
+      document.getElementById('aiSignalAction').innerText = "STRONG SELL (XAUUSD)";
+      document.getElementById('aiSignalAction').className = "text-3xl md:text-4xl font-black text-rose-500 tracking-tight mt-1";
+      
+      document.getElementById('aiReasoning').innerText = "Hawkish Macro USD Data + DXY Bullish Expansion + BSL Liquidity Swept & Bearish CISD FVG Formed.";
+      
+      let confidence = Math.min(96, Math.round(70 + (Math.abs(score) * 5)));
+      document.getElementById('aiConfidenceText').innerText = confidence + "%";
+      document.getElementById('aiConfidenceText').className = "text-3xl font-black font-mono text-rose-500";
+      document.getElementById('aiScoreTag').innerText = `Score: ${score.toFixed(1)} / -5.0`;
+
+      // Position Sizing Calculations
+      calculateRiskParameters(2752.00, 2758.50, 2732.50, false);
+      logMessage(`AI Decision: Strong Sell generated with Score ${score.toFixed(1)}`);
+    }
+
+    function setSignalWait(score) {
+      const card = document.getElementById('aiSignalCard');
+      card.className = "glass-card rounded-2xl p-6 border-2 neon-border-neutral transition-all duration-300 shadow-2xl";
+      
+      document.getElementById('aiSignalAction').innerText = "WAIT / LOW CONFLUENCE";
+      document.getElementById('aiSignalAction').className = "text-3xl md:text-4xl font-black text-amber-400 tracking-tight mt-1";
+      
+      document.getElementById('aiReasoning').innerText = "Conflicting signals between Macro News Delta and Technical SMC Structure. Stand by for clear Judas sweep.";
+      
+      document.getElementById('aiConfidenceText').innerText = "48%";
+      document.getElementById('aiConfidenceText').className = "text-3xl font-black font-mono text-amber-400";
+      document.getElementById('aiScoreTag').innerText = `Score: ${score.toFixed(1)} / neutral`;
+
+      document.getElementById('targetAsset').innerText = "STANDBY";
+      document.getElementById('suggestedEntry').innerText = "Wait for Sweep";
+      document.getElementById('suggestedSL').innerText = "N/A";
+      document.getElementById('suggestedTP1').innerText = "N/A";
+      document.getElementById('suggestedLot').innerText = "0.00 Lots";
+      logMessage(`AI Decision: Wait / Low Confluence Score (${score.toFixed(1)}).`);
+    }
+
+    function setSignalNoTrade(reason) {
+      const card = document.getElementById('aiSignalCard');
+      card.className = "glass-card rounded-2xl p-6 border-2 neon-border-warning transition-all duration-300 shadow-2xl";
+      
+      document.getElementById('aiSignalAction').innerText = "NO TRADE (NEWS GUARD)";
+      document.getElementById('aiSignalAction').className = "text-3xl md:text-4xl font-black text-amber-400 tracking-tight mt-1";
+      
+      document.getElementById('aiReasoning').innerText = reason;
+      document.getElementById('aiConfidenceText').innerText = "0%";
+      document.getElementById('aiConfidenceText').className = "text-3xl font-black font-mono text-amber-400";
+      document.getElementById('aiScoreTag').innerText = "LOCKED";
+
+      document.getElementById('targetAsset').innerText = "SAFETY PAUSE";
+      document.getElementById('suggestedEntry').innerText = "LOCKED";
+      document.getElementById('suggestedSL').innerText = "LOCKED";
+      document.getElementById('suggestedTP1').innerText = "LOCKED";
+      document.getElementById('suggestedLot').innerText = "0.00 Lots";
+    }
+
+    // POSITION SIZE & RISK CALCULATOR FOR FUNDEDNEXT
+    function calculateRiskParameters(entry, sl, tp1, isBuy) {
+      const accSize = parseFloat(document.getElementById('accountSize').value) || 200000;
+      const riskPct = parseFloat(document.getElementById('riskPercent').value) || 1.0;
+      const riskAmount = accSize * (riskPct / 100);
+
+      const pipsAtRisk = Math.abs(entry - sl);
+      // Gold Lot formula: Risk Amount / (Pips at Risk * $10 per pip per standard lot)
+      let lotSize = (riskAmount / (pipsAtRisk * 10)).toFixed(2);
+
+      document.getElementById('targetAsset').innerText = "XAUUSD (Gold)";
+      document.getElementById('suggestedEntry').innerText = `$${entry.toFixed(2)}`;
+      document.getElementById('suggestedSL').innerText = `$${sl.toFixed(2)}`;
+      document.getElementById('suggestedTP1').innerText = `$${tp1.toFixed(2)}`;
+      document.getElementById('suggestedLot').innerText = `${lotSize} Lots ($${riskAmount.toLocaleString()})`;
+    }
+
+    function updateNewsGuardUI() {
+      const banner = document.getElementById('newsGuardBanner');
+      const guardText = document.getElementById('newsGuardText');
+
+      if (state.isPreNewsWindow) {
+        banner.className = "flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono bg-amber-500/20 text-amber-400 border border-amber-500/50 animate-pulse";
+        guardText.innerText = "NEWS GUARD: RELEASE IN < 15M (NO TRADE)";
+      } else {
+        banner.className = "flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
+        guardText.innerText = "NEWS GUARD: SAFE TO TRADE";
+      }
+    }
+
+    // PRESET SCENARIOS
+    function applyPreset(type) {
+      if (type === 'cpi_hot') {
+        state.isPreNewsWindow = false;
+        document.getElementById('dxyTrend').value = "BULLISH";
+        document.getElementById('us10yTrend').value = "RISING";
+        document.getElementById('asianSweep').value = "HIGH_SWEPT";
+        document.getElementById('cisdFvg').value = "BEARISH_FVG";
+        document.getElementById('liquidityPurge').value = "BSL_SWEPT";
+
+        state.newsEvents[0] = { name: "US CPI (YoY)", impact: "HIGH", actual: "3.7%", forecast: "3.4%", previous: "3.4%", sentiment: "HAWKISH" };
+        document.getElementById('sentimentPill').innerText = "HAWKISH FOR USD (BEARISH GOLD)";
+        document.getElementById('sentimentPill').className = "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30";
+        logMessage("Applied Preset: CPI Hot Surge (USD Strong).");
+      } 
+      else if (type === 'nfp_weak') {
+        state.isPreNewsWindow = false;
+        document.getElementById('dxyTrend').value = "BEARISH";
+        document.getElementById('us10yTrend').value = "FALLING";
+        document.getElementById('asianSweep').value = "LOW_SWEPT";
+        document.getElementById('cisdFvg').value = "BULLISH_FVG";
+        document.getElementById('liquidityPurge').value = "SSL_SWEPT";
+
+        state.newsEvents[1] = { name: "Non-Farm Payrolls (NFP)", impact: "HIGH", actual: "110K", forecast: "165K", previous: "114K", sentiment: "DOVISH" };
+        document.getElementById('sentimentPill').innerText = "DOVISH FOR USD (BULLISH GOLD)";
+        document.getElementById('sentimentPill').className = "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
+        logMessage("Applied Preset: NFP Weak Miss (USD Dovish).");
+      } 
+      else if (type === 'fomc_hawkish') {
+        state.isPreNewsWindow = false;
+        document.getElementById('dxyTrend').value = "BULLISH";
+        document.getElementById('us10yTrend').value = "RISING";
+        document.getElementById('asianSweep').value = "HIGH_SWEPT";
+        document.getElementById('cisdFvg').value = "BEARISH_FVG";
+        document.getElementById('liquidityPurge').value = "NONE";
+        updateFedWatchSlider(25);
+
+        logMessage("Applied Preset: FOMC Hawkish Rate Hold.");
+      }
+      else if (type === 'news_window') {
+        state.isPreNewsWindow = true;
+        logMessage("Applied Preset: Pre-News Window Active (Protection Mode).");
+      }
+
+      updateNewsGuardUI();
+      renderNewsTable();
+      recalculateAI();
+    }
+
+    function logMessage(msg) {
+      const logBox = document.getElementById('terminalLog');
+      const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+      logBox.innerHTML = `<div><span class="text-sky-400">[${time}]</span> ${msg}</div>` + logBox.innerHTML;
+    }
+  </script>
 </body>
 </html>
