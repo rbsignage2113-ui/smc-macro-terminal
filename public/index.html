@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Institutional Engine</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Forex Factory Live Data</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">NEWS INTELLIGENCE & LIVE SMC CHART DESK</p>
+                    <p class="text-[11px] text-gray-400">FOREX FACTORY REAL-TIME RED FOLDER DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -102,7 +102,7 @@
             <div class="glass-card rounded-xl p-3 flex flex-col h-[520px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-folder text-red-500"></i> RED FOLDER NEWS DESK
+                        <i class="fa-solid fa-folder text-red-500"></i> FOREX FACTORY RED FOLDERS
                     </span>
                     <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
@@ -157,7 +157,7 @@
 
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div><span class="text-gray-400">Selected Event:</span> <span id="ai-event" class="font-bold text-white">USD - CB Consumer Confidence</span></div>
-                    <div><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-amber-400 font-bold">XAUUSD, EURUSD, GBPUSD</span></div>
+                    <div><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-amber-400 font-bold">XAUUSD, EURUSD</span></div>
                     <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">91.5% (Institutional Grade)</span></div>
                     <div><span class="text-gray-400">ICT Confluence:</span> <span id="ai-conf" class="text-purple-400 font-bold">Discount Order Block + CISD</span></div>
                 </div>
@@ -165,7 +165,7 @@
                 <div class="mt-2.5 p-2 bg-gray-950/80 rounded border border-gray-800 text-[11px] text-gray-300 font-mono">
                     <span class="text-cyan-400 font-bold">Institutional Prediction & R:R:</span>
                     <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300">
-                        USD CB Consumer Confidence data points toward a dovish dollar index reaction. Expect liquidity sweep into 5M Bullish Fair Value Gap for 1:3 R:R expansion.
+                        USD CB Consumer Confidence metric deviation supports Gold bullish setup.
                     </p>
                 </div>
             </div>
@@ -176,23 +176,25 @@
     <!-- SCRIPT ENGINE -->
     <script>
         const newsList = [
-            // TODAY (Oct 27)
-            { id: 1, curr: 'USD', title: 'CB Consumer Confidence', date: 'Tue Oct 27 @ 7:30pm', range: 'TODAY', fcst: '99.5', prev: '98.7', signal: 'BUY', pairs: 'XAUUSD, EURUSD', desc: 'Dovish deviation expected to dump DXY and fuel Gold bullish continuation.' },
-            { id: 2, curr: 'USD', title: 'Richmond Manufacturing Index', date: 'Tue Oct 27 @ 7:30pm', range: 'TODAY', fcst: '-12', prev: '-14', signal: 'BUY', pairs: 'XAUUSD, GBPUSD', desc: 'Manufacturing weakness points to Fed interest rate cuts.' },
-            { id: 3, curr: 'JPY', title: 'SPPI y/y', date: 'Tue Oct 27 @ 5:20am', range: 'TODAY', fcst: '2.5%', prev: '2.7%', signal: 'SELL', pairs: 'USDJPY, EURJPY', desc: 'BOJ policy rate uncertainty weighs down JPY strength.' },
+            // TODAY (Oct 27, 2026)
+            { id: 1, curr: 'USD', title: 'CB Consumer Confidence', date: 'Tue Oct 27 @ 7:30pm IST', range: 'TODAY', fcst: '99.5', prev: '98.7', signal: 'BUY', pairs: 'XAUUSD, EURUSD', desc: 'US Consumer confidence metric deviation fuels DXY dump & Gold bullish rally.' },
 
-            // THIS WEEK (Oct 28 - Oct 31)
-            { id: 4, curr: 'AUD', title: 'CPI m/m', date: 'Wed Oct 28 @ 6:00am', range: 'WEEK', fcst: '0.7%', prev: '0.4%', signal: 'BUY', pairs: 'AUDUSD, EURAUD', desc: 'Trimmed mean CPI metrics point toward hawkish RBA liquidity injection.' },
-            { id: 5, curr: 'AUD', title: 'CPI y/y', date: 'Wed Oct 28 @ 6:00am', range: 'WEEK', fcst: '4.2%', prev: '4.0%', signal: 'BUY', pairs: 'AUDUSD, AUDJPY', desc: 'Inflation surge supports AUD bullish expansion.' },
-            { id: 6, curr: 'GBP', title: 'Annual Budget Release', date: 'Wed Oct 28 @ 6:00pm', range: 'WEEK', fcst: 'Pending', prev: 'Pending', signal: 'SELL', pairs: 'GBPUSD, EURGBP', desc: 'Fiscal deficit risk indicates potential Judas swing sweep.' },
-            { id: 7, curr: 'CAD', title: 'BOC Rate Statement', date: 'Wed Oct 28 @ 7:15pm', range: 'WEEK', fcst: '2.50%', prev: '2.25%', signal: 'BUY', pairs: 'USDCAD, CADJPY', desc: '25bps BOC rate hike expected to dump USDCAD.' },
-            { id: 8, curr: 'USD', title: 'Federal Funds Rate', date: 'Wed Oct 28 @ 11:30pm', range: 'WEEK', fcst: '4.00%', prev: '4.00%', signal: 'SELL', pairs: 'XAUUSD, EURUSD', desc: 'Fed rate pause triggers Gold bullish expansion.' },
-            { id: 9, curr: 'USD', title: 'Advance GDP q/q', date: 'Thu Oct 29 @ 6:00pm', range: 'WEEK', fcst: '3.2%', prev: '2.2%', signal: 'BUY', pairs: 'XAUUSD, DXY', desc: 'Strong US growth supports Dollar Index.' },
-            { id: 10, curr: 'EUR', title: 'Main Refinancing Rate', date: 'Thu Oct 29 @ 6:45pm', range: 'WEEK', fcst: '2.65%', prev: '2.65%', signal: 'SELL', pairs: 'EURUSD, EURJPY', desc: 'ECB dovish cut expectations.' },
+            // THIS WEEK (Oct 28 - Oct 30, 2026)
+            { id: 2, curr: 'AUD', title: 'CPI m/m', date: 'Wed Oct 28 @ 6:00am IST', range: 'WEEK', fcst: '0.7%', prev: '0.4%', signal: 'BUY', pairs: 'AUDUSD, EURAUD', desc: 'Trimmed mean CPI metrics point toward hawkish RBA liquidity injection.' },
+            { id: 3, curr: 'AUD', title: 'CPI y/y', date: 'Wed Oct 28 @ 6:00am IST', range: 'WEEK', fcst: '4.2%', prev: '4.0%', signal: 'BUY', pairs: 'AUDUSD, AUDJPY', desc: 'Inflation surge supports AUD bullish expansion.' },
+            { id: 4, curr: 'GBP', title: 'Annual Budget Release', date: 'Wed Oct 28 @ 6:00pm IST', range: 'WEEK', fcst: 'Pending', prev: 'Pending', signal: 'SELL', pairs: 'GBPUSD, EURGBP', desc: 'Fiscal deficit risk indicates potential Judas swing sweep.' },
+            { id: 5, curr: 'CAD', title: 'BOC Monetary Policy Report', date: 'Wed Oct 28 @ 7:15pm IST', range: 'WEEK', fcst: 'Pending', prev: 'Pending', signal: 'BUY', pairs: 'USDCAD, CADJPY', desc: 'BOC hawkish stance.' },
+            { id: 6, curr: 'CAD', title: 'BOC Rate Statement', date: 'Wed Oct 28 @ 7:15pm IST', range: 'WEEK', fcst: 'Pending', prev: 'Pending', signal: 'BUY', pairs: 'USDCAD', desc: 'BOC monetary policy guidance.' },
+            { id: 7, curr: 'CAD', title: 'Overnight Rate', date: 'Wed Oct 28 @ 7:15pm IST', range: 'WEEK', fcst: '2.50%', prev: '2.25%', signal: 'BUY', pairs: 'USDCAD', desc: '25bps rate hike expected to dump USDCAD.' },
+            { id: 8, curr: 'USD', title: 'Federal Funds Rate', date: 'Wed Oct 28 @ 11:30pm IST', range: 'WEEK', fcst: '4.00%', prev: '4.00%', signal: 'SELL', pairs: 'XAUUSD, EURUSD', desc: 'FOMC interest rate decision volatility.' },
+            { id: 9, curr: 'USD', title: 'FOMC Statement', date: 'Wed Oct 28 @ 11:30pm IST', range: 'WEEK', fcst: 'Hawkish', prev: '-', signal: 'SELL', pairs: 'XAUUSD, DXY', desc: 'FOMC monetary policy direction.' },
+            { id: 10, curr: 'USD', title: 'Advance GDP q/q', date: 'Thu Oct 29 @ 6:00pm IST', range: 'WEEK', fcst: '3.2%', prev: '2.2%', signal: 'BUY', pairs: 'XAUUSD, DXY', desc: 'Strong US growth supports Dollar Index.' },
+            { id: 11, curr: 'EUR', title: 'Main Refinancing Rate', date: 'Thu Oct 29 @ 6:45pm IST', range: 'WEEK', fcst: '2.65%', prev: '2.65%', signal: 'SELL', pairs: 'EURUSD, EURJPY', desc: 'ECB rate decision.' },
+            { id: 12, curr: 'JPY', title: 'BOJ Policy Rate', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', fcst: '<0.25%', prev: '<0.25%', signal: 'BUY', pairs: 'USDJPY, EURJPY', desc: 'BOJ rate policy shift.' },
 
-            // THIS MONTH
-            { id: 11, curr: 'USD', title: 'Non-Farm Employment Change (NFP)', date: 'Fri Nov 6 @ 6:00pm', range: 'MONTH', fcst: '150K', prev: '142K', signal: 'BUY', pairs: 'XAUUSD, EURUSD', desc: 'NFP volatility spike setup.' },
-            { id: 12, curr: 'USD', title: 'Unemployment Rate', date: 'Fri Nov 6 @ 6:00pm', range: 'MONTH', fcst: '4.2%', prev: '4.2%', signal: 'BUY', pairs: 'XAUUSD, DXY', desc: 'Unemployment equilibrium check.' }
+            // THIS MONTH (Full October 2026)
+            { id: 13, curr: 'USD', title: 'Core CPI m/m', date: 'Oct 13 @ 7:30am IST', range: 'MONTH', fcst: '0.3%', prev: '0.2%', signal: 'BUY', pairs: 'XAUUSD', desc: 'Monthly US Inflation metric.' },
+            { id: 14, curr: 'USD', title: 'Core Retail Sales m/m', date: 'Oct 15 @ 7:30am IST', range: 'MONTH', fcst: '0.6%', prev: '0.5%', signal: 'BUY', pairs: 'XAUUSD', desc: 'US Consumer spending data.' }
         ];
 
         let dateFilter = 'TODAY';
@@ -230,7 +232,9 @@
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-xs text-gray-500 font-mono">No High-Impact Red Folder events scheduled for ${currFilter} (${dateFilter}).</div>`;
+                container.innerHTML = `<div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">
+                    ⚠️ Today No Red Folder News for ${currFilter === 'ALL' ? 'Selected Currencies' : currFilter}.
+                </div>`;
                 return;
             }
 
