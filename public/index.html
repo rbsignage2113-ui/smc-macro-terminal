@@ -51,7 +51,7 @@
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULES:</span>
         <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
             <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Depth Chart (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Red Folder (ON)</span>
             <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Journal History (ON)</span>
         </div>
     </div>
@@ -59,7 +59,7 @@
     <!-- MAIN GRID SECTION -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
         
-        <!-- LEFT & CENTER: Charts & Pro Depth/Execution Tools -->
+        <!-- LEFT & CENTER: Charts & Macro Radar -->
         <div class="lg:col-span-2 space-y-4">
             
             <!-- Trump Policy & Macro Radar Box -->
@@ -85,95 +85,7 @@
                     <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">XAUUSD</span>
                 </div>
                 
-                <div class="h-[360px] sm:h-[520px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
-            </div>
-
-            <!-- NEW ADDITION: Pro Exchange Depth Chart & Buy/Sell Order Panel (Inspired by Screenshots) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <!-- Depth Chart Simulator Box -->
-                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-cyan-400 font-bold uppercase"><i class="fa-solid fa-chart-area"></i> Pro Depth Chart</span>
-                        <span class="px-1.5 py-0.5 bg-cyan-950 text-cyan-400 rounded text-[9px]">ORDER BOOK</span>
-                    </div>
-                    <div class="bg-slate-950 p-3 rounded border border-slate-800 text-center space-y-2">
-                        <div class="text-[11px] text-slate-400">Market Mid Price</div>
-                        <div class="text-lg font-bold text-amber-400">5.43567825</div>
-                        <div class="flex justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-900">
-                            <span class="text-red-400">Sell Orders (Asks): 48.2%</span>
-                            <span class="text-emerald-400">Buy Orders (Bids): 51.8%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Instant Buy / Sell Execution Box -->
-                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-bolt"></i> Instant Buy / Sell Desk</span>
-                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">EXECUTION</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 pt-1">
-                        <button onclick="alert('Buy Order Executed Successfully!')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-2 rounded text-xs transition-all">BUY ASSET</button>
-                        <button onclick="alert('Sell Order Executed Successfully!')" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2 rounded text-xs transition-all">SELL ASSET</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Multi-Timeframe MSS Matrix & FVG Alert Panel -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-table-cells"></i> Multi-TF MSS Matrix</span>
-                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">BULLISH</span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1.5 text-center text-[11px]">
-                        <div class="bg-slate-950 p-1.5 rounded border border-slate-800"><span class="text-slate-400 block text-[9px]">15M</span><strong class="text-emerald-400">BOS</strong></div>
-                        <div class="bg-slate-950 p-1.5 rounded border border-slate-800"><span class="text-slate-400 block text-[9px]">1H</span><strong class="text-emerald-400">MSS</strong></div>
-                        <div class="bg-slate-950 p-1.5 rounded border border-slate-800"><span class="text-slate-400 block text-[9px]">4H</span><strong class="text-amber-400">CHOCH</strong></div>
-                    </div>
-                </div>
-
-                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-purple-400 font-bold uppercase"><i class="fa-solid fa-bolt"></i> Live FVG & SMT Log</span>
-                        <span class="px-1.5 py-0.5 bg-purple-950 text-purple-400 rounded text-[9px]">ACTIVE</span>
-                    </div>
-                    <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1 text-[10px] text-slate-300 max-h-16 overflow-y-auto">
-                        <div><span class="text-amber-400">[12:45]</span> Gold 15M Bullish FVG @ 4005.20</div>
-                        <div><span class="text-amber-400">[12:10]</span> EURUSD vs DXY SMT Sweep Detected</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ICT PO3 SESSION PHASE & HTF BIAS CHECKLIST -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-amber-400 font-bold uppercase"><i class="fa-solid fa-shapes"></i> ICT PO3 Session Phase</span>
-                        <span class="px-1.5 py-0.5 bg-amber-950 text-amber-400 rounded text-[9px]">MANIPULATION</span>
-                    </div>
-                    <div class="bg-slate-950 p-2 rounded border border-slate-800 space-y-1.5 text-[11px]">
-                        <div class="flex justify-between"><span class="text-slate-400">Current Phase:</span><span class="text-amber-400 font-bold">London Manipulation</span></div>
-                        <div class="flex justify-between"><span class="text-slate-400">Expected Next:</span><span class="text-emerald-400 font-bold">NY Distribution</span></div>
-                    </div>
-                </div>
-
-                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
-                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-list-check"></i> HTF Bias Checklist</span>
-                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">SMC</span>
-                    </div>
-                    <div class="space-y-1 text-[11px] text-slate-300 pt-1">
-                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" checked class="accent-emerald-500"> <span>Daily FVG Mitigation Checked</span></label>
-                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" checked class="accent-emerald-500"> <span>Previous Day High/Low Swept</span></label>
-                    </div>
-                </div>
-
+                <div class="h-[380px] sm:h-[560px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
         </div>
