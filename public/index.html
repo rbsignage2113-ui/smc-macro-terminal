@@ -16,6 +16,9 @@
         .tab-btn-active { background-color: #d97706 !important; color: #ffffff !important; font-weight: bold; }
         .curr-btn-active { background-color: #dc2626 !important; color: #ffffff !important; font-weight: bold; }
         
+        /* Active Asset Button Highlight Style */
+        .asset-btn-active { background-color: #f59e0b !important; color: #020617 !important; font-weight: bold; }
+        
         /* Smooth Scrolling Ticker Styling */
         .ticker-wrap { width: 100%; overflow: hidden; background-color: #090d16; border: 1px solid #1e293b; }
         .ticker { display: flex; width: max-content; animation: ticker-scroll 35s linear infinite; }
@@ -59,7 +62,7 @@
         </div>
     </div>
 
-    <!-- CONTINUOUS LIVE RUNNING MARKET TICKER (Oditae Irukkura Bar) -->
+    <!-- CONTINUOUS LIVE RUNNING MARKET TICKER -->
     <div class="ticker-wrap p-2 rounded-lg font-mono text-xs text-slate-300">
         <div class="ticker space-x-6">
             <div class="flex space-x-6">
@@ -72,7 +75,6 @@
                 <span><strong class="text-amber-400">BTCUSD:</strong> 80,117.95 <span class="text-red-400">(-0.05%)</span></span>
                 <span class="text-emerald-400"><i class="fa-solid fa-bolt"></i> SMC RADAR: Gold London Liquidity Sweep Active</span>
             </div>
-            <!-- Duplicate for infinite smooth loop -->
             <div class="flex space-x-6">
                 <span><strong class="text-amber-400">XAUUSD:</strong> 4,012.31 <span class="text-emerald-400">(+0.46%)</span></span>
                 <span><strong class="text-white">USDJPY:</strong> 157.06 <span class="text-emerald-400">(+0.16%)</span></span>
@@ -108,16 +110,17 @@
             <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2">
+                    <!-- Dynamic Yellow Selection Buttons -->
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono">
-                        <button onclick="loadTvChart('OANDA:XAUUSD')" class="px-3 py-1 bg-amber-500 text-slate-950 font-bold rounded">XAUUSD</button>
-                        <button onclick="loadTvChart('FX:EURUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">EURUSD</button>
-                        <button onclick="loadTvChart('FX:GBPUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">GBPUSD</button>
-                        <button onclick="loadTvChart('FX:USDJPY')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USDJPY</button>
-                        <button onclick="loadTvChart('FX:AUDUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">AUDUSD</button>
-                        <button onclick="loadTvChart('FX:USDCAD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">USDCAD</button>
-                        <button onclick="loadTvChart('BITSTAMP:BTCUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded">BTCUSD</button>
+                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded transition-all">XAUUSD</button>
+                        <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">EURUSD</button>
+                        <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">GBPUSD</button>
+                        <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">USDJPY</button>
+                        <button id="asset-AUDUSD" onclick="loadTvChart('FX:AUDUSD', 'AUDUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">AUDUSD</button>
+                        <button id="asset-USDCAD" onclick="loadTvChart('FX:USDCAD', 'USDCAD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">USDCAD</button>
+                        <button id="asset-BTCUSD" onclick="loadTvChart('BITSTAMP:BTCUSD', 'BTCUSD')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all">BTCUSD</button>
                     </div>
-                    <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">LIVE CHART FEED</span>
+                    <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">LIVE CHART: XAUUSD</span>
                 </div>
                 
                 <!-- Live TradingView Embedded Widget -->
@@ -126,7 +129,7 @@
                 </div>
             </div>
 
-            <!-- CENTRAL BANK POLICY STANCE MATRIX (Now Below Chart) -->
+            <!-- CENTRAL BANK POLICY STANCE MATRIX -->
             <div class="terminal-card p-3 rounded-lg">
                 <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 flex justify-between">
                     <span>CENTRAL BANK POLICY STANCE MATRIX</span>
@@ -166,7 +169,7 @@
                 </div>
             </div>
 
-            <!-- LIVE SMC LIQUIDITY RADAR LOG (Dynamic Streaming Log) -->
+            <!-- LIVE SMC LIQUIDITY RADAR LOG -->
             <div class="terminal-card p-3 rounded-lg font-mono">
                 <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 flex justify-between items-center">
                     <span><i class="fa-solid fa-radar text-red-500 animate-spin"></i> LIVE SMC LIQUIDITY & CISD RADAR STREAM</span>
@@ -190,7 +193,6 @@
                     <span>FOREX FACTORY RED FOLDER DESK</span>
                 </h3>
                 
-                <!-- Time Range Tabs (TODAY, THIS WEEK, THIS MONTH) -->
                 <div class="flex space-x-1 text-[10px] font-mono">
                     <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold">TODAY</button>
                     <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-bold tab-btn-active">THIS WEEK</button>
@@ -259,7 +261,6 @@
 
     <!-- JavaScript Engine -->
     <script>
-        // Forex Factory Red Folder News Dataset (Oct 26 - Nov 2, 2026)
         const redFolderNews = [
             {
                 id: 1,
@@ -436,8 +437,21 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
-        // Load TradingView Embedded Chart Widget
-        function loadTvChart(symbol = 'OANDA:XAUUSD') {
+        // Load TradingView Embedded Chart & Highlight Selected Button Yellow
+        function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
+            // Update Active Yellow Button State
+            const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'BTCUSD'];
+            assetList.forEach(asset => {
+                const btn = document.getElementById(`asset-${asset}`);
+                if(btn) {
+                    if(asset === pairName) {
+                        btn.className = "px-3 py-1 asset-btn-active rounded transition-all";
+                    } else {
+                        btn.className = "px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition-all";
+                    }
+                }
+            });
+
             document.getElementById('tv_chart_container').innerHTML = '';
             new TradingView.widget({
                 "width": "100%",
@@ -454,14 +468,14 @@
                 "allow_symbol_change": true,
                 "container_id": "tv_chart_container"
             });
-            document.getElementById('active-asset-title').innerText = "LIVE CHART: " + symbol.split(':')[1];
+            document.getElementById('active-asset-title').innerText = "LIVE CHART: " + pairName;
         }
 
         // Checks if event is within 30-min post-release window
         function isNewsActiveAndNotExpired(newsDateTime) {
             const now = new Date();
             const newsTime = new Date(newsDateTime);
-            const expiryTime = new Date(newsTime.getTime() + (30 * 60 * 1000)); // +30 Minutes
+            const expiryTime = new Date(newsTime.getTime() + (30 * 60 * 1000));
             return now <= expiryTime;
         }
 
@@ -594,11 +608,10 @@
 
         // Initialize Terminal App
         window.onload = () => {
-            loadTvChart('OANDA:XAUUSD'); // Initial Live Chart Load
+            loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
             
-            // Background Auto-Refresh
             setInterval(() => {
                 renderNews();
             }, 600000);
