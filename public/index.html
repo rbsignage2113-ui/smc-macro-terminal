@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Precise Institutional Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Pro News Intelligence Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -30,7 +30,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">PRECISE INSTITUTIONAL DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">NEWS INTELLIGENCE DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -44,6 +44,61 @@
             <span class="px-3 py-1 bg-emerald-950/80 text-emerald-400 rounded-lg text-[10px] sm:text-xs font-semibold border border-emerald-800/60 animate-pulse">LONDON KILLZONE</span>
         </div>
     </header>
+
+    <!-- NEWS INTELLIGENCE OVERVIEW GRID (From Screenshot) -->
+    <div class="cyber-card p-4 rounded-xl space-y-3">
+        <div class="flex flex-wrap justify-between items-center border-b border-slate-800 pb-2">
+            <h3 class="text-xs sm:text-sm font-bold text-cyan-400 uppercase flex items-center space-x-2">
+                <i class="fa-solid fa-newspaper text-cyan-400"></i>
+                <span>News Intelligence — Upcoming 7 Days High-Impact Events</span>
+            </h3>
+            <span class="px-2.5 py-1 bg-red-950 text-red-400 text-[10px] font-mono rounded border border-red-800">HIGH IMPACT ONLY</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 font-mono text-xs">
+            <!-- US USD -->
+            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between font-bold"><span class="text-white">US USD</span><span class="text-amber-400 text-[10px]">PENDING EVIDENCE</span></div>
+                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 0</span><span>🟣 0</span><span class="text-amber-400">🟡 0 Pending</span></div>
+                <div class="text-[10px] text-slate-400">Evidence Confidence: <strong class="text-slate-200 block">Pending</strong></div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-900">0 High-impact event(s)</div>
+            </div>
+            <!-- EU EUR -->
+            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between font-bold"><span class="text-white">EU EUR</span><span class="text-amber-400 text-[10px]">PENDING EVIDENCE</span></div>
+                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 0</span><span>🟣 0</span><span class="text-amber-400">🟡 0 Pending</span></div>
+                <div class="text-[10px] text-slate-400">Evidence Confidence: <strong class="text-slate-200 block">Pending</strong></div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-900">0 High-impact event(s)</div>
+            </div>
+            <!-- GB GBP -->
+            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between font-bold"><span class="text-white">GB GBP</span><span class="text-emerald-400 text-[10px]">BULLISH</span></div>
+                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 0</span><span>🟣 0</span><span class="text-amber-400">🟡 1 Pending</span></div>
+                <div class="text-[10px] text-slate-400">Evidence Confidence: <strong class="text-emerald-400 block">60%</strong></div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-900">1 High-impact event(s)</div>
+            </div>
+            <!-- AU AUD -->
+            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between font-bold"><span class="text-white">AU AUD</span><span class="text-amber-400 text-[10px]">PENDING EVIDENCE</span></div>
+                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 0</span><span>🟣 0</span><span class="text-amber-400">🟡 0 Pending</span></div>
+                <div class="text-[10px] text-slate-400">Evidence Confidence: <strong class="text-slate-200 block">Pending</strong></div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-900">0 High-impact event(s)</div>
+            </div>
+            <!-- CA CAD -->
+            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between font-bold"><span class="text-white">CA CAD</span><span class="text-emerald-400 text-[10px]">BULLISH</span></div>
+                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 0</span><span>🟣 0</span><span class="text-amber-400">🟡 3 Pending</span></div>
+                <div class="text-[10px] text-slate-400">Evidence Confidence: <strong class="text-emerald-400 block">53%</strong></div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-900">3 High-impact event(s)</div>
+            </div>
+            <!-- JP JPY -->
+            <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between font-bold"><span class="text-white">JP JPY</span><span class="text-amber-400 text-[10px]">PENDING EVIDENCE</span></div>
+                <div class="text-[10px] text-slate-400 flex space-x-2"><span>🟢 0</span><span>🔴 0</span><span>🟣 0</span><span class="text-amber-400">🟡 0 Pending</span></div>
+                <div class="text-[10px] text-slate-400">Evidence Confidence: <strong class="text-slate-200 block">Pending</strong></div>
+                <div class="text-[9px] text-slate-500 pt-1 border-t border-slate-900">0 High-impact event(s)</div>
+            </div>
+        </div>
+    </div>
 
     <!-- MAIN DASHBOARD GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
@@ -123,11 +178,42 @@
 
     </div>
 
+    <!-- EVIDENCE SOURCES TRACKING PANEL (From Screenshot) -->
+    <div class="cyber-card p-4 rounded-xl space-y-3 font-mono text-xs">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+            <h4 class="text-cyan-400 font-bold uppercase flex items-center space-x-2">
+                <i class="fa-solid fa-server text-cyan-400"></i>
+                <span>Evidence Sources Tracking & Verification</span>
+            </h4>
+            <span class="text-emerald-400 text-[10px] animate-pulse">● Live Sync Active</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                <span class="text-slate-300">Federal Reserve</span>
+                <span class="px-2 py-0.5 bg-slate-900 text-amber-400 text-[10px] rounded border border-slate-800">NOT_FETCHED</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                <span class="text-slate-300">Bureau of Labor Stats</span>
+                <span class="px-2 py-0.5 bg-slate-900 text-amber-400 text-[10px] rounded border border-slate-800">PENDING</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                <span class="text-slate-300">Reuters</span>
+                <span class="px-2 py-0.5 bg-slate-900 text-slate-400 text-[10px] rounded border border-slate-800">CONNECTED</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                <span class="text-slate-300">Bloomberg</span>
+                <span class="px-2 py-0.5 bg-slate-900 text-slate-400 text-[10px] rounded border border-slate-800">CONNECTED</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex justify-between items-center">
+                <span class="text-slate-300">CME FedWatch</span>
+                <span class="px-2 py-0.5 bg-slate-900 text-emerald-400 text-[10px] rounded border border-slate-800">ACTIVE</span>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript Engine -->
     <script>
-        // EXACT INDIVIDUAL FOREX FACTORY DATASET MATCHING YOUR SCREENSHOT (OCT 26 - NOV 2, 2026)
         const redFolderNews = [
-            // WEDNESDAY OCT 28
             { id: 1, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "CPI m/m", forecast: "0.7%", previous: "0.4%", actual: "Pending" },
             { id: 2, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "CPI y/y", forecast: "4.2%", previous: "4.0%", actual: "Pending" },
             { id: 3, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "6:00am", currency: "AUD", event: "Trimmed Mean CPI m/m", forecast: "0.3%", previous: "0.2%", actual: "Pending" },
@@ -138,16 +224,12 @@
             { id: 8, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "8:00pm", currency: "CAD", event: "BOC Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" },
             { id: 9, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "11:30pm", currency: "USD", event: "Federal Funds Rate", forecast: "4.00%", previous: "4.00%", actual: "Pending" },
             { id: 10, dateStr: "2026-10-28", displayDate: "Wed Oct 28", time: "11:30pm", currency: "USD", event: "FOMC Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
-
-            // THURSDAY OCT 29
             { id: 11, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "12:00am", currency: "USD", event: "FOMC Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" },
             { id: 12, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:00pm", currency: "USD", event: "Advance GDP q/q", forecast: "3.2%", previous: "2.2%", actual: "Pending" },
             { id: 13, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:00pm", currency: "USD", event: "Core PCE Price Index m/m", forecast: "0.3%", previous: "0.2%", actual: "Pending" },
             { id: 14, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:45pm", currency: "EUR", event: "Main Refinancing Rate", forecast: "2.65%", previous: "2.65%", actual: "Pending" },
             { id: 15, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "6:45pm", currency: "EUR", event: "Monetary Policy Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
             { id: 16, dateStr: "2026-10-29", displayDate: "Thu Oct 29", time: "7:15pm", currency: "EUR", event: "ECB Press Conference", forecast: "Pending", previous: "Pending", actual: "Pending" },
-
-            // FRIDAY OCT 30
             { id: 17, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "BOJ Policy Rate", forecast: "<1.25%", previous: "<1.25%", actual: "Pending" },
             { id: 18, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "Monetary Policy Statement", forecast: "Pending", previous: "Pending", actual: "Pending" },
             { id: 19, dateStr: "2026-10-30", displayDate: "Fri Oct 30", time: "Tentative", currency: "JPY", event: "BOJ Outlook Report", forecast: "Pending", previous: "Pending", actual: "Pending" },
