@@ -71,7 +71,7 @@
                 <p class="text-xs text-slate-300">Monitoring Fed FOMC, Powell Speeches, RBA Cash Rate Decisions & CPI Inflation metrics.</p>
             </div>
 
-            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER (Enlarged PC Size) -->
+            <!-- DYNAMIC LIVE TRADINGVIEW CHART CONTAINER -->
             <div class="terminal-card p-3 rounded-lg">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 mb-2 gap-2">
                     <div class="flex space-x-1 overflow-x-auto text-xs font-mono max-w-full pb-1">
@@ -85,7 +85,6 @@
                     <span id="active-asset-title" class="text-xs font-mono text-amber-400 font-bold">XAUUSD</span>
                 </div>
                 
-                <!-- Expanded Responsive Height: Mobile 360px, PC 520px -->
                 <div class="h-[360px] sm:h-[520px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
             </div>
 
@@ -149,7 +148,7 @@
         <!-- RIGHT: SEPARATE INDIVIDUAL BOXES -->
         <div class="space-y-4">
             
-            <!-- Box 1: Forex Factory Red Folder Desk (Updated with TODAY | WEEK | MONTH and All 7 Currencies) -->
+            <!-- Box 1: Red Folder Desk (Enlarged Box Size: max-h-[300px]) -->
             <div class="terminal-card p-3 rounded-lg space-y-3">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-xs font-bold text-red-400 uppercase flex items-center space-x-1.5">
@@ -163,7 +162,7 @@
                     </div>
                 </div>
 
-                <!-- Currency Filter Buttons (ALL, USD, EUR, AUD, GBP, CAD, JPY) -->
+                <!-- Currency Filter Buttons -->
                 <div class="grid grid-cols-4 gap-1 text-[10px] font-mono bg-slate-900 p-1.5 rounded border border-slate-800">
                     <button id="curr-ALL" onclick="filterCurrency('ALL')" class="py-0.5 rounded curr-btn-active">ALL</button>
                     <button id="curr-USD" onclick="filterCurrency('USD')" class="py-0.5 bg-slate-800 text-slate-300 rounded">USD</button>
@@ -174,8 +173,8 @@
                     <button id="curr-JPY" onclick="filterCurrency('JPY')" class="py-0.5 bg-slate-800 text-slate-300 rounded">JPY</button>
                 </div>
 
-                <!-- Dynamic Scrollable Red Folder Container -->
-                <div id="red-folder-container" class="space-y-2 overflow-y-auto max-h-[160px] pr-1"></div>
+                <!-- Dynamic Scrollable Red Folder Container (Enlarged Height) -->
+                <div id="red-folder-container" class="space-y-2 overflow-y-auto max-h-[300px] pr-1"></div>
             </div>
 
             <!-- Box 2: AI News Direction Engine -->
