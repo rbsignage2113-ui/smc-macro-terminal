@@ -156,12 +156,12 @@
             </div>
         </div>
 
-        <!-- RIGHT: TRADINGVIEW CHART MATCHED EXACTLY TO LEFT COLUMN FULL HEIGHT -->
+        <!-- RIGHT: TRADINGVIEW CHART MATCHED EXACTLY TO YOUR SCREENSHOT FEEDS -->
         <div class="lg:col-span-2 space-y-4">
             <div class="cyber-card p-4 rounded-xl space-y-3">
                 <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2.5 gap-2">
                     <div class="flex space-x-1.5 overflow-x-auto text-xs font-mono max-w-full pb-1">
-                        <button id="asset-XAUUSD" onclick="loadTvChart('OANDA:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded-lg text-xs">XAUUSD</button>
+                        <button id="asset-XAUUSD" onclick="loadTvChart('FXCM:XAUUSD', 'XAUUSD')" class="px-3 py-1 asset-btn-active rounded-lg text-xs">XAUUSD</button>
                         <button id="asset-EURUSD" onclick="loadTvChart('FX:EURUSD', 'EURUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">EURUSD</button>
                         <button id="asset-GBPUSD" onclick="loadTvChart('FX:GBPUSD', 'GBPUSD')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">GBPUSD</button>
                         <button id="asset-USDJPY" onclick="loadTvChart('FX:USDJPY', 'USDJPY')" class="px-3 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 text-xs">USDJPY</button>
@@ -171,7 +171,7 @@
                     <span id="active-asset-title" class="text-xs font-mono text-cyan-400 font-bold px-2.5 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">XAUUSD</span>
                 </div>
                 
-                <!-- Expanded Chart Container Height to Match Full Left Column -->
+                <!-- Expanded Chart Container Matching Image Toolbar & Volume Setup -->
                 <div class="h-[770px] w-full bg-slate-950 rounded-xl border border-slate-900 overflow-hidden" id="tv_chart_container"></div>
             </div>
         </div>
@@ -239,7 +239,7 @@
         let activeTimeRange = 'THIS_WEEK';
         let activeCurrency = 'ALL';
 
-        function loadTvChart(symbol = 'OANDA:XAUUSD', pairName = 'XAUUSD') {
+        function loadTvChart(symbol = 'FXCM:XAUUSD', pairName = 'XAUUSD') {
             const assetList = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD'];
             assetList.forEach(asset => {
                 const btn = document.getElementById(`asset-${asset}`);
@@ -262,7 +262,13 @@
                 "locale": "en",
                 "toolbar_bg": "#060913",
                 "enable_publishing": false,
-                "hide_side_toolbar": false,
+                "hide_top_toolbar": false,
+                "hide_legend": false,
+                "withdateranges": true,
+                "save_image": true,
+                "studies": [
+                    "STD;Volume"
+                ],
                 "allow_symbol_change": true,
                 "container_id": "tv_chart_container"
             });
@@ -427,7 +433,7 @@
         }
 
         window.onload = () => {
-            loadTvChart('OANDA:XAUUSD', 'XAUUSD');
+            loadTvChart('FXCM:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
         };
