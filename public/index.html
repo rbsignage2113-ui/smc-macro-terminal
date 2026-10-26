@@ -51,7 +51,7 @@
         <span class="text-slate-400 font-bold uppercase tracking-wide">PRO MODULES:</span>
         <div class="flex flex-wrap gap-1.5 mt-1 sm:mt-0">
             <span class="px-2 py-0.5 bg-red-950 text-red-400 rounded text-[10px] border border-red-800">v AI Engine (ON)</span>
-            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v FVG / SMT (ON)</span>
+            <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Depth Chart (ON)</span>
             <span class="px-2 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[10px] border border-red-800">v Journal History (ON)</span>
         </div>
     </div>
@@ -59,7 +59,7 @@
     <!-- MAIN GRID SECTION -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
         
-        <!-- LEFT & CENTER: Charts & Tools -->
+        <!-- LEFT & CENTER: Charts & Pro Depth/Execution Tools -->
         <div class="lg:col-span-2 space-y-4">
             
             <!-- Trump Policy & Macro Radar Box -->
@@ -86,6 +86,39 @@
                 </div>
                 
                 <div class="h-[360px] sm:h-[520px] w-full bg-slate-950 rounded border border-slate-800 overflow-hidden" id="tv_chart_container"></div>
+            </div>
+
+            <!-- NEW ADDITION: Pro Exchange Depth Chart & Buy/Sell Order Panel (Inspired by Screenshots) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Depth Chart Simulator Box -->
+                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                        <span class="text-cyan-400 font-bold uppercase"><i class="fa-solid fa-chart-area"></i> Pro Depth Chart</span>
+                        <span class="px-1.5 py-0.5 bg-cyan-950 text-cyan-400 rounded text-[9px]">ORDER BOOK</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded border border-slate-800 text-center space-y-2">
+                        <div class="text-[11px] text-slate-400">Market Mid Price</div>
+                        <div class="text-lg font-bold text-amber-400">5.43567825</div>
+                        <div class="flex justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-900">
+                            <span class="text-red-400">Sell Orders (Asks): 48.2%</span>
+                            <span class="text-emerald-400">Buy Orders (Bids): 51.8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instant Buy / Sell Execution Box -->
+                <div class="terminal-card p-3 rounded-lg font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-1">
+                        <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-bolt"></i> Instant Buy / Sell Desk</span>
+                        <span class="px-1.5 py-0.5 bg-emerald-950 text-emerald-400 rounded text-[9px]">EXECUTION</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <button onclick="alert('Buy Order Executed Successfully!')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-2 rounded text-xs transition-all">BUY ASSET</button>
+                        <button onclick="alert('Sell Order Executed Successfully!')" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2 rounded text-xs transition-all">SELL ASSET</button>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Multi-Timeframe MSS Matrix & FVG Alert Panel -->
@@ -148,7 +181,7 @@
         <!-- RIGHT: SEPARATE INDIVIDUAL BOXES -->
         <div class="space-y-4">
             
-            <!-- Box 1: Red Folder Desk (Enlarged Box Size: max-h-[300px]) -->
+            <!-- Box 1: Red Folder Desk -->
             <div class="terminal-card p-3 rounded-lg space-y-3">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-xs font-bold text-red-400 uppercase flex items-center space-x-1.5">
@@ -173,7 +206,7 @@
                     <button id="curr-JPY" onclick="filterCurrency('JPY')" class="py-0.5 bg-slate-800 text-slate-300 rounded">JPY</button>
                 </div>
 
-                <!-- Dynamic Scrollable Red Folder Container (Enlarged Height) -->
+                <!-- Dynamic Scrollable Red Folder Container -->
                 <div id="red-folder-container" class="space-y-2 overflow-y-auto max-h-[300px] pr-1"></div>
             </div>
 
