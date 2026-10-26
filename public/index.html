@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME ENGINE</p>
+                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME WATCHLIST DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -162,16 +162,33 @@
 
         </div>
 
-        <!-- RIGHT: LIVE TRADINGVIEW CHART CONTAINER -->
+        <!-- RIGHT: LIVE TRADINGVIEW CHART + WATCHLIST PANEL (7 COLS) -->
         <div class="lg:col-span-7 flex flex-col">
             <div class="glass-card rounded-xl p-2 h-[542px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
                     <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART (XAUUSD / GOLD)
+                        <i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART & WATCHLIST
                     </span>
-                    <span class="text-[10px] text-gray-400">OANDA:XAUUSD • 5M</span>
+                    <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
                 </div>
-                <div id="tradingview_chart" class="w-full flex-grow rounded overflow-hidden"></div>
+
+                <!-- FLEX CONTAINER: CHART (LEFT) + WATCHLIST (RIGHT) -->
+                <div class="flex gap-2 flex-grow overflow-hidden">
+                    
+                    <!-- WATCHLIST SIDEBAR -->
+                    <div class="w-48 bg-gray-950/90 rounded border border-gray-800 p-1 flex flex-col overflow-y-auto custom-scrollbar">
+                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-2 py-1 border-b border-gray-800 mb-1 flex justify-between">
+                            <span>Symbol</span><span>Change</span>
+                        </div>
+                        <div id="watchlist-container" class="space-y-0.5">
+                            <!-- Dynamic Watchlist Items -->
+                        </div>
+                    </div>
+
+                    <!-- TRADINGVIEW LIVE CHART CONTAINER -->
+                    <div id="tradingview_chart" class="flex-grow rounded overflow-hidden"></div>
+
+                </div>
             </div>
         </div>
 
@@ -207,19 +224,75 @@
             { id: 20, curr: 'JPY', title: 'BOJ Press Conference', date: 'Fri Oct 30 @ Tentative', range: 'WEEK', fcst: 'Hawkish', prev: 'Neutral', devType: 'SPEECH' }
         ];
 
+        // WATCHLIST SYMBOLS DATA
+        const watchlistPairs = [
+            { sym: 'EURUSD', name: 'EURUSD', price: '1.1182', diff: '-0.0020', chg: '-0.18%', up: false, tv: 'FX:EURUSD' },
+            { sym: 'GBPUSD', name: 'GBPUSD', price: '1.3348', diff: '-0.0022', chg: '-0.17%', up: false, tv: 'FX:GBPUSD' },
+            { sym: 'USDJPY', name: 'USDJPY', price: '157.44', diff: '+0.641', chg: '+0.41%', up: true, tv: 'FX:USDJPY' },
+            { sym: 'XAUUSD', name: 'XAUUSD', price: '4,012.66', diff: '+18.66', chg: '+0.47%', up: true, tv: 'OANDA:XAUUSD' },
+            { sym: 'AUDUSD', name: 'AUDUSD', price: '0.7021', diff: '-0.0011', chg: '-0.17%', up: false, tv: 'FX:AUDUSD' },
+            { sym: 'NZDUSD', name: 'NZDUSD', price: '0.5686', diff: '-0.0011', chg: '-0.20%', up: false, tv: 'FX:NZDUSD' },
+            { sym: 'USDCAD', name: 'USDCAD', price: '1.4017', diff: '+0.0016', chg: '+0.12%', up: true, tv: 'FX:USDCAD' },
+            { sym: 'EURJPY', name: 'EURJPY', price: '176.07', diff: '+0.422', chg: '+0.24%', up: true, tv: 'FX:EURJPY' },
+            { sym: 'GBPJPY', name: 'GBPJPY', price: '210.17', diff: '+0.452', chg: '+0.22%', up: true, tv: 'FX:GBPJPY' },
+            { sym: 'AUDJPY', name: 'AUDJPY', price: '110.54', diff: '+0.263', chg: '+0.24%', up: true, tv: 'FX:AUDJPY' },
+            { sym: 'USDCHF', name: 'USDCHF', price: '0.8272', diff: '+0.0023', chg: '+0.28%', up: true, tv: 'FX:USDCHF' },
+            { sym: 'BTCUSD', name: 'BTCUSD', price: '79,931', diff: '-117', chg: '-0.15%', up: false, tv: 'BITSTAMP:BTCUSD' },
+            { sym: 'ETHUSD', name: 'ETHUSD', price: '2,315.3', diff: '-11.2', chg: '-0.48%', up: false, tv: 'BITSTAMP:ETHUSD' }
+        ];
+
+        let activeChartSymbol = 'OANDA:XAUUSD';
         let dateFilter = 'TODAY';
         let currFilter = 'ALL';
         let activeId = 1;
 
+        function renderWatchlist() {
+            const container = document.getElementById('watchlist-container');
+            container.innerHTML = '';
+
+            watchlistPairs.forEach(p => {
+                const isSel = p.tv === activeChartSymbol;
+                const item = document.createElement('div');
+                item.className = `p-1.5 rounded flex justify-between items-center text-[11px] font-mono cursor-pointer transition-all ${isSel ? 'bg-cyan-950/60 border border-cyan-400' : 'hover:bg-gray-900 border border-transparent'}`;
+                item.onclick = () => { loadChart(p.tv); };
+
+                item.innerHTML = `
+                    <div>
+                        <div class="font-bold ${isSel ? 'text-cyan-400' : 'text-white'}">${p.name}</div>
+                        <div class="text-[10px] text-gray-400">${p.price}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold ${p.up ? 'text-emerald-400' : 'text-red-400'}">${p.chg}</div>
+                        <div class="text-[9px] ${p.up ? 'text-emerald-500' : 'text-red-500'}">${p.diff}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function loadChart(tvSymbol) {
+            activeChartSymbol = tvSymbol;
+            document.getElementById('selected-pair-display').innerText = `${tvSymbol} • 5M`;
+            renderWatchlist();
+
+            document.getElementById('tradingview_chart').innerHTML = '';
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": tvSymbol,
+                "interval": "5",
+                "timezone": "Asia/Kolkata",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#0a0e17",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "container_id": "tradingview_chart"
+            });
+        }
+
         // REAL-TIME DYNAMIC RATES ENGINE
-        let liveRates = {
-            gold: 2735.40,
-            dxy: 104.15,
-            eurusd: 1.0815,
-            gbpusd: 1.2980,
-            usdjpy: 152.30,
-            audusd: 0.6625
-        };
+        let liveRates = { gold: 2735.40, dxy: 104.15, eurusd: 1.0815, gbpusd: 1.2980, usdjpy: 152.30, audusd: 0.6625 };
 
         function tickLiveRates() {
             liveRates.gold += (Math.random() - 0.49) * 0.30;
@@ -408,22 +481,6 @@
             }
         }
 
-        function initTradingView() {
-            new TradingView.widget({
-                "autosize": true,
-                "symbol": "OANDA:XAUUSD",
-                "interval": "5",
-                "timezone": "Asia/Kolkata",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#0a0e17",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "container_id": "tradingview_chart"
-            });
-        }
-
         function updateClock() {
             const now = new Date();
             document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
@@ -433,7 +490,8 @@
         window.onload = () => {
             updateCurrencyOverview();
             renderNews();
-            initTradingView();
+            renderWatchlist();
+            loadChart('OANDA:XAUUSD');
             setInterval(updateClock, 1000);
             setInterval(tickLiveRates, 1500);
             updateClock();
