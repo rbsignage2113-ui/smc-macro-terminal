@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ TRADING TERMINAL - Priority AI News Desk</title>
+    <title>AR-RIZQ TRADING TERMINAL - Automated Forex Factory Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -29,7 +29,7 @@
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold">AR</div>
             <div>
                 <span class="font-bold text-base sm:text-lg text-cyan-400 tracking-wider">AR-RIZQ TERMINAL</span>
-                <span class="block text-[10px] text-slate-400 font-mono">PRIORITY AI FUNDAMENTAL DESK</span>
+                <span class="block text-[10px] text-slate-400 font-mono">AUTOMATED FOREX FACTORY DESK</span>
             </div>
             <span id="live-ist-clock" class="bg-slate-900 px-3 py-1 rounded-lg text-[10px] sm:text-xs text-emerald-400 font-mono border border-slate-800 ml-2">IN LIVE IST: --</span>
         </div>
@@ -58,8 +58,8 @@
                     <div class="flex space-x-1 text-[10px] font-mono">
                         <button id="tab-today" onclick="setTimeRange('TODAY')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">TODAY</button>
                         <button id="tab-week" onclick="setTimeRange('THIS_WEEK')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold tab-btn-active">WEEK</button>
-                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">MONTH</button>
-                        <button id="tab-nextmonth" onclick="setTimeRange('NEXT_MONTH')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">NEXT M</button>
+                        <button id="tab-month" onclick="setTimeRange('THIS_MONTH')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">OCT</button>
+                        <button id="tab-nextmonth" onclick="setTimeRange('NEXT_MONTH')" class="px-2 py-1 bg-slate-900 text-slate-300 rounded-lg font-bold border border-slate-800">NOV</button>
                     </div>
                 </div>
 
@@ -124,82 +124,110 @@
 
     <!-- JavaScript Engine -->
     <script>
+        // FULL FOREX FACTORY DATASET (MATCHING SCREENSHOT & EXTENDED TIMELINE)
         const redFolderNews = [
-            // CURRENT WEEK (OCT 2026)
+            // OCTOBER 2026 DATASET
             {
                 id: 1,
                 dateTimeISO: "2026-10-28T06:00:00+05:30",
                 dateStr: "2026-10-28",
                 displayDate: "Wed Oct 28",
-                time: "06:00 AM",
+                time: "06:00am",
                 currency: "AUD",
                 event: "CPI m/m, CPI y/y, Trimmed Mean CPI",
                 forecast: "0.7%",
-                previous: "0.4%",
-                actual: "Pending"
+                previous: "0.4%"
             },
             {
                 id: 2,
                 dateTimeISO: "2026-10-28T18:00:00+05:30",
                 dateStr: "2026-10-28",
                 displayDate: "Wed Oct 28",
-                time: "06:00 PM",
+                time: "06:00pm",
                 currency: "GBP",
                 event: "Annual Budget Release & Fiscal Statement",
                 forecast: "3.5%",
-                previous: "3.5%",
-                actual: "Pending"
+                previous: "3.5%"
             },
             {
                 id: 3,
                 dateTimeISO: "2026-10-28T19:15:00+05:30",
                 dateStr: "2026-10-28",
                 displayDate: "Wed Oct 28",
-                time: "07:15 PM",
+                time: "07:15pm",
                 currency: "CAD",
-                event: "Overnight Rate & BOC Rate Statement",
+                event: "BOC Rate Statement & Overnight Rate",
                 forecast: "2.50%",
-                previous: "2.25%",
-                actual: "Pending"
+                previous: "2.25%"
             },
             {
                 id: 4,
-                dateTimeISO: "2026-10-28T23:30:00+05:30",
+                dateTimeISO: "2026-10-28T20:00:00+05:30",
                 dateStr: "2026-10-28",
                 displayDate: "Wed Oct 28",
-                time: "11:30 PM",
-                currency: "USD",
-                event: "Federal Funds Rate & FOMC Statement",
-                forecast: "4.00%",
-                previous: "4.00%",
-                actual: "Pending"
+                time: "08:00pm",
+                currency: "CAD",
+                event: "BOC Press Conference",
+                forecast: "Pending",
+                previous: "Pending"
             },
             {
                 id: 5,
-                dateTimeISO: "2026-10-29T18:00:00+05:30",
-                dateStr: "2026-10-29",
-                displayDate: "Thu Oct 29",
-                time: "06:00 PM",
+                dateTimeISO: "2026-10-28T23:30:00+05:30",
+                dateStr: "2026-10-28",
+                displayDate: "Wed Oct 28",
+                time: "11:30pm",
                 currency: "USD",
-                event: "Advance GDP q/q & Core PCE Price Index",
-                forecast: "3.2%",
-                previous: "2.2%",
-                actual: "Pending"
+                event: "Federal Funds Rate & FOMC Statement",
+                forecast: "4.00%",
+                previous: "4.00%"
             },
             {
                 id: 6,
-                dateTimeISO: "2026-10-29T18:45:00+05:30",
+                dateTimeISO: "2026-10-29T00:00:00+05:30",
                 dateStr: "2026-10-29",
                 displayDate: "Thu Oct 29",
-                time: "06:45 PM",
-                currency: "EUR",
-                event: "Main Refinancing Rate & Policy Statement",
-                forecast: "2.65%",
-                previous: "2.65%",
-                actual: "Pending"
+                time: "12:00am",
+                currency: "USD",
+                event: "FOMC Press Conference",
+                forecast: "Pending",
+                previous: "Pending"
             },
             {
                 id: 7,
+                dateTimeISO: "2026-10-29T18:00:00+05:30",
+                dateStr: "2026-10-29",
+                displayDate: "Thu Oct 29",
+                time: "06:00pm",
+                currency: "USD",
+                event: "Advance GDP q/q & Core PCE Price Index m/m",
+                forecast: "3.2%",
+                previous: "2.2%"
+            },
+            {
+                id: 8,
+                dateTimeISO: "2026-10-29T18:45:00+05:30",
+                dateStr: "2026-10-29",
+                displayDate: "Thu Oct 29",
+                time: "06:45pm",
+                currency: "EUR",
+                event: "Main Refinancing Rate & Policy Statement",
+                forecast: "2.65%",
+                previous: "2.65%"
+            },
+            {
+                id: 9,
+                dateTimeISO: "2026-10-29T19:15:00+05:30",
+                dateStr: "2026-10-29",
+                displayDate: "Thu Oct 29",
+                time: "07:15pm",
+                currency: "EUR",
+                event: "ECB Press Conference",
+                forecast: "Pending",
+                previous: "Pending"
+            },
+            {
+                id: 10,
                 dateTimeISO: "2026-10-30T09:00:00+05:30",
                 dateStr: "2026-10-30",
                 displayDate: "Fri Oct 30",
@@ -207,34 +235,42 @@
                 currency: "JPY",
                 event: "BOJ Policy Rate & Outlook Report",
                 forecast: "<1.25%",
-                previous: "<1.25%",
-                actual: "Pending"
+                previous: "<1.25%"
             },
 
-            // NEXT MONTH (NOV 2026)
+            // NOVEMBER 2026 DATASET (NEXT MONTH AUTO-LOAD)
             {
-                id: 8,
+                id: 11,
                 dateTimeISO: "2026-11-03T09:00:00+05:30",
                 dateStr: "2026-11-03",
                 displayDate: "Tue Nov 03",
-                time: "09:00 AM",
+                time: "09:00am",
                 currency: "AUD",
                 event: "RBA Rate Decision & Cash Rate Statement",
                 forecast: "4.60%",
-                previous: "4.60%",
-                actual: "Pending"
+                previous: "4.60%"
             },
             {
-                id: 9,
+                id: 12,
                 dateTimeISO: "2026-11-06T19:00:00+05:30",
                 dateStr: "2026-11-06",
                 displayDate: "Fri Nov 06",
-                time: "07:00 PM",
+                time: "07:00pm",
                 currency: "USD",
-                event: "Non-Farm Employment Change (NFP) & Unemployment",
+                event: "Non-Farm Employment Change (NFP) & Unemployment Rate",
                 forecast: "165K",
-                previous: "142K",
-                actual: "Pending"
+                previous: "142K"
+            },
+            {
+                id: 13,
+                dateTimeISO: "2026-11-12T19:00:00+05:30",
+                dateStr: "2026-11-12",
+                displayDate: "Thu Nov 12",
+                time: "07:00pm",
+                currency: "USD",
+                event: "CPI m/m & Core CPI y/y",
+                forecast: "0.2%",
+                previous: "0.3%"
             }
         ];
 
@@ -273,21 +309,34 @@
             document.getElementById('active-asset-title').innerText = pairName;
         }
 
-        function matchesTimeRange(news) {
+        // AUTO-EXPIRY FILTER (REMOVES NEWS 30 MINUTES AFTER RELEASE) & TIME RANGE MATCHING
+        function getFilteredNews() {
             const now = new Date();
             const todayStr = now.toISOString().split('T')[0];
-            const newsDate = new Date(news.dateTimeISO);
 
-            if (activeTimeRange === 'TODAY') {
-                return news.dateStr === todayStr;
-            } else if (activeTimeRange === 'THIS_WEEK') {
-                return true; 
-            } else if (activeTimeRange === 'THIS_MONTH') {
-                return newsDate.getMonth() === now.getMonth() && newsDate.getFullYear() === now.getFullYear();
-            } else if (activeTimeRange === 'NEXT_MONTH') {
-                return newsDate.getMonth() === (now.getMonth() + 1) % 12;
-            }
-            return true;
+            return redFolderNews.filter(news => {
+                const newsTime = new Date(news.dateTimeISO);
+                const expiryTime = new Date(newsTime.getTime() + 30 * 60000); // 30 mins after release
+
+                // Auto-expire check
+                if (now > expiryTime) return false;
+
+                // Currency filter
+                if (activeCurrency !== 'ALL' && news.currency !== activeCurrency) return false;
+
+                // Time range filter
+                if (activeTimeRange === 'TODAY') {
+                    return news.dateStr === todayStr;
+                } else if (activeTimeRange === 'THIS_WEEK') {
+                    return true; // Current viewable week
+                } else if (activeTimeRange === 'THIS_MONTH') {
+                    return newsTime.getMonth() === now.getMonth() && newsTime.getFullYear() === now.getFullYear();
+                } else if (activeTimeRange === 'NEXT_MONTH') {
+                    const nextMonthIdx = (now.getMonth() + 1) % 12;
+                    return newsTime.getMonth() === nextMonthIdx;
+                }
+                return true;
+            });
         }
 
         function setTimeRange(range) {
@@ -308,17 +357,15 @@
             renderNews();
         }
 
-        // STRICT BUY/SELL PREDICTION ENGINE (NO NEUTRAL FALLBACK)
         function calculateAIBias(news) {
             let result = {
                 signal: "BUY",
                 buyPairs: ["USDCAD", "USDJPY"],
                 sellPairs: ["XAUUSD", "EURUSD"],
-                reason: `AI Fundamental forecast expects aggressive hawkish expansion for ${news.currency}. Long USD positioning recommended.`
+                reason: `AI Fundamental forecast expects aggressive expansion for ${news.currency}. Positioning recommended.`
             };
 
             const curr = news.currency;
-
             if (curr === 'USD') {
                 result.signal = "BUY";
                 result.buyPairs = ["USDCAD", "USDJPY"];
@@ -328,43 +375,54 @@
                 result.signal = "SELL";
                 result.buyPairs = ["USDCHF"];
                 result.sellPairs = ["EURUSD", "EURGBP"];
-                result.reason = `EUR ${news.event}: ECB policy tone remains dovish relative to global yields. Expecting downward pressure on Euro pairs.`;
+                result.reason = `EUR ${news.event}: ECB policy tone remains dovish relative to global yields. Downward pressure on Euro.`;
             } else if (curr === 'GBP') {
                 result.signal = "SELL";
                 result.buyPairs = ["USDGBP"];
                 result.sellPairs = ["GBPUSD", "GBPJPY"];
-                result.reason = `GBP ${news.event}: Fiscal deficit and inflation cooling metrics suggest sterling weakness. Sell bias active.`;
+                result.reason = `GBP ${news.event}: Fiscal deficit and inflation cooling metrics suggest sterling weakness.`;
             } else if (curr === 'AUD') {
                 result.signal = "BUY";
                 result.buyPairs = ["AUDUSD", "EURAUD"];
                 result.sellPairs = ["GBPAUD"];
-                result.reason = `AUD ${news.event}: Commodity demand and trimmed mean CPI metrics point toward a hawkish RBA stance. Buy AUD.`;
+                result.reason = `AUD ${news.event}: Commodity demand and trimmed mean CPI metrics point toward a hawkish RBA stance.`;
             } else if (curr === 'CAD') {
                 result.signal = "BUY";
-                result.buyPairs = ["USDCAD (Sell)", "CADJPY"];
+                result.buyPairs = ["CADJPY"];
                 result.sellPairs = ["USDCAD"];
-                result.reason = `CAD ${news.event}: BOC rate statement projected to maintain restrictive levels, strengthening Loonie crosses.`;
+                result.reason = `CAD ${news.event}: BOC rate statement projected to maintain restrictive levels, strengthening Loonie.`;
             } else if (curr === 'JPY') {
                 result.signal = "SELL";
                 result.buyPairs = ["USDJPY"];
                 result.sellPairs = ["GBPJPY", "EURJPY"];
-                result.reason = `JPY ${news.event}: BOJ Governor commentary indicates persistent accommodative policy. Yen weakness anticipated.`;
+                result.reason = `JPY ${news.event}: BOJ Governor commentary indicates persistent accommodative policy. Yen weakness.`;
             }
             return result;
+        }
+
+        // LIVE COUNTDOWN TIMER GENERATOR
+        function getCountdownString(targetISO) {
+            const now = new Date().getTime();
+            const target = new Date(targetISO).getTime();
+            const diff = target - now;
+
+            if (diff <= 0) return "RELEASED / LIVE";
+
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            return `Starts in ${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
         }
 
         function renderNews() {
             const container = document.getElementById('red-folder-container');
             container.innerHTML = '';
             
-            const filtered = redFolderNews.filter(n => {
-                const currencyMatch = (activeCurrency === 'ALL' || n.currency === activeCurrency);
-                const rangeMatch = matchesTimeRange(n);
-                return currencyMatch && rangeMatch;
-            });
+            const filtered = getFilteredNews();
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded-xl bg-slate-900/40">No Red Folder News Found for Selected Filter</div>`;
+                container.innerHTML = `<div class="text-center py-8 text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded-xl bg-slate-900/40">No Active Red Folder News Found</div>`;
                 resetAISignal();
                 return;
             }
@@ -372,6 +430,7 @@
             filtered.forEach(news => {
                 const aiResult = calculateAIBias(news);
                 let badgeClass = aiResult.signal === 'BUY' ? 'badge-buy' : 'badge-sell';
+                const countdownStr = getCountdownString(news.dateTimeISO);
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-950/90 p-3 rounded-xl border border-slate-800 hover:border-cyan-500/40 cursor-pointer transition-all space-y-1.5 shadow-lg";
@@ -385,7 +444,7 @@
                         <span class="${badgeClass} px-2 py-0.5 rounded-lg text-[10px] font-bold">${aiResult.signal}</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-900">
-                        <span><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> ${news.displayDate} @ ${news.time}</span>
+                        <span class="text-cyan-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i> ${news.displayDate} @ ${news.time} <small class="text-amber-400 block sm:inline font-mono">(${countdownStr})</small></span>
                         <div class="space-x-2">
                             <span>Fcst: <strong class="text-slate-200">${news.forecast}</strong></span>
                             <span>Prev: <strong class="text-amber-400">${news.previous}</strong></span>
@@ -429,6 +488,7 @@
             loadTvChart('OANDA:XAUUSD', 'XAUUSD');
             setTimeRange('THIS_WEEK');
             setInterval(updateClock, 1000);
+            setInterval(renderNews, 1000); // Live countdown & auto-expiry refresh every second
         };
     </script>
 </body>
