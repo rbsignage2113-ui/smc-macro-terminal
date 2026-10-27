@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Institutional Desk</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Professional Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -28,7 +28,7 @@
 </head>
 <body class="min-h-screen p-2 md:p-4 flex flex-col gap-3">
 
-    <!-- HEADER -->
+    <!-- HEADER WITH 12-HOUR AM/PM FORMAT -->
     <header class="glass-card rounded-xl p-3 border-b border-cyan-500/30">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
@@ -39,10 +39,10 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">LONDON KILLZONE ACTIVE</span>
+                <span id="session-badge" class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">LONDON KILLZONE ACTIVE</span>
                 <div class="bg-gray-900 px-3 py-1 rounded border border-gray-800 text-xs font-mono text-cyan-400 flex items-center gap-2">
                     <span id="live-date" class="text-amber-400 font-bold">--:--:--</span> | 
-                    <span>IST: <strong id="live-ist" class="text-white">--:--:--</strong></span>
+                    <span>IST: <strong id="live-ist" class="text-white">--:--:-- AM</strong></span>
                 </div>
             </div>
         </div>
@@ -87,10 +87,10 @@
     <!-- MAIN TWO-COLUMN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER NEWS DESK + EVIDENCE SOURCES -->
+        <!-- LEFT: RED FOLDER NEWS DESK + DYNAMIC EVIDENCE SOURCES -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
-            <div class="glass-card rounded-xl p-3 flex flex-col h-[320px]">
+            <div class="glass-card rounded-xl p-3 flex flex-col h-[340px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-folder text-red-500"></i> RED FOLDER NEWS
@@ -98,12 +98,15 @@
                     <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
 
+                <!-- DATE FILTERS INCLUDING NEXT MONTH -->
                 <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
                     <button onclick="setDateFilter('today')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
                     <button onclick="setDateFilter('this_week')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
                     <button onclick="setDateFilter('this_month')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
+                    <button onclick="setDateFilter('next_month')" id="btn-next-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">NEXT MONTH</button>
                 </div>
 
+                <!-- CURRENCY FILTERS -->
                 <div class="flex flex-wrap gap-1 mb-2">
                     <button onclick="setCurrFilter('ALL')" id="curr-ALL" class="px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
                     <button onclick="setCurrFilter('USD')" id="curr-USD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
@@ -117,7 +120,7 @@
                 <div id="news-container" class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1"></div>
             </div>
 
-            <!-- EVIDENCE SOURCES PANEL -->
+            <!-- DYNAMIC EVIDENCE SOURCES PANEL -->
             <div class="glass-card rounded-xl p-3 border border-gray-800 flex flex-col justify-between">
                 <div>
                     <div class="bg-gray-950/90 rounded-lg p-2.5 border border-gray-800 mb-3 font-mono text-[11px]">
@@ -164,7 +167,7 @@
 
         <!-- RIGHT: LIVE CHART -->
         <div class="lg:col-span-7 flex flex-col">
-            <div class="glass-card rounded-xl p-2 h-[558px] flex flex-col justify-between">
+            <div class="glass-card rounded-xl p-2 h-[578px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
                     <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART</span>
                     <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
@@ -247,7 +250,7 @@
             ];
 
             currencies.forEach(c => {
-                const info = intel[c.code] || { outlook: 'PENDING EVIDENCE', confidence: 'Pending', eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 };
+                const info = intel[c.code] || { outlook: 'NEUTRAL', confidence: 'No News', eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 };
                 const isBullish = info.outlook === 'BULLISH';
                 const isBearish = info.outlook === 'BEARISH';
                 const outlookColor = isBullish ? 'text-emerald-400' : (isBearish ? 'text-red-400' : 'text-amber-400');
@@ -336,8 +339,8 @@
             const updatedEl = document.getElementById('ev-updated');
 
             if (!item) {
-                schedEl.innerText = 'Event: No News Today';
-                aiBannerEl.innerText = 'AI Forecast: Standard ICT Technical Flow';
+                schedEl.innerText = 'Event: No News Scheduled';
+                aiBannerEl.innerText = 'AI Forecast: Neutral / Technical Market Flow';
                 fedEl.innerText = 'NOT_FETCHED';
                 blsEl.innerText = 'NOT_FETCHED';
                 reutersEl.innerText = 'NOT_CONNECTED';
@@ -377,6 +380,7 @@
             document.getElementById('btn-today').className = range === 'today' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             document.getElementById('btn-week').className = range === 'this_week' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             document.getElementById('btn-month').className = range === 'this_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            document.getElementById('btn-next-month').className = range === 'next_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             fetchNewsAndIntelligence();
         }
 
@@ -391,10 +395,21 @@
             renderNews();
         }
 
+        // 12-HOUR FORMAT CLOCK
         function updateClock() {
             const now = new Date();
             document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
-            document.getElementById('live-ist').innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata' });
+            
+            // Standard 12-Hour AM/PM Format
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0 becomes 12
+            const hoursStr = hours.toString().padStart(2, '0');
+
+            document.getElementById('live-ist').innerText = `${hoursStr}:${minutes}:${seconds} ${ampm}`;
         }
 
         window.onload = () => {
