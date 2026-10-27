@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Live Evidence Desk</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Institutional Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -35,7 +35,7 @@
                 <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">AR</div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">LIVE INSTITUTIONAL EVIDENCE DESK</p>
+                    <p class="text-[11px] text-gray-400">INSTITUTIONAL MACRO REAL-TIME ENGINE</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -87,10 +87,10 @@
     <!-- MAIN TWO-COLUMN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER NEWS DESK + DYNAMIC EVIDENCE SOURCES -->
+        <!-- LEFT: RED FOLDER NEWS DESK + EVIDENCE SOURCES -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
-            <div class="glass-card rounded-xl p-3 flex flex-col h-[300px]">
+            <div class="glass-card rounded-xl p-3 flex flex-col h-[320px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-folder text-red-500"></i> RED FOLDER NEWS
@@ -123,7 +123,7 @@
                     <div class="bg-gray-950/90 rounded-lg p-2.5 border border-gray-800 mb-3 font-mono text-[11px]">
                         <div id="ev-schedule" class="text-white font-bold mb-1">Event: --</div>
                         <div class="text-gray-400">Collection: T-48h | Bias: T-1h | Final update: T-3min</div>
-                        <div class="text-amber-400 mt-1">Live Evidence Stream Active.</div>
+                        <div id="ai-prediction-banner" class="text-cyan-400 mt-1 font-bold">AI Prediction: Loading...</div>
                     </div>
 
                     <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -164,7 +164,7 @@
 
         <!-- RIGHT: LIVE CHART -->
         <div class="lg:col-span-7 flex flex-col">
-            <div class="glass-card rounded-xl p-2 h-[538px] flex flex-col justify-between">
+            <div class="glass-card rounded-xl p-2 h-[558px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
                     <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART</span>
                     <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
@@ -181,6 +181,7 @@
     <!-- SCRIPT -->
     <script>
         let currentNews = [];
+        let aiSignalsData = {};
         let activeChartSymbol = 'OANDA:XAUUSD';
         let dateRangeFilter = 'today';
         let currencyFilter = 'ALL';
@@ -224,6 +225,7 @@
                 const res = await fetch(`/api/news-ai-bias?range=${dateRangeFilter}`);
                 const data = await res.json();
                 currentNews = data.raw_news || [];
+                aiSignalsData = data.ai_signals || {};
                 renderIntelligence(data.intelligence || {});
                 renderNews();
             } catch (err) {
@@ -294,6 +296,8 @@
 
             filtered.forEach(item => {
                 const isSel = item.id === activeEventId;
+                const sig = aiSignalsData[item.id] || { signal: 'NEUTRAL' };
+                let badgeColor = sig.signal.includes('BUY') ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (sig.signal.includes('SELL') ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40');
 
                 const card = document.createElement('div');
                 card.className = `p-2.5 rounded-lg bg-gray-900/80 border ${isSel ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'} hover:border-gray-700 cursor-pointer transition-all`;
@@ -305,7 +309,11 @@
                             <span class="px-1.5 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 rounded border border-red-800">${item.currency}</span>
                             <span class="text-xs font-bold text-white">${item.event || item.title}</span>
                         </div>
-                        <span class="text-[10px] text-gray-400 font-mono">${item.timeFormatted || item.date}</span>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${sig.signal}</span>
+                    </div>
+                    <div class="flex justify-between items-center text-[11px] text-gray-400 mt-1 font-mono">
+                        <span>🕒 ${item.timeFormatted || item.date}</span>
+                        <span>Fcst: <strong class="text-white">${item.forecast || '--'}</strong> | Prev: <strong class="text-gray-400">${item.previous || '--'}</strong></span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -319,6 +327,7 @@
 
         function updateEvidencePanel(item) {
             const schedEl = document.getElementById('ev-schedule');
+            const aiBannerEl = document.getElementById('ai-prediction-banner');
             const fedEl = document.getElementById('ev-fed');
             const blsEl = document.getElementById('ev-bls');
             const reutersEl = document.getElementById('ev-reuters');
@@ -328,6 +337,7 @@
 
             if (!item) {
                 schedEl.innerText = 'Event: No Event Selected';
+                aiBannerEl.innerText = 'AI Prediction: Trade Standard Technical Flows';
                 fedEl.innerText = 'NOT_FETCHED';
                 blsEl.innerText = 'NOT_FETCHED';
                 reutersEl.innerText = 'NOT_CONNECTED';
@@ -337,7 +347,10 @@
                 return;
             }
 
+            const sig = aiSignalsData[item.id] || { signal: 'NEUTRAL', probability: '60%', desc: 'Analyzing macro flow.' };
+
             schedEl.innerText = `Event: ${item.date}, ${item.timeFormatted}`;
+            aiBannerEl.innerText = `AI Forecast: ${sig.signal} (${sig.probability}) • ${sig.desc}`;
             
             const ev = item.evidence || { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "NOT_CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "Just now" };
             
