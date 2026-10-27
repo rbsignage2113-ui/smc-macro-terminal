@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -65,7 +64,7 @@
     </section>
 
     <!-- TICKER TAPE -->
-    <div class="glass-card rounded-lg border border-gray-800 overflow-hidden">
+    <div class="glass-card rounded-lg border border-gray-800 overflow-hidden p-2">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -78,7 +77,10 @@
                     { "proName": "FX:AUDUSD", "title": "AUDUSD" },
                     { "proName": "FX:USDCAD", "title": "USDCAD" }
                 ],
-                "colorTheme": "dark", "isTransparent": true, "displayMode": "adaptive", "locale": "en"
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "displayMode": "adaptive",
+                "locale": "en"
             }
             </script>
         </div>
@@ -218,8 +220,15 @@
             renderWatchlist();
             document.getElementById('tradingview_chart').innerHTML = '';
             new TradingView.widget({
-                "autosize": true, "symbol": tvSymbol, "interval": "5", "timezone": "Asia/Kolkata",
-                "theme": "dark", "style": "1", "locale": "en", "toolbar_bg": "#0a0e17", "container_id": "tradingview_chart"
+                "autosize": true,
+                "symbol": tvSymbol,
+                "interval": "5",
+                "timezone": "Asia/Kolkata",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#0a0e17",
+                "container_id": "tradingview_chart"
             });
         }
 
@@ -400,13 +409,12 @@
             const now = new Date();
             document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
             
-            // Standard 12-Hour AM/PM Format
             let hours = now.getHours();
             const minutes = now.getMinutes().toString().padStart(2, '0');
             const seconds = now.getSeconds().toString().padStart(2, '0');
             const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
-            hours = hours ? hours : 12; // 0 becomes 12
+            hours = hours ? hours : 12;
             const hoursStr = hours.toString().padStart(2, '0');
 
             document.getElementById('live-ist').innerText = `${hoursStr}:${minutes}:${seconds} ${ampm}`;
