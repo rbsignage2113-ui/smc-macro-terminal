@@ -123,7 +123,6 @@ function filterAndPurgeNews(range) {
     });
 }
 
-// STRICT INSTITUTIONAL SMC CURRENCY BIAS PIPELINE
 async function runAIIntelligencePipeline(eventsList) {
     if (!eventsList || eventsList.length === 0) {
         return {
@@ -139,7 +138,6 @@ async function runAIIntelligencePipeline(eventsList) {
         };
     }
 
-    // ACCURATE DIRECTIONAL MAPPING BASED ON YOUR EXACT RULES
     const aiSignals = {
         "ff_1": { signal: "BUY (AUDUSD)", probability: "82.5%", pairs: "AUDUSD (BUY)", desc: "AUD CPI m/m (0.7%) > Prev (0.4%). Strong AUD strength." },
         "ff_2": { signal: "BUY (AUDUSD)", probability: "81.0%", pairs: "AUDUSD (BUY)", desc: "CPI y/y (4.2%) > Prev (4.0%). Hawkish RBA." },

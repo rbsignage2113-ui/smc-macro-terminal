@@ -100,7 +100,7 @@
                     <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
 
-                <!-- DATE FILTERS INCLUDING NEXT MONTH -->
+                <!-- DATE FILTERS -->
                 <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
                     <button onclick="setDateFilter('today')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
                     <button onclick="setDateFilter('this_week')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
@@ -404,7 +404,6 @@
             renderNews();
         }
 
-        // 12-HOUR FORMAT CLOCK
         function updateClock() {
             const now = new Date();
             document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
