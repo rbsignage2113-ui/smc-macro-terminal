@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Multi-Currency Red Folder Desk</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Red Folder News Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -37,13 +37,13 @@
                 <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">AR</div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">MULTI-CURRENCY RED FOLDER PRE-NEWS DESK</p>
+                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
                 <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">LONDON KILLZONE ACTIVE</span>
                 <div class="bg-gray-900 px-3 py-1 rounded border border-gray-800 text-xs font-mono text-cyan-400 flex items-center gap-2">
-                    <span id="live-date" class="text-amber-400 font-bold">Wed, Oct 28, 2026</span> | 
+                    <span id="live-date" class="text-amber-400 font-bold">--:--:--</span> | 
                     <span>IST: <strong id="live-ist" class="text-white">--:--:--</strong></span>
                 </div>
             </div>
@@ -73,15 +73,15 @@
     <!-- MAIN GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER DESK + AI ENGINE (5 COLS) -->
+        <!-- LEFT: RED FOLDER NEWS DESK + AI ENGINE (5 COLS) -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
             <div class="glass-card rounded-xl p-3 flex flex-col h-[340px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-folder text-red-500"></i> FOREX FACTORY RED FOLDERS (ALL CURRENCIES)
+                        <i class="fa-solid fa-folder text-red-500"></i> RED FOLDER NEWS
                     </span>
-                    <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT</span>
+                    <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
 
                 <!-- DATE FILTERS -->
@@ -116,14 +116,14 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 text-xs my-1">
-                    <div><span class="text-gray-400">Selected Currency:</span> <span id="ai-curr" class="font-bold text-amber-400">USD</span></div>
+                    <div><span class="text-gray-400">Selected Event:</span> <span id="ai-curr" class="font-bold text-amber-400">None Selected</span></div>
                     <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">--%</span></div>
                     <div class="col-span-2"><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-emerald-400 font-bold">--</span></div>
                 </div>
 
                 <div class="p-2 bg-gray-950/80 rounded border border-gray-800 text-[11px] text-gray-300 font-mono">
-                    <span class="text-cyan-400 font-bold">ICT Macro Blueprint & Reasoning:</span>
-                    <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300 truncate">Select any Red Folder pre-news item above to evaluate institutional bias.</p>
+                    <span class="text-cyan-400 font-bold">ICT Macro Blueprint & Strategy:</span>
+                    <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300 truncate">Select any live Red Folder news item above to evaluate institutional bias.</p>
                 </div>
             </div>
 
@@ -205,8 +205,12 @@
 
             const filtered = currentNews.filter(item => currencyFilter === 'ALL' || item.currency === currencyFilter);
 
+            // DYNAMIC "TODAY NO NEWS" ALERT CARD
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">⚠️ No Red Folder News for ${currencyFilter}.</div>`;
+                container.innerHTML = `
+                    <div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">
+                        ⚠️ Today No Red Folder News for ${currencyFilter === 'ALL' ? 'Selected Currencies' : currencyFilter}.
+                    </div>`;
                 updateAI(null);
                 return;
             }
@@ -225,13 +229,13 @@
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-2">
                             <span class="px-1.5 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 rounded border border-red-800">${item.currency}</span>
-                            <span class="text-xs font-bold text-white">${item.event}</span>
+                            <span class="text-xs font-bold text-white">${item.event || item.title}</span>
                         </div>
                         <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${currBias.outlook}</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] text-gray-400 mt-1 font-mono">
-                        <span>🕒 ${item.timeFormatted}</span>
-                        <span>Fcst: <strong class="text-white">${item.forecast}</strong> | Prev: <strong class="text-gray-400">${item.previous}</strong></span>
+                        <span>🕒 ${item.timeFormatted || item.date}</span>
+                        <span>Fcst: <strong class="text-white">${item.forecast || item.fcst || '--'}</strong> | Prev: <strong class="text-gray-400">${item.previous || item.prev || '--'}</strong></span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -245,16 +249,20 @@
 
         function updateAI(item) {
             if (!item) {
-                document.getElementById('ai-curr').innerText = 'None';
+                document.getElementById('ai-curr').innerText = 'Today No News';
                 document.getElementById('ai-prob').innerText = '0%';
-                document.getElementById('ai-pairs').innerText = '--';
-                document.getElementById('ai-desc').innerText = 'No event selected.';
+                document.getElementById('ai-pairs').innerText = 'NONE';
+                document.getElementById('ai-desc').innerText = 'No High-Impact Red Folder News scheduled. Trade standard technical ICT setups (Killzone Liquidity Sweeps & FVGs).';
+                
+                const tag = document.getElementById('ai-tag');
+                tag.innerText = 'NEUTRAL';
+                tag.className = 'px-2 py-0.5 text-xs font-bold rounded border bg-amber-500/20 text-amber-400 border-amber-500/40';
                 return;
             }
 
             const currBias = aiBiasData[item.currency] || { outlook: 'NEUTRAL', probability: '50%', pairs: 'NONE', reasoning: 'No data.' };
             
-            document.getElementById('ai-curr').innerText = `${item.currency} — ${item.event}`;
+            document.getElementById('ai-curr').innerText = `${item.currency} — ${item.event || item.title}`;
             document.getElementById('ai-prob').innerText = currBias.probability;
             document.getElementById('ai-pairs').innerText = currBias.pairs;
             document.getElementById('ai-desc').innerText = currBias.reasoning;
@@ -285,6 +293,7 @@
 
         function updateClock() {
             const now = new Date();
+            document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
             document.getElementById('live-ist').innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata' });
         }
 
