@@ -9,7 +9,6 @@ app.use(cors());
 app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 const FOREX_FACTORY_RED_FOLDERS = [
     // WED OCT 28, 2026
@@ -102,7 +101,8 @@ const FOREX_FACTORY_RED_FOLDERS = [
 function filterAndPurgeNews(range) {
     const nowMs = Date.now();
     const thirtyMinsMs = 30 * 60 * 1000;
-    const todayStr = "2026-10-27";
+    // Default to Oct 28 so today view shows Wednesday's events by default
+    const todayStr = "2026-10-28";
 
     return FOREX_FACTORY_RED_FOLDERS.filter(ev => {
         const eventMs = new Date(ev.isoTime).getTime();
@@ -124,20 +124,6 @@ function filterAndPurgeNews(range) {
 }
 
 async function runAIIntelligencePipeline(eventsList) {
-    if (!eventsList || eventsList.length === 0) {
-        return {
-            intelligence: {
-                "USD": { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 },
-                "EUR": { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 },
-                "GBP": { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 },
-                "AUD": { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 },
-                "CAD": { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 },
-                "JPY": { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 }
-            },
-            ai_signals: {}
-        };
-    }
-
     const aiSignals = {
         "ff_1": { signal: "BUY (AUDUSD)", probability: "82.5%", pairs: "AUDUSD (BUY)", desc: "AUD CPI m/m (0.7%) > Prev (0.4%). Strong AUD strength." },
         "ff_2": { signal: "BUY (AUDUSD)", probability: "81.0%", pairs: "AUDUSD (BUY)", desc: "CPI y/y (4.2%) > Prev (4.0%). Hawkish RBA." },
@@ -161,14 +147,44 @@ async function runAIIntelligencePipeline(eventsList) {
         "ff_20": { signal: "NEUTRAL", probability: "53.0%", pairs: "USDJPY (RANGE)", desc: "BOJ Press Conference rate guidance." }
     };
 
-    const intelligence = {
-        "USD": { outlook: "BULLISH", confidence: "88%", eventCount: 5, green: 3, red: 0, purple: 0, pending: 2 },
-        "EUR": { outlook: "NEUTRAL", confidence: "60%", eventCount: 3, green: 0, red: 0, purple: 0, pending: 3 },
-        "GBP": { outlook: "BULLISH", confidence: "75%", eventCount: 1, green: 1, red: 0, purple: 0, pending: 0 },
-        "AUD": { outlook: "BULLISH", confidence: "82%", eventCount: 3, green: 3, red: 0, purple: 0, pending: 0 },
-        "CAD": { outlook: "BULLISH", confidence: "85%", eventCount: 4, green: 4, red: 0, purple: 0, pending: 0 },
-        "JPY": { outlook: "NEUTRAL", confidence: "55%", eventCount: 4, green: 0, red: 0, purple: 0, pending: 4 }
-    };
+    // Dynamically calculate intelligence based on active filtered events
+    const currencies = ['USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'];
+    const intelligence = {};
+
+    currencies.forEach(curr => {
+        const currEvents = eventsList.filter(e => e.currency === curr);
+        if (currEvents.length === 0) {
+            intelligence[curr] = { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 };
+        } else {
+            let bullishCount = 0;
+            let bearishCount = 0;
+            currEvents.forEach(ev => {
+                const sig = aiSignals[ev.id]?.signal || "";
+                if (sig.includes("BUY")) bullishCount++;
+                if (sig.includes("SELL")) bearishCount++;
+            });
+
+            let outlook = "NEUTRAL";
+            let conf = "75%";
+            if (bullishCount > bearishCount) {
+                outlook = "BULLISH";
+                conf = "85%";
+            } else if (bearishCount > bullishCount) {
+                outlook = "BEARISH";
+                conf = "88%";
+            }
+
+            intelligence[curr] = {
+                outlook,
+                confidence: conf,
+                eventCount: currEvents.length,
+                green: bullishCount,
+                red: bearishCount,
+                purple: 0,
+                pending: currEvents.length - (bullishCount + bearishCount)
+            };
+        }
+    });
 
     return { intelligence, ai_signals: aiSignals };
 }
