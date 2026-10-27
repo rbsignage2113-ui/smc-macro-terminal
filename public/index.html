@@ -87,9 +87,6 @@
         </div>
     </div>
 
-    <!-- DYNAMIC CURRENCY BIAS OVERVIEW GRID -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-3" id="currency-overview-grid"></div>
-
     <!-- MAIN TWO-COLUMN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
@@ -100,27 +97,16 @@
             <div class="glass-card rounded-xl p-3 flex flex-col h-[320px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-folder text-red-500"></i> INSTITUTIONAL MACRO CALENDAR (BLS · BEA · FED)
+                        <i class="fa-solid fa-folder text-red-500"></i> INSTITUTIONAL USD MACRO CALENDAR
                     </span>
                     <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
 
                 <!-- DATE FILTERS: TODAY / THIS WEEK / THIS MONTH -->
                 <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
-                    <button onclick="setDateFilter('TODAY')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
-                    <button onclick="setDateFilter('WEEK')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
-                    <button onclick="setDateFilter('MONTH')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
-                </div>
-
-                <!-- CURRENCY FILTERS -->
-                <div class="flex flex-wrap gap-1 mb-2">
-                    <button onclick="setCurrFilter('ALL')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
-                    <button onclick="setCurrFilter('USD')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
-                    <button onclick="setCurrFilter('EUR')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">EUR</button>
-                    <button onclick="setCurrFilter('AUD')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">AUD</button>
-                    <button onclick="setCurrFilter('GBP')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">GBP</button>
-                    <button onclick="setCurrFilter('CAD')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">CAD</button>
-                    <button onclick="setCurrFilter('JPY')" class="btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
+                    <button onclick="setDateFilter('today')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
+                    <button onclick="setDateFilter('this_week')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
+                    <button onclick="setDateFilter('this_month')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
                 </div>
 
                 <!-- SCROLLABLE NEWS CARDS CONTAINER -->
@@ -178,22 +164,10 @@
 
     <!-- SCRIPT ENGINE -->
     <script>
-        const newsList = [
-            { id: 1, curr: 'USD', title: 'Non-Farm Employment Change (NFP)', date: 'Fri Oct 30 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '142K', prev: '114K', rev: 'Revised from 106K', source: 'BLS', devType: 'EMPLOYMENT' },
-            { id: 2, curr: 'USD', title: 'Unemployment Rate', date: 'Fri Oct 30 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '4.2%', prev: '4.2%', rev: 'Stable', source: 'BLS', devType: 'EMPLOYMENT' },
-            { id: 3, curr: 'USD', title: 'Average Hourly Earnings m/m', date: 'Fri Oct 30 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '0.3%', prev: '0.4%', rev: 'None', source: 'BLS', devType: 'WAGES' },
-            { id: 4, curr: 'USD', title: 'CPI m/m', date: 'Wed Oct 28 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '0.2%', prev: '0.2%', rev: 'None', source: 'BLS', devType: 'INFLATION' },
-            { id: 5, curr: 'USD', title: 'Core CPI m/m', date: 'Wed Oct 28 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '0.3%', prev: '0.3%', rev: 'None', source: 'BLS', devType: 'INFLATION' },
-            { id: 6, curr: 'USD', title: 'Core PCE Price Index m/m', date: 'Thu Oct 29 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '0.2%', prev: '0.2%', rev: 'None', source: 'BEA', devType: 'INFLATION' },
-            { id: 7, curr: 'USD', title: 'Advance GDP q/q', date: 'Thu Oct 29 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '3.0%', prev: '2.8%', rev: 'Revised', source: 'BEA', devType: 'GROWTH' },
-            { id: 8, curr: 'USD', title: 'Retail Sales m/m', date: 'Wed Oct 28 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '0.4%', prev: '0.1%', rev: 'Revised', source: 'Census Bureau', devType: 'GROWTH' },
-            { id: 9, curr: 'USD', title: 'Federal Funds Rate', date: 'Wed Oct 28 @ 11:30pm IST', range: 'WEEK', act: 'Pending', fcst: '4.75%', prev: '5.00%', rev: 'Rate Cut Cycle', source: 'Federal Reserve', devType: 'RATE' },
-            { id: 10, curr: 'USD', title: 'FOMC Statement & Press Conference', date: 'Wed Oct 28 @ 11:30pm IST', range: 'WEEK', act: 'Pending', fcst: 'Dovish', prev: 'Hawkish', rev: 'None', source: 'Federal Reserve', devType: 'SPEECH' },
-            { id: 11, curr: 'USD', title: 'ISM Manufacturing PMI', date: 'Thu Oct 29 @ 7:30pm IST', range: 'WEEK', act: 'Pending', fcst: '47.5', prev: '47.2', rev: 'None', source: 'ISM', devType: 'GROWTH' },
-            { id: 12, curr: 'USD', title: 'Unemployment Claims', date: 'Thu Oct 29 @ 6:00pm IST', range: 'WEEK', act: 'Pending', fcst: '230K', prev: '241K', rev: 'None', source: 'BLS', devType: 'EMPLOYMENT' },
-            { id: 13, curr: 'EUR', title: 'Main Refinancing Rate', date: 'Thu Oct 29 @ 6:45pm IST', range: 'WEEK', act: 'Pending', fcst: '3.40%', prev: '3.65%', rev: 'None', source: 'ECB', devType: 'RATE' },
-            { id: 14, curr: 'AUD', title: 'CPI q/q', date: 'Wed Oct 28 @ 6:00am IST', range: 'WEEK', act: 'Pending', fcst: '0.9%', prev: '1.0%', rev: 'None', source: 'ABS', devType: 'INFLATION' }
-        ];
+        let currentNews = [];
+        let activeChartSymbol = 'OANDA:XAUUSD';
+        let dateRangeFilter = 'today';
+        let activeEventId = null;
 
         const watchlistPairs = [
             { sym: 'XAUUSD', name: 'XAUUSD', price: '4,012.66', chg: '+0.47%', up: true, tv: 'OANDA:XAUUSD' },
@@ -201,20 +175,9 @@
             { sym: 'GBPUSD', name: 'GBPUSD', price: '1.3348', chg: '-0.17%', up: false, tv: 'FX:GBPUSD' },
             { sym: 'USDJPY', name: 'USDJPY', price: '157.44', chg: '+0.41%', up: true, tv: 'FX:USDJPY' },
             { sym: 'AUDUSD', name: 'AUDUSD', price: '0.7021', chg: '-0.17%', up: false, tv: 'FX:AUDUSD' },
-            { sym: 'NZDUSD', name: 'NZDUSD', price: '0.5686', chg: '-0.20%', up: false, tv: 'FX:NZDUSD' },
             { sym: 'USDCAD', name: 'USDCAD', price: '1.4017', chg: '+0.12%', up: true, tv: 'FX:USDCAD' },
-            { sym: 'EURJPY', name: 'EURJPY', price: '176.07', chg: '+0.24%', up: true, tv: 'FX:EURJPY' },
-            { sym: 'GBPJPY', name: 'GBPJPY', price: '210.17', chg: '+0.22%', up: true, tv: 'FX:GBPJPY' },
-            { sym: 'AUDJPY', name: 'AUDJPY', price: '110.54', chg: '+0.24%', up: true, tv: 'FX:AUDJPY' },
-            { sym: 'USDCHF', name: 'USDCHF', price: '0.8272', chg: '+0.28%', up: true, tv: 'FX:USDCHF' },
-            { sym: 'BTCUSD', name: 'BTCUSD', price: '79,931', chg: '-0.15%', up: false, tv: 'BITSTAMP:BTCUSD' },
-            { sym: 'ETHUSD', name: 'ETHUSD', price: '2,315.3', chg: '-0.48%', up: false, tv: 'BITSTAMP:ETHUSD' }
+            { sym: 'DXY', name: 'DXY', price: '104.20', chg: '+0.25%', up: true, tv: 'CAPITALCOM:DXY' }
         ];
-
-        let activeChartSymbol = 'OANDA:XAUUSD';
-        let dateFilter = 'TODAY';
-        let currFilter = 'ALL';
-        let activeId = 1;
 
         function renderWatchlist() {
             const container = document.getElementById('watchlist-container');
@@ -255,187 +218,128 @@
             });
         }
 
+        async function fetchUSDNews() {
+            try {
+                const res = await fetch(`/api/news-ai-bias?range=${dateRangeFilter}`);
+                const data = await res.json();
+                currentNews = data.raw_news || [];
+                renderNews();
+            } catch (err) {
+                console.error("News Fetch Error:", err);
+            }
+        }
+
         function calculateAIDecision(item) {
+            // RULE: News illana or Selected Event illana NEUTRAL
             if (!item) {
-                return { signal: 'NEUTRAL', prob: '0%', pairs: 'XAUUSD', desc: 'Select an active macro event.' };
+                return { 
+                    signal: 'NEUTRAL', 
+                    prob: '0%', 
+                    pairs: 'NONE', 
+                    desc: 'No High-Impact USD News Scheduled. Market in standard ICT technical flow.' 
+                };
             }
 
-            let fVal = parseFloat(item.fcst);
-            let pVal = parseFloat(item.prev);
-            let isUSD = item.curr === 'USD';
+            let fVal = parseFloat(item.forecast || item.fcst);
+            let pVal = parseFloat(item.prev || item.previous);
 
             if (!isNaN(fVal) && !isNaN(pVal)) {
                 if (fVal > pVal) {
-                    let sig = isUSD ? 'SELL' : 'BUY';
                     return {
-                        signal: sig,
-                        prob: '93.5% (Institutional Grade)',
-                        pairs: isUSD ? 'XAUUSD, DXY, EURUSD' : `${item.curr}USD`,
-                        desc: `${item.source} Data: Forecast (${item.fcst}) exceeds Previous (${item.prev}). Revision impact (${item.rev}) supports institutional ${isUSD ? 'Dollar expansion & Gold sell-off' : 'currency strength'}.`
+                        signal: 'SELL (XAUUSD)',
+                        prob: '88.5%',
+                        pairs: 'USDJPY, USDCAD (BUY) | XAUUSD, EURUSD (SELL)',
+                        desc: `${item.source || 'BLS/BEA'} ${item.event || item.title}: Forecast (${fVal}) exceeds Previous (${pVal}). USD strength expected. Watch for Judas Swing sweep above PDH before sell expansion.`
                     };
                 } else if (fVal < pVal) {
-                    let sig = isUSD ? 'BUY' : 'SELL';
                     return {
-                        signal: sig,
-                        prob: '92.1% (Institutional Grade)',
-                        pairs: isUSD ? 'XAUUSD, DXY, EURUSD' : `${item.curr}USD`,
-                        desc: `${item.source} Data: Forecast (${item.fcst}) lower than Previous (${item.prev}). Revision (${item.rev}) creates dovish deviation for ${isUSD ? 'Gold bullish liquidity sweep' : 'pair retracement'}.`
+                        signal: 'BUY (XAUUSD)',
+                        prob: '91.2%',
+                        pairs: 'XAUUSD, GBPUSD, EURUSD (BUY) | USDJPY (SELL)',
+                        desc: `${item.source || 'BLS/BEA'} ${item.event || item.title}: Forecast (${fVal}) below Previous (${pVal}). USD weakness expected. Look for SSL sweep and 5m CISD / FVG buy entry.`
                     };
                 }
-            }
-
-            if (item.fcst === 'Dovish') {
-                let sig = isUSD ? 'BUY' : 'SELL';
-                return {
-                    signal: sig,
-                    prob: '90.2% (Federal Reserve Outlook)',
-                    pairs: isUSD ? 'XAUUSD, DXY' : `${item.curr}USD`,
-                    desc: `${item.source} Outlook: Dovish shift detected. Market pricing rate cuts, fueling Gold buy-side liquidity.`
-                };
-            } else if (item.fcst === 'Hawkish') {
-                let sig = isUSD ? 'SELL' : 'BUY';
-                return {
-                    signal: sig,
-                    prob: '91.0% (Federal Reserve Outlook)',
-                    pairs: isUSD ? 'XAUUSD, DXY' : `${item.curr}USD`,
-                    desc: `${item.source} Outlook: Hawkish stance. Tightening liquidity strengthens Dollar index and pressures Gold.`
-                };
             }
 
             return {
                 signal: 'NEUTRAL',
-                prob: '75.0% (News Guard)',
-                pairs: 'XAUUSD',
-                desc: `${item.source} - ${item.title}: In-line metrics with prior revisions. Exercise 15-minute News Guard buffer.`
+                prob: '50%',
+                pairs: 'RANGE-BOUND',
+                desc: `${item.event || item.title}: Forecast matches previous data. No deviation driver detected.`
             };
-        }
-
-        function updateCurrencyOverview() {
-            const currencies = [
-                { code: 'USD', label: 'US USD' },
-                { code: 'EUR', label: 'EU EUR' },
-                { code: 'AUD', label: 'AU AUD' },
-                { code: 'GBP', label: 'GB GBP' },
-                { code: 'CAD', label: 'CA CAD' },
-                { code: 'JPY', label: 'JP JPY' }
-            ];
-
-            const overviewGrid = document.getElementById('currency-overview-grid');
-            overviewGrid.innerHTML = '';
-
-            currencies.forEach(c => {
-                const currEvents = newsList.filter(n => n.curr === c.code);
-                let buys = 0, sells = 0, neutrals = 0;
-
-                currEvents.forEach(e => {
-                    const res = calculateAIDecision(e);
-                    if (res.signal === 'BUY') buys++;
-                    else if (res.signal === 'SELL') sells++;
-                    else neutrals++;
-                });
-
-                let bias = buys > sells ? 'BULLISH' : (sells > buys ? 'BEARISH' : 'NEUTRAL');
-                let isBull = bias === 'BULLISH';
-                let isBear = bias === 'BEARISH';
-                let total = currEvents.length || 1;
-                let conf = (85 + (Math.abs(buys - sells) / total) * 10).toFixed(1);
-
-                const card = document.createElement('div');
-                card.className = `glass-card p-2.5 rounded-lg border-l-4 ${isBull ? 'border-emerald-500' : (isBear ? 'border-red-500' : 'border-amber-500')}`;
-                card.innerHTML = `
-                    <div class="flex justify-between text-xs font-bold">
-                        <span class="text-white">${c.label}</span>
-                        <span class="${isBull ? 'text-emerald-400' : (isBear ? 'text-red-400' : 'text-amber-400')}">${bias}</span>
-                    </div>
-                    <div class="text-[11px] text-gray-400 mt-1">🟢 ${buys} 🔴 ${sells} 🟡 ${neutrals} Neutral</div>
-                    <div class="text-[10px] text-cyan-400 mt-0.5">AI Conf: ${conf}%</div>
-                `;
-                overviewGrid.appendChild(card);
-            });
-        }
-
-        function setDateFilter(range) {
-            dateFilter = range;
-            document.getElementById('btn-today').className = range === 'TODAY' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            document.getElementById('btn-week').className = range === 'WEEK' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            document.getElementById('btn-month').className = range === 'MONTH' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            renderNews();
-        }
-
-        function setCurrFilter(curr) {
-            currFilter = curr;
-            document.querySelectorAll('.btn-curr').forEach(btn => {
-                if (btn.innerText === curr) {
-                    btn.className = "btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white";
-                } else {
-                    btn.className = "btn-curr px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300";
-                }
-            });
-            renderNews();
         }
 
         function renderNews() {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
 
-            const filtered = newsList.filter(n => {
-                const dateMatch = dateFilter === 'MONTH' ? true : (dateFilter === 'WEEK' ? (n.range === 'TODAY' || n.range === 'WEEK') : n.range === 'TODAY');
-                const currMatch = currFilter === 'ALL' || n.curr === currFilter;
-                return dateMatch && currMatch;
-            });
-
-            if (filtered.length === 0) {
+            if (currentNews.length === 0) {
                 container.innerHTML = `<div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">
-                    ⚠️ Today No Macro News for ${currFilter === 'ALL' ? 'Selected Currencies' : currFilter}.
+                    ⚠️ Today No High-Impact USD Macro News Scheduled.
                 </div>`;
                 updateAI(null);
                 return;
             }
 
-            filtered.forEach(item => {
-                const isSel = item.id === activeId;
+            currentNews.forEach(item => {
+                const isSel = item.id === activeEventId;
                 const aiRes = calculateAIDecision(item);
 
                 const card = document.createElement('div');
                 card.className = `p-2.5 rounded-lg bg-gray-900/80 border ${isSel ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'} hover:border-gray-700 cursor-pointer transition-all`;
-                card.onclick = () => { activeId = item.id; renderNews(); updateAI(item); };
+                card.onclick = () => { activeEventId = item.id; renderNews(); updateAI(item); };
 
-                let badgeColor = aiRes.signal === 'BUY' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (aiRes.signal === 'SELL' ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40');
+                let badgeColor = aiRes.signal.includes('BUY') ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (aiRes.signal.includes('SELL') ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40');
 
                 card.innerHTML = `
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-2">
-                            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-cyan-500/20 text-cyan-400 rounded border border-cyan-500/40">${item.source}</span>
-                            <span class="text-xs font-bold text-white">${item.title}</span>
+                            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-cyan-500/20 text-cyan-400 rounded border border-cyan-500/40">${item.source || 'USD'}</span>
+                            <span class="text-xs font-bold text-white">${item.event || item.title}</span>
                         </div>
                         <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${aiRes.signal}</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] text-gray-400 mt-1 font-mono">
-                        <span>🕒 ${item.date}</span>
-                        <span>Fcst: <strong class="text-white">${item.fcst}</strong> | Prev: <strong class="text-gray-400">${item.prev}</strong></span>
+                        <span>🕒 ${item.timeFormatted || item.date}</span>
+                        <span>Fcst: <strong class="text-white">${item.forecast || item.fcst || '--'}</strong> | Prev: <strong class="text-gray-400">${item.prev || item.previous || '--'}</strong></span>
                     </div>
                 `;
                 container.appendChild(card);
             });
+
+            if (!activeEventId && currentNews.length > 0) {
+                activeEventId = currentNews[0].id;
+                updateAI(currentNews[0]);
+            }
         }
 
         function updateAI(item) {
             const aiRes = calculateAIDecision(item);
-            document.getElementById('ai-event').innerText = item ? `${item.source} - ${item.title}` : 'None Selected';
-            document.getElementById('ai-source').innerText = item ? item.source : 'BLS / BEA / FED';
+            
+            document.getElementById('ai-event').innerText = item ? (item.event || item.title) : 'No USD News Today';
+            document.getElementById('ai-source').innerText = item ? (item.source || 'BLS / BEA / FED') : 'N/A';
             document.getElementById('ai-prob').innerText = aiRes.prob;
-            document.getElementById('ai-rev').innerText = item ? item.rev : 'None';
+            document.getElementById('ai-rev').innerText = item ? (item.rev || 'None') : 'None';
             document.getElementById('ai-desc').innerText = aiRes.desc;
             
             const tag = document.getElementById('ai-tag');
             tag.innerText = aiRes.signal;
-            if (aiRes.signal === 'BUY') {
+
+            if (aiRes.signal.includes('BUY')) {
                 tag.className = 'px-2 py-0.5 text-xs font-bold rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40';
-            } else if (aiRes.signal === 'SELL') {
+            } else if (aiRes.signal.includes('SELL')) {
                 tag.className = 'px-2 py-0.5 text-xs font-bold rounded bg-red-500/20 text-red-400 border border-red-500/40';
             } else {
                 tag.className = 'px-2 py-0.5 text-xs font-bold rounded bg-amber-500/20 text-amber-400 border border-amber-500/40';
             }
+        }
+
+        function setDateFilter(range) {
+            dateRangeFilter = range;
+            document.getElementById('btn-today').className = range === 'today' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            document.getElementById('btn-week').className = range === 'this_week' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            document.getElementById('btn-month').className = range === 'this_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+            fetchUSDNews();
         }
 
         function updateClock() {
@@ -445,8 +349,7 @@
         }
 
         window.onload = () => {
-            updateCurrencyOverview();
-            renderNews();
+            fetchUSDNews();
             renderWatchlist();
             loadChart('OANDA:XAUUSD');
             setInterval(updateClock, 1000);
