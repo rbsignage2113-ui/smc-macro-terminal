@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Evidence Sources Desk</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Live Evidence Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -35,7 +35,7 @@
                 <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">AR</div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">INSTITUTIONAL EVIDENCE & REAL-TIME DESK</p>
+                    <p class="text-[11px] text-gray-400">LIVE INSTITUTIONAL EVIDENCE DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -87,7 +87,7 @@
     <!-- MAIN TWO-COLUMN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER NEWS DESK + EVIDENCE SOURCES PANEL -->
+        <!-- LEFT: RED FOLDER NEWS DESK + DYNAMIC EVIDENCE SOURCES -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
             <div class="glass-card rounded-xl p-3 flex flex-col h-[300px]">
@@ -117,14 +117,13 @@
                 <div id="news-container" class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1"></div>
             </div>
 
-            <!-- EVIDENCE SOURCES PANEL (REPLACED AI ENGINE) -->
+            <!-- DYNAMIC EVIDENCE SOURCES PANEL -->
             <div class="glass-card rounded-xl p-3 border border-gray-800 flex flex-col justify-between">
                 <div>
-                    <!-- Event Timeline Card -->
                     <div class="bg-gray-950/90 rounded-lg p-2.5 border border-gray-800 mb-3 font-mono text-[11px]">
-                        <div id="ev-schedule" class="text-white font-bold mb-1">Event: 10/28/2026, 11:30:00 PM</div>
+                        <div id="ev-schedule" class="text-white font-bold mb-1">Event: --</div>
                         <div class="text-gray-400">Collection: T-48h | Bias: T-1h | Final update: T-3min</div>
-                        <div class="text-amber-400 mt-1">Timeline is planned; scheduling not yet active.</div>
+                        <div class="text-amber-400 mt-1">Live Evidence Stream Active.</div>
                     </div>
 
                     <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -134,30 +133,30 @@
                     <div class="space-y-1.5 text-xs font-mono">
                         <div class="flex justify-between items-center py-1 border-b border-gray-800/60">
                             <span class="text-gray-300">Federal Reserve</span>
-                            <span class="text-gray-400 font-bold">NOT_FETCHED</span>
+                            <span id="ev-fed" class="font-bold text-gray-400">NOT_FETCHED</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-gray-800/60">
                             <span class="text-gray-300">Bureau of Labor Statistics</span>
-                            <span class="text-amber-400 font-bold text-[11px]">PUBLICATION_VERIFICATION_PENDING</span>
+                            <span id="ev-bls" class="font-bold text-[11px] text-amber-400">NOT_FETCHED</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-gray-800/60">
                             <span class="text-gray-300">Reuters</span>
-                            <span class="text-gray-400 font-bold">NOT_CONNECTED</span>
+                            <span id="ev-reuters" class="font-bold text-gray-400">NOT_CONNECTED</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-gray-800/60">
                             <span class="text-gray-300">Bloomberg</span>
-                            <span class="text-gray-400 font-bold">NOT_CONNECTED</span>
+                            <span id="ev-bloomberg" class="font-bold text-gray-400">NOT_CONNECTED</span>
                         </div>
                         <div class="flex justify-between items-center py-1">
                             <span class="text-gray-300">CME FedWatch</span>
-                            <span class="text-gray-400 font-bold">NOT_CONNECTED</span>
+                            <span id="ev-cme" class="font-bold text-gray-400">NOT_CONNECTED</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center pt-3 mt-2 border-t border-gray-800/80 text-[10px] text-gray-400 font-mono">
-                    <span class="text-cyan-400 animate-pulse">Refreshing evidence...</span>
-                    <span>Last updated: 10/19/2026, 3:02:16 PM</span>
+                    <span class="text-cyan-400 animate-pulse">Live sync active...</span>
+                    <span id="ev-updated">Last updated: --</span>
                 </div>
             </div>
 
@@ -289,7 +288,7 @@
                     <div class="text-center py-8 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-3">
                         ⚠️ Today No Red Folder News for ${currencyFilter === 'ALL' ? 'Selected Currencies' : currencyFilter}.
                     </div>`;
-                updateEventSchedule(null);
+                updateEvidencePanel(null);
                 return;
             }
 
@@ -298,7 +297,7 @@
 
                 const card = document.createElement('div');
                 card.className = `p-2.5 rounded-lg bg-gray-900/80 border ${isSel ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'} hover:border-gray-700 cursor-pointer transition-all`;
-                card.onclick = () => { activeEventId = item.id; renderNews(); updateEventSchedule(item); };
+                card.onclick = () => { activeEventId = item.id; renderNews(); updateEvidencePanel(item); };
 
                 card.innerHTML = `
                     <div class="flex justify-between items-center">
@@ -314,17 +313,50 @@
 
             if ((!activeEventId || !filtered.some(e => e.id === activeEventId)) && filtered.length > 0) {
                 activeEventId = filtered[0].id;
-                updateEventSchedule(filtered[0]);
+                updateEvidencePanel(filtered[0]);
             }
         }
 
-        function updateEventSchedule(item) {
+        function updateEvidencePanel(item) {
             const schedEl = document.getElementById('ev-schedule');
+            const fedEl = document.getElementById('ev-fed');
+            const blsEl = document.getElementById('ev-bls');
+            const reutersEl = document.getElementById('ev-reuters');
+            const bloombergEl = document.getElementById('ev-bloomberg');
+            const cmeEl = document.getElementById('ev-cme');
+            const updatedEl = document.getElementById('ev-updated');
+
             if (!item) {
                 schedEl.innerText = 'Event: No Event Selected';
+                fedEl.innerText = 'NOT_FETCHED';
+                blsEl.innerText = 'NOT_FETCHED';
+                reutersEl.innerText = 'NOT_CONNECTED';
+                bloombergEl.innerText = 'NOT_CONNECTED';
+                cmeEl.innerText = 'NOT_CONNECTED';
+                updatedEl.innerText = 'Last updated: --';
                 return;
             }
-            schedEl.innerText = `Event: ${item.date || '10/28/2026'}, ${item.timeFormatted || '11:30:00 PM'}`;
+
+            schedEl.innerText = `Event: ${item.date}, ${item.timeFormatted}`;
+            
+            const ev = item.evidence || { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "NOT_CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "Just now" };
+            
+            fedEl.innerText = ev.fed;
+            fedEl.className = `font-bold ${ev.fed === 'FETCHED' ? 'text-emerald-400' : 'text-gray-400'}`;
+
+            blsEl.innerText = ev.bls;
+            blsEl.className = `font-bold text-[11px] ${ev.bls.includes('PENDING') ? 'text-amber-400' : (ev.bls === 'FETCHED' ? 'text-emerald-400' : 'text-gray-400')}`;
+
+            reutersEl.innerText = ev.reuters;
+            reutersEl.className = `font-bold ${ev.reuters === 'CONNECTED' ? 'text-emerald-400' : 'text-gray-400'}`;
+
+            bloombergEl.innerText = ev.bloomberg;
+            bloombergEl.className = `font-bold ${ev.bloomberg === 'CONNECTED' ? 'text-emerald-400' : 'text-gray-400'}`;
+
+            cmeEl.innerText = ev.cme;
+            cmeEl.className = `font-bold ${ev.cme === 'CONNECTED' ? 'text-emerald-400' : 'text-gray-400'}`;
+
+            updatedEl.innerText = `Last updated: ${ev.updated}`;
         }
 
         function setDateFilter(range) {
