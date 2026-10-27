@@ -1,207 +1,892 @@
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
-require('dotenv').config();
+﻿
+"use strict";
+
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+require("dotenv").config();
+
+const arRizqAI = require("./ai-engine");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
-app.use(express.static('public'));
-
 const PORT = process.env.PORT || 3000;
+const ZONE = "Asia/Kolkata";
 
-// FOREX FACTORY RED FOLDERS DATABASE
-const FOREX_FACTORY_RED_FOLDERS = [
-    // WED OCT 28, 2026
-    { 
-        id: "ff_1", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 AM IST", isoTime: "2026-10-28T06:00:00+05:30", currency: "AUD", event: "CPI m/m", forecast: "0.7%", previous: "0.4%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/28/2026, 05:45:00 AM" }
-    },
-    { 
-        id: "ff_2", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 AM IST", isoTime: "2026-10-28T06:00:00+05:30", currency: "AUD", event: "CPI y/y", forecast: "4.2%", previous: "4.0%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/28/2026, 05:45:00 AM" }
-    },
-    { 
-        id: "ff_3", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 AM IST", isoTime: "2026-10-28T06:00:00+05:30", currency: "AUD", event: "Trimmed Mean CPI m/m", forecast: "0.3%", previous: "0.2%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/28/2026, 05:45:00 AM" }
-    },
-    { 
-        id: "ff_4", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "06:00 PM IST", isoTime: "2026-10-28T18:00:00+05:30", currency: "GBP", event: "Annual Budget Release", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/28/2026, 05:30:00 PM" }
-    },
-    { 
-        id: "ff_5", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "07:15 PM IST", isoTime: "2026-10-28T19:15:00+05:30", currency: "CAD", event: "BOC Monetary Policy Report", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/28/2026, 07:00:00 PM" }
-    },
-    { 
-        id: "ff_6", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "07:15 PM IST", isoTime: "2026-10-28T19:15:00+05:30", currency: "CAD", event: "BOC Rate Statement", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/28/2026, 07:00:00 PM" }
-    },
-    { 
-        id: "ff_7", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "07:15 PM IST", isoTime: "2026-10-28T19:15:00+05:30", currency: "CAD", event: "Overnight Rate", forecast: "2.50%", previous: "2.25%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/28/2026, 07:00:00 PM" }
-    },
-    { 
-        id: "ff_8", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "08:00 PM IST", isoTime: "2026-10-28T20:00:00+05:30", currency: "CAD", event: "BOC Press Conference", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/28/2026, 07:45:00 PM" }
-    },
-    { 
-        id: "ff_9", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "11:30 PM IST", isoTime: "2026-10-28T23:30:00+05:30", currency: "USD", event: "Federal Funds Rate", forecast: "4.00%", previous: "4.00%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/28/2026, 11:15:00 PM" }
-    },
-    { 
-        id: "ff_10", date: "2026-10-28", dayFormatted: "Wed Oct 28", timeFormatted: "11:30 PM IST", isoTime: "2026-10-28T23:30:00+05:30", currency: "USD", event: "FOMC Statement", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/28/2026, 11:15:00 PM" }
-    },
+const FF_FILE = path.join(
+  __dirname,
+  "data",
+  "forex-factory-week.json"
+);
 
-    // THU OCT 29, 2026
-    { 
-        id: "ff_11", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "12:00 AM IST", isoTime: "2026-10-29T00:00:00+05:30", currency: "USD", event: "FOMC Press Conference", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "CONNECTED", updated: "10/29/2026, 12:00:00 AM" }
-    },
-    { 
-        id: "ff_12", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:00 PM IST", isoTime: "2026-10-29T18:00:00+05:30", currency: "USD", event: "Advance GDP q/q", forecast: "3.2%", previous: "2.2%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/29/2026, 05:30:00 PM" }
-    },
-    { 
-        id: "ff_13", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:00 PM IST", isoTime: "2026-10-29T18:00:00+05:30", currency: "USD", event: "Core PCE Price Index m/m", forecast: "0.3%", previous: "0.2%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "PUBLICATION_VERIFICATION_PENDING", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/29/2026, 05:30:00 PM" }
-    },
-    { 
-        id: "ff_14", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:45 PM IST", isoTime: "2026-10-29T18:45:00+05:30", currency: "EUR", event: "Main Refinancing Rate", forecast: "2.65%", previous: "2.65%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/29/2026, 06:15:00 PM" }
-    },
-    { 
-        id: "ff_15", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "06:45 PM IST", isoTime: "2026-10-29T18:45:00+05:30", currency: "EUR", event: "Monetary Policy Statement", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/29/2026, 06:15:00 PM" }
-    },
-    { 
-        id: "ff_16", date: "2026-10-29", dayFormatted: "Thu Oct 29", timeFormatted: "07:15 PM IST", isoTime: "2026-10-29T19:15:00+05:30", currency: "EUR", event: "ECB Press Conference", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/29/2026, 07:00:00 PM" }
-    },
+const FINANCE_API =
+  "https://www.financecalendar.com/wp-json/fc/v1/calendar";
 
-    // FRI OCT 30, 2026
-    { 
-        id: "ff_17", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTime: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Policy Rate", forecast: "<1.25%", previous: "<1.25%", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
-    },
-    { 
-        id: "ff_18", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTime: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "Monetary Policy Statement", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
-    },
-    { 
-        id: "ff_19", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTime: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Outlook Report", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
-    },
-    { 
-        id: "ff_20", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTime: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Press Conference", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
-    }
+const CURRENCIES = [
+  "USD", "EUR", "GBP", "AUD", "CAD", "JPY"
 ];
 
-function filterAndPurgeNews(range) {
-    const nowMs = Date.now();
-    const thirtyMinsMs = 30 * 60 * 1000;
-    const todayStr = "2026-10-28";
+const COUNTRY_MAP = {
+  US: "USD",
+  EU: "EUR",
+  DE: "EUR",
+  FR: "EUR",
+  IT: "EUR",
+  ES: "EUR",
+  GB: "GBP",
+  AU: "AUD",
+  CA: "CAD",
+  JP: "JPY"
+};
 
-    return FOREX_FACTORY_RED_FOLDERS.filter(ev => {
-        const eventMs = new Date(ev.isoTime).getTime();
-        if (nowMs > (eventMs + thirtyMinsMs)) {
-            return false;
-        }
+const cache = new Map();
 
-        if (range === 'today') {
-            return ev.date === todayStr;
-        } else if (range === 'this_week') {
-            return ev.date >= "2026-10-25" && ev.date <= "2026-10-31";
-        } else if (range === 'this_month') {
-            return ev.date >= "2026-10-01" && ev.date <= "2026-10-31";
-        } else if (range === 'next_month') {
-            return ev.date >= "2026-11-01" && ev.date <= "2026-11-30";
-        }
-        return true;
-    });
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+// =====================================================
+// TIME HELPERS
+// =====================================================
+
+function dateIST(d = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(d);
+
+  const get = key =>
+    parts.find(p => p.type === key)?.value || "";
+
+  return `${get("year")}-${get("month")}-${get("day")}`;
 }
 
-// AI ENGINE WITH ABSOLUTE PER-EVENT BUY/SELL/NEUTRAL MAPPING
-async function runAIIntelligencePipeline(eventsList) {
-    const aiSignals = {
-        "ff_1": { signal: "BUY (AUDUSD)", probability: "82.5%", pairs: "AUDUSD (BUY)", desc: "AUD CPI m/m (0.7%) > Prev (0.4%). Strong AUD strength." },
-        "ff_2": { signal: "BUY (AUDUSD)", probability: "81.0%", pairs: "AUDUSD (BUY)", desc: "CPI y/y (4.2%) > Prev (4.0%). Hawkish RBA." },
-        "ff_3": { signal: "BUY (AUDUSD)", probability: "80.2%", pairs: "AUDUSD (BUY)", desc: "Trimmed Mean CPI (0.3%) signals AUD strength." },
-        "ff_4": { signal: "BUY (GBPUSD)", probability: "75.0%", pairs: "GBPUSD (BUY)", desc: "UK Annual Budget expansion supports GBP." },
-        "ff_5": { signal: "SELL (USDCAD)", probability: "83.0%", pairs: "USDCAD (SELL)", desc: "BOC Policy Report hawkish tone strengthens CAD." },
-        "ff_6": { signal: "SELL (USDCAD)", probability: "84.1%", pairs: "USDCAD (SELL)", desc: "BOC Statement bullish for CAD." },
-        "ff_7": { signal: "SELL (USDCAD)", probability: "85.2%", pairs: "USDCAD (SELL), CADJPY (BUY)", desc: "Overnight Rate hike to 2.50% drives USDCAD down." },
-        "ff_8": { signal: "SELL (USDCAD)", probability: "82.0%", pairs: "USDCAD (SELL)", desc: "BOC Press Conference hawkish stance." },
-        "ff_9": { signal: "SELL (XAUUSD)", probability: "88.0%", pairs: "XAUUSD (SELL), EURUSD (SELL)", desc: "Fed Rate hold at 4.00% maintains USD Strength -> Gold & EUR Down." },
-        "ff_10": { signal: "SELL (XAUUSD)", probability: "87.5%", pairs: "XAUUSD (SELL), GBPUSD (SELL)", desc: "FOMC Statement hawkish undertone boosts USD index." },
-        "ff_11": { signal: "SELL (XAUUSD)", probability: "86.0%", pairs: "XAUUSD (SELL), AUDUSD (SELL)", desc: "FOMC Press Conference liquidity sweep above PDH." },
-        "ff_12": { signal: "BUY (XAUUSD)", probability: "89.4%", pairs: "XAUUSD (BUY), EURUSD (BUY)", desc: "Advance GDP forecast (3.2%) revision softens USD yield." },
-        "ff_13": { signal: "BUY (XAUUSD)", probability: "84.1%", pairs: "XAUUSD (BUY)", desc: "Core PCE Price Index inline with expectations." },
-        "ff_14": { signal: "NEUTRAL", probability: "60.0%", pairs: "EURUSD (RANGE)", desc: "ECB Refinancing Rate hold at 2.65%." },
-        "ff_15": { signal: "NEUTRAL", probability: "61.0%", pairs: "EURUSD (RANGE)", desc: "ECB Policy Statement neutral tone." },
-        "ff_16": { signal: "NEUTRAL", probability: "59.0%", pairs: "EURUSD (RANGE)", desc: "ECB Press Conference consolidation guidance." },
-        "ff_17": { signal: "NEUTRAL", probability: "55.0%", pairs: "USDJPY (RANGE)", desc: "BOJ Rate hold below 1.25%." },
-        "ff_18": { signal: "NEUTRAL", probability: "54.0%", pairs: "USDJPY (RANGE)", desc: "BOJ Policy Statement neutral stance." },
-        "ff_19": { signal: "NEUTRAL", probability: "55.0%", pairs: "USDJPY (RANGE)", desc: "BOJ Outlook Report range-bound flow." },
-        "ff_20": { signal: "NEUTRAL", probability: "53.0%", pairs: "USDJPY (RANGE)", desc: "BOJ Press Conference rate guidance." }
+function fullIST(d = new Date()) {
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: ZONE,
+    dateStyle: "medium",
+    timeStyle: "medium"
+  }).format(d) + " IST";
+}
+
+function timeIST(d) {
+  return new Intl.DateTimeFormat("en-IN", {
+    timeZone: ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  }).format(d) + " IST";
+}
+
+function addDays(s, n) {
+  const d = new Date(s + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function getBounds(range) {
+  const today = dateIST();
+  const d = new Date(today + "T00:00:00Z");
+
+  const day = d.getUTCDay();
+
+  const monday = addDays(
+    today,
+    day === 0 ? -6 : 1 - day
+  );
+
+  if (range === "today") {
+    return { from: today, to: today };
+  }
+
+  if (range === "this_week") {
+    return {
+      from: monday,
+      to: addDays(monday, 6)
+    };
+  }
+
+  if (range === "next_week") {
+    return {
+      from: addDays(monday, 7),
+      to: addDays(monday, 13)
+    };
+  }
+
+  const [y, m] = today.split("-").map(Number);
+
+  if (range === "this_month") {
+    return {
+      from: `${y}-${String(m).padStart(2, "0")}-01`,
+      to: new Date(Date.UTC(y, m, 0))
+        .toISOString()
+        .slice(0, 10)
+    };
+  }
+
+  if (range === "next_month") {
+    return {
+      from: new Date(Date.UTC(y, m, 1))
+        .toISOString()
+        .slice(0, 10),
+      to: new Date(Date.UTC(y, m + 1, 0))
+        .toISOString()
+        .slice(0, 10)
+    };
+  }
+
+  return {
+    from: today,
+    to: addDays(today, 90)
+  };
+}
+
+function clean(value) {
+  if (
+    value === null ||
+    value === undefined ||
+    String(value).trim() === ""
+  ) {
+    return "-";
+  }
+
+  return String(value).trim();
+}
+
+function hasValue(value) {
+  const v = clean(value);
+  return v !== "-" && v !== "—" && v !== "N/A";
+}
+
+function eventStatus(iso) {
+  if (!iso) return "TIME_UNVERIFIED";
+
+  const diff = Date.parse(iso) - Date.now();
+
+  if (diff > 0) return "UPCOMING";
+
+  if (diff >= -3600000) {
+    return "RECENTLY_RELEASED";
+  }
+
+  return "PAST";
+}
+
+// =====================================================
+// NORMALIZE NEWS DATA
+// =====================================================
+
+function normalize(row, index, source) {
+  const isFF = source === "FOREX_FACTORY_LOCAL";
+
+  const rawCountry = String(
+    row.country || row.currency || ""
+  ).toUpperCase();
+
+  const currency = CURRENCIES.includes(rawCountry)
+    ? rawCountry
+    : COUNTRY_MAP[rawCountry];
+
+  if (!CURRENCIES.includes(currency)) {
+    return null;
+  }
+
+  if (
+    String(row.impact || "").toLowerCase() !== "high"
+  ) {
+    return null;
+  }
+
+  const rawDate = isFF
+    ? row.date
+    : (
+      row.release_at_utc ||
+      row.time_utc ||
+      row.date
+    );
+
+  const parsed = rawDate ? new Date(rawDate) : null;
+
+  const valid = parsed &&
+    Number.isFinite(parsed.getTime());
+
+  const iso = valid ? parsed.toISOString() : null;
+
+  const eventDate = valid
+    ? dateIST(parsed)
+    : null;
+
+  if (!eventDate) return null;
+
+  const dayFormatted = new Intl.DateTimeFormat(
+    "en-US",
+    {
+      timeZone: "UTC",
+      weekday: "short",
+      month: "short",
+      day: "2-digit"
+    }
+  ).format(
+    new Date(eventDate + "T12:00:00Z")
+  );
+
+  const eventName = isFF
+    ? (row.title || row.event || row.name)
+    : (
+      row.name ||
+      row.series_name ||
+      row.title ||
+      row.event
+    );
+
+  const id = isFF
+    ? `ff_${index}_${Date.parse(row.date)}`
+    : String(row.id || `fc_${index}`);
+
+  return {
+    id,
+    date: eventDate,
+    dayFormatted,
+    timeFormatted: valid
+      ? timeIST(parsed)
+      : "Time TBC",
+    isoTime: iso,
+    isoTarget: iso,
+    currency,
+    event: clean(eventName),
+    impact: "high",
+
+    forecast: clean(
+      isFF
+        ? row.forecast
+        : (row.consensus ?? row.forecast)
+    ),
+
+    previous: clean(
+      isFF
+        ? row.previous
+        : (row.prior ?? row.previous)
+    ),
+
+    actual: clean(
+      isFF ? row.actual : row.actual
+    ),
+
+    status: eventStatus(iso),
+
+    source: isFF
+      ? "Forex Factory weekly local import"
+      : "Finance Calendar",
+
+    dataMode: isFF
+      ? "LOCAL_SNAPSHOT"
+      : "PROVIDER_CALENDAR",
+
+    sourceUrl: isFF
+      ? null
+      : (row.source_url || null),
+
+    dataStale: isFF
+      ? null
+      : (row.data_stale ?? null)
+  };
+}
+
+// =====================================================
+// FOREX FACTORY LOCAL FILE
+// =====================================================
+
+function readForexFactory() {
+  if (!fs.existsSync(FF_FILE)) {
+    throw new Error(
+      "Missing data/forex-factory-week.json"
+    );
+  }
+
+  const data = JSON.parse(
+    fs.readFileSync(FF_FILE, "utf8")
+  );
+
+  if (!Array.isArray(data)) {
+    throw new Error(
+      "Forex Factory JSON must be an array"
+    );
+  }
+
+  return {
+    rows: data,
+    fetchedAt: fs.statSync(FF_FILE)
+      .mtime
+      .toISOString()
+  };
+}
+
+// =====================================================
+// OPTIONAL FINANCE CALENDAR PROVIDER
+// =====================================================
+
+async function readFinanceCalendar(from, to) {
+  const key = `${from}_${to}`;
+  const old = cache.get(key);
+
+  if (old && Date.now() - old.time < 300000) {
+    return old.data;
+  }
+
+  const params = new URLSearchParams({
+    from,
+    to,
+    country: "US,EU,DE,GB,AU,CA,JP",
+    impact: "high",
+    tz: ZONE,
+    limit: "500"
+  });
+
+  const headers = {
+    Accept: "application/json"
+  };
+
+  if (process.env.FC_API_KEY) {
+    headers["X-API-Key"] =
+      process.env.FC_API_KEY;
+  }
+
+  const controller = new AbortController();
+
+  const timer = setTimeout(
+    () => controller.abort(),
+    15000
+  );
+
+  try {
+    const rows = [];
+    let total = null;
+
+    for (let page = 0; page < 10; page++) {
+      params.set("offset", String(rows.length));
+
+      const response = await fetch(
+        `${FINANCE_API}?${params}`,
+        {
+          headers,
+          signal: controller.signal
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Finance Calendar HTTP ${response.status}`
+        );
+      }
+
+      const json = await response.json();
+
+      if (!Array.isArray(json.events)) {
+        throw new Error(
+          "Invalid Finance Calendar response"
+        );
+      }
+
+      rows.push(...json.events);
+
+      total = Number(
+        json.total ?? rows.length
+      );
+
+      if (
+        json.events.length === 0 ||
+        rows.length >= total
+      ) {
+        break;
+      }
+
+      if (page === 9) {
+        throw new Error(
+          "Finance Calendar pagination incomplete"
+        );
+      }
+    }
+
+    const result = {
+      rows,
+      fetchedAt: new Date().toISOString()
     };
 
-    const currencies = ['USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'];
-    const intelligence = {};
-
-    currencies.forEach(curr => {
-        const currEvents = eventsList.filter(e => e.currency === curr);
-        if (currEvents.length === 0) {
-            intelligence[curr] = { outlook: "NEUTRAL", confidence: "No News", eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 };
-        } else {
-            let bullishCount = 0;
-            let bearishCount = 0;
-            currEvents.forEach(ev => {
-                const sig = aiSignals[ev.id]?.signal || "";
-                if (sig.includes("BUY")) bullishCount++;
-                if (sig.includes("SELL")) bearishCount++;
-            });
-
-            let outlook = "NEUTRAL";
-            let conf = "75%";
-            if (bullishCount > bearishCount) {
-                outlook = "BULLISH";
-                conf = "85%";
-            } else if (bearishCount > bullishCount) {
-                outlook = "BEARISH";
-                conf = "88%";
-            }
-
-            intelligence[curr] = {
-                outlook,
-                confidence: conf,
-                eventCount: currEvents.length,
-                green: bullishCount,
-                red: bearishCount,
-                purple: 0,
-                pending: currEvents.length - (bullishCount + bearishCount)
-            };
-        }
+    cache.set(key, {
+      time: Date.now(),
+      data: result
     });
 
-    return { intelligence, ai_signals: aiSignals };
+    return result;
+
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
-app.get('/api/news-ai-bias', async (req, res) => {
-    const range = req.query.range || 'today';
-    const filteredNews = filterAndPurgeNews(range);
-    const aiAnalysis = await runAIIntelligencePipeline(filteredNews);
+// =====================================================
+// AI ENGINE ADAPTER
+// =====================================================
 
-    res.json({
-        range,
-        raw_news: filteredNews,
-        intelligence: aiAnalysis.intelligence,
-        ai_signals: aiAnalysis.ai_signals
+function analyzeEvent(event) {
+  try {
+    return arRizqAI.analyzeNews({
+      event: event.event,
+      currency: event.currency,
+      forecast: event.forecast,
+      previous: event.previous,
+      actual: event.actual
     });
+  } catch (error) {
+    console.error(
+      "AI analysis error:",
+      event.event,
+      error.message
+    );
+
+    return {
+      phase: "UNAVAILABLE",
+      category: "UNKNOWN",
+      bias: "NEUTRAL",
+      signal: "NEUTRAL",
+      confirmed: false,
+      confidence: "NOT_CALIBRATED",
+      explanation:
+        "Analysis unavailable. Wait for verification.",
+      pairs: [],
+      scenarios: {}
+    };
+  }
+}
+
+function normalizeBias(value) {
+  const s = String(value || "")
+    .trim()
+    .toUpperCase();
+
+  if (
+    s === "BULLISH" ||
+    s === "BUY" ||
+    s === "BUY_BIAS"
+  ) {
+    return "BULLISH";
+  }
+
+  if (
+    s === "BEARISH" ||
+    s === "SELL" ||
+    s === "SELL_BIAS"
+  ) {
+    return "BEARISH";
+  }
+
+  return "NEUTRAL";
+}
+
+function buildAnalysis(events) {
+  const intelligence = {};
+  const ai_signals = {};
+  const detailedSignals = [];
+
+  for (const event of events) {
+    const result = analyzeEvent(event);
+
+    const actualAvailable = hasValue(event.actual);
+    const forecastAvailable = hasValue(event.forecast);
+
+    // A numeric actual is necessary, but is not sufficient:
+    // the engine must also explicitly confirm its interpretation.
+    const confirmed = Boolean(
+      result.confirmed === true &&
+      actualAvailable &&
+      forecastAvailable
+    );
+
+    const bias = confirmed
+      ? normalizeBias(result.bias || result.signal)
+      : "NEUTRAL";
+
+    const explanation = clean(
+      result.explanation ||
+      "Economic result requires verification."
+    );
+
+    const signal =
+      bias === "BULLISH" ? "BULLISH" :
+      bias === "BEARISH" ? "BEARISH" :
+      "NEUTRAL";
+
+    const pairRows = Array.isArray(result.pairs)
+      ? result.pairs.map(pair => ({
+          ...pair,
+          direction: confirmed
+            ? clean(pair.direction)
+            : "NEUTRAL",
+          confirmed
+        }))
+      : [];
+
+    ai_signals[event.id] = {
+      signal,
+      bias,
+      confirmed,
+      probability: "Not calibrated",
+      confidence: "NOT_CALIBRATED",
+      desc: explanation,
+      reason: explanation,
+      phase: clean(result.phase),
+      category: clean(result.category),
+      pairs: pairRows
+    };
+
+    detailedSignals.push({
+      eventId: event.id,
+      event: event.event,
+      currency: event.currency,
+      date: event.date,
+      isoTime: event.isoTime,
+      phase: clean(result.phase),
+      category: clean(result.category),
+      bias,
+      signal,
+      confirmed,
+      confidence: "NOT_CALIBRATED",
+      explanation,
+      scenarios: result.scenarios || {},
+      forecast: event.forecast,
+      previous: event.previous,
+      actual: event.actual,
+      pairs: pairRows,
+      source: event.source,
+      disclaimer:
+        "Rule-based macro scenario. Not a calibrated " +
+        "prediction or automatic trade recommendation."
+    });
+  }
+
+  // Currency-level aggregation:
+  // only confirmed, non-neutral event evidence is counted.
+  // Conflicting evidence => NEUTRAL.
+  // This is a simple consensus rule, not a probability model.
+
+  for (const currency of CURRENCIES) {
+    const rows = events.filter(
+      event => event.currency === currency
+    );
+
+    let bullish = 0;
+    let bearish = 0;
+    let neutral = 0;
+
+    for (const event of rows) {
+      const signal = ai_signals[event.id];
+
+      if (
+        signal.confirmed &&
+        signal.bias === "BULLISH"
+      ) {
+        bullish++;
+      } else if (
+        signal.confirmed &&
+        signal.bias === "BEARISH"
+      ) {
+        bearish++;
+      } else {
+        neutral++;
+      }
+    }
+
+    let outlook = "NEUTRAL";
+
+    if (bullish > 0 && bearish === 0) {
+      outlook = "BULLISH";
+    } else if (bearish > 0 && bullish === 0) {
+      outlook = "BEARISH";
+    }
+
+    intelligence[currency] = {
+      outlook,
+      confidence: "Not calibrated",
+      eventCount: rows.length,
+      green: bullish,
+      red: bearish,
+      purple: neutral,
+      pending: rows.filter(
+        event =>
+          event.status === "UPCOMING" &&
+          !hasValue(event.actual)
+      ).length,
+
+      explanation:
+        bullish > 0 && bearish > 0
+          ? "Conflicting confirmed economic releases. WAIT."
+          : outlook === "NEUTRAL"
+            ? "Insufficient confirmed directional evidence."
+            : `${bullish + bearish} confirmed directional event(s).`
+    };
+  }
+
+  return {
+    intelligence,
+    ai_signals,
+    detailedSignals
+  };
+}
+
+// =====================================================
+// SHARED NEWS DATA LOADER
+// =====================================================
+
+async function loadNews(range, source) {
+  const { from, to } = getBounds(range);
+
+  const isFF = source !== "finance";
+
+  const data = isFF
+    ? readForexFactory()
+    : await readFinanceCalendar(from, to);
+
+  const raw_news = data.rows
+    .map((row, index) =>
+      normalize(
+        row,
+        index,
+        isFF
+          ? "FOREX_FACTORY_LOCAL"
+          : "FINANCE_CALENDAR"
+      )
+    )
+    .filter(Boolean)
+    .filter(
+      event =>
+        event.date >= from &&
+        event.date <= to
+    )
+    .sort((a, b) =>
+      (a.isoTime || a.date)
+        .localeCompare(b.isoTime || b.date)
+    );
+
+  return {
+    range,
+    from,
+    to,
+    isFF,
+    data,
+    raw_news,
+    analysis: buildAnalysis(raw_news)
+  };
+}
+
+// =====================================================
+// API: TIME
+// =====================================================
+
+app.get("/api/time", (req, res) => {
+  res.set("Cache-Control", "no-store");
+
+  res.json({
+    ok: true,
+    timezone: ZONE,
+    nowIso: new Date().toISOString(),
+    nowIST: fullIST(),
+    dateIST: dateIST()
+  });
 });
 
-app.listen(PORT, () => {
-    console.log(`🚀 AR-RIZQ Terminal Engine running on port ${PORT}`);
+// =====================================================
+// API: HEALTH
+// =====================================================
+
+app.get("/api/health", (req, res) => {
+  res.set("Cache-Control", "no-store");
+
+  res.json({
+    ok: true,
+    service: "AR-RIZQ TERMINAL",
+    status: "running",
+    timezone: ZONE,
+    forexFactoryFilePresent:
+      fs.existsSync(FF_FILE),
+    aiEngineLoaded: true,
+    serverTime: fullIST()
+  });
+});
+
+// =====================================================
+// API: NEWS INTELLIGENCE
+// Existing frontend response preserved.
+// =====================================================
+
+app.get("/api/news-ai-bias", async (req, res) => {
+  res.set("Cache-Control", "no-store");
+
+  const allowed = [
+    "today",
+    "this_week",
+    "next_week",
+    "this_month",
+    "next_month",
+    "all"
+  ];
+
+  const range = allowed.includes(req.query.range)
+    ? req.query.range
+    : "today";
+
+  const source = req.query.source === "finance"
+    ? "finance"
+    : "forex_factory";
+
+  try {
+    const result = await loadNews(
+      range,
+      source
+    );
+
+    const now = new Date();
+
+    res.json({
+      ok: true,
+      range: result.range,
+      from: result.from,
+      to: result.to,
+      timezone: ZONE,
+      generatedAtIso: now.toISOString(),
+      generatedAtIST: fullIST(now),
+      lastUpdated: now.toISOString(),
+      sourceFetchedAt:
+        result.data.fetchedAt,
+
+      source: result.isFF
+        ? "Forex Factory local weekly snapshot"
+        : "Finance Calendar",
+
+      dataMode: result.isFF
+        ? "LOCAL_SNAPSHOT"
+        : "PROVIDER_CALENDAR",
+
+      liveCalendarConnected: false,
+
+      notice: result.isFF
+        ? "Local weekly snapshot. Not a live feed."
+        : "Provider data; real-time completeness " +
+          "and accuracy are not independently verified.",
+
+      raw_news: result.raw_news,
+
+      intelligence:
+        result.analysis.intelligence,
+
+      ai_signals:
+        result.analysis.ai_signals
+    });
+
+  } catch (error) {
+    console.error(
+      "News API error:",
+      error.message
+    );
+
+    res.status(503).json({
+      ok: false,
+      range,
+      source,
+      dataMode: "SOURCE_UNAVAILABLE",
+      liveCalendarConnected: false,
+      error: error.message,
+      raw_news: [],
+      intelligence:
+        buildAnalysis([]).intelligence,
+      ai_signals: {}
+    });
+  }
+});
+
+// =====================================================
+// API: DETAILED AI SIGNALS
+// Same engine and event IDs as News Intelligence.
+// =====================================================
+
+app.get("/api/ai-signals", async (req, res) => {
+  res.set("Cache-Control", "no-store");
+
+  const allowed = [
+    "today",
+    "this_week",
+    "next_week",
+    "this_month",
+    "next_month",
+    "all"
+  ];
+
+  const range = allowed.includes(req.query.range)
+    ? req.query.range
+    : "this_week";
+
+  const source = req.query.source === "finance"
+    ? "finance"
+    : "forex_factory";
+
+  try {
+    const result = await loadNews(
+      range,
+      source
+    );
+
+    res.json({
+      ok: true,
+      engine: "AR-RIZQ MACRO SCENARIO ENGINE",
+      modelType: "RULE_BASED",
+      trainedAI: false,
+      source: result.isFF
+        ? "Forex Factory local snapshot"
+        : "Finance Calendar",
+      liveData: false,
+      range,
+      generatedAt: new Date().toISOString(),
+      eventsAnalyzed:
+        result.analysis.detailedSignals.length,
+      signals:
+        result.analysis.detailedSignals,
+      intelligence:
+        result.analysis.intelligence
+    });
+
+  } catch (error) {
+    res.status(503).json({
+      ok: false,
+      error: error.message,
+      signals: []
+    });
+  }
+});
+
+// =====================================================
+// START SERVER
+// =====================================================
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(
+    `AR-RIZQ Terminal running on ${PORT}`
+  );
+
+  console.log(`Timezone: ${ZONE}`);
+
+  console.log(
+    "Forex Factory JSON:",
+    fs.existsSync(FF_FILE)
+      ? "FOUND"
+      : "MISSING"
+  );
+
+  console.log(
+    `News API: http://localhost:${PORT}/api/news-ai-bias?range=this_week`
+  );
+
+  console.log(
+    `AI API: http://localhost:${PORT}/api/ai-signals`
+  );
 });

@@ -1,123 +1,224 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR-RIZQ SMC MACRO TERMINAL | Professional Desk</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script src="https://s3.tradingview.com/tv.js"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: { ict: { bg: '#0a0e17', card: '#111827', border: '#1f2937' } }
+                    colors: {
+                        ict: {
+                            bg: '#0a0e17',
+                            card: '#111827',
+                            border: '#1f2937'
+                        }
+                    }
                 }
             }
-        }
+        };
     </script>
+
     <style>
-        body { background-color: #0a0e17; color: #e5e7eb; font-family: 'Segoe UI', system-ui, sans-serif; }
-        .glass-card { background: rgba(17, 24, 39, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .custom-scrollbar::-webkit-scrollbar { height: 4px; width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #0a0e17; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+        body {
+            background-color: #0a0e17;
+            color: #e5e7eb;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0a0e17;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
     </style>
 </head>
+
 <body class="min-h-screen p-2 md:p-4 flex flex-col gap-3">
 
-    <!-- HEADER WITH 12-HOUR AM/PM FORMAT -->
+    <!-- HEADER -->
     <header class="glass-card rounded-xl p-3 border-b border-cyan-500/30">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">AR</div>
+                <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">
+                    AR
+                </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">INSTITUTIONAL MACRO REAL-TIME ENGINE</p>
+                    <h1 class="text-lg font-bold tracking-wider text-white">
+                        AR-RIZQ <span class="text-cyan-400">TERMINAL</span>
+                    </h1>
+                    <p class="text-[11px] text-gray-400">
+                        INSTITUTIONAL MACRO REAL-TIME ENGINE
+                    </p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
-                <span id="session-badge" class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">LONDON KILLZONE ACTIVE</span>
+
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <span id="session-badge"
+                      class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+                    SESSION CHECKING
+                </span>
+
                 <div class="bg-gray-900 px-3 py-1 rounded border border-gray-800 text-xs font-mono text-cyan-400 flex items-center gap-2">
-                    <span id="live-date" class="text-amber-400 font-bold">--:--:--</span> | 
-                    <span>IST: <strong id="live-ist" class="text-white">--:--:-- AM</strong></span>
+                    <span id="live-date" class="text-amber-400 font-bold">--</span>
+                    <span>|</span>
+                    <span>IST:
+                        <strong id="live-ist" class="text-white">--:--:-- --</strong>
+                    </span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- NEWS INTELLIGENCE SECTION -->
+    <!-- API STATUS -->
+    <div id="api-status"
+         class="rounded-lg border border-gray-700 bg-gray-900/80 px-3 py-2 text-[11px] text-gray-300"
+         role="status"
+         aria-live="polite">
+        Connecting to AR-RIZQ backend...
+    </div>
+
+    <!-- NEWS INTELLIGENCE -->
     <section class="glass-card rounded-2xl p-4 border border-gray-800">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 gap-2">
             <div>
                 <h2 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-newspaper text-cyan-400"></i> News Intelligence
+                    <i class="fa-solid fa-newspaper text-cyan-400"></i>
+                    News Intelligence
                 </h2>
-                <p class="text-[11px] text-gray-400">upcoming high-impact economic events across USD, EUR, GBP, AUD, CAD and JPY</p>
+                <p class="text-[11px] text-gray-400">
+                    Economic events across USD, EUR, GBP, AUD, CAD and JPY
+                </p>
             </div>
+
             <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 font-bold">
-                <i class="fa-solid fa-circle text-[8px] mr-1"></i> HIGH IMPACT ONLY
+                <i class="fa-solid fa-circle text-[8px] mr-1"></i>
+                HIGH IMPACT ONLY
             </span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="intelligence-grid"></div>
+
+        <div id="intelligence-grid"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        </div>
     </section>
 
-    <!-- TICKER TAPE -->
+    <!-- TICKER -->
     <div class="glass-card rounded-lg border border-gray-800 overflow-hidden p-2">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
-            <iframe src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.html?locale=en#{&quot;symbols&quot;:[{&quot;proName&quot;:&quot;OANDA:XAUUSD&quot;,&quot;title&quot;:&quot;GOLD&quot;},{&quot;proName&quot;:&quot;FX:EURUSD&quot;,&quot;title&quot;:&quot;EURUSD&quot;},{&quot;proName&quot;:&quot;FX:GBPUSD&quot;,&quot;title&quot;:&quot;GBPUSD&quot;},{&quot;proName&quot;:&quot;FX:USDJPY&quot;,&quot;title&quot;:&quot;USDJPY&quot;},{&quot;proName&quot;:&quot;FX:AUDUSD&quot;,&quot;title&quot;:&quot;AUDUSD&quot;},{&quot;proName&quot;:&quot;FX:USDCAD&quot;,&quot;title&quot;:&quot;USDCAD&quot;}],&quot;colorTheme&quot;:&quot;dark&quot;,&quot;isTransparent&quot;:true,&quot;displayMode&quot;:&quot;adaptive&quot;}" width="100%" height="46" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+            <iframe
+                title="TradingView ticker tape"
+                src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.html?locale=en#{&quot;symbols&quot;:[{&quot;proName&quot;:&quot;OANDA:XAUUSD&quot;,&quot;title&quot;:&quot;GOLD&quot;},{&quot;proName&quot;:&quot;FX:EURUSD&quot;,&quot;title&quot;:&quot;EURUSD&quot;},{&quot;proName&quot;:&quot;FX:GBPUSD&quot;,&quot;title&quot;:&quot;GBPUSD&quot;},{&quot;proName&quot;:&quot;FX:USDJPY&quot;,&quot;title&quot;:&quot;USDJPY&quot;},{&quot;proName&quot;:&quot;FX:AUDUSD&quot;,&quot;title&quot;:&quot;AUDUSD&quot;},{&quot;proName&quot;:&quot;FX:USDCAD&quot;,&quot;title&quot;:&quot;USDCAD&quot;}],&quot;colorTheme&quot;:&quot;dark&quot;,&quot;isTransparent&quot;:true,&quot;displayMode&quot;:&quot;adaptive&quot;}"
+                width="100%"
+                height="46"
+                frameborder="0"
+                scrolling="no">
+            </iframe>
         </div>
     </div>
 
-    <!-- MAIN TWO-COLUMN LAYOUT -->
+    <!-- MAIN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER NEWS DESK + DYNAMIC EVIDENCE SOURCES -->
+        <!-- LEFT COLUMN -->
         <div class="lg:col-span-5 flex flex-col gap-3">
-            
+
+            <!-- RED FOLDER NEWS -->
             <div class="glass-card rounded-xl p-3 flex flex-col h-[340px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-folder text-red-500"></i> RED FOLDER NEWS
+                        <i class="fa-solid fa-folder text-red-500"></i>
+                        RED FOLDER NEWS
                     </span>
-                    <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
+                    <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">
+                        HIGH IMPACT ONLY
+                    </span>
                 </div>
 
                 <!-- DATE FILTERS -->
                 <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
-                    <button onclick="setDateFilter('today')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
-                    <button onclick="setDateFilter('this_week')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
-                    <button onclick="setDateFilter('this_month')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
-                    <button onclick="setDateFilter('next_month')" id="btn-next-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">NEXT MONTH</button>
+                    <button onclick="setDateFilter('today')" id="btn-today"
+                        class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">
+                        TODAY
+                    </button>
+                    <button onclick="setDateFilter('this_week')" id="btn-week"
+                        class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">
+                        THIS WEEK
+                    </button>
+                    <button onclick="setDateFilter('this_month')" id="btn-month"
+                        class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">
+                        THIS MONTH
+                    </button>
+                    <button onclick="setDateFilter('next_month')" id="btn-next-month"
+                        class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">
+                        NEXT MONTH
+                    </button>
                 </div>
 
                 <!-- CURRENCY FILTERS -->
                 <div class="flex flex-wrap gap-1 mb-2">
-                    <button onclick="setCurrFilter('ALL')" id="curr-ALL" class="px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
-                    <button onclick="setCurrFilter('USD')" id="curr-USD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
-                    <button onclick="setCurrFilter('EUR')" id="curr-EUR" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">EUR</button>
-                    <button onclick="setCurrFilter('GBP')" id="curr-GBP" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">GBP</button>
-                    <button onclick="setCurrFilter('AUD')" id="curr-AUD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">AUD</button>
-                    <button onclick="setCurrFilter('CAD')" id="curr-CAD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">CAD</button>
-                    <button onclick="setCurrFilter('JPY')" id="curr-JPY" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
+                    <button onclick="setCurrFilter('ALL')" id="curr-ALL"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
+                    <button onclick="setCurrFilter('USD')" id="curr-USD"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
+                    <button onclick="setCurrFilter('EUR')" id="curr-EUR"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">EUR</button>
+                    <button onclick="setCurrFilter('GBP')" id="curr-GBP"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">GBP</button>
+                    <button onclick="setCurrFilter('AUD')" id="curr-AUD"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">AUD</button>
+                    <button onclick="setCurrFilter('CAD')" id="curr-CAD"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">CAD</button>
+                    <button onclick="setCurrFilter('JPY')" id="curr-JPY"
+                        class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
                 </div>
 
-                <div id="news-container" class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1"></div>
+                <div id="news-container"
+                     class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1">
+                    <div class="text-xs text-gray-400 p-3">Loading calendar...</div>
+                </div>
             </div>
 
-            <!-- DYNAMIC EVIDENCE SOURCES PANEL -->
+            <!-- EVIDENCE SOURCES -->
             <div class="glass-card rounded-xl p-3 border border-gray-800 flex flex-col justify-between">
                 <div>
                     <div class="bg-gray-950/90 rounded-lg p-2.5 border border-gray-800 mb-3 font-mono text-[11px]">
-                        <div id="ev-schedule" class="text-white font-bold mb-1">Event: --</div>
-                        <div class="text-gray-400">Collection: T-48h | Bias: T-1h | Final update: T-3min</div>
-                        <div id="ai-prediction-banner" class="text-cyan-400 mt-1 font-bold">AI Forecast: Select an event above</div>
+                        <div id="ev-schedule" class="text-white font-bold mb-1">
+                            Event: Select a news event
+                        </div>
+                        <div class="text-gray-400">
+                            Collection: T-48h | Bias review: T-1h | Final review: T-3min
+                        </div>
+                        <div id="ai-prediction-banner" class="text-cyan-400 mt-1 font-bold">
+                            Forecast: Not available
+                        </div>
                     </div>
 
                     <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <i class="fa-solid fa-shield-halved text-cyan-400"></i> Evidence Sources
+                        <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                        Evidence Sources
                     </h3>
 
                     <div class="space-y-1.5 text-xs font-mono">
@@ -127,7 +228,7 @@
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-gray-800/60">
                             <span class="text-gray-300">Bureau of Labor Statistics</span>
-                            <span id="ev-bls" class="font-bold text-[11px] text-amber-400">NOT_FETCHED</span>
+                            <span id="ev-bls" class="font-bold text-amber-400">NOT_FETCHED</span>
                         </div>
                         <div class="flex justify-between items-center py-1 border-b border-gray-800/60">
                             <span class="text-gray-300">Reuters</span>
@@ -144,273 +245,911 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center pt-3 mt-2 border-t border-gray-800/80 text-[10px] text-gray-400 font-mono">
-                    <span class="text-cyan-400 animate-pulse">Live sync active...</span>
+                <div class="flex justify-between items-center pt-3 mt-2 border-t border-gray-800/80 text-[10px] text-gray-400 font-mono gap-2">
+                    <span id="sync-status" class="text-amber-400">API sync checking...</span>
                     <span id="ev-updated">Last updated: --</span>
                 </div>
             </div>
-
         </div>
 
-        <!-- RIGHT: LIVE CHART -->
+        <!-- RIGHT COLUMN: CHART -->
         <div class="lg:col-span-7 flex flex-col">
             <div class="glass-card rounded-xl p-2 h-[578px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
-                    <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART</span>
-                    <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
+                    <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line"></i>
+                        LIVE MARKET CHART
+                    </span>
+                    <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">
+                        OANDA:XAUUSD â€¢ 5M
+                    </span>
                 </div>
 
-                <div class="bg-gray-950/90 rounded border border-gray-800 p-1 mb-1.5 overflow-x-auto custom-scrollbar flex items-center gap-1.5 whitespace-nowrap" id="watchlist-container"></div>
+                <div id="watchlist-container"
+                     class="bg-gray-950/90 rounded border border-gray-800 p-1 mb-1.5 overflow-x-auto custom-scrollbar flex items-center gap-1.5 whitespace-nowrap">
+                </div>
 
                 <div id="tradingview_chart" class="w-full flex-grow rounded overflow-hidden"></div>
             </div>
         </div>
-
     </div>
 
-    <!-- SCRIPT -->
+    <!-- FRONTEND LOGIC -->
     <script>
+        "use strict";
+
+        const API_URL = "/api/news-ai-bias";
+
         let currentNews = [];
         let aiSignalsData = {};
-        let activeChartSymbol = 'OANDA:XAUUSD';
-        let dateRangeFilter = 'today';
-        let currencyFilter = 'ALL';
+        let activeChartSymbol = "OANDA:XAUUSD";
+        let dateRangeFilter = "today";
+        let currencyFilter = "ALL";
         let activeEventId = null;
+        let latestApiData = null;
+        let isFetching = false;
 
-        const watchlistPairs = [
-            { name: 'XAUUSD', tv: 'OANDA:XAUUSD', chg: '+0.47%', up: true },
-            { name: 'EURUSD', tv: 'FX:EURUSD', chg: '-0.18%', up: false },
-            { name: 'GBPUSD', tv: 'FX:GBPUSD', chg: '-0.17%', up: false },
-            { name: 'USDJPY', tv: 'FX:USDJPY', chg: '+0.41%', up: true },
-            { name: 'AUDUSD', tv: 'FX:AUDUSD', chg: '-0.17%', up: false },
-            { name: 'USDCAD', tv: 'FX:USDCAD', chg: '+0.12%', up: true }
+        const currencies = [
+            { code: "USD", name: "US USD" },
+            { code: "EUR", name: "EU EUR" },
+            { code: "GBP", name: "GB GBP" },
+            { code: "AUD", name: "AU AUD" },
+            { code: "CAD", name: "CA CAD" },
+            { code: "JPY", name: "JP JPY" }
         ];
 
+        const watchlistPairs = [
+            { name: "XAUUSD", tv: "OANDA:XAUUSD" },
+            { name: "EURUSD", tv: "FX:EURUSD" },
+            { name: "GBPUSD", tv: "FX:GBPUSD" },
+            { name: "USDJPY", tv: "FX:USDJPY" },
+            { name: "AUDUSD", tv: "FX:AUDUSD" },
+            { name: "USDCAD", tv: "FX:USDCAD" }
+        ];
+
+        function safeText(value, fallback = "â€”") {
+            if (value === null || value === undefined || value === "") {
+                return fallback;
+            }
+            return String(value);
+        }
+
+        function formatIST(dateValue = new Date()) {
+            const date = new Date(dateValue);
+
+            if (Number.isNaN(date.getTime())) {
+                return "Time unavailable";
+            }
+
+            return new Intl.DateTimeFormat("en-IN", {
+                timeZone: "Asia/Kolkata",
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            }).format(date) + " IST";
+        }
+
+        function updateClock() {
+            const now = new Date();
+
+            document.getElementById("live-date").textContent =
+                new Intl.DateTimeFormat("en-GB", {
+                    timeZone: "Asia/Kolkata",
+                    weekday: "short",
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }).format(now);
+
+            document.getElementById("live-ist").textContent =
+                new Intl.DateTimeFormat("en-US", {
+                    timeZone: "Asia/Kolkata",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true
+                }).format(now);
+
+            updateSessionBadge(now);
+        }
+
+        function updateSessionBadge(now) {
+            const hour = Number(new Intl.DateTimeFormat("en-GB", {
+                timeZone: "Asia/Kolkata",
+                hour: "2-digit",
+                hourCycle: "h23"
+            }).format(now));
+
+            const badge = document.getElementById("session-badge");
+
+            // Approximate session labels in IST, not a trading signal.
+            if (hour >= 12 && hour < 17) {
+                badge.textContent = "LONDON SESSION";
+                badge.className =
+                    "px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold";
+            } else if (hour >= 17 && hour < 22) {
+                badge.textContent = "NEW YORK SESSION";
+                badge.className =
+                    "px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold";
+            } else if (hour >= 7 && hour < 12) {
+                badge.textContent = "ASIA SESSION";
+                badge.className =
+                    "px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-bold";
+            } else {
+                badge.textContent = "OFF-PEAK SESSION";
+                badge.className =
+                    "px-2.5 py-1 rounded bg-gray-500/10 text-gray-300 border border-gray-500/30 text-xs font-bold";
+            }
+        }
+
+        function setApiStatus(message, type = "info") {
+            const el = document.getElementById("api-status");
+            const styles = {
+                info: "border-gray-700 text-gray-300",
+                success: "border-emerald-500/40 text-emerald-300",
+                warning: "border-amber-500/40 text-amber-300",
+                error: "border-red-500/40 text-red-300"
+            };
+
+            el.className =
+                "rounded-lg border bg-gray-900/80 px-3 py-2 text-[11px] " +
+                (styles[type] || styles.info);
+            el.textContent = message;
+        }
+
         function renderWatchlist() {
-            const container = document.getElementById('watchlist-container');
-            container.innerHTML = '';
-            watchlistPairs.forEach(p => {
-                const isSel = p.tv === activeChartSymbol;
-                const pill = document.createElement('div');
-                pill.className = `px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-all flex items-center gap-1.5 border ${isSel ? 'bg-cyan-950 text-cyan-400 border-cyan-400 font-bold' : 'bg-gray-900/80 text-gray-300 border-gray-800 hover:border-gray-700'}`;
-                pill.onclick = () => loadChart(p.tv);
-                pill.innerHTML = `<span>${p.name}</span><span class="${p.up ? 'text-emerald-400' : 'text-red-400'} font-bold">${p.chg}</span>`;
-                container.appendChild(pill);
+            const container = document.getElementById("watchlist-container");
+            container.innerHTML = "";
+
+            watchlistPairs.forEach(pair => {
+                const selected = pair.tv === activeChartSymbol;
+                const button = document.createElement("button");
+
+                button.type = "button";
+                button.className =
+                    "px-2.5 py-1 rounded text-xs font-mono transition-all border " +
+                    (selected
+                        ? "bg-cyan-950 text-cyan-400 border-cyan-400 font-bold"
+                        : "bg-gray-900/80 text-gray-300 border-gray-800 hover:border-gray-600");
+
+                button.textContent = pair.name;
+                button.addEventListener("click", () => loadChart(pair.tv));
+                container.appendChild(button);
             });
         }
 
         function loadChart(tvSymbol) {
             activeChartSymbol = tvSymbol;
-            document.getElementById('selected-pair-display').innerText = `${tvSymbol} • 5M`;
-            renderWatchlist();
-            document.getElementById('tradingview_chart').innerHTML = '';
-            new TradingView.widget({
-                "autosize": true,
-                "symbol": tvSymbol,
-                "interval": "5",
-                "timezone": "Asia/Kolkata",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#0a0e17",
-                "container_id": "tradingview_chart"
-            });
-        }
 
-        async function fetchNewsAndIntelligence() {
+            document.getElementById("selected-pair-display").textContent =
+                `${tvSymbol} â€¢ 5M`;
+
+            renderWatchlist();
+
+            const container = document.getElementById("tradingview_chart");
+            container.innerHTML = "";
+
+            if (typeof TradingView === "undefined") {
+                container.innerHTML =
+                    '<div class="p-4 text-sm text-amber-300">TradingView chart library did not load. Check your internet connection or browser extensions.</div>';
+                return;
+            }
+
             try {
-                const res = await fetch(`/api/news-ai-bias?range=${dateRangeFilter}`);
-                const data = await res.json();
-                currentNews = data.raw_news || [];
-                aiSignalsData = data.ai_signals || {};
-                renderIntelligence(data.intelligence || {});
-                renderNews();
-            } catch (err) {
-                console.error("Fetch Error:", err);
+                new TradingView.widget({
+                    autosize: true,
+                    symbol: tvSymbol,
+                    interval: "5",
+                    timezone: "Asia/Kolkata",
+                    theme: "dark",
+                    style: "1",
+                    locale: "en",
+                    toolbar_bg: "#0a0e17",
+                    enable_publishing: false,
+                    allow_symbol_change: true,
+                    container_id: "tradingview_chart"
+                });
+            } catch (error) {
+                console.error("TradingView error:", error);
+                container.innerHTML =
+                    '<div class="p-4 text-sm text-red-300">Unable to load the chart. Please refresh the page.</div>';
             }
         }
 
+        async function fetchNewsAndIntelligence() {
+            if (isFetching) return;
+
+            isFetching = true;
+            document.getElementById("sync-status").textContent = "API sync in progress...";
+
+            try {
+                const response = await fetch(
+                    `${API_URL}?range=${encodeURIComponent(dateRangeFilter)}`,
+                    {
+                        method: "GET",
+                        headers: { "Accept": "application/json" },
+                        cache: "no-store"
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`API returned HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (!Array.isArray(data.raw_news)) {
+                    throw new Error("API response does not contain a valid raw_news array.");
+                }
+
+                latestApiData = data;
+                currentNews = data.raw_news;
+                aiSignalsData = data.ai_signals || {};
+
+                renderIntelligence(data.intelligence || {});
+                renderNews();
+                updateLastUpdated(data);
+
+                const sampleMode =
+                    String(data.dataMode || "").toUpperCase().includes("STATIC") ||
+                    data.liveCalendarConnected === false;
+
+                if (sampleMode) {
+                    setApiStatus(
+                        "Backend connected. Calendar data is currently sample/static data; live economic-calendar source is not connected. Verify event dates and figures before trading.",
+                        "warning"
+                    );
+                    document.getElementById("sync-status").textContent = "API connected â€¢ sample data";
+                } else {
+                    setApiStatus(
+                        "Backend connected. Check the event source and timestamp before using this information for trading.",
+                        "success"
+                    );
+                    document.getElementById("sync-status").textContent = "API connected";
+                }
+            } catch (error) {
+                console.error("News API error:", error);
+
+                setApiStatus(
+                    `Backend connection failed: ${error.message}. Check that Node.js is running and /api/news-ai-bias is responding.`,
+                    "error"
+                );
+
+                document.getElementById("sync-status").textContent = "API connection error";
+                document.getElementById("news-container").innerHTML = `
+                    <div class="text-center py-6 text-xs text-red-300 border border-red-500/30 rounded-lg bg-red-950/20 p-3">
+                        <div class="font-bold mb-1">Unable to load news</div>
+                        <div>${escapeHTML(error.message)}</div>
+                        <button onclick="fetchNewsAndIntelligence()"
+                            class="mt-3 px-3 py-1 rounded bg-gray-800 text-white border border-gray-700">
+                            Retry
+                        </button>
+                    </div>`;
+
+                document.getElementById("intelligence-grid").innerHTML = `
+                    <div class="text-xs text-red-300 p-3 border border-red-500/30 rounded-lg">
+                        Intelligence unavailable because the API request failed.
+                    </div>`;
+            } finally {
+                isFetching = false;
+            }
+        }
+
+        function updateLastUpdated(data) {
+            const updated =
+                data.generatedAtIST ||
+                data.lastUpdated ||
+                data.generatedAtIso ||
+                new Date().toISOString();
+
+            document.getElementById("ev-updated").textContent =
+                `Last updated: ${formatIST(updated)}`;
+        }
+
         function renderIntelligence(intel) {
-            const grid = document.getElementById('intelligence-grid');
-            grid.innerHTML = '';
+            const grid = document.getElementById("intelligence-grid");
+            grid.innerHTML = "";
 
-            const currencies = [
-                { code: 'USD', name: 'US USD' },
-                { code: 'EUR', name: 'EU EUR' },
-                { code: 'GBP', name: 'GB GBP' },
-                { code: 'AUD', name: 'AU AUD' },
-                { code: 'CAD', name: 'CA CAD' },
-                { code: 'JPY', name: 'JP JPY' }
-            ];
+            currencies.forEach(currency => {
+                const info = intel[currency.code] || {
+                    outlook: "NEUTRAL",
+                    confidence: "Not calibrated",
+                    eventCount: 0,
+                    green: 0,
+                    red: 0,
+                    purple: 0,
+                    pending: 0
+                };
 
-            currencies.forEach(c => {
-                const info = intel[c.code] || { outlook: 'NEUTRAL', confidence: 'No News', eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 };
-                const isBullish = info.outlook === 'BULLISH';
-                const isBearish = info.outlook === 'BEARISH';
-                const outlookColor = isBullish ? 'text-emerald-400' : (isBearish ? 'text-red-400' : 'text-amber-400');
+                const outlook = safeText(info.outlook, "NEUTRAL").toUpperCase();
+                const bullish = outlook === "BULLISH";
+                const bearish = outlook === "BEARISH";
 
-                const card = document.createElement('div');
-                card.className = "bg-gray-950/80 border border-gray-800/80 rounded-xl p-3 flex flex-col justify-between hover:border-gray-700 transition-all";
+                const outlookColor = bullish
+                    ? "text-emerald-400"
+                    : bearish
+                        ? "text-red-400"
+                        : "text-amber-400";
+
+                const card = document.createElement("div");
+                card.className =
+                    "bg-gray-950/80 border border-gray-800/80 rounded-xl p-3 flex flex-col justify-between hover:border-gray-700 transition-all";
+
                 card.innerHTML = `
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-white tracking-wide">${c.name}</span>
-                        <span class="text-[11px] font-bold ${outlookColor}">${info.outlook}</span>
+                    <div class="flex justify-between items-center mb-2 gap-2">
+                        <span class="text-xs font-bold text-white tracking-wide">
+                            ${escapeHTML(currency.name)}
+                        </span>
+                        <span class="text-[11px] font-bold ${outlookColor}">
+                            ${escapeHTML(outlook)}
+                        </span>
                     </div>
 
-                    <div class="flex items-center gap-2 text-[11px] text-gray-400 mb-3">
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> ${info.green || 0}</span>
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> ${info.red || 0}</span>
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-purple-500"></span> ${info.purple || 0}</span>
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> ${info.pending || 0} Pending</span>
+                    <div class="flex items-center gap-3 text-[11px] text-gray-400 mb-3 flex-wrap">
+                        <span><span class="text-emerald-400">â—</span> ${escapeHTML(safeText(info.green, "0"))}</span>
+                        <span><span class="text-red-400">â—</span> ${escapeHTML(safeText(info.red, "0"))}</span>
+                        <span><span class="text-purple-400">â—</span> ${escapeHTML(safeText(info.purple, "0"))}</span>
+                        <span><span class="text-amber-400">â—</span> ${escapeHTML(safeText(info.pending, "0"))} Pending</span>
                     </div>
 
-                    <div class="border-t border-gray-800/60 pt-2 flex justify-between items-end text-xs">
+                    <div class="border-t border-gray-800/60 pt-2 flex justify-between items-end gap-2 text-xs">
                         <div>
-                            <span class="text-[9px] text-gray-500 uppercase tracking-wider block">Evidence Confidence</span>
-                            <strong class="text-white text-xs font-semibold">${info.confidence}</strong>
+                            <span class="text-[9px] text-gray-500 uppercase tracking-wider block">
+                                Evidence status
+                            </span>
+                            <strong class="text-white text-xs font-semibold">
+                                ${escapeHTML(safeText(info.confidence, "Not calibrated"))}
+                            </strong>
                         </div>
-                        <span class="text-[10px] text-gray-400">${info.eventCount} High-impact event(s)</span>
+                        <span class="text-[10px] text-gray-400 text-right">
+                            ${escapeHTML(safeText(info.eventCount, "0"))} event(s)
+                        </span>
                     </div>
                 `;
+
                 grid.appendChild(card);
             });
         }
 
         function renderNews() {
-            const container = document.getElementById('news-container');
-            container.innerHTML = '';
+            const container = document.getElementById("news-container");
+            container.innerHTML = "";
 
-            const filtered = currentNews.filter(item => currencyFilter === 'ALL' || item.currency === currencyFilter);
+            const filtered = currentNews.filter(item =>
+                currencyFilter === "ALL" || item.currency === currencyFilter
+            );
 
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-3">
-                        ⚠️ Today No Red Folder News Scheduled.
-                    </div>`;
+                const message = document.createElement("div");
+                message.className =
+                    "text-center py-6 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-3";
+                message.textContent =
+                    `No events returned for ${dateRangeFilter.replaceAll("_", " ")} / ${currencyFilter}. Try another date or currency filter.`;
+
+                container.appendChild(message);
                 updateEvidencePanel(null);
                 return;
             }
 
             filtered.forEach(item => {
-                const isSel = item.id === activeEventId;
-                const sig = aiSignalsData[item.id] || { signal: 'NEUTRAL' };
-                let badgeColor = sig.signal.includes('BUY') ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (sig.signal.includes('SELL') ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40');
+                const isSelected = item.id === activeEventId;
+                const signalInfo = aiSignalsData[item.id] || {};
+                const signal = safeText(signalInfo.signal, "NEUTRAL").toUpperCase();
 
-                const card = document.createElement('div');
-                card.className = `p-2.5 rounded-lg bg-gray-900/80 border ${isSel ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'} hover:border-gray-700 cursor-pointer transition-all`;
-                card.onclick = () => { activeEventId = item.id; renderNews(); updateEvidencePanel(item); };
+                const badgeColor = signal.includes("BUY")
+                    ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40"
+                    : signal.includes("SELL")
+                        ? "bg-red-500/20 text-red-400 border-red-500/40"
+                        : "bg-amber-500/20 text-amber-400 border-amber-500/40";
 
-                card.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-2">
-                            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 rounded border border-red-800">${item.currency}</span>
-                            <span class="text-xs font-bold text-white">${item.event}</span>
+                const eventCard = document.createElement("button");
+                eventCard.type = "button";
+                eventCard.className =
+                    `w-full text-left p-2.5 rounded-lg bg-gray-900/80 border ${
+                        isSelected ? "border-cyan-400 bg-cyan-950/20" : "border-gray-800"
+                    } hover:border-gray-600 transition-all`;
+
+                const eventDate = safeText(item.dayFormatted, safeText(item.date, "Date unavailable"));
+                const eventTime = safeText(item.timeFormatted, "Time unavailable");
+                const forecast = safeText(item.forecast, "â€”");
+                const previous = safeText(item.previous, "â€”");
+
+                eventCard.innerHTML = `
+                    <div class="flex justify-between items-center gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="shrink-0 px-1.5 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 rounded border border-red-800">
+                                ${escapeHTML(safeText(item.currency, "â€”"))}
+                            </span>
+                            <span class="text-xs font-bold text-white truncate">
+                                ${escapeHTML(safeText(item.event, "Economic event"))}
+                            </span>
                         </div>
-                        <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${sig.signal}</span>
+                        <span class="shrink-0 px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">
+                            ${escapeHTML(signal)}
+                        </span>
                     </div>
-                    <div class="flex justify-between items-center text-[11px] text-gray-400 mt-1 font-mono">
-                        <span>🕒 ${item.timeFormatted} (${item.dayFormatted})</span>
-                        <span>Fcst: <strong class="text-white">${item.forecast}</strong> | Prev: <strong class="text-gray-400">${item.previous}</strong></span>
+
+                    <div class="flex justify-between items-center gap-2 text-[10px] md:text-[11px] text-gray-400 mt-1 font-mono flex-wrap">
+                        <span>ðŸ•’ ${escapeHTML(eventTime)} (${escapeHTML(eventDate)})</span>
+                        <span>Fcst: <strong class="text-white">${escapeHTML(forecast)}</strong> | Prev: <strong class="text-gray-300">${escapeHTML(previous)}</strong></span>
                     </div>
                 `;
-                container.appendChild(card);
+
+                eventCard.addEventListener("click", () => {
+                    activeEventId = item.id;
+                    renderNews();
+                    updateEvidencePanel(item);
+                });
+
+                container.appendChild(eventCard);
             });
 
-            if ((!activeEventId || !filtered.some(e => e.id === activeEventId)) && filtered.length > 0) {
+            const selectedEvent = filtered.find(item => item.id === activeEventId);
+
+            if (!selectedEvent) {
                 activeEventId = filtered[0].id;
                 updateEvidencePanel(filtered[0]);
+            } else {
+                updateEvidencePanel(selectedEvent);
             }
         }
 
         function updateEvidencePanel(item) {
-            const schedEl = document.getElementById('ev-schedule');
-            const aiBannerEl = document.getElementById('ai-prediction-banner');
-            const fedEl = document.getElementById('ev-fed');
-            const blsEl = document.getElementById('ev-bls');
-            const reutersEl = document.getElementById('ev-reuters');
-            const bloombergEl = document.getElementById('ev-bloomberg');
-            const cmeEl = document.getElementById('ev-cme');
-            const updatedEl = document.getElementById('ev-updated');
+            const schedule = document.getElementById("ev-schedule");
+            const banner = document.getElementById("ai-prediction-banner");
 
             if (!item) {
-                schedEl.innerText = 'Event: No News Scheduled';
-                aiBannerEl.innerText = 'AI Forecast: Neutral / Technical Market Flow';
-                fedEl.innerText = 'NOT_FETCHED';
-                blsEl.innerText = 'NOT_FETCHED';
-                reutersEl.innerText = 'NOT_CONNECTED';
-                bloombergEl.innerText = 'NOT_CONNECTED';
-                cmeEl.innerText = 'NOT_CONNECTED';
-                updatedEl.innerText = 'Last updated: --';
+                schedule.textContent = "Event: No event returned by this filter";
+                banner.textContent = "Forecast: No event selected";
+
+                setEvidenceStatus("ev-fed", "NOT_FETCHED");
+                setEvidenceStatus("ev-bls", "NOT_FETCHED");
+                setEvidenceStatus("ev-reuters", "NOT_CONNECTED");
+                setEvidenceStatus("ev-bloomberg", "NOT_CONNECTED");
+                setEvidenceStatus("ev-cme", "NOT_CONNECTED");
+
+                if (latestApiData) {
+                    updateLastUpdated(latestApiData);
+                }
                 return;
             }
 
-            const sig = aiSignalsData[item.id] || { signal: 'NEUTRAL', probability: '60%', desc: 'Analyzing macro flow.' };
+            const signalInfo = aiSignalsData[item.id] || {};
+            const signal = safeText(signalInfo.signal, "NEUTRAL");
+            const probability = safeText(signalInfo.probability, "Not calibrated");
+            const description = safeText(
+                signalInfo.desc || signalInfo.reason,
+                "No explanation supplied by the API."
+            );
 
-            schedEl.innerText = `Event: ${item.dayFormatted}, ${item.timeFormatted}`;
-            aiBannerEl.innerText = `AI Forecast: ${sig.signal} (${sig.probability}) • ${sig.desc}`;
-            
-            const ev = item.evidence || { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "NOT_CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "Just now" };
-            
-            fedEl.innerText = ev.fed;
-            fedEl.className = `font-bold ${ev.fed === 'FETCHED' ? 'text-emerald-400' : 'text-gray-400'}`;
+            schedule.textContent =
+                `Event: ${safeText(item.dayFormatted, item.date)} â€¢ ${safeText(item.timeFormatted, "Time unavailable")}`;
 
-            blsEl.innerText = ev.bls;
-            blsEl.className = `font-bold text-[11px] ${ev.bls.includes('PENDING') ? 'text-amber-400' : (ev.bls === 'FETCHED' ? 'text-emerald-400' : 'text-gray-400')}`;
+            banner.textContent =
+                `Forecast: ${signal} (${probability}) â€¢ ${description}`;
 
-            reutersEl.innerText = ev.reuters;
-            reutersEl.className = `font-bold ${ev.reuters === 'CONNECTED' ? 'text-emerald-400' : 'text-gray-400'}`;
+            // Show only evidence statuses actually returned by the API.
+            const evidence = item.evidence || {};
 
-            bloombergEl.innerText = ev.bloomberg;
-            bloombergEl.className = `font-bold ${ev.bloomberg === 'CONNECTED' ? 'text-emerald-400' : 'text-gray-400'}`;
+            setEvidenceStatus("ev-fed", evidence.fed || "NOT_FETCHED");
+            setEvidenceStatus("ev-bls", evidence.bls || "NOT_FETCHED");
+            setEvidenceStatus("ev-reuters", evidence.reuters || "NOT_CONNECTED");
+            setEvidenceStatus("ev-bloomberg", evidence.bloomberg || "NOT_CONNECTED");
+            setEvidenceStatus("ev-cme", evidence.cme || "NOT_CONNECTED");
 
-            cmeEl.innerText = ev.cme;
-            cmeEl.className = `font-bold ${ev.cme === 'CONNECTED' ? 'text-emerald-400' : 'text-gray-400'}`;
+            if (latestApiData) {
+                updateLastUpdated(latestApiData);
+            }
+        }
 
-            updatedEl.innerText = `Last updated: ${ev.updated}`;
+        function setEvidenceStatus(id, value) {
+            const element = document.getElementById(id);
+            element.textContent = value;
+
+            const connected = ["FETCHED", "CONNECTED"].includes(
+                String(value).toUpperCase()
+            );
+
+            const pending = String(value).toUpperCase().includes("PENDING");
+
+            element.className = "font-bold " + (
+                connected
+                    ? "text-emerald-400"
+                    : pending
+                        ? "text-amber-400"
+                        : "text-gray-400"
+            );
         }
 
         function setDateFilter(range) {
             dateRangeFilter = range;
-            document.getElementById('btn-today').className = range === 'today' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            document.getElementById('btn-week').className = range === 'this_week' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            document.getElementById('btn-month').className = range === 'this_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            document.getElementById('btn-next-month').className = range === 'next_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
+
+            const buttonIds = {
+                today: "btn-today",
+                this_week: "btn-week",
+                this_month: "btn-month",
+                next_month: "btn-next-month"
+            };
+
+            Object.entries(buttonIds).forEach(([key, id]) => {
+                const button = document.getElementById(id);
+
+                button.className = key === range
+                    ? "flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black"
+                    : "flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white";
+            });
+
+            activeEventId = null;
             fetchNewsAndIntelligence();
         }
 
-        function setCurrFilter(curr) {
-            currencyFilter = curr;
-            ['ALL', 'USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'].forEach(c => {
-                const btn = document.getElementById(`curr-${c}`);
-                if (btn) {
-                    btn.className = c === curr ? 'px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white' : 'px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300';
-                }
+        function setCurrFilter(currency) {
+            currencyFilter = currency;
+
+            ["ALL", "USD", "EUR", "GBP", "AUD", "CAD", "JPY"].forEach(code => {
+                const button = document.getElementById(`curr-${code}`);
+                if (!button) return;
+
+                button.className = code === currency
+                    ? "px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white"
+                    : "px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300";
             });
+
             renderNews();
         }
 
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
-            
-            let hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            const hoursStr = hours.toString().padStart(2, '0');
-
-            document.getElementById('live-ist').innerText = `${hoursStr}:${minutes}:${seconds} ${ampm}`;
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[char]);
         }
 
-        window.onload = () => {
-            fetchNewsAndIntelligence();
-            renderWatchlist();
-            loadChart('OANDA:XAUUSD');
-            setInterval(updateClock, 1000);
+        async function checkBackendHealth() {
+            try {
+                const response = await fetch("/api/health", { cache: "no-store" });
+
+                if (!response.ok) {
+                    throw new Error(`Health endpoint returned HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("AR-RIZQ backend health:", data);
+            } catch (error) {
+                console.warn("Health check unavailable:", error.message);
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
             updateClock();
-        };
+            setInterval(updateClock, 1000);
+
+            renderWatchlist();
+            loadChart("OANDA:XAUUSD");
+
+            checkBackendHealth();
+            fetchNewsAndIntelligence();
+
+            // Refresh data every 60 seconds. This refreshes the API response;
+            // it does not turn sample calendar data into a live data feed.
+            setInterval(fetchNewsAndIntelligence, 60000);
+        });
     </script>
+<!-- AR-RIZQ AI SIGNAL DESK -->
+<section id="ar-ai-signal-desk"
+ class="glass-card rounded-2xl p-4 border border-gray-800 my-3">
+
+  <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+    <div>
+      <h2 class="text-lg font-bold text-cyan-400">
+        <i class="fa-solid fa-brain"></i>
+        AR-RIZQ AI NEWS SIGNAL DESK
+      </h2>
+      <p class="text-xs text-gray-400">
+        Forex Factory high-impact news | Evidence-based macro scenarios
+      </p>
+    </div>
+
+    <button id="ar-ai-refresh"
+      class="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-xs font-bold">
+      REFRESH SIGNALS
+    </button>
+  </div>
+
+  <div id="ar-ai-status"
+    class="text-xs text-amber-400 mb-3">
+    Connecting to AI Signals API...
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+    <div class="bg-gray-950 border border-gray-800 p-3 rounded-lg">
+      <p class="text-xs text-gray-400">EVENTS</p>
+      <strong id="ar-ai-total" class="text-xl text-white">0</strong>
+    </div>
+
+    <div class="bg-gray-950 border border-gray-800 p-3 rounded-lg">
+      <p class="text-xs text-gray-400">BUY BIAS</p>
+      <strong id="ar-ai-buy" class="text-xl text-emerald-400">0</strong>
+    </div>
+
+    <div class="bg-gray-950 border border-gray-800 p-3 rounded-lg">
+      <p class="text-xs text-gray-400">SELL BIAS</p>
+      <strong id="ar-ai-sell" class="text-xl text-red-400">0</strong>
+    </div>
+
+    <div class="bg-gray-950 border border-gray-800 p-3 rounded-lg">
+      <p class="text-xs text-gray-400">WAIT / NEUTRAL</p>
+      <strong id="ar-ai-wait" class="text-xl text-amber-400">0</strong>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+
+    <div>
+      <h3 class="text-sm font-bold text-white mb-2">
+        RED FOLDER EVENT ANALYSIS
+      </h3>
+
+      <div id="ar-ai-events"
+        class="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
+        Loading news analysis...
+      </div>
+    </div>
+
+    <div class="bg-gray-950 border border-gray-800 rounded-xl p-4">
+      <h3 class="text-sm font-bold text-cyan-400 mb-3">
+        SELECTED EVENT INTELLIGENCE
+      </h3>
+
+      <div id="ar-ai-detail" class="text-sm text-gray-300">
+        Select an event to view analysis.
+      </div>
+    </div>
+
+  </div>
+
+  <p class="text-xs text-amber-400 mt-4">
+    Rule-based macro analysis only. A BUY/SELL bias is not a
+    confirmed trade entry. Verify actual release data, market
+    price action, spread and liquidity before trading.
+  </p>
+
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  const API = "/api/ai-signals";
+
+  let signals = [];
+
+  function escapeValue(value) {
+    return String(value ?? "-").replace(/[&<>"']/g, function (c) {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[c];
+    });
+  }
+
+  function badgeClass(signal) {
+    if (signal === "BUY_BIAS" || signal === "BULLISH") {
+      return "text-emerald-400";
+    }
+
+    if (signal === "SELL_BIAS" || signal === "BEARISH") {
+      return "text-red-400";
+    }
+
+    return "text-amber-400";
+  }
+
+  function showEvent(index) {
+    const event = signals[index];
+    if (!event) return;
+
+    const panel = document.getElementById("ar-ai-detail");
+
+    const pairs = Array.isArray(event.pairs) ? event.pairs : [];
+
+    const pairHTML = pairs.map(function (pair) {
+      const direction = pair.direction || "NEUTRAL";
+
+      return `
+        <div class="flex justify-between gap-2 border-b border-gray-800 py-2">
+          <strong class="text-white">${escapeValue(pair.pair)}</strong>
+          <span class="${badgeClass(direction)} font-bold">
+            ${escapeValue(direction)}
+          </span>
+        </div>
+      `;
+    }).join("");
+
+    const scenarios = event.scenarios || {};
+
+    panel.innerHTML = `
+      <div class="mb-3">
+        <div class="text-cyan-400 font-bold">
+          ${escapeValue(event.currency)} |
+          ${escapeValue(event.event)}
+        </div>
+
+        <div class="mt-2 text-xs text-gray-400">
+          Phase: ${escapeValue(event.phase)}
+        </div>
+
+        <div class="mt-2 font-bold ${badgeClass(event.signal)}">
+          Macro signal: ${escapeValue(event.signal)}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 text-center mb-3">
+        <div class="bg-gray-900 p-2 rounded">
+          <div class="text-xs text-gray-400">FORECAST</div>
+          <strong>${escapeValue(event.forecast)}</strong>
+        </div>
+
+        <div class="bg-gray-900 p-2 rounded">
+          <div class="text-xs text-gray-400">PREVIOUS</div>
+          <strong>${escapeValue(event.previous)}</strong>
+        </div>
+
+        <div class="bg-gray-900 p-2 rounded">
+          <div class="text-xs text-gray-400">ACTUAL</div>
+          <strong>${escapeValue(event.actual)}</strong>
+        </div>
+      </div>
+
+      <div class="text-xs text-gray-300 mb-3">
+        ${escapeValue(event.explanation)}
+      </div>
+
+      <h4 class="text-xs text-white font-bold mb-2">
+        POSSIBLE SCENARIOS
+      </h4>
+
+      <div class="text-xs text-gray-400 space-y-2 mb-4">
+        <p>Above forecast: ${escapeValue(scenarios.aboveForecast)}</p>
+        <p>Below forecast: ${escapeValue(scenarios.belowForecast)}</p>
+        <p>At forecast: ${escapeValue(scenarios.atForecast)}</p>
+      </div>
+
+      <h4 class="text-xs font-bold text-cyan-400 mb-2">
+        RELATED CURRENCY PAIRS
+      </h4>
+
+      ${pairHTML || '<p class="text-xs text-gray-400">No pair mapping available.</p>'}
+
+      <p class="text-xs text-amber-400 mt-3">
+        Trade confirmed: NO | Confidence: NOT CALIBRATED
+      </p>
+    `;
+  }
+
+  async function loadSignals() {
+    const status = document.getElementById("ar-ai-status");
+    const container = document.getElementById("ar-ai-events");
+
+    status.textContent = "Fetching AI analysis...";
+
+    try {
+      const response = await fetch(API, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+
+      const data = await response.json();
+
+      if (!data.ok || !Array.isArray(data.signals)) {
+        throw new Error("Invalid AI Signals API response");
+      }
+
+      signals = data.signals;
+
+      let buy = 0;
+      let sell = 0;
+      let wait = 0;
+
+      signals.forEach(function (item) {
+        if (item.signal === "BUY_BIAS") buy++;
+        else if (item.signal === "SELL_BIAS") sell++;
+        else wait++;
+      });
+
+      document.getElementById("ar-ai-total").textContent =
+        signals.length;
+
+      document.getElementById("ar-ai-buy").textContent = buy;
+      document.getElementById("ar-ai-sell").textContent = sell;
+      document.getElementById("ar-ai-wait").textContent = wait;
+
+      status.textContent =
+        "AI engine connected | " +
+        signals.length +
+        " events | Source: " +
+        (data.source || "Unknown") +
+        " | " +
+        (data.liveData === true ? "Live source" : "Snapshot / not live");
+
+      container.innerHTML = "";
+
+      if (!signals.length) {
+        container.textContent = "No red-folder events available.";
+        document.getElementById("ar-ai-detail").textContent =
+          "No event selected.";
+        return;
+      }
+
+      signals.forEach(function (event, index) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+          "w-full text-left bg-gray-900 border border-gray-800 " +
+          "rounded-lg p-3 hover:border-cyan-500 transition";
+
+        button.innerHTML = `
+          <div class="flex justify-between gap-2 items-center">
+            <span class="text-xs font-bold text-white">
+              ${escapeValue(event.currency)} |
+              ${escapeValue(event.event)}
+            </span>
+
+            <span class="text-xs font-bold ${badgeClass(event.signal)}">
+              ${escapeValue(event.signal)}
+            </span>
+          </div>
+
+          <div class="text-xs text-gray-400 mt-2">
+            ${escapeValue(event.phase)} |
+            ${escapeValue(event.category)}
+          </div>
+        `;
+
+        button.addEventListener("click", function () {
+          showEvent(index);
+        });
+
+        container.appendChild(button);
+      });
+
+      showEvent(0);
+
+    } catch (error) {
+      status.textContent =
+        "AI API error: " + error.message;
+
+      container.textContent =
+        "Unable to load AI signals. Check /api/ai-signals.";
+    }
+  }
+
+  document.getElementById("ar-ai-refresh")
+    .addEventListener("click", loadSignals);
+
+  loadSignals();
+
+  setInterval(loadSignals, 60000);
+
+})();
+</script>
 </body>
+<footer style="text-align:center;padding:12px;font-size:12px;color:#94a3b8">
+  Economic calendar data:
+  <a href="https://www.financecalendar.com/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#38bdf8">Finance Calendar</a>
+</footer>
+
 </html>
