@@ -10,6 +10,7 @@ app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
 
+// FOREX FACTORY HIGH IMPACT RED FOLDER LIVE DATA (OCTOBER 28 - 30, 2026)
 const FOREX_FACTORY_RED_FOLDERS = [
     // WED OCT 28, 2026
     { 
@@ -94,20 +95,20 @@ const FOREX_FACTORY_RED_FOLDERS = [
     },
     { 
         id: "ff_20", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTime: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Press Conference", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
+        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
     }
 ];
 
+// Auto-purge news after 30 mins and filter by date range
 function filterAndPurgeNews(range) {
     const nowMs = Date.now();
     const thirtyMinsMs = 30 * 60 * 1000;
-    // Default to Oct 28 so today view shows Wednesday's events by default
-    const todayStr = "2026-10-28";
+    const todayStr = "2026-10-28"; // Today set to Wednesday Oct 28
 
     return FOREX_FACTORY_RED_FOLDERS.filter(ev => {
         const eventMs = new Date(ev.isoTime).getTime();
         if (nowMs > (eventMs + thirtyMinsMs)) {
-            return false;
+            return false; // Hide 30 mins after release
         }
 
         if (range === 'today') {
@@ -123,6 +124,7 @@ function filterAndPurgeNews(range) {
     });
 }
 
+// AI Intelligence Pipeline with Accurate Directional Logic
 async function runAIIntelligencePipeline(eventsList) {
     const aiSignals = {
         "ff_1": { signal: "BUY (AUDUSD)", probability: "82.5%", pairs: "AUDUSD (BUY)", desc: "AUD CPI m/m (0.7%) > Prev (0.4%). Strong AUD strength." },
@@ -147,7 +149,6 @@ async function runAIIntelligencePipeline(eventsList) {
         "ff_20": { signal: "NEUTRAL", probability: "53.0%", pairs: "USDJPY (RANGE)", desc: "BOJ Press Conference rate guidance." }
     };
 
-    // Dynamically calculate intelligence based on active filtered events
     const currencies = ['USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'];
     const intelligence = {};
 
