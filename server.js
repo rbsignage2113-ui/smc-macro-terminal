@@ -10,7 +10,7 @@ app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
 
-// FOREX FACTORY HIGH IMPACT RED FOLDER LIVE DATA (OCTOBER 28 - 30, 2026)
+// FOREX FACTORY RED FOLDERS DATABASE
 const FOREX_FACTORY_RED_FOLDERS = [
     // WED OCT 28, 2026
     { 
@@ -95,20 +95,19 @@ const FOREX_FACTORY_RED_FOLDERS = [
     },
     { 
         id: "ff_20", date: "2026-10-30", dayFormatted: "Fri Oct 30", timeFormatted: "Tentative", isoTime: "2026-10-30T10:00:00+05:30", currency: "JPY", event: "BOJ Press Conference", forecast: "-", previous: "-", impact: "high", source: "Forex Factory",
-        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
+        evidence: { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "10/30/2026, 09:30:00 AM" }
     }
 ];
 
-// Auto-purge news after 30 mins and filter by date range
 function filterAndPurgeNews(range) {
     const nowMs = Date.now();
     const thirtyMinsMs = 30 * 60 * 1000;
-    const todayStr = "2026-10-28"; // Today set to Wednesday Oct 28
+    const todayStr = "2026-10-28";
 
     return FOREX_FACTORY_RED_FOLDERS.filter(ev => {
         const eventMs = new Date(ev.isoTime).getTime();
         if (nowMs > (eventMs + thirtyMinsMs)) {
-            return false; // Hide 30 mins after release
+            return false;
         }
 
         if (range === 'today') {
@@ -124,7 +123,7 @@ function filterAndPurgeNews(range) {
     });
 }
 
-// AI Intelligence Pipeline with Accurate Directional Logic
+// AI ENGINE WITH ABSOLUTE PER-EVENT BUY/SELL/NEUTRAL MAPPING
 async function runAIIntelligencePipeline(eventsList) {
     const aiSignals = {
         "ff_1": { signal: "BUY (AUDUSD)", probability: "82.5%", pairs: "AUDUSD (BUY)", desc: "AUD CPI m/m (0.7%) > Prev (0.4%). Strong AUD strength." },
@@ -135,10 +134,10 @@ async function runAIIntelligencePipeline(eventsList) {
         "ff_6": { signal: "SELL (USDCAD)", probability: "84.1%", pairs: "USDCAD (SELL)", desc: "BOC Statement bullish for CAD." },
         "ff_7": { signal: "SELL (USDCAD)", probability: "85.2%", pairs: "USDCAD (SELL), CADJPY (BUY)", desc: "Overnight Rate hike to 2.50% drives USDCAD down." },
         "ff_8": { signal: "SELL (USDCAD)", probability: "82.0%", pairs: "USDCAD (SELL)", desc: "BOC Press Conference hawkish stance." },
-        "ff_9": { signal: "SELL (XAUUSD)", probability: "88.0%", pairs: "XAUUSD (SELL), EURUSD (SELL) | USDCAD (BUY)", desc: "Fed Rate hold at 4.00% maintains USD Strength -> Gold & EUR Down." },
+        "ff_9": { signal: "SELL (XAUUSD)", probability: "88.0%", pairs: "XAUUSD (SELL), EURUSD (SELL)", desc: "Fed Rate hold at 4.00% maintains USD Strength -> Gold & EUR Down." },
         "ff_10": { signal: "SELL (XAUUSD)", probability: "87.5%", pairs: "XAUUSD (SELL), GBPUSD (SELL)", desc: "FOMC Statement hawkish undertone boosts USD index." },
         "ff_11": { signal: "SELL (XAUUSD)", probability: "86.0%", pairs: "XAUUSD (SELL), AUDUSD (SELL)", desc: "FOMC Press Conference liquidity sweep above PDH." },
-        "ff_12": { signal: "BUY (XAUUSD)", probability: "89.4%", pairs: "XAUUSD (BUY), EURUSD (BUY) | USDCAD (SELL)", desc: "Advance GDP forecast (3.2%) revision softens USD yield." },
+        "ff_12": { signal: "BUY (XAUUSD)", probability: "89.4%", pairs: "XAUUSD (BUY), EURUSD (BUY)", desc: "Advance GDP forecast (3.2%) revision softens USD yield." },
         "ff_13": { signal: "BUY (XAUUSD)", probability: "84.1%", pairs: "XAUUSD (BUY)", desc: "Core PCE Price Index inline with expectations." },
         "ff_14": { signal: "NEUTRAL", probability: "60.0%", pairs: "EURUSD (RANGE)", desc: "ECB Refinancing Rate hold at 2.65%." },
         "ff_15": { signal: "NEUTRAL", probability: "61.0%", pairs: "EURUSD (RANGE)", desc: "ECB Policy Statement neutral tone." },
