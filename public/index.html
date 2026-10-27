@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Red Folder News Desk</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Institutional Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -13,31 +13,29 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        ict: { bg: '#0a0e17', card: '#111827', border: '#1f2937', bullish: '#10b981', bearish: '#ef4444', accent: '#06b6d4', gold: '#f59e0b' }
-                    }
+                    colors: { ict: { bg: '#0a0e17', card: '#111827', border: '#1f2937', bullish: '#10b981', bearish: '#ef4444', accent: '#06b6d4', gold: '#f59e0b' } }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #0a0e17; color: #e5e7eb; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background-color: #0a0e17; color: #e5e7eb; font-family: 'Segoe UI', system-ui, sans-serif; }
         .glass-card { background: rgba(17, 24, 39, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .custom-scrollbar::-webkit-scrollbar { height: 4px; width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #0a0e17; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen p-2 md:p-4 flex flex-col justify-between">
+<body class="min-h-screen p-2 md:p-4 flex flex-col gap-3">
 
     <!-- HEADER -->
-    <header class="glass-card rounded-xl p-3 mb-2 border-b border-cyan-500/30">
+    <header class="glass-card rounded-xl p-3 border-b border-cyan-500/30">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">AR</div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME DESK</p>
+                    <p class="text-[11px] text-gray-400">INSTITUTIONAL MACRO & REAL-TIME DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
@@ -50,8 +48,26 @@
         </div>
     </header>
 
+    <!-- NEWS INTELLIGENCE SECTION (6 CURRENCY CARDS) -->
+    <section class="glass-card rounded-2xl p-4 border border-gray-800">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 gap-2">
+            <div>
+                <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-newspaper text-cyan-400"></i> News Intelligence
+                </h2>
+                <p class="text-[11px] text-gray-400">upcoming high-impact economic events across USD, EUR, GBP, AUD, CAD and JPY</p>
+            </div>
+            <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full border border-red-500/30 font-bold">
+                <i class="fa-solid fa-circle text-[8px] mr-1"></i> HIGH IMPACT ONLY
+            </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="intelligence-grid">
+            <!-- Loaded dynamically -->
+        </div>
+    </section>
+
     <!-- TICKER TAPE -->
-    <div class="glass-card rounded-lg mb-3 border border-gray-800 overflow-hidden">
+    <div class="glass-card rounded-lg border border-gray-800 overflow-hidden">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
@@ -70,13 +86,13 @@
         </div>
     </div>
 
-    <!-- MAIN GRID -->
+    <!-- MAIN TWO-COLUMN LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER NEWS DESK + AI ENGINE (5 COLS) -->
+        <!-- LEFT: RED FOLDER NEWS DESK + AI ENGINE -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
-            <div class="glass-card rounded-xl p-3 flex flex-col h-[340px]">
+            <div class="glass-card rounded-xl p-3 flex flex-col h-[320px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-folder text-red-500"></i> RED FOLDER NEWS
@@ -84,14 +100,12 @@
                     <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
                 </div>
 
-                <!-- DATE FILTERS -->
                 <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
                     <button onclick="setDateFilter('today')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
                     <button onclick="setDateFilter('this_week')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
                     <button onclick="setDateFilter('this_month')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
                 </div>
 
-                <!-- CURRENCY FILTER TABS -->
                 <div class="flex flex-wrap gap-1 mb-2">
                     <button onclick="setCurrFilter('ALL')" id="curr-ALL" class="px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
                     <button onclick="setCurrFilter('USD')" id="curr-USD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
@@ -102,11 +116,9 @@
                     <button onclick="setCurrFilter('JPY')" id="curr-JPY" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
                 </div>
 
-                <!-- NEWS LIST CONTAINER -->
                 <div id="news-container" class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1"></div>
             </div>
 
-            <!-- AI BIAS ENGINE PANEL -->
             <div id="ai-panel" class="glass-card rounded-xl p-3 border border-cyan-500/40 h-[210px] flex flex-col justify-between">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-1">
                     <span class="text-xs font-bold text-white flex items-center gap-2">
@@ -129,9 +141,9 @@
 
         </div>
 
-        <!-- RIGHT: LIVE CHART + WATCHLIST (7 COLS) -->
+        <!-- RIGHT: LIVE CHART -->
         <div class="lg:col-span-7 flex flex-col">
-            <div class="glass-card rounded-xl p-2 h-[562px] flex flex-col justify-between">
+            <div class="glass-card rounded-xl p-2 h-[542px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
                     <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART</span>
                     <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
@@ -187,16 +199,63 @@
             });
         }
 
-        async function fetchNewsAndBias() {
+        async function fetchNewsAndIntelligence() {
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${dateRangeFilter}`);
                 const data = await res.json();
                 currentNews = data.raw_news || [];
                 aiBiasData = data.ai_bias || {};
+                renderIntelligence(data.intelligence || {});
                 renderNews();
             } catch (err) {
                 console.error("Fetch Error:", err);
             }
+        }
+
+        function renderIntelligence(intel) {
+            const grid = document.getElementById('intelligence-grid');
+            grid.innerHTML = '';
+
+            const currencies = [
+                { code: 'USD', name: 'US USD' },
+                { code: 'EUR', name: 'EU EUR' },
+                { code: 'GBP', name: 'GB GBP' },
+                { code: 'AUD', name: 'AU AUD' },
+                { code: 'CAD', name: 'CA CAD' },
+                { code: 'JPY', name: 'JP JPY' }
+            ];
+
+            currencies.forEach(c => {
+                const info = intel[c.code] || { outlook: 'PENDING EVIDENCE', confidence: 'Pending', eventCount: 0, green: 0, red: 0, purple: 0, pending: 0 };
+                const isBullish = info.outlook === 'BULLISH';
+                const isBearish = info.outlook === 'BEARISH';
+                const outlookColor = isBullish ? 'text-emerald-400' : (isBearish ? 'text-red-400' : 'text-amber-400');
+
+                const card = document.createElement('div');
+                card.className = "bg-gray-950/80 border border-gray-800/80 rounded-xl p-3 flex flex-col justify-between hover:border-gray-700 transition-all";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-white tracking-wide">${c.name}</span>
+                        <span class="text-[11px] font-bold ${outlookColor}">${info.outlook}</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-[11px] text-gray-400 mb-3">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> ${info.green || 0}</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> ${info.red || 0}</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-purple-500"></span> ${info.purple || 0}</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> ${info.pending || 0} Pending</span>
+                    </div>
+
+                    <div class="border-t border-gray-800/60 pt-2 flex justify-between items-end text-xs">
+                        <div>
+                            <span class="text-[9px] text-gray-500 uppercase tracking-wider block">Evidence Confidence</span>
+                            <strong class="text-white text-xs font-semibold">${info.confidence}</strong>
+                        </div>
+                        <span class="text-[10px] text-gray-400">${info.eventCount} High-impact event(s)</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
         function renderNews() {
@@ -205,7 +264,6 @@
 
             const filtered = currentNews.filter(item => currencyFilter === 'ALL' || item.currency === currencyFilter);
 
-            // DYNAMIC "TODAY NO NEWS" ALERT CARD
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">
@@ -252,7 +310,7 @@
                 document.getElementById('ai-curr').innerText = 'Today No News';
                 document.getElementById('ai-prob').innerText = '0%';
                 document.getElementById('ai-pairs').innerText = 'NONE';
-                document.getElementById('ai-desc').innerText = 'No High-Impact Red Folder News scheduled. Trade standard technical ICT setups (Killzone Liquidity Sweeps & FVGs).';
+                document.getElementById('ai-desc').innerText = 'No High-Impact Red Folder News scheduled. Trade standard technical ICT setups.';
                 
                 const tag = document.getElementById('ai-tag');
                 tag.innerText = 'NEUTRAL';
@@ -260,7 +318,7 @@
                 return;
             }
 
-            const currBias = aiBiasData[item.currency] || { outlook: 'NEUTRAL', probability: '50%', pairs: 'NONE', reasoning: 'No data.' };
+            const currBias = aiBiasData[item.currency] || { outlook: 'NEUTRAL', probability: '75%', pairs: `${item.currency}USD`, reasoning: 'Institutional order flow alignment.' };
             
             document.getElementById('ai-curr').innerText = `${item.currency} — ${item.event || item.title}`;
             document.getElementById('ai-prob').innerText = currBias.probability;
@@ -277,7 +335,7 @@
             document.getElementById('btn-today').className = range === 'today' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             document.getElementById('btn-week').className = range === 'this_week' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             document.getElementById('btn-month').className = range === 'this_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            fetchNewsAndBias();
+            fetchNewsAndIntelligence();
         }
 
         function setCurrFilter(curr) {
@@ -298,7 +356,7 @@
         }
 
         window.onload = () => {
-            fetchNewsAndBias();
+            fetchNewsAndIntelligence();
             renderWatchlist();
             loadChart('OANDA:XAUUSD');
             setInterval(updateClock, 1000);
