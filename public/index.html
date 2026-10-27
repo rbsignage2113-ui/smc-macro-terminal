@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-RIZQ SMC MACRO TERMINAL | Institutional Engine</title>
+    <title>AR-RIZQ SMC MACRO TERMINAL | Multi-Currency Red Folder Desk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -14,15 +14,7 @@
             theme: {
                 extend: {
                     colors: {
-                        ict: {
-                            bg: '#0a0e17',
-                            card: '#111827',
-                            border: '#1f2937',
-                            bullish: '#10b981',
-                            bearish: '#ef4444',
-                            accent: '#06b6d4',
-                            gold: '#f59e0b'
-                        }
+                        ict: { bg: '#0a0e17', card: '#111827', border: '#1f2937', bullish: '#10b981', bearish: '#ef4444', accent: '#06b6d4', gold: '#f59e0b' }
                     }
                 }
             }
@@ -38,82 +30,83 @@
 </head>
 <body class="min-h-screen p-2 md:p-4 flex flex-col justify-between">
 
-    <!-- HEADER / LIVE CLOCK & DATE -->
+    <!-- HEADER -->
     <header class="glass-card rounded-xl p-3 mb-2 border-b border-cyan-500/30">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">
-                    AR
-                </div>
+                <div class="w-9 h-9 rounded-lg bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-bold text-lg">AR</div>
                 <div>
                     <h1 class="text-lg font-bold tracking-wider text-white">AR-RIZQ <span class="text-cyan-400">TERMINAL</span></h1>
-                    <p class="text-[11px] text-gray-400">PRO INSTITUTIONAL MACRO & REAL-TIME DESK</p>
+                    <p class="text-[11px] text-gray-400">MULTI-CURRENCY RED FOLDER PRE-NEWS DESK</p>
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <span id="session-tag" class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
-                    LONDON KILLZONE ACTIVE
-                </span>
+                <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">LONDON KILLZONE ACTIVE</span>
                 <div class="bg-gray-900 px-3 py-1 rounded border border-gray-800 text-xs font-mono text-cyan-400 flex items-center gap-2">
-                    <span id="live-date" class="text-amber-400 font-bold">Tue, 27 Oct 2026</span> | 
+                    <span id="live-date" class="text-amber-400 font-bold">Wed, Oct 28, 2026</span> | 
                     <span>IST: <strong id="live-ist" class="text-white">--:--:--</strong></span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- TRADINGVIEW LIVE TICKER TAPE -->
+    <!-- TICKER TAPE -->
     <div class="glass-card rounded-lg mb-3 border border-gray-800 overflow-hidden">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
             {
                 "symbols": [
-                    { "proName": "OANDA:XAUUSD", "title": "GOLD (XAUUSD)" },
-                    { "proName": "CAPITALCOM:DXY", "title": "US DOLLAR (DXY)" },
+                    { "proName": "OANDA:XAUUSD", "title": "GOLD" },
                     { "proName": "FX:EURUSD", "title": "EURUSD" },
                     { "proName": "FX:GBPUSD", "title": "GBPUSD" },
                     { "proName": "FX:USDJPY", "title": "USDJPY" },
                     { "proName": "FX:AUDUSD", "title": "AUDUSD" },
                     { "proName": "FX:USDCAD", "title": "USDCAD" }
                 ],
-                "showSymbolLogo": true,
-                "colorTheme": "dark",
-                "isTransparent": true,
-                "displayMode": "adaptive",
-                "locale": "en"
+                "colorTheme": "dark", "isTransparent": true, "displayMode": "adaptive", "locale": "en"
             }
             </script>
         </div>
     </div>
 
-    <!-- MAIN TWO-COLUMN LAYOUT -->
+    <!-- MAIN GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
 
-        <!-- LEFT: RED FOLDER NEWS DESK + PRO ICT AI BIAS ENGINE (5 COLS) -->
+        <!-- LEFT: RED FOLDER DESK + AI ENGINE (5 COLS) -->
         <div class="lg:col-span-5 flex flex-col gap-3">
             
-            <!-- 1. FOREX FACTORY RED FOLDERS BOX -->
-            <div class="glass-card rounded-xl p-3 flex flex-col h-[320px]">
+            <div class="glass-card rounded-xl p-3 flex flex-col h-[340px]">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-xs font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-folder text-red-500"></i> INSTITUTIONAL USD MACRO CALENDAR
+                        <i class="fa-solid fa-folder text-red-500"></i> FOREX FACTORY RED FOLDERS (ALL CURRENCIES)
                     </span>
-                    <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT ONLY</span>
+                    <span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded border border-red-500/30">HIGH IMPACT</span>
                 </div>
 
-                <!-- DATE FILTERS: TODAY / THIS WEEK / THIS MONTH -->
+                <!-- DATE FILTERS -->
                 <div class="flex gap-1 mb-2 bg-gray-950 p-1 rounded-lg border border-gray-800">
                     <button onclick="setDateFilter('today')" id="btn-today" class="flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black">TODAY</button>
                     <button onclick="setDateFilter('this_week')" id="btn-week" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS WEEK</button>
                     <button onclick="setDateFilter('this_month')" id="btn-month" class="flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white">THIS MONTH</button>
                 </div>
 
-                <!-- SCROLLABLE NEWS CARDS CONTAINER -->
+                <!-- CURRENCY FILTER TABS -->
+                <div class="flex flex-wrap gap-1 mb-2">
+                    <button onclick="setCurrFilter('ALL')" id="curr-ALL" class="px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white">ALL</button>
+                    <button onclick="setCurrFilter('USD')" id="curr-USD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">USD</button>
+                    <button onclick="setCurrFilter('EUR')" id="curr-EUR" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">EUR</button>
+                    <button onclick="setCurrFilter('GBP')" id="curr-GBP" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">GBP</button>
+                    <button onclick="setCurrFilter('AUD')" id="curr-AUD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">AUD</button>
+                    <button onclick="setCurrFilter('CAD')" id="curr-CAD" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">CAD</button>
+                    <button onclick="setCurrFilter('JPY')" id="curr-JPY" class="px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300">JPY</button>
+                </div>
+
+                <!-- NEWS LIST CONTAINER -->
                 <div id="news-container" class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1"></div>
             </div>
 
-            <!-- 2. PRO ICT & AI BIAS ENGINE PANEL -->
+            <!-- AI BIAS ENGINE PANEL -->
             <div id="ai-panel" class="glass-card rounded-xl p-3 border border-cyan-500/40 h-[210px] flex flex-col justify-between">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-1">
                     <span class="text-xs font-bold text-white flex items-center gap-2">
@@ -123,76 +116,62 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 text-xs my-1">
-                    <div><span class="text-gray-400">Selected Event:</span> <span id="ai-event" class="font-bold text-white">None Selected</span></div>
-                    <div><span class="text-gray-400">Source:</span> <span id="ai-source" class="font-mono text-cyan-400 font-bold">BLS / BEA / FED</span></div>
+                    <div><span class="text-gray-400">Selected Currency:</span> <span id="ai-curr" class="font-bold text-amber-400">USD</span></div>
                     <div><span class="text-gray-400">Win Probability:</span> <span id="ai-prob" class="font-bold text-cyan-400">--%</span></div>
-                    <div><span class="text-gray-400">Revision Impact:</span> <span id="ai-rev" class="text-purple-400 font-bold">None</span></div>
+                    <div class="col-span-2"><span class="text-gray-400">Target Pairs:</span> <span id="ai-pairs" class="font-mono text-emerald-400 font-bold">--</span></div>
                 </div>
 
                 <div class="p-2 bg-gray-950/80 rounded border border-gray-800 text-[11px] text-gray-300 font-mono">
-                    <span class="text-cyan-400 font-bold">Institutional AI Analysis & Strategy:</span>
-                    <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300 truncate">
-                        Select a high-impact US macro event from the desk to evaluate deviation and central bank outlook.
-                    </p>
+                    <span class="text-cyan-400 font-bold">ICT Macro Blueprint & Reasoning:</span>
+                    <p id="ai-desc" class="mt-0.5 leading-relaxed text-gray-300 truncate">Select any Red Folder pre-news item above to evaluate institutional bias.</p>
                 </div>
             </div>
 
         </div>
 
-        <!-- RIGHT: LIVE TRADINGVIEW CHART + HORIZONTAL WATCHLIST (7 COLS) -->
+        <!-- RIGHT: LIVE CHART + WATCHLIST (7 COLS) -->
         <div class="lg:col-span-7 flex flex-col">
-            <div class="glass-card rounded-xl p-2 h-[542px] flex flex-col justify-between">
+            <div class="glass-card rounded-xl p-2 h-[562px] flex flex-col justify-between">
                 <div class="flex justify-between items-center px-2 py-1 mb-1 border-b border-gray-800">
-                    <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART
-                    </span>
+                    <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-chart-line"></i> LIVE MARKET CHART</span>
                     <span id="selected-pair-display" class="text-[10px] text-amber-400 font-bold font-mono">OANDA:XAUUSD • 5M</span>
                 </div>
 
-                <!-- TOP HORIZONTAL WATCHLIST BAR (ABOVE CHART) -->
-                <div class="bg-gray-950/90 rounded border border-gray-800 p-1 mb-1.5 overflow-x-auto custom-scrollbar flex items-center gap-1.5 whitespace-nowrap" id="watchlist-container">
-                    <!-- Dynamic Top Watchlist Pills -->
-                </div>
+                <div class="bg-gray-950/90 rounded border border-gray-800 p-1 mb-1.5 overflow-x-auto custom-scrollbar flex items-center gap-1.5 whitespace-nowrap" id="watchlist-container"></div>
 
-                <!-- TRADINGVIEW LIVE CHART CONTAINER (FULL WIDTH) -->
                 <div id="tradingview_chart" class="w-full flex-grow rounded overflow-hidden"></div>
-
             </div>
         </div>
 
     </div>
 
-    <!-- SCRIPT ENGINE -->
+    <!-- SCRIPT -->
     <script>
         let currentNews = [];
+        let aiBiasData = {};
         let activeChartSymbol = 'OANDA:XAUUSD';
         let dateRangeFilter = 'today';
+        let currencyFilter = 'ALL';
         let activeEventId = null;
 
         const watchlistPairs = [
-            { sym: 'XAUUSD', name: 'XAUUSD', price: '4,012.66', chg: '+0.47%', up: true, tv: 'OANDA:XAUUSD' },
-            { sym: 'EURUSD', name: 'EURUSD', price: '1.1182', chg: '-0.18%', up: false, tv: 'FX:EURUSD' },
-            { sym: 'GBPUSD', name: 'GBPUSD', price: '1.3348', chg: '-0.17%', up: false, tv: 'FX:GBPUSD' },
-            { sym: 'USDJPY', name: 'USDJPY', price: '157.44', chg: '+0.41%', up: true, tv: 'FX:USDJPY' },
-            { sym: 'AUDUSD', name: 'AUDUSD', price: '0.7021', chg: '-0.17%', up: false, tv: 'FX:AUDUSD' },
-            { sym: 'USDCAD', name: 'USDCAD', price: '1.4017', chg: '+0.12%', up: true, tv: 'FX:USDCAD' },
-            { sym: 'DXY', name: 'DXY', price: '104.20', chg: '+0.25%', up: true, tv: 'CAPITALCOM:DXY' }
+            { name: 'XAUUSD', tv: 'OANDA:XAUUSD', chg: '+0.47%', up: true },
+            { name: 'EURUSD', tv: 'FX:EURUSD', chg: '-0.18%', up: false },
+            { name: 'GBPUSD', tv: 'FX:GBPUSD', chg: '-0.17%', up: false },
+            { name: 'USDJPY', tv: 'FX:USDJPY', chg: '+0.41%', up: true },
+            { name: 'AUDUSD', tv: 'FX:AUDUSD', chg: '-0.17%', up: false },
+            { name: 'USDCAD', tv: 'FX:USDCAD', chg: '+0.12%', up: true }
         ];
 
         function renderWatchlist() {
             const container = document.getElementById('watchlist-container');
             container.innerHTML = '';
-
             watchlistPairs.forEach(p => {
                 const isSel = p.tv === activeChartSymbol;
                 const pill = document.createElement('div');
                 pill.className = `px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-all flex items-center gap-1.5 border ${isSel ? 'bg-cyan-950 text-cyan-400 border-cyan-400 font-bold' : 'bg-gray-900/80 text-gray-300 border-gray-800 hover:border-gray-700'}`;
-                pill.onclick = () => { loadChart(p.tv); };
-
-                pill.innerHTML = `
-                    <span>${p.name}</span>
-                    <span class="${p.up ? 'text-emerald-400' : 'text-red-400'} font-bold">${p.chg}</span>
-                `;
+                pill.onclick = () => loadChart(p.tv);
+                pill.innerHTML = `<span>${p.name}</span><span class="${p.up ? 'text-emerald-400' : 'text-red-400'} font-bold">${p.chg}</span>`;
                 container.appendChild(pill);
             });
         }
@@ -201,137 +180,88 @@
             activeChartSymbol = tvSymbol;
             document.getElementById('selected-pair-display').innerText = `${tvSymbol} • 5M`;
             renderWatchlist();
-
             document.getElementById('tradingview_chart').innerHTML = '';
             new TradingView.widget({
-                "autosize": true,
-                "symbol": tvSymbol,
-                "interval": "5",
-                "timezone": "Asia/Kolkata",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#0a0e17",
-                "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "container_id": "tradingview_chart"
+                "autosize": true, "symbol": tvSymbol, "interval": "5", "timezone": "Asia/Kolkata",
+                "theme": "dark", "style": "1", "locale": "en", "toolbar_bg": "#0a0e17", "container_id": "tradingview_chart"
             });
         }
 
-        async function fetchUSDNews() {
+        async function fetchNewsAndBias() {
             try {
                 const res = await fetch(`/api/news-ai-bias?range=${dateRangeFilter}`);
                 const data = await res.json();
                 currentNews = data.raw_news || [];
+                aiBiasData = data.ai_bias || {};
                 renderNews();
             } catch (err) {
-                console.error("News Fetch Error:", err);
+                console.error("Fetch Error:", err);
             }
-        }
-
-        function calculateAIDecision(item) {
-            // RULE: News illana or Selected Event illana NEUTRAL
-            if (!item) {
-                return { 
-                    signal: 'NEUTRAL', 
-                    prob: '0%', 
-                    pairs: 'NONE', 
-                    desc: 'No High-Impact USD News Scheduled. Market in standard ICT technical flow.' 
-                };
-            }
-
-            let fVal = parseFloat(item.forecast || item.fcst);
-            let pVal = parseFloat(item.prev || item.previous);
-
-            if (!isNaN(fVal) && !isNaN(pVal)) {
-                if (fVal > pVal) {
-                    return {
-                        signal: 'SELL (XAUUSD)',
-                        prob: '88.5%',
-                        pairs: 'USDJPY, USDCAD (BUY) | XAUUSD, EURUSD (SELL)',
-                        desc: `${item.source || 'BLS/BEA'} ${item.event || item.title}: Forecast (${fVal}) exceeds Previous (${pVal}). USD strength expected. Watch for Judas Swing sweep above PDH before sell expansion.`
-                    };
-                } else if (fVal < pVal) {
-                    return {
-                        signal: 'BUY (XAUUSD)',
-                        prob: '91.2%',
-                        pairs: 'XAUUSD, GBPUSD, EURUSD (BUY) | USDJPY (SELL)',
-                        desc: `${item.source || 'BLS/BEA'} ${item.event || item.title}: Forecast (${fVal}) below Previous (${pVal}). USD weakness expected. Look for SSL sweep and 5m CISD / FVG buy entry.`
-                    };
-                }
-            }
-
-            return {
-                signal: 'NEUTRAL',
-                prob: '50%',
-                pairs: 'RANGE-BOUND',
-                desc: `${item.event || item.title}: Forecast matches previous data. No deviation driver detected.`
-            };
         }
 
         function renderNews() {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
 
-            if (currentNews.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">
-                    ⚠️ Today No High-Impact USD Macro News Scheduled.
-                </div>`;
+            const filtered = currentNews.filter(item => currencyFilter === 'ALL' || item.currency === currencyFilter);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center py-10 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-4">⚠️ No Red Folder News for ${currencyFilter}.</div>`;
                 updateAI(null);
                 return;
             }
 
-            currentNews.forEach(item => {
+            filtered.forEach(item => {
                 const isSel = item.id === activeEventId;
-                const aiRes = calculateAIDecision(item);
+                const currBias = aiBiasData[item.currency] || { outlook: 'NEUTRAL', probability: '50%' };
 
                 const card = document.createElement('div');
                 card.className = `p-2.5 rounded-lg bg-gray-900/80 border ${isSel ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'} hover:border-gray-700 cursor-pointer transition-all`;
                 card.onclick = () => { activeEventId = item.id; renderNews(); updateAI(item); };
 
-                let badgeColor = aiRes.signal.includes('BUY') ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (aiRes.signal.includes('SELL') ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40');
+                let badgeColor = currBias.outlook === 'BUY' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (currBias.outlook === 'SELL' ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40');
 
                 card.innerHTML = `
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-2">
-                            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-cyan-500/20 text-cyan-400 rounded border border-cyan-500/40">${item.source || 'USD'}</span>
-                            <span class="text-xs font-bold text-white">${item.event || item.title}</span>
+                            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 rounded border border-red-800">${item.currency}</span>
+                            <span class="text-xs font-bold text-white">${item.event}</span>
                         </div>
-                        <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${aiRes.signal}</span>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${currBias.outlook}</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] text-gray-400 mt-1 font-mono">
-                        <span>🕒 ${item.timeFormatted || item.date}</span>
-                        <span>Fcst: <strong class="text-white">${item.forecast || item.fcst || '--'}</strong> | Prev: <strong class="text-gray-400">${item.prev || item.previous || '--'}</strong></span>
+                        <span>🕒 ${item.timeFormatted}</span>
+                        <span>Fcst: <strong class="text-white">${item.forecast}</strong> | Prev: <strong class="text-gray-400">${item.previous}</strong></span>
                     </div>
                 `;
                 container.appendChild(card);
             });
 
-            if (!activeEventId && currentNews.length > 0) {
-                activeEventId = currentNews[0].id;
-                updateAI(currentNews[0]);
+            if ((!activeEventId || !filtered.some(e => e.id === activeEventId)) && filtered.length > 0) {
+                activeEventId = filtered[0].id;
+                updateAI(filtered[0]);
             }
         }
 
         function updateAI(item) {
-            const aiRes = calculateAIDecision(item);
+            if (!item) {
+                document.getElementById('ai-curr').innerText = 'None';
+                document.getElementById('ai-prob').innerText = '0%';
+                document.getElementById('ai-pairs').innerText = '--';
+                document.getElementById('ai-desc').innerText = 'No event selected.';
+                return;
+            }
+
+            const currBias = aiBiasData[item.currency] || { outlook: 'NEUTRAL', probability: '50%', pairs: 'NONE', reasoning: 'No data.' };
             
-            document.getElementById('ai-event').innerText = item ? (item.event || item.title) : 'No USD News Today';
-            document.getElementById('ai-source').innerText = item ? (item.source || 'BLS / BEA / FED') : 'N/A';
-            document.getElementById('ai-prob').innerText = aiRes.prob;
-            document.getElementById('ai-rev').innerText = item ? (item.rev || 'None') : 'None';
-            document.getElementById('ai-desc').innerText = aiRes.desc;
+            document.getElementById('ai-curr').innerText = `${item.currency} — ${item.event}`;
+            document.getElementById('ai-prob').innerText = currBias.probability;
+            document.getElementById('ai-pairs').innerText = currBias.pairs;
+            document.getElementById('ai-desc').innerText = currBias.reasoning;
             
             const tag = document.getElementById('ai-tag');
-            tag.innerText = aiRes.signal;
-
-            if (aiRes.signal.includes('BUY')) {
-                tag.className = 'px-2 py-0.5 text-xs font-bold rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40';
-            } else if (aiRes.signal.includes('SELL')) {
-                tag.className = 'px-2 py-0.5 text-xs font-bold rounded bg-red-500/20 text-red-400 border border-red-500/40';
-            } else {
-                tag.className = 'px-2 py-0.5 text-xs font-bold rounded bg-amber-500/20 text-amber-400 border border-amber-500/40';
-            }
+            tag.innerText = currBias.outlook;
+            tag.className = `px-2 py-0.5 text-xs font-bold rounded border ${currBias.outlook === 'BUY' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40' : (currBias.outlook === 'SELL' ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40')}`;
         }
 
         function setDateFilter(range) {
@@ -339,17 +269,27 @@
             document.getElementById('btn-today').className = range === 'today' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             document.getElementById('btn-week').className = range === 'this_week' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
             document.getElementById('btn-month').className = range === 'this_month' ? 'flex-1 py-1 text-[10px] font-bold rounded bg-amber-500 text-black' : 'flex-1 py-1 text-[10px] font-bold rounded text-gray-400 hover:text-white';
-            fetchUSDNews();
+            fetchNewsAndBias();
+        }
+
+        function setCurrFilter(curr) {
+            currencyFilter = curr;
+            ['ALL', 'USD', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'].forEach(c => {
+                const btn = document.getElementById(`curr-${c}`);
+                if (btn) {
+                    btn.className = c === curr ? 'px-2 py-0.5 text-[10px] font-bold rounded bg-cyan-500 text-white' : 'px-2 py-0.5 text-[10px] font-bold rounded bg-gray-800 text-gray-300';
+                }
+            });
+            renderNews();
         }
 
         function updateClock() {
             const now = new Date();
-            document.getElementById('live-date').innerText = now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' });
             document.getElementById('live-ist').innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata' });
         }
 
         window.onload = () => {
-            fetchUSDNews();
+            fetchNewsAndBias();
             renderWatchlist();
             loadChart('OANDA:XAUUSD');
             setInterval(updateClock, 1000);
