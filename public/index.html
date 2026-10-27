@@ -117,13 +117,13 @@
                 <div id="news-container" class="space-y-2 overflow-y-auto custom-scrollbar flex-grow pr-1"></div>
             </div>
 
-            <!-- DYNAMIC EVIDENCE SOURCES PANEL -->
+            <!-- EVIDENCE SOURCES PANEL -->
             <div class="glass-card rounded-xl p-3 border border-gray-800 flex flex-col justify-between">
                 <div>
                     <div class="bg-gray-950/90 rounded-lg p-2.5 border border-gray-800 mb-3 font-mono text-[11px]">
                         <div id="ev-schedule" class="text-white font-bold mb-1">Event: --</div>
                         <div class="text-gray-400">Collection: T-48h | Bias: T-1h | Final update: T-3min</div>
-                        <div id="ai-prediction-banner" class="text-cyan-400 mt-1 font-bold">AI Prediction: Loading...</div>
+                        <div id="ai-prediction-banner" class="text-cyan-400 mt-1 font-bold">AI Forecast: Select an event above</div>
                     </div>
 
                     <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -288,7 +288,7 @@
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-8 text-xs text-amber-400 font-bold border border-amber-500/30 rounded-lg bg-amber-950/20 p-3">
-                        ⚠️ Today No Red Folder News for ${currencyFilter === 'ALL' ? 'Selected Currencies' : currencyFilter}.
+                        ⚠️ Today No Red Folder News Scheduled.
                     </div>`;
                 updateEvidencePanel(null);
                 return;
@@ -307,13 +307,13 @@
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-2">
                             <span class="px-1.5 py-0.5 text-[10px] font-bold bg-red-600/20 text-red-400 rounded border border-red-800">${item.currency}</span>
-                            <span class="text-xs font-bold text-white">${item.event || item.title}</span>
+                            <span class="text-xs font-bold text-white">${item.event}</span>
                         </div>
                         <span class="px-2 py-0.5 text-[10px] font-bold rounded border ${badgeColor}">${sig.signal}</span>
                     </div>
                     <div class="flex justify-between items-center text-[11px] text-gray-400 mt-1 font-mono">
-                        <span>🕒 ${item.timeFormatted || item.date}</span>
-                        <span>Fcst: <strong class="text-white">${item.forecast || '--'}</strong> | Prev: <strong class="text-gray-400">${item.previous || '--'}</strong></span>
+                        <span>🕒 ${item.timeFormatted} (${item.dayFormatted})</span>
+                        <span>Fcst: <strong class="text-white">${item.forecast}</strong> | Prev: <strong class="text-gray-400">${item.previous}</strong></span>
                     </div>
                 `;
                 container.appendChild(card);
@@ -336,8 +336,8 @@
             const updatedEl = document.getElementById('ev-updated');
 
             if (!item) {
-                schedEl.innerText = 'Event: No Event Selected';
-                aiBannerEl.innerText = 'AI Prediction: Trade Standard Technical Flows';
+                schedEl.innerText = 'Event: No News Today';
+                aiBannerEl.innerText = 'AI Forecast: Standard ICT Technical Flow';
                 fedEl.innerText = 'NOT_FETCHED';
                 blsEl.innerText = 'NOT_FETCHED';
                 reutersEl.innerText = 'NOT_CONNECTED';
@@ -349,7 +349,7 @@
 
             const sig = aiSignalsData[item.id] || { signal: 'NEUTRAL', probability: '60%', desc: 'Analyzing macro flow.' };
 
-            schedEl.innerText = `Event: ${item.date}, ${item.timeFormatted}`;
+            schedEl.innerText = `Event: ${item.dayFormatted}, ${item.timeFormatted}`;
             aiBannerEl.innerText = `AI Forecast: ${sig.signal} (${sig.probability}) • ${sig.desc}`;
             
             const ev = item.evidence || { fed: "NOT_FETCHED", bls: "NOT_FETCHED", reuters: "NOT_CONNECTED", bloomberg: "NOT_CONNECTED", cme: "NOT_CONNECTED", updated: "Just now" };
